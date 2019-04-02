@@ -92,6 +92,13 @@ class FritzboxBridge extends Homey.App
 			{
 				this.log( 'valid login' );
 				Settings.set( 'validation', 1 );
+
+				// DEBUG device list
+				API.Get().getDeviceList().then( function( list )
+				{
+					this.log( 'DEBUG: full device list' );
+					this.log( list );
+				}.bind( this ) );
 			}.bind( this ) ).catch( function( error )
 			{
 				this.log( 'invalid login' );

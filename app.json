@@ -71,7 +71,7 @@
       "type": "boolean",
       "title": {
         "en": "Battery low warning",
-        "de": "Battery low Warnung"
+        "de": "Batterie schwach Warnung"
       },
       "getable": true,
       "setable": false
@@ -108,12 +108,14 @@
       "capabilitiesOptions": {
         "measure_temperature.komfort": {
           "title": {
-            "en": "Fritzbox: comfort temperature"
+            "en": "Fritzbox: comfort temperature",
+            "de": "Fritzbox: Komforttemperatur"
           }
         },
         "measure_temperature.night": {
           "title": {
-            "en": "Fritzbox: night temperature"
+            "en": "Fritzbox: night temperature",
+            "de": "Fritzbox: Spartemperatur"
           }
         }
       },
@@ -180,7 +182,8 @@
       "capabilitiesOptions": {
         "measure_temperature.offset": {
           "title": {
-            "en": "Temperature offset"
+            "en": "Temperature offset",
+            "de": "Temperatur Offset"
           }
         }
       },
