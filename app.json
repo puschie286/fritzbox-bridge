@@ -1,0 +1,264 @@
+{
+  "id": "com.puschie.fritzbox-bridge",
+  "version": "0.1.0",
+  "compatibility": ">=2.0.5",
+  "sdk": 2,
+  "name": {
+    "en": "Fritzbox Bridge",
+    "de": "Fritzbox Bridge"
+  },
+  "tags": {
+    "en": [
+      "fritzbox", "bridge", "alpha", "dect", "thermostat", "avm", "smartfritz",
+      "Fritz!", "Fritz!Box", "Fritz!DECT", "Fritz!Powerline", "CometDECT" ]
+  },
+  "description": {
+    "en": "Use your Fritzbox as Bridge and get access to all device sensors",
+    "de": "Nutze deine Fritzbox als Bridge und erhalte Zugriff auf alle Gerätesensoren"
+  },
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Christoph Potas",
+    "email": "christoph286@googlemail.com"
+  },
+  "capabilities": {
+    "measure_open_window": {
+      "type": "boolean",
+      "title": {
+        "en": "Open window detected",
+        "de": "Fenster-offen erkennung"
+      },
+      "uiQuickAction": false,
+      "uiComponent": null,
+      "getable": true,
+      "setable": false
+    },
+    "measure_device_locked": {
+      "type": "boolean",
+      "title": {
+        "en": "Device input locked",
+        "de": "Geräte Tastenspeere"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_api_locked": {
+      "type": "boolean",
+      "title": {
+        "en": "API input locked",
+        "de": "API Tastenspeere"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_device_error": {
+      "type": "string",
+      "title": {
+        "en": "Device error",
+        "de": "Geräte Fehler"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_battery_low": {
+      "type": "boolean",
+      "title": {
+        "en": "Battery low warning",
+        "de": "Battery low Warnung"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_switch_mode": {
+      "type": "boolean",
+      "title": {
+        "en": "automatic timer",
+        "de": "Automatische Zeitschaltung"
+      }
+    }
+  },
+  "drivers": [
+    {
+      "id": "thermostat",
+      "name": {
+        "en": "Thermostat",
+        "de": "Thermostat"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "measure_open_window",
+        "measure_device_locked",
+        "measure_api_locked",
+        "measure_device_error",
+        "onoff",
+        "measure_battery",
+        "measure_battery_low",
+        "target_temperature",
+        "measure_temperature",
+        "measure_temperature.komfort",
+        "measure_temperature.night"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature.komfort": {
+          "title": {
+            "en": "Fritzbox: comfort temperature"
+          }
+        },
+        "measure_temperature.night": {
+          "title": {
+            "en": "Fritzbox: night temperature"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/thermostat/assets/images/large.png",
+        "small": "/drivers/thermostat/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "socket",
+      "name": {
+        "en": "Socket switch",
+        "de": "Steckdosenschalter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_switch_mode",
+        "measure_device_locked",
+        "measure_api_locked"
+      ],
+      "images": {
+        "large": "/drivers/socket/assets/images/large.png",
+        "small": "/drivers/socket/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "temperaturesensor",
+      "name": {
+        "en": "Temperature sensor",
+        "de": "Temperatursensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_temperature.offset"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature.offset": {
+          "title": {
+            "en": "Temperature offset"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/temperaturesensor/assets/images/large.png",
+        "small": "/drivers/temperaturesensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "energymeter",
+      "name": {
+        "en": "Energymeter",
+        "de": "Energiezähler"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_current",
+        "measure_power",
+        "meter_power"
+      ],
+      "images": {
+        "large": "/drivers/energymeter/assets/images/large.png",
+        "small": "/drivers/energymeter/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "alarmsensor",
+      "name": {
+        "en": "Alarm sensor",
+        "de": "Alarmsensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_generic"
+      ],
+      "images": {
+        "large": "/drivers/alarmsensor/assets/images/large.png",
+        "small": "/drivers/alarmsensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    }
+  ]
+}

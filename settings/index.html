@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <script type="text/javascript" src="helper.js" data-origin="settings"></script>
+</head>
+<body>
+    <fieldset>
+        <legend>Fritzbox Login</legend>
+        <div class="field row">
+            <label for="fritzboxip">Fritzbox IP</label>
+            <input id="fritzboxip" type="text" value="" />
+        </div>
+        <div class="field row">
+            <label for="password">Password</label>
+            <input id="password" type="password" value="" />
+        </div>
+        <div class="field-row">
+            <label for="strictssl">Strict SSL</label>
+            <input id="strictssl" type="checkbox" checked=""/>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Bridge Config</legend>
+        <div class="field row">
+            <label for="pollingactive">Polling Active</label>
+            <input id="pollingactive" type="checkbox" checked="">
+        </div>
+        <div class="field row">
+            <label for="pollinginterval">Polling intervall</label>
+            <input id="pollinginterval" type="number" value="" />
+        </div>
+    </fieldset>
+
+    <button id="save" class="right">Save changes</button>
+
+    <script type="text/javascript">
+        function onHomeyReady( Homey )
+        {
+            SettingHelper.AutoConfig( Homey, 'save', [
+                { id: 'password' },
+                { id:'fritzboxip', default: 'http://fritz.box' },
+                { id: 'strictssl', type: 'checkbox', default: true },
+                { id: 'pollinginterval', default: 300 },
+                { id: 'pollingactive', type: 'checkbox' },
+            ]);
+
+            Homey.ready();
+        }
+    </script>
+    <style>
+        #save:disabled {
+            color: #55555575;
+        }
+    </style>
+</body>
+</html>

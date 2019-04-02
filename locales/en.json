@@ -1,0 +1,9 @@
+{
+	"ErrorCode0": "No error",
+	"ErrorCode1": "No adaptation possible. Device correctly mounted on radiator?",
+	"ErrorCode2": "Valve stroke too short or battery power too low. Open and close valve tappet several times by hand or Insert new batteries.",
+	"ErrorCode3": "No valve movement possible. Valve tappet free?",
+	"ErrorCode4": "The installation is currently being prepared",
+	"ErrorCode5": "The radiator controller is in installation mode and can be mounted on the heating valve",
+	"ErrorCode6": "The radiator controller now adapts to the stroke of the heating valve"
+}
