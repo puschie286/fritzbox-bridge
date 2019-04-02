@@ -77,7 +77,27 @@ class FritzboxBridge extends Homey.App
 
 	validateLogin()
 	{
+		// reset running timout
+		if( this.validateTimeout !== undefined && this.validateTimeout !== null )
+		{
+			clearTimeout( this.validateTimeout );
+			this.validateTimeout = null;
+		}
 
+		// delay validation
+		this.validateTimeout = setTimeout( function()
+		{
+			Settings.set( 'validation', 2 );
+			API.Get().getOSVersion().then( function( list )
+			{
+				this.log( 'valid login' );
+				Settings.set( 'validation', 1 );
+			}.bind( this ) ).catch( function( error )
+			{
+				this.log( 'invalid login' );
+				Settings.set( 'validation', 0 );
+			}.bind( this ) );
+		}.bind( this ), 150 );
 	}
 
 	registerListener()
