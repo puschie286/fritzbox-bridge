@@ -4,7 +4,7 @@ Use your fritzbox as bridge and get access to all device sensors.<br>
 Each sensor can be addressed individually and is synchronized via a single central query.
 <br>Homey app
 
-Used icons from: <a href="flaticon.com">Freepik</a>
+Used icons from: <a href="http://flaticon.com">Freepik</a>
 
 #### flow card/tags
 * OSVersion - return the currrent fritzbox os version
