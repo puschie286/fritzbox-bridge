@@ -38,21 +38,18 @@ class FritzboxBridge extends Homey.App
 				break;
 
 			case 'pollinginterval':
-				if( !API.pollActive ) break;
-
-				API.StartPolling( Value );
+				API.StartPolling( Value * 1000 );
 				break;
 
 			case 'pollingactive':
-				if( API.pollActive === Boolean( Value ) ) break;
-
-				if( API.pollActive )
+				let BoolValue = Value != false;
+				if( BoolValue )
 				{
-					API.StopPolling();
+					API.StartPolling( Settings.get( 'pollinginterval' ) * 1000 );
 				}
 				else
 				{
-					API.StartPolling( Settings.get( 'pollinginterval' ) );
+					API.StopPolling();
 				}
 				break;
 		}

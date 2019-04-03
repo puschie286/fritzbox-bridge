@@ -57,6 +57,9 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
 
 ### History
 
+v0.1.1
+* fix polling settings
+
 v0.1.0
 * first (basic) Version
 * basic driver: thermostat, switch, energymeter, temperature sensor, alarm sensor
