@@ -72,10 +72,10 @@ class FritzboxBridge extends Homey.App
 		API.Create( password, IP, strictssl );
 
 		// (lazy) validate login
-		this.validateLogin();
+		this.validateLogin( polling * 1000 );
 	}
 
-	validateLogin()
+	validateLogin( pollinterval )
 	{
 		// reset running timout
 		if( this.validateTimeout !== undefined && this.validateTimeout !== null )
@@ -92,6 +92,11 @@ class FritzboxBridge extends Homey.App
 			{
 				this.log( 'valid login' );
 				Settings.set( 'validation', 1 );
+
+				if( Settings.get( 'pollingactive' ) )
+				{
+					API.StartPolling( pollinterval );
+				}
 
 				// DEBUG device list
 				API.Get().getDeviceList().then( function( list )
