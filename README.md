@@ -53,7 +53,7 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
 
 ### TODOs
 * driver: repeater ( only available state - no function )
-* functions: wlan-guest-config set/get
+* functions: wlan-guest-config set/get, thermostat holidayactive + summeractive
 
 ### History
 
