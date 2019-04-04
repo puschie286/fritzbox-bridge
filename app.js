@@ -2,6 +2,7 @@
 
 // libs
 const Homey = require('homey');
+const LOG = require('./lib/logWrapper' );
 const API = require('./lib/fritzAPI');
 
 const Settings = Homey.ManagerSettings;
@@ -10,9 +11,10 @@ class FritzboxBridge extends Homey.App
 {
 	onInit()
 	{
-		this.log('loading..');
+		// init log system
+		LOG.init( this.log );
 
-		API.log = this.log;
+		LOG.info( 'start Fritzbox Bridge' );
 
 		// setup hooks
 		Settings.on('set', this.updateSettings.bind( this ) );
@@ -22,8 +24,6 @@ class FritzboxBridge extends Homey.App
 
 		// register flow stuff
 		this.registerListener();
-
-		this.log('...completed');
 	}
 
 	updateSettings( name )
@@ -85,9 +85,9 @@ class FritzboxBridge extends Homey.App
 		this.validateTimeout = setTimeout( function()
 		{
 			Settings.set( 'validation', 2 );
-			API.Get().getOSVersion().then( function( list )
+			API.Get().getOSVersion().then( function( os )
 			{
-				this.log( 'valid login' );
+				LOG.debug( 'validate login: success' );
 				Settings.set( 'validation', 1 );
 
 				if( Settings.get( 'pollingactive' ) )
@@ -96,17 +96,17 @@ class FritzboxBridge extends Homey.App
 				}
 
 				// DEBUG device list
-				API.Get().getDeviceList().then( function( list )
+				/*API.Get().getGuestWlan().then( function( wlan )
 				{
-					this.log( 'DEBUG: full device list' );
-					this.log( list );
-				}.bind( this ) );
-			}.bind( this ) ).catch( function( error )
+					LOG.debug( wlan );
+					LOG.debug( 'guest wlan: ' + JSON.stringify( wlan ) );
+				} );*/
+			} ).catch( function( error )
 			{
-				this.log( 'invalid login' );
+				LOG.debug( 'validate login: failed' );
 				Settings.set( 'validation', 0 );
-			}.bind( this ) );
-		}.bind( this ), 150 );
+			} );
+		}, 100 );
 	}
 
 	registerListener()

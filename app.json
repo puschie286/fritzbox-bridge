@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -9,7 +9,7 @@
   },
   "tags": {
     "en": [
-      "fritzbox", "bridge", "alpha", "dect", "thermostat", "avm", "smartfritz",
+      "fritzbox", "bridge", "socket", "energymeter", "sensor", "dect", "thermostat", "avm", "smartfritz",
       "Fritz!", "Fritz!Box", "Fritz!DECT", "Fritz!Powerline", "CometDECT" ]
   },
   "description": {
@@ -19,7 +19,8 @@
   "category": [
     "appliances"
   ],
-  "permissions": [],
+  "homeyCommunityTopicId": 11334,
+  "permissions": [ "homey:app:nl.nielsdeklerk.log" ],
   "images": {
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"

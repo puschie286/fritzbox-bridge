@@ -52,10 +52,15 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
     * use different temperature than temperature sensor is returning ( thermostat reliable reaches set temperature )
 
 ### TODOs
-* driver: repeater ( only available state - no function )
+* driver: repeater ( only available state - no function ), fritzbox itself
+* extend fritzapi for fritzbox status overview ( internet/docsis/dsl, lan/wlan, ... etc. )
 * functions: wlan-guest-config set/get, thermostat holidayactive + summeractive
 
 ### History
+
+v0.2.0
+* added Simple-LOG support
+* tiny changes for store release
 
 v0.1.1
 * fix polling settings
