@@ -10,12 +10,12 @@ Used icons from: <a href="http://flaticon.com">Freepik</a>
 * OSVersion - return the currrent fritzbox os version
 * most sensor properties have auto trigger/action cards
 
-#### supported device/sensor list:
+#### supported devices:
 * CometDECT, Fritz!DECT 300/301
 * Fritz!DECT 200/210, FRITZ!Powerline 546E
 * HANFUN Alarm
 
-#### supported sensors + states
+#### supported sensors
 list of all sensors and their properties. ( f: set by fritzbox, d: set by device )
 * alarm sensor
   * d: arlam state
