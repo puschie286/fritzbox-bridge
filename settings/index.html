@@ -12,6 +12,10 @@
             <input id="fritzboxip" type="text" value="" />
         </div>
         <div class="field row">
+            <label for="username">Username</label>
+            <input id="username" type="text" value="" />
+        </div>
+        <div class="field row">
             <label for="password">Password</label>
             <input id="password" type="password" value="" />
         </div>
@@ -39,10 +43,11 @@
         {
             SettingHelper.AutoConfig( Homey, 'save', [
                 { id: 'password' },
+                { id: 'username', default: '' },
                 { id:'fritzboxip', default: 'http://fritz.box' },
                 { id: 'strictssl', type: 'checkbox', default: true },
                 { id: 'pollinginterval', default: 60 },
-                { id: 'pollingactive', type: 'checkbox' },
+                { id: 'pollingactive', type: 'checkbox', default: false },
             ]);
 
             Homey.ready();

@@ -38,14 +38,20 @@ class FritzboxBridge extends Homey.App
 				break;
 
 			case 'pollinginterval':
-				API.StartPolling( Value * 1000 );
+				if( Settings.get( 'validation' ) === 1 )
+				{
+					API.StartPolling( Value * 1000 );
+				}
 				break;
 
 			case 'pollingactive':
 				let BoolValue = Value != false;
 				if( BoolValue )
 				{
-					API.StartPolling( Settings.get( 'pollinginterval' ) * 1000 );
+					if( Settings.get( 'validation' ) === 1 )
+					{
+						API.StartPolling( Settings.get( 'pollinginterval' ) * 1000 );
+					}
 				}
 				else
 				{
@@ -58,6 +64,7 @@ class FritzboxBridge extends Homey.App
 	initFritzAPI()
 	{
 		let IP 			= Settings.get( 'fritzboxip' ) || 'http://fritz.box';
+		let username    = Settings.get( 'username' ) || '';
 		let password	= Settings.get( 'password' ) || '';
 		let strictssl	= Settings.get( 'strictssl' );
 		let polling     = Settings.get( 'pollinginterval' ) || 0;
@@ -66,7 +73,7 @@ class FritzboxBridge extends Homey.App
 		API.StopPolling();
 
 		// use browser login to get sid
-		API.Create( password, IP, strictssl );
+		API.Create( username, password, IP, strictssl );
 
 		// (lazy) validate login
 		this.validateLogin( polling * 1000 );
@@ -94,13 +101,6 @@ class FritzboxBridge extends Homey.App
 				{
 					API.StartPolling( pollinterval );
 				}
-
-				// DEBUG device list
-				/*API.Get().getGuestWlan().then( function( wlan )
-				{
-					LOG.debug( wlan );
-					LOG.debug( 'guest wlan: ' + JSON.stringify( wlan ) );
-				} );*/
 			} ).catch( function( error )
 			{
 				LOG.debug( 'validate login: failed' );

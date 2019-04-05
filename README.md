@@ -58,6 +58,10 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
 
 ### History
 
+v0.2.2
+* fix polling block after failing
+* add username option to fritzbox login
+
 v0.2.0
 * added Simple-LOG support
 * tiny changes for store release
