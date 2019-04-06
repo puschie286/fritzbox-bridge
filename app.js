@@ -100,14 +100,14 @@ class FritzboxBridge extends Homey.App
 		this.validateTimeout = setTimeout( function()
 		{
 			Settings.set( 'validation', 2 );
-			API.Get().getOSVersion().then( function( os )
+			API.Get().getDeviceList().then( function( list )
 			{
 				LOG.debug( 'validate login: success' );
 				Settings.set( 'validation', 1 );
 
 				if( Settings.get( 'pollingactive' ) )
 				{
-					API.StartPolling( pollinterval );
+					API.StartPolling( pollinterval, list );
 					API.StartStatusPolling( statuspollinginterval );
 				}
 			} ).catch( function( error )
