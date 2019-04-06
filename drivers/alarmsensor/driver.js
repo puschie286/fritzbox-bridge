@@ -5,9 +5,17 @@ const BaseDriver = require( '../../lib/baseDriver' );
 
 class AlarmsensorDriver extends BaseDriver {
 	
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_ALARM;
+	}
+
+	GetFilterList()
+	{
+		return [
+			'present',
+			'alert.state'
+		];
 	}
 
 	GetName()

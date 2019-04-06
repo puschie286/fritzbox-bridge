@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -9,8 +9,21 @@
   },
   "tags": {
     "en": [
-      "fritzbox", "bridge", "socket", "energymeter", "sensor", "dect", "thermostat", "avm", "smartfritz",
-      "Fritz!", "Fritz!Box", "Fritz!DECT", "Fritz!Powerline", "CometDECT" ]
+      "fritzbox",
+      "bridge",
+      "socket",
+      "energymeter",
+      "sensor",
+      "dect",
+      "thermostat",
+      "avm",
+      "smartfritz",
+      "Fritz!",
+      "Fritz!Box",
+      "Fritz!DECT",
+      "Fritz!Powerline",
+      "CometDECT"
+    ]
   },
   "description": {
     "en": "Use your Fritzbox as Bridge and get access to all device sensors",
@@ -20,7 +33,9 @@
     "appliances"
   ],
   "homeyCommunityTopicId": 11334,
-  "permissions": [ "homey:app:nl.nielsdeklerk.log" ],
+  "permissions": [
+    "homey:app:nl.nielsdeklerk.log"
+  ],
   "images": {
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
@@ -36,8 +51,6 @@
         "en": "Open window detected",
         "de": "Fenster-offen erkennung"
       },
-      "uiQuickAction": false,
-      "uiComponent": null,
       "getable": true,
       "setable": false
     },
@@ -82,7 +95,27 @@
       "title": {
         "en": "automatic timer",
         "de": "Automatische Zeitschaltung"
-      }
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_os_version": {
+      "type": "string",
+      "title": {
+        "en": "fritzbox os version",
+        "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_update_available": {
+      "type": "boolean",
+      "title": {
+        "en": "update available",
+        "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
     }
   },
   "drivers": [
@@ -249,6 +282,35 @@
       "images": {
         "large": "/drivers/alarmsensor/assets/images/large.png",
         "small": "/drivers/alarmsensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "fritzbox",
+      "name": {
+        "en": "Fritzbox router",
+        "de": "Fritzbox Router"
+      },
+      "class": "other",
+      "capabilities": [
+        "measure_update_available",
+        "measure_os_version"
+      ],
+      "images": {
+        "large": "/drivers/fritzbox/assets/images/large.png",
+        "small": "/drivers/fritzbox/assets/images/small.png"
       },
       "pair": [
         {

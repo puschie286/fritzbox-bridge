@@ -7,13 +7,13 @@ Each sensor can be addressed individually and is synchronized via a single centr
 Used icons from: <a href="http://flaticon.com">Freepik</a>
 
 #### flow card/tags
-* OSVersion - return the currrent fritzbox os version
 * most sensor properties have auto trigger/action cards
 
 #### supported devices:
 * CometDECT, Fritz!DECT 300/301
 * Fritz!DECT 200/210, FRITZ!Powerline 546E
 * HANFUN Alarm
+* FRITZ!Box 
 
 #### supported sensors
 list of all sensors and their properties. ( f: set by fritzbox, d: set by device )
@@ -35,7 +35,7 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
   * on/off
   * measured temperature ( 0.5° steps )
   * target temperature ( 0.5° steps )
-  * f: komfort temperature
+  * f: comfort temperature
   * f: night temperature
   * f: device api locked
   * f: device locked
@@ -43,20 +43,28 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
   * d: battery low warning
   * d: open window
   * d: device error
+* fritzbox
+  * f: os version
+  * f: update available  
 
 #### tested device/sensor list:
 * CometDECT
   * temperature sensor
-    * measurements are not reliable ( 2-5min delay sometimes )
+    * measurements have a delay ( abount 15min )
   * thermostat
     * use different temperature than temperature sensor is returning ( thermostat reliable reaches set temperature )
 
 ### TODOs
-* driver: repeater ( only available state - no function ), fritzbox itself
-* extend fritzapi for fritzbox status overview ( internet/docsis/dsl, lan/wlan, ... etc. )
+* driver: repeater ( only available state - no function )
 * functions: wlan-guest-config set/get, thermostat holidayactive + summeractive
 
 ### History
+
+v0.3.0
+* add fritzbox driver
+* add status polling ( for fritzbox driver )
+* extend property filtering ( reduce memory usage by device )
+* fix energymeter units
 
 v0.2.2
 * fix polling block after failing

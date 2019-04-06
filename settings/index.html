@@ -31,8 +31,16 @@
             <input id="pollingactive" type="checkbox" checked="">
         </div>
         <div class="field row">
-            <label for="pollinginterval">Polling intervall</label>
+            <label for="pollinginterval">Polling Interval</label>
             <input id="pollinginterval" type="number" value="" />
+        </div>
+        <div class="field row">
+            <label for="statuspollinginterval">Status Polling Interval</label>
+            <input id="statuspollinginterval" type="number" value="" />
+        </div>
+        <div class="field row">
+            <label for="showunconnected">Disconnected Devices Pairable?</label>
+            <input id="showunconnected" type="checkbox" value="" />
         </div>
     </fieldset>
 
@@ -48,6 +56,8 @@
                 { id: 'strictssl', type: 'checkbox', default: true },
                 { id: 'pollinginterval', default: 60 },
                 { id: 'pollingactive', type: 'checkbox', default: false },
+                { id: 'statuspollinginterval', default: 30 },
+                { id: 'showunconnected', type: 'checkbox', default: false },
             ]);
 
             Homey.ready();

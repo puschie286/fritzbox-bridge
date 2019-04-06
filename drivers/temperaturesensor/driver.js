@@ -5,9 +5,18 @@ const BaseDriver = require( '../../lib/baseDriver' );
 
 class TemperatursensorDriver extends BaseDriver
 {
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_TEMPERATURESENSOR;
+	}
+
+	GetFilterList()
+	{
+		return [
+			'present',
+			'temperature.offset',
+			'temperature.celsius'
+		];
 	}
 
 	GetName()

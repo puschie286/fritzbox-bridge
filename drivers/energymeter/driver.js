@@ -5,9 +5,19 @@ const BaseDriver = require( '../../lib/baseDriver' );
 
 class EnergymeterDriver extends BaseDriver {
 	
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_ENERGYMETER;
+	}
+
+	GetFilterList()
+	{
+		return [
+			'present',
+			'powermeter.power',
+			'powermeter.voltage',
+			'powermeter.energy'
+		];
 	}
 
 	GetName()

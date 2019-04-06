@@ -25,16 +25,16 @@ class ThermostatDevice extends BaseDevice
 		this.ERROR          = 'hkr.errorcode';
 
 		let Data = deviceData.hkr;
-		this.UpdateProperty( this.TEMP_TARGET, Data.tsoll, true, Data.tist );
-		this.UpdateProperty( this.TEMP_MEASURE, Data.tist );
-		this.UpdateProperty( this.TEMP_KOMFORT, Data.komfort );
-		this.UpdateProperty( this.TEMP_NIGHT, Data.absenk );
-		this.UpdateProperty( this.BATTERY, Data.battery );
-		this.UpdateProperty( this.LOCK_DEVICE, Data.devicelock );
-		this.UpdateProperty( this.WINDOW_OPEN, Data.windowopenactiv  );
-		this.UpdateProperty( this.BATTERY_LOW, Data.batterylow );
-		this.UpdateProperty( this.LOCK_API, Data.lock );
-		this.UpdateProperty( this.ERROR, Data.errorcode || '0' );
+		this.UpdateProperty( this.TEMP_TARGET, deviceData[this.TEMP_TARGET], true, deviceData[this.TEMP_MEASURE] );
+		this.UpdateProperty( this.TEMP_MEASURE, deviceData[this.TEMP_MEASURE] );
+		this.UpdateProperty( this.TEMP_KOMFORT, deviceData[this.TEMP_KOMFORT] );
+		this.UpdateProperty( this.TEMP_NIGHT, deviceData[this.TEMP_NIGHT] );
+		this.UpdateProperty( this.BATTERY, deviceData[this.BATTERY] );
+		this.UpdateProperty( this.LOCK_DEVICE, deviceData[this.LOCK_DEVICE] );
+		this.UpdateProperty( this.WINDOW_OPEN, deviceData[this.WINDOW_OPEN] );
+		this.UpdateProperty( this.BATTERY_LOW, deviceData[this.BATTERY_LOW] );
+		this.UpdateProperty( this.LOCK_API, deviceData[this.LOCK_API] );
+		this.UpdateProperty( this.ERROR, deviceData[this.ERROR] || '0' );
 	}
 
 	async onTargetTemperature( value )

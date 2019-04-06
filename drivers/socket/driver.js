@@ -5,9 +5,20 @@ const BaseDriver = require( '../../lib/baseDriver' );
 
 class SocketDriver extends BaseDriver
 {
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_OUTLET;
+	}
+
+	GetFilterList()
+	{
+		return [
+			'present',
+			'switch.state',
+			'switch.mode',
+			'switch.devicelock',
+			'switch.lock'
+		];
 	}
 
 	GetName()

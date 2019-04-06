@@ -5,9 +5,26 @@ const BaseDriver = require( '../../lib/baseDriver' );
 
 class ThermostatDriver extends BaseDriver
 {
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_THERMOSTAT;
+	}
+
+	GetFilterList()
+	{
+		return [
+			'present',
+			'hkr.tist',
+			'hkr.tsoll',
+			'hkr.komfort',
+			'hkr.absenk',
+			'hkr.battery',
+			'hkr.batterylow',
+			'hkr.windowopenactiv',
+			'hkr.lock',
+			'hkr.devicelock',
+			'hkr.errorcode'
+		];
 	}
 
 	GetName()

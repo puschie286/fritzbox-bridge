@@ -21,9 +21,6 @@ class FritzboxBridge extends Homey.App
 
 		// configure api
 		this.initFritzAPI();
-
-		// register flow stuff
-		this.registerListener();
 	}
 
 	updateSettings( name )
@@ -51,11 +48,20 @@ class FritzboxBridge extends Homey.App
 					if( Settings.get( 'validation' ) === 1 )
 					{
 						API.StartPolling( Settings.get( 'pollinginterval' ) * 1000 );
+						API.StartStatusPolling( Settings.get( 'statuspollinginterval' ) * 1000 );
 					}
 				}
 				else
 				{
 					API.StopPolling();
+					API.StopStatusPolling();
+				}
+				break;
+
+			case 'statuspollinginterval':
+				if( Settings.get( 'validation' ) === 1 )
+				{
+					API.StartStatusPolling( Value * 1000 );
 				}
 				break;
 		}
@@ -68,6 +74,7 @@ class FritzboxBridge extends Homey.App
 		let password	= Settings.get( 'password' ) || '';
 		let strictssl	= Settings.get( 'strictssl' );
 		let polling     = Settings.get( 'pollinginterval' ) || 0;
+		let spolling    = Settings.get( 'statuspollinginterval' || 0 );
 
 		// clear running polling before change
 		API.StopPolling();
@@ -76,10 +83,10 @@ class FritzboxBridge extends Homey.App
 		API.Create( username, password, IP, strictssl );
 
 		// (lazy) validate login
-		this.validateLogin( polling * 1000 );
+		this.validateLogin( polling * 1000, spolling * 1000 );
 	}
 
-	validateLogin( pollinterval )
+	validateLogin( pollinterval, statuspollinginterval )
 	{
 		// reset running timout
 		if( this.validateTimeout !== undefined && this.validateTimeout !== null )
@@ -89,6 +96,7 @@ class FritzboxBridge extends Homey.App
 		}
 
 		// delay validation
+		// TODO: replace with getDeviceList and do init update
 		this.validateTimeout = setTimeout( function()
 		{
 			Settings.set( 'validation', 2 );
@@ -100,6 +108,7 @@ class FritzboxBridge extends Homey.App
 				if( Settings.get( 'pollingactive' ) )
 				{
 					API.StartPolling( pollinterval );
+					API.StartStatusPolling( statuspollinginterval );
 				}
 			} ).catch( function( error )
 			{
@@ -107,29 +116,6 @@ class FritzboxBridge extends Homey.App
 				Settings.set( 'validation', 0 );
 			} );
 		}, 100 );
-	}
-
-	registerListener()
-	{
-		// global token
-		let OSVersion = new Homey.FlowToken( 'os_version',
-		{
-			type: 'string',
-			title: 'OS Version',
-			example: '6.3.1'
-		});
-
-		// register
-		OSVersion.register().then( function()
-		{
-			return API.Get().getOSVersion().then( ( version ) =>
-			{
-				return OSVersion.setValue( version );
-			}).catch( function( error )
-			{
-				return OSVersion.setValue( 'invalid' );
-			});
-		}).catch( this.error );
 	}
 }
 

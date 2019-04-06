@@ -2,16 +2,15 @@
 
 const BaseDevice = require('../../lib/baseDevice');
 
-class TemperatureDevice extends BaseDevice
+class TemperaturesensorDevice extends BaseDevice
 {
 	Init( deviceData )
 	{
 		this.CELSIUS    = 'temperature.celsius';
 		this.OFFSET     = 'temperature.offset';
 
-		let Data = deviceData.temperature;
-		this.UpdateProperty( this.CELSIUS, Data.celsius );
-		this.UpdateProperty( this.OFFSET, Data.offset );
+		this.UpdateProperty( this.CELSIUS, deviceData[this.CELSIUS] );
+		this.UpdateProperty( this.OFFSET, deviceData[this.OFFSET] );
 	}
 
 	UpdateProperty( key, value )
@@ -29,4 +28,4 @@ class TemperatureDevice extends BaseDevice
 	}
 }
 
-module.exports = TemperatureDevice;
+module.exports = TemperaturesensorDevice;

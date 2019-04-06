@@ -14,10 +14,10 @@ class SocketDevice extends BaseDevice
 		this.LOCK_DEVICE    = 'switch.devicelock';
 		this.LOCK_API       = 'switch.lock';
 
-		let data = deviceData.switch;
-		this.UpdateProperty( this.STATE, data.state );
-		this.UpdateProperty( this.MODE, this.getBooleanFromMode( data.mode ) );
-		this.UpdateProperty( this.LOCK_DEVICE, data.devicelock );
+		this.UpdateProperty( this.STATE, deviceData[this.STATE] );
+		this.UpdateProperty( this.MODE, this.getBooleanFromMode( deviceData[this.MODE] ) );
+		this.UpdateProperty( this.LOCK_DEVICE, deviceData[this.LOCK_DEVICE] );
+		this.UpdateProperty( this.LOCK_API, deviceData[this.LOCK_API] );
 	}
 
 	getBooleanFromMode( mode )
