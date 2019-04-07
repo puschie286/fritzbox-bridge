@@ -42,6 +42,10 @@
             <label for="showunconnected">Disconnected Devices Pairable?</label>
             <input id="showunconnected" type="checkbox" value="" />
         </div>
+        <div class="field row">
+            <label for="loglevel">Log level</label>
+            <input id="loglevel" type="number" min="0" max="6" step="1" value="" />
+        </div>
     </fieldset>
 
     <button id="save" class="right">Save changes</button>
@@ -58,6 +62,7 @@
                 { id: 'pollingactive', type: 'checkbox', default: false },
                 { id: 'statuspollinginterval', default: 30 },
                 { id: 'showunconnected', type: 'checkbox', default: false },
+                { id: 'loglevel', default: 6 }
             ]);
 
             Homey.ready();

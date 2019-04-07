@@ -8,6 +8,7 @@ class AlarmsensorDevice extends BaseDevice {
 	{
 		this.ALARM = 'alert.state';
 
+		if( deviceData === null ) return;
 		this.UpdateProperty( this.ALARM, deviceData[this.ALARM] );
 	}
 

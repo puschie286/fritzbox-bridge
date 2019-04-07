@@ -9,6 +9,7 @@ class TemperaturesensorDevice extends BaseDevice
 		this.CELSIUS    = 'temperature.celsius';
 		this.OFFSET     = 'temperature.offset';
 
+		if( deviceData === null ) return;
 		this.UpdateProperty( this.CELSIUS, deviceData[this.CELSIUS] );
 		this.UpdateProperty( this.OFFSET, deviceData[this.OFFSET] );
 	}

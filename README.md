@@ -60,6 +60,11 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
 
 ### History
 
+v0.3.5
+* switch logging lib
+* add options ( allow to pair disconnected devices, log level )
+* add plug driver ( energymeter + switch )
+
 v0.3.0
 * add fritzbox driver
 * add status polling ( for fritzbox driver )

@@ -3,7 +3,7 @@
 const API = require('../../lib/fritzAPI');
 const BaseDevice = require('../../lib/baseDevice');
 
-class SocketDevice extends BaseDevice
+class PlugDevice extends BaseDevice
 {
 	Init( deviceData )
 	{
@@ -13,8 +13,14 @@ class SocketDevice extends BaseDevice
 		this.MODE           = 'switch.mode';
 		this.LOCK_DEVICE    = 'switch.devicelock';
 		this.LOCK_API       = 'switch.lock';
+		this.POWER          = 'powermeter.power';
+		this.VOLTAGE        = 'powermeter.voltage';
+		this.ENERGY         = 'powermeter.energy';
 
 		if( deviceData === null ) return;
+		this.UpdateProperty( this.POWER, deviceData[this.POWER] );
+		this.UpdateProperty( this.VOLTAGE, deviceData[this.VOLTAGE] );
+		this.UpdateProperty( this.ENERGY, deviceData[this.ENERGY] );
 		this.UpdateProperty( this.STATE, deviceData[this.STATE] );
 		this.UpdateProperty( this.MODE, deviceData[this.MODE] );
 		this.UpdateProperty( this.LOCK_DEVICE, deviceData[this.LOCK_DEVICE] );
@@ -55,9 +61,20 @@ class SocketDevice extends BaseDevice
 			case this.LOCK_API:
 				this.updateCapabilityBoolean( value, 'measure_api_locked' );
 				break;
+
+			case this.POWER:
+				this.updateCapabilityNumber( value / 1000, 'measure_power' );
+				break;
+
+			case this.ENERGY:
+				this.updateCapabilityNumber( value / 1000, 'meter_power' );
+				break;
+
+			case this.VOLTAGE:
+				this.updateCapabilityNumber( value / 100000, 'measure_voltage' );
+				break;
 		}
 	}
-
 }
 
-module.exports = SocketDevice;
+module.exports = PlugDevice;

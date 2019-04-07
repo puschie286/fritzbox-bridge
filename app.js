@@ -6,13 +6,12 @@ const LOG = require('./lib/logWrapper' );
 const API = require('./lib/fritzAPI');
 
 const Settings = Homey.ManagerSettings;
-
 class FritzboxBridge extends Homey.App
 {
 	onInit()
 	{
 		// init log system
-		LOG.init( this.log );
+		LOG.init( this.log, LOG.TRACE, { systemcopy: true } );
 
 		LOG.info( 'start Fritzbox Bridge' );
 
@@ -64,6 +63,41 @@ class FritzboxBridge extends Homey.App
 					API.StartStatusPolling( Value * 1000 );
 				}
 				break;
+
+			case 'loglevel':
+				let IntNumber = parseInt( value );
+				switch( IntNumber )
+				{
+					case 0:
+						LOG.setLevel( LOG.OFF );
+						break;
+
+					case 1:
+						LOG.setLevel( LOG.ERROR );
+						break;
+
+					case 2:
+						LOG.setHandler( LOG.WARN );
+						break;
+
+					case 3:
+						LOG.setLevel( LOG.TIME );
+						break;
+
+					case 4:
+						LOG.setLevel( LOG.INFO );
+						break;
+
+					case 5:
+						LOG.setLevel( LOG.DEBUG );
+						break;
+
+					case 6:
+						LOG.setLevel( LOG.TRACE );
+						break;
+				}
+
+				break;
 		}
 	}
 
@@ -110,11 +144,11 @@ class FritzboxBridge extends Homey.App
 					API.StartPolling( pollinterval, list );
 					API.StartStatusPolling( statuspollinginterval );
 				}
-			} ).catch( function( error )
+			} )/*.catch( function( error )
 			{
-				LOG.debug( 'validate login: failed' );
+				LOG.debug( 'validate login: failed ' + error );
 				Settings.set( 'validation', 0 );
-			} );
+			} )*/;
 		}, 100 );
 	}
 }

@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.3.0",
+  "version": "0.3.5",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -247,7 +247,7 @@
       },
       "class": "sensor",
       "capabilities": [
-        "measure_current",
+        "measure_voltage",
         "measure_power",
         "meter_power"
       ],
@@ -311,6 +311,40 @@
       "images": {
         "large": "/drivers/fritzbox/assets/images/large.png",
         "small": "/drivers/fritzbox/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "plug",
+      "name": {
+        "en": "(G)Plug",
+        "de": "(G)Steckdose"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_switch_mode",
+        "measure_device_locked",
+        "measure_api_locked",
+        "measure_voltage",
+        "measure_power",
+        "meter_power"
+      ],
+      "images": {
+        "large": "/drivers/plug/assets/images/large.png",
+        "small": "/drivers/plug/assets/images/small.png"
       },
       "pair": [
         {

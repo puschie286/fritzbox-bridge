@@ -10,6 +10,7 @@ class EnergymeterDevice extends BaseDevice
 		this.VOLTAGE= 'powermeter.voltage';
 		this.ENERGY = 'powermeter.energy';
 
+		if( deviceData === null ) return;
 		this.UpdateProperty( this.POWER, deviceData[this.POWER] );
 		this.UpdateProperty( this.VOLTAGE, deviceData[this.VOLTAGE] );
 		this.UpdateProperty( this.ENERGY, deviceData[this.ENERGY] );
@@ -20,7 +21,7 @@ class EnergymeterDevice extends BaseDevice
 		switch( key )
 		{
 			case this.POWER:
-				this.updateCapabilityNumber( value / 1000000, 'measure_power' );
+				this.updateCapabilityNumber( value / 1000, 'measure_power' );
 				break;
 
 			case this.ENERGY:
@@ -28,7 +29,7 @@ class EnergymeterDevice extends BaseDevice
 				break;
 
 			case this.VOLTAGE:
-				this.updateCapabilityNumber( value / 1000, 'measure_current' );
+				this.updateCapabilityNumber( value / 100000, 'measure_voltage' );
 				break;
 		}
 	}

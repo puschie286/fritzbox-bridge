@@ -24,7 +24,7 @@ class ThermostatDevice extends BaseDevice
 		this.LOCK_DEVICE    = 'hkr.devicelock';
 		this.ERROR          = 'hkr.errorcode';
 
-		let Data = deviceData.hkr;
+		if( deviceData === null ) return;
 		this.UpdateProperty( this.TEMP_TARGET, deviceData[this.TEMP_TARGET], true, deviceData[this.TEMP_MEASURE] );
 		this.UpdateProperty( this.TEMP_MEASURE, deviceData[this.TEMP_MEASURE] );
 		this.UpdateProperty( this.TEMP_KOMFORT, deviceData[this.TEMP_KOMFORT] );

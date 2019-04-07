@@ -5,28 +5,25 @@ const LOG = require('../../lib/logWrapper' );
 
 class FritzboxDevice extends BaseDevice
 {
-	onInit()
-	{
-		LOG.info( 'load device: ' + this.getName() );
-
-		let DeviceData = this.getStoreValue( 'data' );
-
-		//TODO: set available state
-		//Boolean( DeviceData.present ) ? this.setAvailable() : this.setUnavailable();
-
-		// init device specific
-		this.Init( DeviceData );
-
-		this.log( '...completed ( ' + this.getName() + ' )' );
-	}
-
 	Init( deviceData )
 	{
 		this.UPDATE_AVAILABLE   = 'data.fritzos.isUpdateAvail';
 		this.OS_VERSION         = 'data.fritzos.nspver';
 
+		if( deviceData === null ) return;
 		this.UpdateProperty( this.UPDATE_AVAILABLE, deviceData[this.UPDATE_AVAILABLE] );
 		this.UpdateProperty( this.OS_VERSION, deviceData[this.OS_VERSION] );
+	}
+
+	UpdateAvailability( deviceData )
+	{
+		if( deviceData === null )
+		{
+			this.setUnavailable();
+			return;
+		}
+
+		this.setAvailable();
 	}
 
 	UpdateProperty( key, value )
