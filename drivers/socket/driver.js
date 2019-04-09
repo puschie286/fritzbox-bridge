@@ -9,22 +9,6 @@ class SocketDriver extends BaseDriver
 	{
 		return API.CONST_OUTLET;
 	}
-
-	GetFilterList()
-	{
-		return [
-			'present',
-			'switch.state',
-			'switch.mode',
-			'switch.devicelock',
-			'switch.lock'
-		];
-	}
-
-	GetName()
-	{
-		return 'Outlet';
-	}
 }
 
 module.exports = SocketDriver;

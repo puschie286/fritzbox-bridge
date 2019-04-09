@@ -9,30 +9,6 @@ class PlugDriver extends BaseDriver
 	{
 		return API.CONST_ENERGYMETER | API.CONST_OUTLET;
 	}
-
-	GetFilterList()
-	{
-		return [
-			'present',
-			'switch.state',
-			'switch.mode',
-			'switch.devicelock',
-			'switch.lock',
-			'powermeter.power',
-			'powermeter.voltage',
-			'powermeter.energy'
-		];
-	}
-
-	GetName()
-	{
-		return '(G)Plug';
-	}
-
-	GetDataVersion()
-	{
-		return 7;
-	}
 }
 
 module.exports = PlugDriver;

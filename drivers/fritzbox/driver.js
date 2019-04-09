@@ -13,19 +13,6 @@ class FritzboxDriver extends BaseDriver
 		return -1;
 	}
 
-	GetName()
-	{
-		return 'Fritzbox';
-	}
-
-	GetFilterList()
-	{
-		return [
-			'data.fritzos.isUpdateAvail',
-			'data.fritzos.nspver'
-		];
-	}
-
 	onPairListDevices( data, callback )
 	{
 		if( Homey.ManagerSettings.get( 'validation' ) !== 1 )

@@ -11,6 +11,11 @@ class AlarmsensorDevice extends BaseDevice
 			'alarm_generic': [ 'alert.state', 'boolean' ]
 		};
 	}
+
+	GetVersion()
+	{
+		return 0;
+	}
 }
 
 module.exports = AlarmsensorDevice;

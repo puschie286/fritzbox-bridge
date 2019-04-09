@@ -27,6 +27,7 @@ class FritzboxBridge extends Homey.App
 		let Value = Settings.get(name);
 		switch( name )
 		{
+			case 'username':
 			case 'password':
 			case 'fritzboxip':
 			case 'strictssl':
@@ -96,7 +97,6 @@ class FritzboxBridge extends Homey.App
 						LOG.setLevel( LOG.TRACE );
 						break;
 				}
-
 				break;
 		}
 	}

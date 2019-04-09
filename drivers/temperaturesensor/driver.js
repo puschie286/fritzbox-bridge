@@ -9,20 +9,6 @@ class TemperatursensorDriver extends BaseDriver
 	{
 		return API.CONST_TEMPERATURESENSOR;
 	}
-
-	GetFilterList()
-	{
-		return [
-			'present',
-			'temperature.offset',
-			'temperature.celsius'
-		];
-	}
-
-	GetName()
-	{
-		return 'Temperature sensor';
-	}
 }
 
 module.exports = TemperatursensorDriver;

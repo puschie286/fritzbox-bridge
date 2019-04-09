@@ -5,20 +5,27 @@ const BaseDevice = require('../../lib/baseDevice');
 
 class SocketDevice extends BaseDevice
 {
-	Init( deviceData )
+	ValueCapabilityAssignment()
 	{
-		this.registerListener( 'onoff', this.onOnOff );
+		return {
+			'availability': [ 'present', 'boolean' ],
+			'measure_switch_mode': [ 'switch.mode', 'boolean', ( A ) => String( A ) === 'auto', 'noCast' ],
+			'measure_device_locked': [ 'switch.devicelock', 'boolean' ],
+			'measure_api_locked': [ 'switch.lock', 'boolean' ],
+			'onoff': [ 'switch.state', 'boolean' ]
+		};
+	}
 
-		this.STATE          = 'switch.state';
-		this.MODE           = 'switch.mode';
-		this.LOCK_DEVICE    = 'switch.devicelock';
-		this.LOCK_API       = 'switch.lock';
+	GetVersion()
+	{
+		return 0;
+	}
 
-		if( deviceData === null ) return;
-		this.UpdateProperty( this.STATE, deviceData[this.STATE] );
-		this.UpdateProperty( this.MODE, deviceData[this.MODE] );
-		this.UpdateProperty( this.LOCK_DEVICE, deviceData[this.LOCK_DEVICE] );
-		this.UpdateProperty( this.LOCK_API, deviceData[this.LOCK_API] );
+	CapabilityListener()
+	{
+		return {
+			'onoff': this.onOnOff
+		}
 	}
 
 	async onOnOff( value )
@@ -27,37 +34,13 @@ class SocketDevice extends BaseDevice
 		this.log( 'send onOff: ', Value );
 		if( Value )
 		{
-			API.Get().setSwitchOn( this.getData().id );
+			return API.Get().setSwitchOn( this.getData().id );
 		}
 		else
 		{
-			API.Get().setSwitchOff( this.getData().id );
-		}
-		return Promise.resolve();
-	}
-
-	UpdateProperty( key, value )
-	{
-		switch( key )
-		{
-			case this.STATE:
-				this.updateCapabilityBoolean( value, 'onoff' );
-				break;
-
-			case this.MODE:
-				this.updateCapabilityBoolean( value === 'auto', 'measure_switch_mode' );
-				break;
-
-			case this.LOCK_DEVICE:
-				this.updateCapabilityBoolean( value, 'measure_device_locked' );
-				break;
-
-			case this.LOCK_API:
-				this.updateCapabilityBoolean( value, 'measure_api_locked' );
-				break;
+			return API.Get().setSwitchOff( this.getData().id );
 		}
 	}
-
 }
 
 module.exports = SocketDevice;
