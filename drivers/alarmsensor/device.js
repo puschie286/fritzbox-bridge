@@ -2,24 +2,14 @@
 
 const BaseDevice = require('../../lib/baseDevice');
 
-class AlarmsensorDevice extends BaseDevice {
-	
-	Init( deviceData )
+class AlarmsensorDevice extends BaseDevice
+{
+	ValueCapabilityAssignment()
 	{
-		this.ALARM = 'alert.state';
-
-		if( deviceData === null ) return;
-		this.UpdateProperty( this.ALARM, deviceData[this.ALARM] );
-	}
-
-	UpdateProperty( key, value )
-	{
-		switch( key )
-		{
-			case this.ALARM:
-				this.updateCapabilityBoolean( value, 'alarm_generic' );
-				break;
-		}
+		return {
+			'availability': [ 'present', 'boolean' ],
+			'alarm_generic': [ 'alert.state', 'boolean' ]
+		};
 	}
 }
 

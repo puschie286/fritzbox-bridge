@@ -40,8 +40,7 @@ class FritzboxDriver extends BaseDriver
 		{
 			callback( null, [{
 				name: 'Fritzbox',
-				data: { id: 'fritzbox' },
-				store: { 'data': API.CopyProperties( data, this.GetFilterList() ) },
+				data: { id: 'fritzbox' }
 			}] );
 		}.bind( this ) ).catch( function( error )
 		{

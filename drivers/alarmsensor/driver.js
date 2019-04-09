@@ -9,20 +9,6 @@ class AlarmsensorDriver extends BaseDriver {
 	{
 		return API.CONST_ALARM;
 	}
-
-	GetFilterList()
-	{
-		return [
-			'present',
-			'alert.state'
-		];
-	}
-
-	GetName()
-	{
-		return 'Alarm sensor';
-	}
-
 }
 
 module.exports = AlarmsensorDriver;
