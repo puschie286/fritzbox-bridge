@@ -17,7 +17,6 @@ class FritzboxDriver extends BaseDriver
 
 	GetDeviceClass( version )
 	{
-		LOG.info( 'version: ' + version );
 		switch( version )
 		{
 			case 0:
