@@ -2,7 +2,7 @@
 
 const BaseDevice = require('../../lib/baseDevice');
 
-class EnergymeterDevice extends BaseDevice
+class EnergymeterV0 extends BaseDevice
 {
 	ValueCapabilityAssignment()
 	{
@@ -15,4 +15,4 @@ class EnergymeterDevice extends BaseDevice
 	}
 }
 
-module.exports = EnergymeterDevice;
+module.exports = EnergymeterV0;

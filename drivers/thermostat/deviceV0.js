@@ -6,7 +6,7 @@ const BaseDevice = require('../../lib/baseDevice');
 
 // TODO: add support for: [ nextchange:{ endperiod: 'timestamp', tchange: 'target tmp' }, summeractive: '0', holidayactive: '' ]
 
-class ThermostatDevice extends BaseDevice
+class ThermostatV0 extends BaseDevice
 {
 	ValueCapabilityAssignment()
 	{
@@ -23,11 +23,6 @@ class ThermostatDevice extends BaseDevice
 			'measure_device_error': [ 'hkr.errorcode', 'string', ( A ) => Homey.__( 'ErrorCode' + A.toString() ), 'noCast' ],
 			'target_temperature': [ 'hkr.tsoll', 'integer', ( A ) => API.round( API.clamp( A / 2, 4, 35 ), 0.01 ) ]
 		};
-	}
-
-	GetVersion()
-	{
-		return 0;
 	}
 
 	CapabilityListener()
@@ -64,4 +59,4 @@ class ThermostatDevice extends BaseDevice
 	}
 }
 
-module.exports = ThermostatDevice;
+module.exports = ThermostatV0;

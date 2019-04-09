@@ -2,7 +2,7 @@
 
 const BaseDevice = require('../../lib/baseDevice');
 
-class TemperaturesensorDevice extends BaseDevice
+class TemperaturesensorV0 extends BaseDevice
 {
 	ValueCapabilityAssignment()
 	{
@@ -12,11 +12,6 @@ class TemperaturesensorDevice extends BaseDevice
 			'measure_temperature.offset': [ 'temperature.offset', 'number', ( A ) => A / 10 ]
 		}
 	}
-
-	GetVersion()
-	{
-		return 0;
-	}
 }
 
-module.exports = TemperaturesensorDevice;
+module.exports = TemperaturesensorV0;

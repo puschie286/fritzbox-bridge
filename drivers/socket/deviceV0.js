@@ -3,7 +3,7 @@
 const API = require('../../lib/fritzAPI');
 const BaseDevice = require('../../lib/baseDevice');
 
-class PlugDevice extends BaseDevice
+class SocketV0 extends BaseDevice
 {
 	ValueCapabilityAssignment()
 	{
@@ -12,16 +12,8 @@ class PlugDevice extends BaseDevice
 			'measure_switch_mode': [ 'switch.mode', 'boolean', ( A ) => String( A ) === 'auto', 'noCast' ],
 			'measure_device_locked': [ 'switch.devicelock', 'boolean' ],
 			'measure_api_locked': [ 'switch.lock', 'boolean' ],
-			'measure_power': [ 'powermeter.power', 'number', ( A ) => A / 1000 ],
-			'meter_power': [ 'powermeter.energy', 'number', ( A ) => A / 1000 ],
-			'measure_voltage': [ 'powermeter.voltage', 'number', ( A ) => A / 1000 ],
 			'onoff': [ 'switch.state', 'boolean' ]
-		}
-	}
-
-	GetVersion()
-	{
-		return 0;
+		};
 	}
 
 	CapabilityListener()
@@ -46,4 +38,4 @@ class PlugDevice extends BaseDevice
 	}
 }
 
-module.exports = PlugDevice;
+module.exports = SocketV0;

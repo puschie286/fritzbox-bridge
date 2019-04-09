@@ -2,7 +2,7 @@
 
 const BaseDevice = require('../../lib/baseDevice');
 
-class AlarmsensorDevice extends BaseDevice
+class AlarmsensorV0 extends BaseDevice
 {
 	ValueCapabilityAssignment()
 	{
@@ -11,11 +11,6 @@ class AlarmsensorDevice extends BaseDevice
 			'alarm_generic': [ 'alert.state', 'boolean' ]
 		};
 	}
-
-	GetVersion()
-	{
-		return 0;
-	}
 }
 
-module.exports = AlarmsensorDevice;
+module.exports = AlarmsensorV0;

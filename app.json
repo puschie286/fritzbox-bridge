@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.3.5",
+  "version": "0.5.0",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -109,6 +109,24 @@
       "setable": false
     },
     "measure_update_available": {
+      "type": "boolean",
+      "title": {
+        "en": "update available",
+        "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "os_version": {
+      "type": "string",
+      "title": {
+        "en": "fritzbox os version",
+        "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "alert_update_available": {
       "type": "boolean",
       "title": {
         "en": "update available",
@@ -305,8 +323,8 @@
       },
       "class": "other",
       "capabilities": [
-        "measure_update_available",
-        "measure_os_version"
+        "alert_update_available",
+        "os_version"
       ],
       "images": {
         "large": "/drivers/fritzbox/assets/images/large.png",

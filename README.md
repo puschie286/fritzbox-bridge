@@ -17,21 +17,21 @@ Used icons from: <a href="http://flaticon.com">Freepik</a>
 
 #### supported sensors
 list of all sensors and their properties. ( f: set by fritzbox, d: set by device )
-* alarm sensor
+* alarm sensor v0
   * d: arlam state
-* temperature sensor
+* temperature sensor v0
   * measured temperature ( 0.1° - 0.5° steps )
   * f: offset
-* switch/socket
+* switch/socket v0
   * on/off
   * f: switch mode ( schedule/manuel )
   * f: device locked
   * f: device api locked
-* energymeter
+* energymeter v0
   * measured power
   * measured voltage
   * metered power
-* thermostat
+* thermostat v0
   * on/off
   * measured temperature ( 0.5° steps )
   * target temperature ( 0.5° steps )
@@ -43,22 +43,32 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
   * d: battery low warning
   * d: open window
   * d: device error
-* fritzbox
+* fritzbox v1
   * f: os version
-  * f: update available  
+  * f: alarm update available 
+  
+##### backward compatibility ( >= 0.5.0 )  
+all devices that were paired before update will not be affected by device changes
+only new paired devices will use the newest device version ( system limitation *sry )
 
 #### tested device/sensor list:
 * CometDECT
-  * temperature sensor
-    * measurements have a delay ( abount 15min )
-  * thermostat
-    * use different temperature than temperature sensor is returning ( thermostat reliable reaches set temperature )
-
-### TODOs
-* driver: repeater ( only available state - no function )
-* functions: wlan-guest-config set/get, thermostat holidayactive + summeractive
+  * measurements have a delay ( max. 15min )
+  * sending commands can take up to 15min to take effect
+  * temperature sensor has higher resolution internal
+  
+#### Device TODO's
+* driver: repeater
+* functions: thermostat holidayactive + summeractive + nextchange, fritzbox statistics
+* capabilities: energymeter measure_current
 
 ### History
+
+v0.5.0
+* optimize update process
+* optimize device/driver structure
+* implemented backward-compatibility system
+* ready for beta
 
 v0.3.5
 * switch logging lib
