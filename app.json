@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -265,6 +265,7 @@
       },
       "class": "sensor",
       "capabilities": [
+        "measure_current",
         "measure_voltage",
         "measure_power",
         "meter_power"

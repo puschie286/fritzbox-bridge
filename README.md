@@ -27,10 +27,11 @@ list of all sensors and their properties. ( f: set by fritzbox, d: set by device
   * f: switch mode ( schedule/manuel )
   * f: device locked
   * f: device api locked
-* energymeter v0
+* energymeter v1
   * measured power
   * measured voltage
   * metered power
+  * measured current ( >= v1 )( calculated )
 * thermostat v0
   * on/off
   * measured temperature ( 0.5° steps )
@@ -60,9 +61,11 @@ only new paired devices will use the newest device version ( system limitation *
 #### Device TODO's
 * driver: repeater
 * functions: thermostat holidayactive + summeractive + nextchange, fritzbox statistics
-* capabilities: energymeter measure_current
 
 ### History
+
+v0.5.1
+* add 'current' capability for energymeter
 
 v0.5.0
 * optimize update process

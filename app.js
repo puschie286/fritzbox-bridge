@@ -24,7 +24,7 @@ class FritzboxBridge extends Homey.App
 
 	updateSettings( name )
 	{
-		let Value = Settings.get(name);
+		let Value = Settings.get( name );
 		switch( name )
 		{
 			case 'username':
@@ -130,7 +130,6 @@ class FritzboxBridge extends Homey.App
 		}
 
 		// delay validation
-		// TODO: replace with getDeviceList and do init update
 		this.validateTimeout = setTimeout( function()
 		{
 			Settings.set( 'validation', 2 );
@@ -144,11 +143,11 @@ class FritzboxBridge extends Homey.App
 					API.StartPolling( pollinterval, list );
 					API.StartStatusPolling( statuspollinginterval );
 				}
-			} )/*.catch( function( error )
+			} ).catch( function( error )
 			{
-				LOG.debug( 'validate login: failed ' + error );
+				LOG.debug( 'validate login: failed ' + JSON.stringify( error ) );
 				Settings.set( 'validation', 0 );
-			} )*/;
+			} );
 		}, 100 );
 	}
 }
