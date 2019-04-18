@@ -15,41 +15,12 @@ Used icons from: <a href="http://flaticon.com">Freepik</a>
 * HANFUN Alarm
 * FRITZ!Box 
 
-#### supported sensors
-list of all sensors and their properties. ( f: set by fritzbox, d: set by device )
-* alarm sensor v0
-  * d: arlam state
-* temperature sensor v0
-  * measured temperature ( 0.1° - 0.5° steps )
-  * f: offset
-* switch/socket v0
-  * on/off
-  * f: switch mode ( schedule/manuel )
-  * f: device locked
-  * f: device api locked
-* energymeter v1
-  * measured power
-  * measured voltage
-  * metered power
-  * measured current ( >= v1 )( calculated )
-* thermostat v0
-  * on/off
-  * measured temperature ( 0.5° steps )
-  * target temperature ( 0.5° steps )
-  * f: comfort temperature
-  * f: night temperature
-  * f: device api locked
-  * f: device locked
-  * d: battery state ( 0 - 100% )
-  * d: battery low warning
-  * d: open window
-  * d: device error
-* fritzbox v1
-  * f: os version
-  * f: alarm update available 
+#### supported sensors & values
+[list of supported devices & sensors](https://github.com/puschie286/fritzbox-bridge/wiki/Supported-devices-&-sensors) 
+
   
 ##### backward compatibility ( >= 0.5.0 )  
-all devices that were paired before update will not be affected by device changes
+all devices that were paired before update will not be affected by device changes.
 only new paired devices will use the newest device version ( system limitation *sry )
 
 #### tested device/sensor list:
@@ -59,8 +30,11 @@ only new paired devices will use the newest device version ( system limitation *
   * temperature sensor has higher resolution internal
   
 #### Device TODO's
-* driver: repeater
-* functions: thermostat holidayactive + summeractive + nextchange, fritzbox statistics
+* rewrite login process (fritzAPI)
+* redesign config page (materialzecss)
+* implement repeater driver
+* add thermostat holidayactive + summeractive + nextchange
+* add trigger when connecting/disconnecting wlan devices
 
 ### History
 
