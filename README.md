@@ -30,13 +30,15 @@ only new paired devices will use the newest device version ( system limitation *
   * temperature sensor has higher resolution internal
   
 #### Device TODO's
-* rewrite login process (fritzAPI)
 * redesign config page (materialzecss)
 * implement repeater driver
 * add thermostat holidayactive + summeractive + nextchange
 * add trigger when connecting/disconnecting wlan devices
 
 ### History
+
+v0.5.2
+* add better error handling (login)
 
 v0.5.1
 * add 'current' capability for energymeter

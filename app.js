@@ -78,22 +78,18 @@ class FritzboxBridge extends Homey.App
 						break;
 
 					case 2:
-						LOG.setHandler( LOG.WARN );
+						LOG.setLevel( LOG.WARN );
 						break;
 
 					case 3:
-						LOG.setLevel( LOG.TIME );
-						break;
-
-					case 4:
 						LOG.setLevel( LOG.INFO );
 						break;
 
-					case 5:
+					case 4:
 						LOG.setLevel( LOG.DEBUG );
 						break;
 
-					case 6:
+					case 5:
 						LOG.setLevel( LOG.TRACE );
 						break;
 				}
@@ -135,8 +131,8 @@ class FritzboxBridge extends Homey.App
 			Settings.set( 'validation', 2 );
 			API.Get().getDeviceList().then( function( list )
 			{
-				LOG.debug( 'validate login: success' );
 				Settings.set( 'validation', 1 );
+				LOG.debug( 'validate login: success' );
 
 				if( Settings.get( 'pollingactive' ) )
 				{
@@ -145,8 +141,13 @@ class FritzboxBridge extends Homey.App
 				}
 			} ).catch( function( error )
 			{
-				LOG.debug( 'validate login: failed ' + JSON.stringify( error ) );
 				Settings.set( 'validation', 0 );
+				if( error.error.code === 'ETIMEDOUT' || error.error.code === 'ENOTFOUND' )
+                {
+                    LOG.info( 'validate login: failed -> timeout' );
+                    return;
+                }
+				LOG.debug( 'validate login: failed ' + JSON.stringify( error ) );
 			} );
 		}, 100 );
 	}

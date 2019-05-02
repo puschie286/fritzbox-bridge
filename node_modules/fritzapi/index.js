@@ -47,7 +47,7 @@ Fritz.prototype = {
         var originalSID = this.sid;
 
         /* jshint laxbreak:true */
-        var promise = this.sid
+        var promise = this.sid !== '0000000000000000' && this.sid
             ? Promise.resolve(this.sid)
             : module.exports.getSessionID(this.username, this.password, this.options);
 
