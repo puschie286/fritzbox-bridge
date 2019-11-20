@@ -203,7 +203,12 @@
           "id": "add_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "energy":
+      {
+        "batteries":
+          ["AA", "AA"]
+      }
     },
     {
       "id": "socket",
