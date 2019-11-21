@@ -83,7 +83,16 @@ let SettingHelper = {};
             if( Value )
                 Homey.alert( 'Valid Login' );
             else
-                Homey.alert( 'Invalid Login' );
+            {
+                Homey.get( 'validationInfo', function( err, value )
+                {
+                    Homey.alert( 'Invalid Login' );
+
+                    if( err ) return;
+
+                    Homey.alert( value );
+                } );
+            }
         });
     };
 

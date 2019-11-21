@@ -37,6 +37,10 @@ only new paired devices will use the newest device version ( system limitation *
 
 ### History
 
+v0.5.3
+* add battery info to thermostats
+* improve login feedback & logging
+
 v0.5.2
 * add better error handling (login)
 

@@ -129,6 +129,7 @@ class FritzboxBridge extends Homey.App
 		this.validateTimeout = setTimeout( function()
 		{
 			Settings.set( 'validation', 2 );
+			let Info = null;
 			API.Get().getDeviceList().then( function( list )
 			{
 				Settings.set( 'validation', 1 );
@@ -141,13 +142,42 @@ class FritzboxBridge extends Homey.App
 				}
 			} ).catch( function( error )
 			{
-				Settings.set( 'validation', 0 );
-				if( error !== undefined && error.error !== undefined && ( error.error.code === 'ETIMEDOUT' || error.error.code === 'ENOTFOUND' ) )
+				LOG.debug( 'login failed: ' + JSON.stringify( error ) );
+
+				if( error !== undefined && error.error !== undefined && error.error.code !== undefined )
                 {
-                    LOG.info( 'validate login: failed -> timeout' );
-                    return;
+                	let code = error.error.code;
+                	if( code === 'ETIMEDOUT' )
+	                {
+	                	Info = 'reason: timeout -> invalid url or no (direct) connection ?';
+                        LOG.info( Info );
+	                }
+                	else if( code === 'ENOTFOUND' )
+	                {
+	                	Info = 'reason: not found -> invalid url ?';
+		                LOG.info( Info );
+	                }
+                	else if( code === 'DEPTH_ZERO_SELF_SIGNED_CERT' )
+	                {
+	                	Info = 'reason: self signed cert -> disable STRICT SSL';
+		                LOG.info( Info );
+	                }
                 }
-				LOG.debug( 'validate login: failed ' + JSON.stringify( error ) );
+				else if( error === '0000000000000000' )
+				{
+					Info = 'reason: login refused -> invalid username/password ?';
+					LOG.info( Info );
+				}
+				else
+				{
+					LOG.info( 'login failed' );
+				}
+				// store info for config page
+				if( Info !== null )
+				{
+					Settings.set( 'validationInfo', Info );
+				}
+				Settings.set( 'validation', 0 );
 			} );
 		}, 100 );
 	}
