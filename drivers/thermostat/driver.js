@@ -3,16 +3,24 @@
 const API = require('../../lib/fritzAPI');
 const BaseDriver = require( '../../lib/baseDriver' );
 
+const ThermostatV0 = require('./deviceV0' );
+
+
 class ThermostatDriver extends BaseDriver
 {
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_THERMOSTAT;
 	}
 
-	GetName()
+	GetDeviceClass( version )
 	{
-		return 'Thermostat';
+		return ThermostatV0;
+	}
+
+	GetVersion()
+	{
+		return 0;
 	}
 }
 

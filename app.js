@@ -2,35 +2,32 @@
 
 // libs
 const Homey = require('homey');
+const LOG = require('./lib/logWrapper' );
 const API = require('./lib/fritzAPI');
 
 const Settings = Homey.ManagerSettings;
-
 class FritzboxBridge extends Homey.App
 {
 	onInit()
 	{
-		this.log('loading..');
+		// init log system
+		LOG.init( this.log, LOG.TRACE, { systemcopy: true } );
 
-		API.log = this.log;
+		LOG.info( 'start Fritzbox Bridge' );
 
 		// setup hooks
 		Settings.on('set', this.updateSettings.bind( this ) );
 
 		// configure api
 		this.initFritzAPI();
-
-		// register flow stuff
-		this.registerListener();
-
-		this.log('...completed');
 	}
 
 	updateSettings( name )
 	{
-		let Value = Settings.get(name);
+		let Value = Settings.get( name );
 		switch( name )
 		{
+			case 'username':
 			case 'password':
 			case 'fritzboxip':
 			case 'strictssl':
@@ -38,18 +35,63 @@ class FritzboxBridge extends Homey.App
 				break;
 
 			case 'pollinginterval':
-				API.StartPolling( Value * 1000 );
+				if( Settings.get( 'validation' ) === 1 )
+				{
+					API.StartPolling( Value * 1000 );
+				}
 				break;
 
 			case 'pollingactive':
 				let BoolValue = Value != false;
 				if( BoolValue )
 				{
-					API.StartPolling( Settings.get( 'pollinginterval' ) * 1000 );
+					if( Settings.get( 'validation' ) === 1 )
+					{
+						API.StartPolling( Settings.get( 'pollinginterval' ) * 1000 );
+						API.StartStatusPolling( Settings.get( 'statuspollinginterval' ) * 1000 );
+					}
 				}
 				else
 				{
 					API.StopPolling();
+					API.StopStatusPolling();
+				}
+				break;
+
+			case 'statuspollinginterval':
+				if( Settings.get( 'validation' ) === 1 )
+				{
+					API.StartStatusPolling( Value * 1000 );
+				}
+				break;
+
+			case 'loglevel':
+				let IntNumber = parseInt( value );
+				switch( IntNumber )
+				{
+					case 0:
+						LOG.setLevel( LOG.OFF );
+						break;
+
+					case 1:
+						LOG.setLevel( LOG.ERROR );
+						break;
+
+					case 2:
+						LOG.setLevel( LOG.WARN );
+						break;
+
+					case 3:
+						LOG.setLevel( LOG.INFO );
+						break;
+
+					case 4:
+						LOG.setLevel( LOG.DEBUG );
+						break;
+
+					case 5:
+						LOG.setLevel( LOG.TRACE );
+						break;
 				}
 				break;
 		}
@@ -58,21 +100,23 @@ class FritzboxBridge extends Homey.App
 	initFritzAPI()
 	{
 		let IP 			= Settings.get( 'fritzboxip' ) || 'http://fritz.box';
+		let username    = Settings.get( 'username' ) || '';
 		let password	= Settings.get( 'password' ) || '';
 		let strictssl	= Settings.get( 'strictssl' );
 		let polling     = Settings.get( 'pollinginterval' ) || 0;
+		let spolling    = Settings.get( 'statuspollinginterval' || 0 );
 
 		// clear running polling before change
 		API.StopPolling();
 
 		// use browser login to get sid
-		API.Create( password, IP, strictssl );
+		API.Create( username, password, IP, strictssl );
 
 		// (lazy) validate login
-		this.validateLogin( polling * 1000 );
+		this.validateLogin( polling * 1000, spolling * 1000 );
 	}
 
-	validateLogin( pollinterval )
+	validateLogin( pollinterval, statuspollinginterval )
 	{
 		// reset running timout
 		if( this.validateTimeout !== undefined && this.validateTimeout !== null )
@@ -85,51 +129,57 @@ class FritzboxBridge extends Homey.App
 		this.validateTimeout = setTimeout( function()
 		{
 			Settings.set( 'validation', 2 );
-			API.Get().getOSVersion().then( function( list )
+			let Info = null;
+			API.Get().getDeviceList().then( function( list )
 			{
-				this.log( 'valid login' );
 				Settings.set( 'validation', 1 );
+				LOG.debug( 'validate login: success' );
 
 				if( Settings.get( 'pollingactive' ) )
 				{
-					API.StartPolling( pollinterval );
+					API.StartPolling( pollinterval, list );
+					API.StartStatusPolling( statuspollinginterval );
 				}
+			} ).catch( function( error )
+			{
+				LOG.debug( 'login failed: ' + JSON.stringify( error ) );
 
-				// DEBUG device list
-				API.Get().getDeviceList().then( function( list )
+				if( error !== undefined && error.error !== undefined && error.error.code !== undefined )
+                {
+                	let code = error.error.code;
+                	if( code === 'ETIMEDOUT' )
+	                {
+	                	Info = 'reason: timeout -> invalid url or no (direct) connection ?';
+                        LOG.info( Info );
+	                }
+                	else if( code === 'ENOTFOUND' )
+	                {
+	                	Info = 'reason: not found -> invalid url ?';
+		                LOG.info( Info );
+	                }
+                	else if( code === 'DEPTH_ZERO_SELF_SIGNED_CERT' )
+	                {
+	                	Info = 'reason: self signed cert -> disable STRICT SSL';
+		                LOG.info( Info );
+	                }
+                }
+				else if( error === '0000000000000000' )
 				{
-					this.log( 'DEBUG: full device list' );
-					this.log( list );
-				}.bind( this ) );
-			}.bind( this ) ).catch( function( error )
-			{
-				this.log( 'invalid login' );
+					Info = 'reason: login refused -> invalid username/password ?';
+					LOG.info( Info );
+				}
+				else
+				{
+					LOG.info( 'login failed' );
+				}
+				// store info for config page
+				if( Info !== null )
+				{
+					Settings.set( 'validationInfo', Info );
+				}
 				Settings.set( 'validation', 0 );
-			}.bind( this ) );
-		}.bind( this ), 150 );
-	}
-
-	registerListener()
-	{
-		// global token
-		let OSVersion = new Homey.FlowToken( 'os_version',
-		{
-			type: 'string',
-			title: 'OS Version',
-			example: '6.3.1'
-		});
-
-		// register
-		OSVersion.register().then( function()
-		{
-			return API.Get().getOSVersion().then( ( version ) =>
-			{
-				return OSVersion.setValue( version );
-			}).catch( function( error )
-			{
-				return OSVersion.setValue( 'invalid' );
-			});
-		}).catch( this.error );
+			} );
+		}, 100 );
 	}
 }
 

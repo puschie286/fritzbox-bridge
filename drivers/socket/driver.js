@@ -3,16 +3,23 @@
 const API = require('../../lib/fritzAPI');
 const BaseDriver = require( '../../lib/baseDriver' );
 
+const SocketV0 = require( './deviceV0' );
+
 class SocketDriver extends BaseDriver
 {
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_OUTLET;
 	}
 
-	GetName()
+	GetDeviceClass( version )
 	{
-		return 'Outlet';
+		return SocketV0;
+	}
+
+	GetVersion()
+	{
+		return 0;
 	}
 }
 

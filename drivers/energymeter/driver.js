@@ -3,16 +3,32 @@
 const API = require('../../lib/fritzAPI');
 const BaseDriver = require( '../../lib/baseDriver' );
 
+const EnergymeterV0 = require( './deviceV0' );
+const EnergymeterV1 = require( './deviceV1' );
+
 class EnergymeterDriver extends BaseDriver {
 	
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_ENERGYMETER;
 	}
 
-	GetName()
+	GetDeviceClass( version )
 	{
-		return 'Energymeter';
+		switch( version )
+		{
+			case 0:
+				return EnergymeterV0;
+
+			case 1:
+				return EnergymeterV1;
+		}
+		return EnergymeterV0;
+	}
+
+	GetVersion()
+	{
+		return 1;
 	}
 }
 

@@ -12,6 +12,10 @@
             <input id="fritzboxip" type="text" value="" />
         </div>
         <div class="field row">
+            <label for="username">Username</label>
+            <input id="username" type="text" value="" />
+        </div>
+        <div class="field row">
             <label for="password">Password</label>
             <input id="password" type="password" value="" />
         </div>
@@ -27,8 +31,27 @@
             <input id="pollingactive" type="checkbox" checked="">
         </div>
         <div class="field row">
-            <label for="pollinginterval">Polling intervall</label>
+            <label for="pollinginterval">Polling Interval</label>
             <input id="pollinginterval" type="number" value="" />
+        </div>
+        <div class="field row">
+            <label for="statuspollinginterval">Status Polling Interval</label>
+            <input id="statuspollinginterval" type="number" value="" />
+        </div>
+        <div class="field row">
+            <label for="showunconnected">Disconnected Devices Pairable?</label>
+            <input id="showunconnected" type="checkbox" value="" />
+        </div>
+        <div class="field row">
+            <label for="loglevel">Log level</label>
+            <select id="loglevel">
+                <option value="0">Off</option>
+                <option value="1">Errors</option>
+                <option value="2">Warnings</option>
+                <option value="3">Info</option>
+                <option value="4">Debug</option>
+                <option value="5">Trace</option>
+            </select>
         </div>
     </fieldset>
 
@@ -39,10 +62,14 @@
         {
             SettingHelper.AutoConfig( Homey, 'save', [
                 { id: 'password' },
-                { id:'fritzboxip', default: 'http://fritz.box' },
+                { id: 'username', default: '' },
+                { id: 'fritzboxip', default: 'http://fritz.box' },
                 { id: 'strictssl', type: 'checkbox', default: true },
                 { id: 'pollinginterval', default: 60 },
-                { id: 'pollingactive', type: 'checkbox' },
+                { id: 'pollingactive', type: 'checkbox', default: false },
+                { id: 'statuspollinginterval', default: 30 },
+                { id: 'showunconnected', type: 'checkbox', default: false },
+                { id: 'loglevel', default: 4 }
             ]);
 
             Homey.ready();

@@ -3,18 +3,24 @@
 const API = require('../../lib/fritzAPI');
 const BaseDriver = require( '../../lib/baseDriver' );
 
+const AlarmsensorV0 = require( './deviceV0' );
+
 class AlarmsensorDriver extends BaseDriver {
 	
-	Init()
+	GetFunctionmask()
 	{
 		return API.CONST_ALARM;
 	}
 
-	GetName()
+	GetDeviceClass( version )
 	{
-		return 'Alarm sensor';
+		return AlarmsensorV0;
 	}
 
+	GetVersion()
+	{
+		return 0;
+	}
 }
 
 module.exports = AlarmsensorDriver;

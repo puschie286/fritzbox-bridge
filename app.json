@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.1.1",
+  "version": "0.5.3",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -9,8 +9,37 @@
   },
   "tags": {
     "en": [
-      "fritzbox", "bridge", "alpha", "dect", "thermostat", "avm", "smartfritz",
-      "Fritz!", "Fritz!Box", "Fritz!DECT", "Fritz!Powerline", "CometDECT" ]
+      "fritzbox",
+      "bridge",
+      "socket",
+      "energymeter",
+      "sensor",
+      "dect",
+      "thermostat",
+      "avm",
+      "smartfritz",
+      "Fritz!",
+      "Fritz!Box",
+      "Fritz!DECT",
+      "Fritz!Powerline",
+      "CometDECT"
+    ],
+    "de": [
+      "fritzbox",
+      "bridge",
+      "socket",
+      "energymeter",
+      "sensor",
+      "dect",
+      "thermostat",
+      "avm",
+      "smartfritz",
+      "Fritz!",
+      "Fritz!Box",
+      "Fritz!DECT",
+      "Fritz!Powerline",
+      "CometDECT"
+    ]
   },
   "description": {
     "en": "Use your Fritzbox as Bridge and get access to all device sensors",
@@ -19,7 +48,10 @@
   "category": [
     "appliances"
   ],
-  "permissions": [],
+  "homeyCommunityTopicId": 11334,
+  "permissions": [
+    "homey:app:nl.nielsdeklerk.log"
+  ],
   "images": {
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
@@ -35,8 +67,6 @@
         "en": "Open window detected",
         "de": "Fenster-offen erkennung"
       },
-      "uiQuickAction": false,
-      "uiComponent": null,
       "getable": true,
       "setable": false
     },
@@ -44,7 +74,7 @@
       "type": "boolean",
       "title": {
         "en": "Device input locked",
-        "de": "Geräte Tastenspeere"
+        "de": "Geräte Tastensperre"
       },
       "getable": true,
       "setable": false
@@ -53,7 +83,7 @@
       "type": "boolean",
       "title": {
         "en": "API input locked",
-        "de": "API Tastenspeere"
+        "de": "API Tastensperre"
       },
       "getable": true,
       "setable": false
@@ -81,7 +111,45 @@
       "title": {
         "en": "automatic timer",
         "de": "Automatische Zeitschaltung"
-      }
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_os_version": {
+      "type": "string",
+      "title": {
+        "en": "fritzbox os version",
+        "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_update_available": {
+      "type": "boolean",
+      "title": {
+        "en": "update available",
+        "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "os_version": {
+      "type": "string",
+      "title": {
+        "en": "fritzbox os version",
+        "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "alert_update_available": {
+      "type": "boolean",
+      "title": {
+        "en": "update available",
+        "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
     }
   },
   "drivers": [
@@ -135,7 +203,12 @@
           "id": "add_devices",
           "template": "add_devices"
         }
-      ]
+      ],
+      "energy":
+      {
+        "batteries":
+          ["AA", "AA"]
+      }
     },
     {
       "id": "socket",
@@ -214,6 +287,7 @@
       "class": "sensor",
       "capabilities": [
         "measure_current",
+        "measure_voltage",
         "measure_power",
         "meter_power"
       ],
@@ -248,6 +322,69 @@
       "images": {
         "large": "/drivers/alarmsensor/assets/images/large.png",
         "small": "/drivers/alarmsensor/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "fritzbox",
+      "name": {
+        "en": "Fritzbox router",
+        "de": "Fritzbox Router"
+      },
+      "class": "other",
+      "capabilities": [
+        "alert_update_available",
+        "os_version"
+      ],
+      "images": {
+        "large": "/drivers/fritzbox/assets/images/large.png",
+        "small": "/drivers/fritzbox/assets/images/small.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    },
+    {
+      "id": "plug",
+      "name": {
+        "en": "(G)Plug",
+        "de": "(G)Steckdose"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_switch_mode",
+        "measure_device_locked",
+        "measure_api_locked",
+        "measure_voltage",
+        "measure_power",
+        "meter_power"
+      ],
+      "images": {
+        "large": "/drivers/plug/assets/images/large.png",
+        "small": "/drivers/plug/assets/images/small.png"
       },
       "pair": [
         {
