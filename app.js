@@ -142,7 +142,7 @@ class FritzboxBridge extends Homey.App
 			} ).catch( function( error )
 			{
 				Settings.set( 'validation', 0 );
-				if( error.error.code === 'ETIMEDOUT' || error.error.code === 'ENOTFOUND' )
+				if( error !== undefined && error.error !== undefined && ( error.error.code === 'ETIMEDOUT' || error.error.code === 'ENOTFOUND' ) )
                 {
                     LOG.info( 'validate login: failed -> timeout' );
                     return;
