@@ -28,7 +28,7 @@ only new paired devices will use the newest device version ( system limitation *
   * measurements have a delay ( max. 15min )
   * sending commands can take up to 15min to take effect
   * temperature sensor has higher resolution internal
-
+  
 #### Device TODO's
 * redesign config page (materialzecss)
 * implement repeater driver
