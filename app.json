@@ -48,6 +48,11 @@
   "category": [
     "appliances"
   ],
+  "bugs": {
+    "url": "https://github.com/puschie286/fritzbox-bridge/issues"
+  },
+  "source": "https://github.com/puschie286/fritzbox-bridge",
+  "support": "mailto:christoph286@googlemail.com",
   "homeyCommunityTopicId": 11334,
   "permissions": [
     "homey:app:nl.nielsdeklerk.log"
