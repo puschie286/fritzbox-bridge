@@ -33,6 +33,6 @@
     "en": "* update for new app-store"
   },
   "0.5.5": {
-    "en": "* update readme\n"
+    "en": "* fix log level was not set correctly\n* added wlan device presence detection"
   }
 }
