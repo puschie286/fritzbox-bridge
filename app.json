@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.5.3",
+  "version": "0.5.5",
   "compatibility": ">=2.0.5",
   "sdk": 2,
   "name": {
@@ -143,6 +143,16 @@
       "title": {
         "en": "fritzbox os version",
         "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "power_usage": {
+      "type": "number",
+      "units": "%",
+      "title": {
+        "en": "power usage",
+        "de": "Energyverbrauch"
       },
       "getable": true,
       "setable": false
@@ -351,7 +361,8 @@
       "class": "other",
       "capabilities": [
         "alert_update_available",
-        "os_version"
+        "os_version",
+        "power_usage"
       ],
       "images": {
         "large": "/drivers/fritzbox/assets/images/large.png",
@@ -405,5 +416,43 @@
         }
       ]
     }
-  ]
+  ],
+  "flow": {
+    "triggers": [
+      {
+        "id": "wlan_device_connected",
+        "title": {
+          "en": "WLAN device has connected",
+          "de": "WLAN Gerät hat sich verbunden"
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "device name",
+              "de": "Geräte Name"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wlan_device_disconnected",
+        "title": {
+          "en": "WLAN device has disconnected",
+          "de": "WLAN Gerät hat sich getrennt"
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "device name",
+              "de": "Geräte Name"
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

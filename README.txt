@@ -1,9 +1,3 @@
-Fritzbox Bridge
-
-Use your fritzbox as bridge and get access to all device sensors.
-Each sensor can be addressed individually and is synchronized via a single central query.
-Homey app
-
 * most sensor properties have auto trigger/action cards
 
 supported devices:
@@ -12,6 +6,10 @@ supported devices:
 * HANFUN Alarm
 * FRITZ!Box
 
+flow trigger:
+* wlan device connected
+* wlan device disconnected
+
 backward compatibility ( >= 0.5.0 ):
 all devices that were paired before update will not be affected by device changes.
 only new paired devices will use the newest device version
@@ -19,7 +17,7 @@ only new paired devices will use the newest device version
 supported sensors & values:
 https://github.com/puschie286/fritzbox-bridge/wiki/Supported-devices-&-sensors
 
-Used icons from: <a href="http://flaticon.com">Freepik</a>
+Used icons from: https://www.flaticon.com/authors/freepik
 
 known limits:
 * CometDECT

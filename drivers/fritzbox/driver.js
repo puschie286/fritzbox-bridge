@@ -40,8 +40,9 @@ class FritzboxDriver extends BaseDriver
 
 		LOG.debug( 'request device list for: fritzbox' );
 
-		API.Get().getOverviewData().then( function( data )
+		API.Get().getOverviewData().then( function()
 		{
+			//console.log( data );
 			callback( null, [{
 				name: 'Fritzbox',
 				data: { id: 'fritzbox' },

@@ -11,7 +11,7 @@ class FritzboxBridge extends Homey.App
 	onInit()
 	{
 		// init log system
-		LOG.init( this.log, LOG.TRACE, { systemcopy: true } );
+		LOG.init( this.log, this.getLogLevel( Settings.get( 'loglevel' ) || 2 ), { systemcopy: true } );
 
 		LOG.info( 'start Fritzbox Bridge' );
 
@@ -42,8 +42,7 @@ class FritzboxBridge extends Homey.App
 				break;
 
 			case 'pollingactive':
-				let BoolValue = Value != false;
-				if( BoolValue )
+				if( Value != false )
 				{
 					if( Settings.get( 'validation' ) === 1 )
 					{
@@ -66,33 +65,7 @@ class FritzboxBridge extends Homey.App
 				break;
 
 			case 'loglevel':
-				let IntNumber = parseInt( value );
-				switch( IntNumber )
-				{
-					case 0:
-						LOG.setLevel( LOG.OFF );
-						break;
-
-					case 1:
-						LOG.setLevel( LOG.ERROR );
-						break;
-
-					case 2:
-						LOG.setLevel( LOG.WARN );
-						break;
-
-					case 3:
-						LOG.setLevel( LOG.INFO );
-						break;
-
-					case 4:
-						LOG.setLevel( LOG.DEBUG );
-						break;
-
-					case 5:
-						LOG.setLevel( LOG.TRACE );
-						break;
-				}
+				LOG.setLevel( this.getLogLevel( Value ) );
 				break;
 		}
 	}
@@ -102,9 +75,9 @@ class FritzboxBridge extends Homey.App
 		let IP 			= Settings.get( 'fritzboxip' ) || 'http://fritz.box';
 		let username    = Settings.get( 'username' ) || '';
 		let password	= Settings.get( 'password' ) || '';
-		let strictssl	= Settings.get( 'strictssl' );
-		let polling     = Settings.get( 'pollinginterval' ) || 0;
-		let spolling    = Settings.get( 'statuspollinginterval' || 0 );
+		let strictssl	= Settings.get( 'strictssl' ) || false;
+		let polling     = Settings.get( 'pollinginterval' ) || 60;
+		let spolling    = Settings.get( 'statuspollinginterval' || 60 );
 
 		// clear running polling before change
 		API.StopPolling();
@@ -150,27 +123,27 @@ class FritzboxBridge extends Homey.App
                 	if( code === 'ETIMEDOUT' )
 	                {
 	                	Info = 'reason: timeout -> invalid url or no (direct) connection ?';
-                        LOG.info( Info );
+                        LOG.warn( Info );
 	                }
                 	else if( code === 'ENOTFOUND' )
 	                {
 	                	Info = 'reason: not found -> invalid url ?';
-		                LOG.info( Info );
+		                LOG.error( Info );
 	                }
                 	else if( code === 'DEPTH_ZERO_SELF_SIGNED_CERT' )
 	                {
 	                	Info = 'reason: self signed cert -> disable STRICT SSL';
-		                LOG.info( Info );
+		                LOG.error( Info );
 	                }
                 }
 				else if( error === '0000000000000000' )
 				{
 					Info = 'reason: login refused -> invalid username/password ?';
-					LOG.info( Info );
+					LOG.error( Info );
 				}
 				else
 				{
-					LOG.info( 'login failed' );
+					LOG.error( 'login failed' );
 				}
 				// store info for config page
 				if( Info !== null )
@@ -180,6 +153,28 @@ class FritzboxBridge extends Homey.App
 				Settings.set( 'validation', 0 );
 			} );
 		}, 100 );
+	}
+
+	getLogLevel( logValue )
+	{
+		let IntNumber = parseInt( logValue );
+		switch( IntNumber )
+		{
+			case 0:
+				return LOG.OFF;
+			case 1:
+				return LOG.ERROR;
+			case 2:
+				return LOG.WARN;
+			case 3:
+				return LOG.INFO;
+			case 4:
+				return LOG.DEBUG;
+			case 5:
+				return LOG.TRACE;
+			default:
+				return LOG.ERROR;
+		}
 	}
 }
 

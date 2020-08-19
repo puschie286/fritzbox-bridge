@@ -61,15 +61,15 @@
         function onHomeyReady( Homey )
         {
             SettingHelper.AutoConfig( Homey, 'save', [
-                { id: 'password' },
+                { id: 'password', default: '' },
                 { id: 'username', default: '' },
                 { id: 'fritzboxip', default: 'http://fritz.box' },
-                { id: 'strictssl', type: 'checkbox', default: true },
+                { id: 'strictssl', type: 'checkbox', default: false },
                 { id: 'pollinginterval', default: 60 },
-                { id: 'pollingactive', type: 'checkbox', default: false },
-                { id: 'statuspollinginterval', default: 30 },
+                { id: 'pollingactive', type: 'checkbox', default: true },
+                { id: 'statuspollinginterval', default: 60 },
                 { id: 'showunconnected', type: 'checkbox', default: false },
-                { id: 'loglevel', default: 4 }
+                { id: 'loglevel', default: 2 }
             ]);
 
             Homey.ready();

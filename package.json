@@ -1,16 +1,18 @@
 {
   "name": "com.puschie.fritzbox-bridge",
-  "version": "0.5.3",
+  "version": "0.5.5",
   "description": "Fritzbox Bridge",
   "main": "app.js",
   "dependencies": {
     "fritzapi": "git+https://github.com/puschie286/fritzapi.git",
     "js-logger": "^1.6.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "homey": "latest"
+  },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/puschie/fritzbox-bridge.git"
+    "url": "git+https://github.com/puschie286/fritzbox-bridge.git"
   },
   "author": "Puschie"
 }

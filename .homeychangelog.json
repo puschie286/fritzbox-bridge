@@ -1,32 +1,38 @@
 {
-  "0.5.3": {
-    "en": "* improve login feedback & logging\n* add battery info to thermostats"
-  },
-  "0.5.2": {
-    "en": "* add better error handling (login)"
-  },
-  "0.5.1": {
-    "en": "* add 'current' capability for energymeter"
-  },
-  "0.5.0": {
-    "en": "* optimize update process\n* optimize device/driver structure\n* implemented backward-compatibility system\n* ready for beta"
-  },
-  "0.3.5": {
-    "en": "* switch logging lib\n* add options ( allow to pair disconnected devices, log level )\n* add plug driver ( energymeter + switch )"
-  },
-  "0.3.0": {
-    "en": "* add fritzbox driver\n* add status polling ( for fritzbox driver )\n* extend property filtering ( reduce memory usage by device )\n* fix energymeter units"
-  },
-  "0.2.2": {
-    "en": "* fix polling block after failing\n* add username option to fritzbox login"
-  },
-  "0.2.0": {
-    "en": "* added Simple-LOG support\n* tiny changes for store release"
+  "0.1.0": {
+    "en": "* first (basic) Version\n* basic driver: thermostat, switch, energymeter, temperature sensor, alarm sensor"
   },
   "0.1.1": {
     "en": "* fix polling settings"
   },
-  "0.1.0": {
-    "en": "* first (basic) Version\n* basic driver: thermostat, switch, energymeter, temperature sensor, alarm sensor"
+  "0.2.0": {
+    "en": "* added Simple-LOG support\n* tiny changes for store release"
+  },
+  "0.2.2": {
+    "en": "* fix polling block after failing\n* add username option to fritzbox login"
+  },
+  "0.3.0": {
+    "en": "* add fritzbox driver\n* add status polling ( for fritzbox driver )\n* extend property filtering ( reduce memory usage by device )\n* fix energymeter units"
+  },
+  "0.3.5": {
+    "en": "* switch logging lib\n* add options ( allow to pair disconnected devices, log level )\n* add plug driver ( energymeter + switch )"
+  },
+  "0.5.0": {
+    "en": "* optimize update process\n* optimize device/driver structure\n* implemented backward-compatibility system\n* ready for beta"
+  },
+  "0.5.1": {
+    "en": "* add 'current' capability for energymeter"
+  },
+  "0.5.2": {
+    "en": "* add better error handling (login)"
+  },
+  "0.5.3": {
+    "en": "* improve login feedback & logging\n* add battery info to thermostats"
+  },
+  "0.5.4": {
+    "en": "* update for new app-store"
+  },
+  "0.5.5": {
+    "en": "* update readme\n"
   }
 }
