@@ -34,5 +34,8 @@
   },
   "0.5.5": {
     "en": "* fix log level was not set correctly\n* added wlan device presence detection"
+  },
+  "0.5.6": {
+    "en": "* improve error handling ( catch most errors )\n* added descriptions to a few errors"
   }
 }

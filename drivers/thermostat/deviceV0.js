@@ -20,9 +20,24 @@ class ThermostatV0 extends BaseDevice
 			'measure_temperature': [ 'hkr.tist', 'integer', ( A ) => A / 2 ],
 			'measure_temperature.night': [ 'hkr.absenk', 'integer', ( A ) => A / 2 ],
 			'measure_temperature.komfort': [ 'hkr.komfort', 'integer', ( A ) => A / 2 ],
-			'measure_device_error': [ 'hkr.errorcode', 'string', ( A ) => Homey.__( 'ErrorCode' + A.toString() ), 'noCast' ],
+			'measure_device_error': [ 'hkr.errorcode', 'string', this.HandleError.bind( this ), 'noCast' ],
 			'target_temperature': [ 'hkr.tsoll', 'integer', ( A ) => API.round( API.clamp( A / 2, 4, 35 ), 0.01 ) ]
 		};
+	}
+
+	HandleError( error )
+	{
+		if( error === undefined || error === 0 )
+		{
+			this.unsetWarning();
+			return Homey.__( 'ErrorCode' + error );
+		}
+		else
+		{
+			const text = Homey.__( 'ErrorCode' + error );
+			this.setWarning( text );
+			return 'Error ' + error;
+		}
 	}
 
 	CapabilityListener()

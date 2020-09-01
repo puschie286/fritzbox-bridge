@@ -5,6 +5,26 @@ const Homey = require('homey');
 const LOG = require('./lib/logWrapper' );
 const API = require('./lib/fritzAPI');
 
+// define error helper
+if( !( 'toJSON' in Error.prototype ) )
+{
+	Object.defineProperty( Error.prototype, 'toJSON', {
+		value: function()
+		{
+			const alt = {};
+
+			Object.getOwnPropertyNames( this ).forEach( function( key )
+			{
+				alt[key] = this[key];
+			}, this );
+
+			return alt;
+		},
+		configurable: true,
+		writable: true
+	} )
+}
+
 const Settings = Homey.ManagerSettings;
 class FritzboxBridge extends Homey.App
 {
@@ -75,7 +95,7 @@ class FritzboxBridge extends Homey.App
 		let IP 			= Settings.get( 'fritzboxip' ) || 'http://fritz.box';
 		let username    = Settings.get( 'username' ) || '';
 		let password	= Settings.get( 'password' ) || '';
-		let strictssl	= Settings.get( 'strictssl' ) || false;
+		let strictSSL	= Settings.get( 'strictssl' ) || false;
 		let polling     = Settings.get( 'pollinginterval' ) || 60;
 		let spolling    = Settings.get( 'statuspollinginterval' || 60 );
 
@@ -83,7 +103,7 @@ class FritzboxBridge extends Homey.App
 		API.StopPolling();
 
 		// use browser login to get sid
-		API.Create( username, password, IP, strictssl );
+		API.Create( username, password, IP, strictSSL );
 
 		// (lazy) validate login
 		this.validateLogin( polling * 1000, spolling * 1000 );
@@ -117,7 +137,7 @@ class FritzboxBridge extends Homey.App
 			{
 				LOG.debug( 'login failed: ' + JSON.stringify( error ) );
 
-				if( error !== undefined && error.error !== undefined && error.error.code !== undefined )
+				if( API.validate( error ) && API.validate( error.error ) && API.validate( error.error.code ) )
                 {
                 	let code = error.error.code;
                 	if( code === 'ETIMEDOUT' )
@@ -136,6 +156,19 @@ class FritzboxBridge extends Homey.App
 		                LOG.error( Info );
 	                }
                 }
+				else if( API.validate( error ) && API.validate( error.response ) && API.validate( error.response.statusCode ) )
+				{
+					if( error.response.statusCode === 503 )
+					{
+						Info = 'reason: fritzbox web server has crashed -> restart your fritzbox ( update to 7.20 to fix )';
+						LOG.error( Info );
+					}
+					else
+					{
+						Info = 'reason: unknown ( details in log )';
+						LOG.error( 'reason: unknown: ' + JSON.stringify( error.response ) );
+					}
+				}
 				else if( error === '0000000000000000' )
 				{
 					Info = 'reason: login refused -> invalid username/password ?';
