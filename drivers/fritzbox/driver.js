@@ -45,8 +45,10 @@ class FritzboxDriver extends BaseDriver
 			//console.log( data );
 			callback( null, [{
 				name: 'Fritzbox',
-				data: { id: 'fritzbox' },
-				store: { version: this.GetVersion() }
+				data: {
+					id: 'fritzbox',
+					version: this.GetVersion()
+				},
 			}] );
 		}.bind( this ) ).catch( function( error )
 		{
