@@ -37,5 +37,8 @@
   },
   "0.5.6": {
     "en": "* improve error handling ( catch most errors )\n* added descriptions to a few errors"
+  },
+  "0.5.8": {
+    "en": "* Workaround for Homey 7.1.3 device storage problem"
   }
 }
