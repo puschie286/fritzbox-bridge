@@ -66,7 +66,7 @@ class ThermostatV0 extends BaseDevice
 	{
 		if( name === 'target_temperature' && ( value === 254 || value === 253 ) )
 		{
-			this.updateCapabilityBoolean( value === 254, 'onoff' );
+			this.updateCapability( value === 254, 'onoff' );
 			return;
 		}
 
