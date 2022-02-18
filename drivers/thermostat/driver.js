@@ -4,7 +4,7 @@ const API = require('../../lib/fritzAPI');
 const BaseDriver = require( '../../lib/baseDriver' );
 
 const ThermostatV0 = require('./deviceV0' );
-
+const ThermostatV1 = require('./deviceV1' );
 
 class ThermostatDriver extends BaseDriver
 {
@@ -15,12 +15,21 @@ class ThermostatDriver extends BaseDriver
 
 	GetDeviceClass( version )
 	{
-		return ThermostatV0;
+		switch( version )
+		{
+			case 0:
+				return ThermostatV0;
+			case 1:
+				return ThermostatV1
+		}
+
+		// latest as backup
+		return ThermostatV1;
 	}
 
 	GetVersion()
 	{
-		return 0;
+		return 1;
 	}
 }
 

@@ -27,15 +27,13 @@ class ThermostatV0 extends BaseDevice
 
 	HandleError( error )
 	{
-		if( error === undefined || error === '0' )
+		if( error === undefined || error === 0 || error === "0" )
 		{
-			this.log( 'if Errorcode: ', error );
 			this.unsetWarning();
 			return Homey.__( 'ErrorCode' + error );
 		}
 		else
 		{			
-			this.log( 'else Errorcode: ', error );
 			const text = Homey.__( 'ErrorCode' + error );
 			this.setWarning( text );
 			return 'Error ' + error;

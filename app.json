@@ -71,10 +71,233 @@
       "type": "boolean",
       "title": {
         "en": "Open window detected",
-        "de": "Fenster-offen erkennung"
+        "de": "Fenster-offen Erkennung"
       },
       "getable": true,
       "setable": false
+    },
+    "minutes_left_open_window": {
+      "type": "number",
+      "title": {
+        "en": "Open window mode active for...",
+        "de": "Fenster-Offen Aktiv für..."
+      },
+      "getable": true,
+      "setable": true,
+      "units": "min",
+      "min": 0,
+      "max": 1440,
+      "step": 1,
+      "decimals": 0,
+      "uiComponent": "sensor",
+      "insights": false
+    },
+    "enum_minutes_left_open_window": {
+      "type": "enum",
+      "title": {
+        "en": "Open window mode active for...",
+        "de": "Fenster-Offen Aktiv für..."
+      },
+      "getable": true,
+      "setable": true,
+      "units": "min",
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "de": "Aus"
+          }
+        },
+        {
+          "id": "5minutes",
+          "title": {
+            "en": "5 Minutes",
+            "de": "5 Minuten"
+          }
+        },
+        {
+          "id": "10minutes",
+          "title": {
+            "en": "10 Minutes",
+            "de": "10 Minuten"
+          }
+        },
+        {
+          "id": "15minutes",
+          "title": {
+            "en": "15 Minutes",
+            "de": "15 Minuten"
+          }
+        },
+        {
+          "id": "20minutes",
+          "title": {
+            "en": "20 Minutes",
+            "de": "20 Minuten"
+          }
+        },
+        {
+          "id": "25minutes",
+          "title": {
+            "en": "25 Minutes",
+            "de": "25 Minuten"
+          }
+        },
+        {
+          "id": "30minutes",
+          "title": {
+            "en": "30 Minutes",
+            "de": "30 Minuten"
+          }
+        },
+        {
+          "id": "45minutes",
+          "title": {
+            "en": "45 Minutes",
+            "de": "45 Minuten"
+          }
+        },
+        {
+          "id": "60minutes",
+          "title": {
+            "en": "60 Minutes",
+            "de": "60 Minuten"
+          }
+        },
+        {
+          "id": "90minutes",
+          "title": {
+            "en": "90 Minutes",
+            "de": "90 Minuten"
+          }
+        },
+        {
+          "id": "120minutes",
+          "title": {
+            "en": "120 Minutes",
+            "de": "120 Minuten"
+          }
+        }
+      ],
+      "uiComponent": "picker",
+      "insights": false
+    },
+    "measure_boost_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Boost Active",
+        "de": "Boost Aktiv"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "minutes_left_boost_active": {
+      "type": "number",
+      "title": {
+        "en": "Boost active for...",
+        "de": "Boost Aktiv für..."
+      },
+      "getable": true,
+      "setable": true,
+      "units": "min",
+      "min": 0,
+      "max": 1440,
+      "step": 1,
+      "decimals": 0,
+      "uiComponent": "sensor",
+      "insights": false
+    },
+    "enum_minutes_left_boost_active": {
+      "type": "enum",
+      "title": {
+        "en": "Boost active for...",
+        "de": "Boost Aktiv für..."
+      },
+      "getable": true,
+      "setable": true,
+      "units": "min",
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "de": "Aus"
+          }
+        },
+        {
+          "id": "5minutes",
+          "title": {
+            "en": "5 Minutes",
+            "de": "5 Minuten"
+          }
+        },
+        {
+          "id": "10minutes",
+          "title": {
+            "en": "10 Minutes",
+            "de": "10 Minuten"
+          }
+        },
+        {
+          "id": "15minutes",
+          "title": {
+            "en": "15 Minutes",
+            "de": "15 Minuten"
+          }
+        },
+        {
+          "id": "20minutes",
+          "title": {
+            "en": "20 Minutes",
+            "de": "20 Minuten"
+          }
+        },
+        {
+          "id": "25minutes",
+          "title": {
+            "en": "25 Minutes",
+            "de": "25 Minuten"
+          }
+        },
+        {
+          "id": "30minutes",
+          "title": {
+            "en": "30 Minutes",
+            "de": "30 Minuten"
+          }
+        },
+        {
+          "id": "45minutes",
+          "title": {
+            "en": "45 Minutes",
+            "de": "45 Minuten"
+          }
+        },
+        {
+          "id": "60minutes",
+          "title": {
+            "en": "60 Minutes",
+            "de": "60 Minuten"
+          }
+        },
+        {
+          "id": "90minutes",
+          "title": {
+            "en": "90 Minutes",
+            "de": "90 Minuten"
+          }
+        },
+        {
+          "id": "120minutes",
+          "title": {
+            "en": "120 Minutes",
+            "de": "120 Minuten"
+          }
+        }
+      ],
+      "uiComponent": "picker",
+      "insights": false
     },
     "measure_device_locked": {
       "type": "boolean",
@@ -178,6 +401,11 @@
       "class": "thermostat",
       "capabilities": [
         "measure_open_window",
+        "minutes_left_open_window",
+        "enum_minutes_left_open_window",
+        "measure_boost_active",
+        "minutes_left_boost_active",
+        "enum_minutes_left_boost_active",
         "measure_device_locked",
         "measure_api_locked",
         "measure_device_error",
