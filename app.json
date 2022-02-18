@@ -190,6 +190,10 @@
         "measure_temperature.night"
       ],
       "capabilitiesOptions": {
+        "target_temperature": {
+          "min": 8,
+          "max": 28 
+        },
         "measure_temperature.komfort": {
           "title": {
             "en": "Fritzbox: comfort temperature",
