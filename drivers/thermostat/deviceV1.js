@@ -3,6 +3,7 @@
 const Homey = require( 'homey' );
 const API = require('../../lib/fritzAPI');
 const BaseDevice = require('../../lib/baseDevice');
+const LOG = require('../../lib/logWrapper' );
 
 // TODO: add support for: [ nextchange:{ endperiod: 'timestamp', tchange: 'target tmp' }, summeractive: '0', holidayactive: '' ]
 
@@ -88,14 +89,28 @@ class ThermostatV1 extends BaseDevice
 	{
 		const numericValue = parseEnumOrStringOrMinutesLeft(value);
 		this.log( `send onMinutesLeftOpenWindow: ${numericValue}` );
-		return API.Get().setHkrWindowOpen( this.getData().id, numericValue ).then(() => {});
+		return API.Get().setHkrWindowOpen( this.getData().id, numericValue ).then((retVal) => {
+			const intEndTime = parseInt(retVal);
+			if (isNaN(intEndTime)) {
+				LOG.warn(`Unexpectedly received ${JSON.stringify(retVal)} instead of a Unix timestamp`);
+			}
+			super.UpdateProperty('minutes_left_open_window', intEndTime, 'integer', endDateToMinutesLeft);
+			super.UpdateProperty('enum_minutes_left_open_window', intEndTime, 'integer', endDateToMinutesLeftEnum);
+		});
 	}
 
 	async onMinutesLeftBoostActive( value )
 	{
 		const numericValue = parseEnumOrStringOrMinutesLeft(value);
 		this.log( `send onMinutesLeftBoostActive: ${numericValue}` );
-		return API.Get().setHkrBoost( this.getData().id, numericValue ).then(() => {});
+		return API.Get().setHkrBoost( this.getData().id, numericValue ).then((retVal) => {
+			const intEndTime = parseInt(retVal);
+			if (isNaN(intEndTime)) {
+				LOG.warn(`Unexpectedly received ${JSON.stringify(retVal)} instead of a Unix timestamp`);
+			}
+			super.UpdateProperty('minutes_left_boost_active', intEndTime, 'integer', endDateToMinutesLeft);
+			super.UpdateProperty('enum_minutes_left_boost_active', intEndTime, 'integer', endDateToMinutesLeftEnum);
+		});
 	}
 
 	async onOnOff( value )
