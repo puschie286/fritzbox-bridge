@@ -21,7 +21,6 @@ class FritzboxDriver extends BaseDriver
 		{
 			case 0:
 				return FritzV0;
-
 			case 1:
 				return FritzV1;
 		}

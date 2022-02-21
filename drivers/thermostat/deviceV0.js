@@ -27,13 +27,13 @@ class ThermostatV0 extends BaseDevice
 
 	HandleError( error )
 	{
-		if( error === undefined || error === 0 )
+		if( error === undefined || error === 0 || error === "0" )
 		{
 			this.unsetWarning();
 			return Homey.__( 'ErrorCode' + error );
 		}
 		else
-		{
+		{			
 			const text = Homey.__( 'ErrorCode' + error );
 			this.setWarning( text );
 			return 'Error ' + error;
@@ -63,13 +63,12 @@ class ThermostatV0 extends BaseDevice
 	}
 
 	UpdateProperty( name, value, type, valueFunc )
-	{
-		if( name === 'target_temperature' && ( value === 254 || value === 253 ) )
+	{		
+		if( name === 'target_temperature' )
 		{
-			this.updateCapabilityBoolean( value === 254, 'onoff' );
-			return;
+			this.updateCapability( Boolean(value !== 253), 'onoff' );
+			if (value === 253 || value === 254) return;
 		}
-
 		super.UpdateProperty( name, value, type, valueFunc );
 	}
 }

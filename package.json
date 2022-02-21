@@ -8,7 +8,7 @@
     "js-logger": "^1.6.0"
   },
   "devDependencies": {
-    "homey": "latest"
+    "homey": "^2.26.1"
   },
   "repository": {
     "type": "git",

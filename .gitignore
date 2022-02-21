@@ -150,3 +150,6 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Added by Homey CLI
+/.homeybuild/
