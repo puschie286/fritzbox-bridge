@@ -1,0 +1,33 @@
+{
+  "name": {
+    "en": "(G)Plug",
+    "de": "(G)Steckdose"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_switch_mode",
+    "measure_device_locked",
+    "measure_api_locked",
+    "measure_voltage",
+    "measure_power",
+    "meter_power"
+  ],
+  "images": {
+    "large": "/drivers/plug/assets/images/large.png",
+    "small": "/drivers/plug/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

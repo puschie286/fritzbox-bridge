@@ -1,0 +1,17 @@
+{
+  "id": "wlan_device_connected",
+  "title": {
+    "en": "WLAN device has connected",
+    "de": "WLAN Gerät hat sich verbunden"
+  },
+  "tokens": [
+    {
+      "name": "device_name",
+      "type": "string",
+      "title": {
+        "en": "device name",
+        "de": "Geräte Name"
+      }
+    }
+  ]
+}

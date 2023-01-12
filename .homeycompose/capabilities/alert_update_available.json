@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "update available",
+    "de": "Update verfügbar"
+  },
+  "getable": true,
+  "setable": false
+}

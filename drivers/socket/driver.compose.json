@@ -1,0 +1,30 @@
+{
+  "name": {
+    "en": "Socket switch",
+    "de": "Steckdosenschalter"
+  },
+  "class": "socket",
+  "capabilities": [
+    "onoff",
+    "measure_switch_mode",
+    "measure_device_locked",
+    "measure_api_locked"
+  ],
+  "images": {
+    "large": "/drivers/socket/assets/images/large.png",
+    "small": "/drivers/socket/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

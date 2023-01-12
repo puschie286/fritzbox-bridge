@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "fritzbox os version",
+    "de": "Fritzbox OS Version"
+  },
+  "getable": true,
+  "setable": false
+}

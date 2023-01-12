@@ -1,0 +1,57 @@
+{
+  "name": {
+    "en": "Thermostat",
+    "de": "Thermostat"
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "measure_open_window",
+    "measure_device_locked",
+    "measure_api_locked",
+    "measure_device_error",
+    "onoff",
+    "measure_battery",
+    "measure_battery_low",
+    "target_temperature",
+    "measure_temperature",
+    "measure_temperature.komfort",
+    "measure_temperature.night"
+  ],
+  "capabilitiesOptions": {
+    "measure_temperature.komfort": {
+      "title": {
+        "en": "Fritzbox: comfort temperature",
+        "de": "Fritzbox: Komforttemperatur"
+      }
+    },
+    "measure_temperature.night": {
+      "title": {
+        "en": "Fritzbox: night temperature",
+        "de": "Fritzbox: Spartemperatur"
+      }
+    }
+  },
+  "images": {
+    "large": "/drivers/thermostat/assets/images/large.png",
+    "small": "/drivers/thermostat/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "energy": {
+    "batteries": [
+      "AA",
+      "AA"
+    ]
+  }
+}

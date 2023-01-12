@@ -1,0 +1,67 @@
+{
+  "id": "com.puschie.fritzbox-bridge",
+  "version": "0.6.0",
+  "compatibility": ">=5.0.0",
+  "platforms": [ "local" ],
+  "brandColor": "#f02d1f",
+  "sdk": 3,
+  "name": {
+    "en": "Fritzbox Bridge",
+    "de": "Fritzbox Bridge"
+  },
+  "tags": {
+    "en": [
+      "fritzbox",
+      "bridge",
+      "socket",
+      "energymeter",
+      "sensor",
+      "dect",
+      "thermostat",
+      "avm",
+      "smartfritz",
+      "Fritz!",
+      "Fritz!Box",
+      "Fritz!DECT",
+      "Fritz!Powerline",
+      "CometDECT"
+    ],
+    "de": [
+      "fritzbox",
+      "bridge",
+      "socket",
+      "energymeter",
+      "sensor",
+      "dect",
+      "thermostat",
+      "avm",
+      "smartfritz",
+      "Fritz!",
+      "Fritz!Box",
+      "Fritz!DECT",
+      "Fritz!Powerline",
+      "CometDECT"
+    ]
+  },
+  "description": {
+    "en": "Use your Fritzbox as Bridge and get access to all device sensors",
+    "de": "Nutze deine Fritzbox als Bridge und erhalte Zugriff auf alle Gerätesensoren"
+  },
+  "category": [
+    "appliances"
+  ],
+  "bugs": {
+    "url": "https://github.com/puschie286/fritzbox-bridge/issues"
+  },
+  "source": "https://github.com/puschie286/fritzbox-bridge",
+  "support": "mailto:christoph286@googlemail.com",
+  "homeyCommunityTopicId": 11334,
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Christoph",
+    "email": "christoph286@googlemail.com"
+  }
+}

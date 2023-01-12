@@ -1,0 +1,27 @@
+{
+  "name": {
+    "en": "Alarm sensor",
+    "de": "Alarmsensor"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "alarm_generic"
+  ],
+  "images": {
+    "large": "/drivers/alarmsensor/assets/images/large.png",
+    "small": "/drivers/alarmsensor/assets/images/small.png"
+  },
+  "pair": [
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

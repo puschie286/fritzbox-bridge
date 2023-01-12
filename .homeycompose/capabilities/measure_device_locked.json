@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Device input locked",
+    "de": "Geräte Tastensperre"
+  },
+  "getable": true,
+  "setable": false
+}

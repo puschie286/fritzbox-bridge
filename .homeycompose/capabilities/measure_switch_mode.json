@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "automatic timer",
+    "de": "Automatische Zeitschaltung"
+  },
+  "getable": true,
+  "setable": false
+}

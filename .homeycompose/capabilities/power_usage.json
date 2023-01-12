@@ -1,0 +1,10 @@
+{
+  "type": "number",
+  "units": "%",
+  "title": {
+    "en": "power usage",
+    "de": "Energyverbrauch"
+  },
+  "getable": true,
+  "setable": false
+}

@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Battery low warning",
+    "de": "Batterie schwach Warnung"
+  },
+  "getable": true,
+  "setable": false
+}

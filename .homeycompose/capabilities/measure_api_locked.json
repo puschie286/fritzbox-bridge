@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "API input locked",
+    "de": "API Tastensperre"
+  },
+  "getable": true,
+  "setable": false
+}

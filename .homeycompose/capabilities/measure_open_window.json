@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Open window detected",
+    "de": "Fenster-offen erkennung"
+  },
+  "getable": true,
+  "setable": false
+}

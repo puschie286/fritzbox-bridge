@@ -1,0 +1,17 @@
+{
+  "id": "wlan_device_disconnected",
+  "title": {
+    "en": "WLAN device has disconnected",
+    "de": "WLAN Gerät hat sich getrennt"
+  },
+  "tokens": [
+    {
+      "name": "device_name",
+      "type": "string",
+      "title": {
+        "en": "device name",
+        "de": "Geräte Name"
+      }
+    }
+  ]
+}

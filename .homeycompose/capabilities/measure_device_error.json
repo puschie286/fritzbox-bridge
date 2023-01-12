@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Device error",
+    "de": "Geräte Fehler"
+  },
+  "getable": true,
+  "setable": false
+}
