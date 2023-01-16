@@ -5,71 +5,71 @@
     <script type="text/javascript" src="helper.js" data-origin="settings"></script>
 </head>
 <body>
-    <fieldset>
-        <legend>Fritzbox Login</legend>
-        <div class="field row">
-            <label for="fritzboxip">Fritzbox IP</label>
-            <input id="fritzboxip" type="text" value="" />
-        </div>
-        <div class="field row">
-            <label for="username">Username</label>
-            <input id="username" type="text" value="" />
-        </div>
-        <div class="field row">
-            <label for="password">Password</label>
-            <input id="password" type="password" value="" />
-        </div>
-        <div class="field-row">
-            <label for="strictssl">Strict SSL</label>
-            <input id="strictssl" type="checkbox" checked=""/>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Bridge Config</legend>
-        <div class="field row">
-            <label for="pollingactive">Polling Active</label>
-            <input id="pollingactive" type="checkbox" checked="">
-        </div>
-        <div class="field row">
-            <label for="pollinginterval">Polling Interval</label>
-            <input id="pollinginterval" type="number" value="" />
-        </div>
-        <div class="field row">
-            <label for="statuspollinginterval">Status Polling Interval</label>
-            <input id="statuspollinginterval" type="number" value="" />
-        </div>
-        <div class="field row">
-            <label for="showunconnected">Disconnected Devices Pairable?</label>
-            <input id="showunconnected" type="checkbox" value="" />
-        </div>
-        <div class="field row">
-            <label for="loglevel">Log level</label>
-            <select id="loglevel">
-                <option value="0">Off</option>
-                <option value="1">Errors</option>
-                <option value="2">Warnings</option>
-                <option value="3">Info</option>
-                <option value="4">Debug</option>
-                <option value="5">Trace</option>
-            </select>
-        </div>
-    </fieldset>
+	<header class="homey-header">
+		<h1 class="homey-title" data-i18n="Settings.Title"></h1>
+	</header>
+	<fieldset class="homey-form-fieldset">
+		<legend class="homey-form-legend" data-i18n="Settings.Fritzbox.Title"></legend>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="fritzboxip" data-i18n="Settings.Fritzbox.Ip"></label>
+			<input class="homey-form-input" id="fritzboxip" type="url" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="username" data-i18n="Settings.Fritzbox.Username"></label>
+			<input class="homey-form-input" id="username" type="text" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="password" data-i18n="Settings.Fritzbox.Password"></label>
+			<input class="homey-form-input" id="password" type="password" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="strictssl" data-i18n="Settings.Fritzbox.StrictSSL"></label>
+			<input class="homey-form-input" id="strictssl" type="checkbox" checked=""/>
+		</div>
+	</fieldset>
+	<fieldset class="homey-form-fieldset">
+		<legend class="homey-form-legend" data-i18n="Settings.Bridge.Title"></legend>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="pollingactive" data-i18n="Settings.Bridge.PollingActive"></label>
+			<input class="homey-form-input" id="pollingactive" type="checkbox" checked="">
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="pollinginterval" data-i18n="Settings.Bridge.PollingInterval"></label>
+			<input class="homey-form-input" id="pollinginterval" type="number" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="statuspollingactive" data-i18n="Settings.Bridge.StatusPollingActive"></label>
+			<input class="homey-form-input" id="statuspollingactive" type="checkbox" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="statuspollinginterval" data-i18n="Settings.Bridge.StatusPollingInterval"></label>
+			<input class="homey-form-input" id="statuspollinginterval" type="number" value="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="showunconnected" data-i18n="Settings.Bridge.ShowUnconnected"></label>
+			<input class="homey-form-input" id="showunconnected" type="checkbox" value="" />
+		</div>
+	</fieldset>
 
-    <button id="save" class="right">Save changes</button>
+	<fieldset class="homey-form-fieldset">
+		<legend class="homey-form-legend" data-i18n="Settings.Status"></legend>
+		<span id="status"></span>
+	</fieldset>
+
+    <button id="save" class="homey-button-primary-full" data-i18n="Settings.Save"></button>
 
     <script type="text/javascript">
         function onHomeyReady( Homey )
         {
-            SettingHelper.AutoConfig( Homey, 'save', [
+            SettingHelper.AutoConfig( Homey, 'save', 'status', [
                 { id: 'password', default: '' },
                 { id: 'username', default: '' },
-                { id: 'fritzboxip', default: 'http://fritz.box' },
+                { id: 'fritzboxip', default: 'https://fritz.box' },
                 { id: 'strictssl', type: 'checkbox', default: false },
                 { id: 'pollinginterval', default: 60 },
                 { id: 'pollingactive', type: 'checkbox', default: true },
                 { id: 'statuspollinginterval', default: 60 },
                 { id: 'showunconnected', type: 'checkbox', default: false },
-                { id: 'loglevel', default: 2 }
             ]);
 
             Homey.ready();

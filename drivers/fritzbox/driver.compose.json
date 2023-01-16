@@ -13,6 +13,8 @@
     "large": "/drivers/fritzbox/assets/images/large.png",
     "small": "/drivers/fritzbox/assets/images/small.png"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "pair": [
     {
       "id": "list_devices",

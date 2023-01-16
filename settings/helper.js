@@ -41,65 +41,71 @@ let SettingHelper = {};
         {
             Value = Target.value;
         }
-        Homey.set( id, Value, function( err )
-        {
-            if( err ) return Homey.alert( err );
-        });
+		Homey.get( id, function( err, value )
+		{
+			if( err ) return Homey.alert( err );
+			if( value === Value ) return;
+			Homey.set( id, Value, function( err )
+			{
+				if( err ) return Homey.alert( err );
+			});
+		} );
     };
 
-    /*
-    Wait for validation result
-     */
-    Helper.Validate = function( Homey, SaveID )
-    {
-        let Target = document.getElementById( SaveID );
-        Target.disabled = true;
+	Helper.Validate = function( Homey, target, result )
+	{
+		Homey.get( 'validation', function( err, value )
+		{
+			if( err )
+			{
+				// loop end
+				target.disabled = false;
+				result.innerText = Homey.__( 'Message.ErrorLogin' );
+				console.log( 'error: ' + err );
+				return;
+			}
 
-        Homey.get( 'validation', function( err, value )
-        {
-            if( err )
-            {
-                // loop end
-                Target.disabled = false;
-                Homey.alert( 'Invalid Login - error' );
-                console.log( 'error: ' + err );
-                return;
-            }
+			let Value = Number.parseInt( value );
 
-            let Value = Number.parseInt( value );
+			// check for wait state -> back to begin
+			if( Value === 2 )
+			{
+				// add delay to save performance
+				setTimeout( () => Helper.Validate( Homey, target, result ), 500 );
+				return;
+			}
 
-            // check for wait state -> back to begin
-            if( Value === 2 )
-            {
-                // add delay to save performance
-                setTimeout( () => Helper.Validate( Homey, SaveID ), 500 );
-                return;
-            }
+			// make sure we re-enable button
+			target.disabled = false;
 
-            // make sure we re-enable button
-            Target.disabled = false;
-
-            // show result to user
-            if( Value )
-                Homey.alert( 'Valid Login' );
-            else
-            {
-                Homey.get( 'validationInfo', function( err, value )
-                {
-                    Homey.alert( 'Invalid Login' );
-
-                    if( err ) return;
-
-                    Homey.alert( value );
-                } );
-            }
-        });
-    };
+			// show result to user
+			if( Value === 1 )
+			{
+				result.innerText = Homey.__( 'Message.ValidLogin' );
+			}
+			else
+			{
+				Homey.get( 'validationInfo', function( err, value )
+				{
+					console.log( 'validtion info: ' + value );
+					if( err )
+					{
+						console.log( 'error: ' + err );
+						result.innerText = Homey.__( 'Message.InvalidLogin' );
+					}
+					else
+					{
+						result.innerText = value;
+					}
+				} );
+			}
+		});
+	}
 
     /*
     Load ValueIDArray and create click listener on SaveID to Save ValueIDArray
      */
-    Helper.AutoConfig = function( Homey, SaveID, ValueIDArray )
+    Helper.AutoConfig = function( Homey, SaveId, StatusId, ValueIDArray )
     {
         if( !Array.isArray( ValueIDArray ) || ValueIDArray.length === 0 )
             return Homey.alert( 'Invalid ID Array' );
@@ -109,24 +115,44 @@ let SettingHelper = {};
             return alert( 'Invalid Homey instance' );
         }
 
-        let Target = document.getElementById( SaveID );
-        if( Target === null )
+        const target = document.getElementById( SaveId );
+        if( target === null )
         {
-            return Homey.alert( 'Invalid SaveID' );
+            return Homey.alert( 'Invalid SaveId' );
         }
+		const result = document.getElementById( StatusId );
+		if( result === null )
+		{
+			return Homey.alert( 'Invalid StatusId' );
+		}
+		Homey.get( 'validation', function( err, value )
+		{
+			if( !(err || Number.parseInt( value ) !== 1) )
+			{
+				result.innerText = Homey.__( 'Message.ValidLogin' );
+			}
+		} );
 
-        ValueIDArray.forEach( function( ID )
-        {
-            Helper.Load( ID.id, Homey, ID.type, ID.default );
-        });
+        for( const ID of ValueIDArray )
+		{
+			Helper.Load( ID.id, Homey, ID.type, ID.default );
+		}
 
-        Target.addEventListener( 'click', function()
+		target.addEventListener( 'click', function()
         {
-            ValueIDArray.forEach( function( ID )
-            {
-                Helper.Save( ID.id, Homey, ID.type );
-            });
-            Helper.Validate( Homey, SaveID );
-        })
+            for( const ID of ValueIDArray )
+			{
+				Helper.Save( ID.id, Homey, ID.type );
+			}
+
+			target.disabled = true;
+        } );
+
+		Homey.on( 'settings.set', function( name )
+		{
+			if( name !== 'validation' ) return;
+
+			Helper.Validate( Homey, target, result );
+		} );
     };
 })(SettingHelper);

@@ -14,6 +14,8 @@
     "large": "/drivers/energymeter/assets/images/large.png",
     "small": "/drivers/energymeter/assets/images/small.png"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "pair": [
     {
       "id": "list_devices",

@@ -1,9 +1,13 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.5.8",
-  "compatibility": ">=2.0.5",
+  "version": "0.6.0",
+  "compatibility": ">=5.0.0",
+  "platforms": [
+    "local"
+  ],
   "brandColor": "#f02d1f",
-  "sdk": 2,
+  "sdk": 3,
   "name": {
     "en": "Fritzbox Bridge",
     "de": "Fritzbox Bridge"
@@ -55,369 +59,14 @@
   "source": "https://github.com/puschie286/fritzbox-bridge",
   "support": "mailto:christoph286@googlemail.com",
   "homeyCommunityTopicId": 11334,
-  "permissions": [
-    "homey:app:nl.nielsdeklerk.log"
-  ],
   "images": {
     "large": "/assets/images/large.png",
     "small": "/assets/images/small.png"
   },
   "author": {
-    "name": "Christoph Potas",
+    "name": "Christoph",
     "email": "christoph286@googlemail.com"
   },
-  "capabilities": {
-    "measure_open_window": {
-      "type": "boolean",
-      "title": {
-        "en": "Open window detected",
-        "de": "Fenster-offen erkennung"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_device_locked": {
-      "type": "boolean",
-      "title": {
-        "en": "Device input locked",
-        "de": "Geräte Tastensperre"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_api_locked": {
-      "type": "boolean",
-      "title": {
-        "en": "API input locked",
-        "de": "API Tastensperre"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_device_error": {
-      "type": "string",
-      "title": {
-        "en": "Device error",
-        "de": "Geräte Fehler"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_battery_low": {
-      "type": "boolean",
-      "title": {
-        "en": "Battery low warning",
-        "de": "Batterie schwach Warnung"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_switch_mode": {
-      "type": "boolean",
-      "title": {
-        "en": "automatic timer",
-        "de": "Automatische Zeitschaltung"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_os_version": {
-      "type": "string",
-      "title": {
-        "en": "fritzbox os version",
-        "de": "Fritzbox OS Version"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "measure_update_available": {
-      "type": "boolean",
-      "title": {
-        "en": "update available",
-        "de": "Update verfügbar"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "os_version": {
-      "type": "string",
-      "title": {
-        "en": "fritzbox os version",
-        "de": "Fritzbox OS Version"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "power_usage": {
-      "type": "number",
-      "units": "%",
-      "title": {
-        "en": "power usage",
-        "de": "Energyverbrauch"
-      },
-      "getable": true,
-      "setable": false
-    },
-    "alert_update_available": {
-      "type": "boolean",
-      "title": {
-        "en": "update available",
-        "de": "Update verfügbar"
-      },
-      "getable": true,
-      "setable": false
-    }
-  },
-  "drivers": [
-    {
-      "id": "thermostat",
-      "name": {
-        "en": "Thermostat",
-        "de": "Thermostat"
-      },
-      "class": "thermostat",
-      "capabilities": [
-        "measure_open_window",
-        "measure_device_locked",
-        "measure_api_locked",
-        "measure_device_error",
-        "onoff",
-        "measure_battery",
-        "measure_battery_low",
-        "target_temperature",
-        "measure_temperature",
-        "measure_temperature.komfort",
-        "measure_temperature.night"
-      ],
-      "capabilitiesOptions": {
-        "measure_temperature.komfort": {
-          "title": {
-            "en": "Fritzbox: comfort temperature",
-            "de": "Fritzbox: Komforttemperatur"
-          }
-        },
-        "measure_temperature.night": {
-          "title": {
-            "en": "Fritzbox: night temperature",
-            "de": "Fritzbox: Spartemperatur"
-          }
-        }
-      },
-      "images": {
-        "large": "/drivers/thermostat/assets/images/large.png",
-        "small": "/drivers/thermostat/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "energy":
-      {
-        "batteries":
-          ["AA", "AA"]
-      }
-    },
-    {
-      "id": "socket",
-      "name": {
-        "en": "Socket switch",
-        "de": "Steckdosenschalter"
-      },
-      "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_switch_mode",
-        "measure_device_locked",
-        "measure_api_locked"
-      ],
-      "images": {
-        "large": "/drivers/socket/assets/images/large.png",
-        "small": "/drivers/socket/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ]
-    },
-    {
-      "id": "temperaturesensor",
-      "name": {
-        "en": "Temperature sensor",
-        "de": "Temperatursensor"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "measure_temperature",
-        "measure_temperature.offset"
-      ],
-      "capabilitiesOptions": {
-        "measure_temperature.offset": {
-          "title": {
-            "en": "Temperature offset",
-            "de": "Temperatur Offset"
-          }
-        }
-      },
-      "images": {
-        "large": "/drivers/temperaturesensor/assets/images/large.png",
-        "small": "/drivers/temperaturesensor/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ]
-    },
-    {
-      "id": "energymeter",
-      "name": {
-        "en": "Energymeter",
-        "de": "Energiezähler"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "measure_current",
-        "measure_voltage",
-        "measure_power",
-        "meter_power"
-      ],
-      "images": {
-        "large": "/drivers/energymeter/assets/images/large.png",
-        "small": "/drivers/energymeter/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ]
-    },
-    {
-      "id": "alarmsensor",
-      "name": {
-        "en": "Alarm sensor",
-        "de": "Alarmsensor"
-      },
-      "class": "sensor",
-      "capabilities": [
-        "alarm_generic"
-      ],
-      "images": {
-        "large": "/drivers/alarmsensor/assets/images/large.png",
-        "small": "/drivers/alarmsensor/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ]
-    },
-    {
-      "id": "fritzbox",
-      "name": {
-        "en": "Fritzbox router",
-        "de": "Fritzbox Router"
-      },
-      "class": "other",
-      "capabilities": [
-        "alert_update_available",
-        "os_version",
-        "power_usage"
-      ],
-      "images": {
-        "large": "/drivers/fritzbox/assets/images/large.png",
-        "small": "/drivers/fritzbox/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ]
-    },
-    {
-      "id": "plug",
-      "name": {
-        "en": "(G)Plug",
-        "de": "(G)Steckdose"
-      },
-      "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_switch_mode",
-        "measure_device_locked",
-        "measure_api_locked",
-        "measure_voltage",
-        "measure_power",
-        "meter_power"
-      ],
-      "images": {
-        "large": "/drivers/plug/assets/images/large.png",
-        "small": "/drivers/plug/assets/images/small.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ]
-    }
-  ],
   "flow": {
     "triggers": [
       {
@@ -455,5 +104,404 @@
         ]
       }
     ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Alarm sensor",
+        "de": "Alarmsensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_generic"
+      ],
+      "images": {
+        "large": "/drivers/alarmsensor/assets/images/large.png",
+        "small": "/drivers/alarmsensor/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "alarmsensor"
+    },
+    {
+      "name": {
+        "en": "Energymeter",
+        "de": "Energiezähler"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_current",
+        "measure_voltage",
+        "measure_power",
+        "meter_power"
+      ],
+      "images": {
+        "large": "/drivers/energymeter/assets/images/large.png",
+        "small": "/drivers/energymeter/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "energymeter"
+    },
+    {
+      "name": {
+        "en": "Fritzbox router",
+        "de": "Fritzbox Router"
+      },
+      "class": "other",
+      "capabilities": [
+        "alert_update_available",
+        "os_version",
+        "power_usage"
+      ],
+      "images": {
+        "large": "/drivers/fritzbox/assets/images/large.png",
+        "small": "/drivers/fritzbox/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "fritzbox"
+    },
+    {
+      "name": {
+        "en": "(G)Plug",
+        "de": "(G)Steckdose"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_switch_mode",
+        "measure_device_locked",
+        "measure_api_locked",
+        "measure_voltage",
+        "measure_power",
+        "meter_power"
+      ],
+      "images": {
+        "large": "/drivers/plug/assets/images/large.png",
+        "small": "/drivers/plug/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "plug"
+    },
+    {
+      "name": {
+        "en": "Socket switch",
+        "de": "Steckdosenschalter"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "measure_switch_mode",
+        "measure_device_locked",
+        "measure_api_locked"
+      ],
+      "images": {
+        "large": "/drivers/socket/assets/images/large.png",
+        "small": "/drivers/socket/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "socket"
+    },
+    {
+      "name": {
+        "en": "Temperature sensor",
+        "de": "Temperatursensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_temperature.offset"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature.offset": {
+          "title": {
+            "en": "Temperature offset",
+            "de": "Temperatur Offset"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/temperaturesensor/assets/images/large.png",
+        "small": "/drivers/temperaturesensor/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "temperaturesensor"
+    },
+    {
+      "name": {
+        "en": "Thermostat",
+        "de": "Thermostat"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "measure_open_window",
+        "measure_device_locked",
+        "measure_api_locked",
+        "measure_device_error",
+        "measure_battery",
+        "measure_battery_low",
+        "target_temperature",
+        "measure_temperature",
+        "measure_temperature.komfort",
+        "measure_temperature.night"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature.komfort": {
+          "title": {
+            "en": "Fritzbox: comfort temperature",
+            "de": "Fritzbox: Komforttemperatur"
+          }
+        },
+        "measure_temperature.night": {
+          "title": {
+            "en": "Fritzbox: night temperature",
+            "de": "Fritzbox: Spartemperatur"
+          }
+        },
+        "target_temperature": {
+          "min": 8,
+          "max": 28,
+          "step": 0.5
+        }
+      },
+      "images": {
+        "large": "/drivers/thermostat/assets/images/large.png",
+        "small": "/drivers/thermostat/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "energy": {
+        "batteries": [
+          "AA",
+          "AA"
+        ]
+      },
+      "id": "thermostat"
+    }
+  ],
+  "capabilities": {
+    "alert_update_available": {
+      "type": "boolean",
+      "title": {
+        "en": "update available",
+        "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_api_locked": {
+      "type": "boolean",
+      "title": {
+        "en": "API input locked",
+        "de": "API Tastensperre"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_battery_low": {
+      "type": "boolean",
+      "title": {
+        "en": "Battery low warning",
+        "de": "Batterie schwach Warnung"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_device_error": {
+      "type": "string",
+      "title": {
+        "en": "Device error",
+        "de": "Geräte Fehler"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_device_locked": {
+      "type": "boolean",
+      "title": {
+        "en": "Device input locked",
+        "de": "Geräte Tastensperre"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_open_window": {
+      "type": "boolean",
+      "title": {
+        "en": "Open window detected",
+        "de": "Fenster-offen erkennung"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_os_version": {
+      "type": "string",
+      "title": {
+        "en": "fritzbox os version",
+        "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_switch_mode": {
+      "type": "boolean",
+      "title": {
+        "en": "automatic timer",
+        "de": "Automatische Zeitschaltung"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "measure_update_available": {
+      "type": "boolean",
+      "title": {
+        "en": "update available",
+        "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "os_version": {
+      "type": "string",
+      "title": {
+        "en": "fritzbox os version",
+        "de": "Fritzbox OS Version"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "power_usage": {
+      "type": "number",
+      "units": "%",
+      "title": {
+        "en": "power usage",
+        "de": "Energyverbrauch"
+      },
+      "getable": true,
+      "setable": false
+    }
   }
 }

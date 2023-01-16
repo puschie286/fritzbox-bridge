@@ -92,7 +92,7 @@ export class FritzApi
 	/**
 	 * get detailed device information (XML)
 	 */
-	public getDeviceListInfos(): string
+	public getDeviceListInfos(): Promise<string>
 	{
 		return this.api.getDeviceListInfos();
 	}
@@ -131,10 +131,16 @@ export class FritzApi
 		return this.api.getBasicDeviceStats();
 	}
 
+	public async getOverviewList(): Promise<string[]>
+	{
+		// TODO: implement
+		return [];
+	}
+
 	/**
 	 * get device list (json)
 	 */
-	public getDeviceList(): string[]
+	public async getDeviceList(): Promise<string[]>
 	{
 		return this.api.getDeviceList();
 	}
@@ -144,7 +150,7 @@ export class FritzApi
 	 * @param filter functionbitmask
 	 * @return devices (json)
 	 */
-	public getDeviceListFiltered( filter: FritzApiBitmask ): string[]
+	public async getDeviceListFiltered( filter: FritzApiBitmask ): Promise<string[]>
 	{
 		return this.api.getDeviceListFiltered( filter );
 	}

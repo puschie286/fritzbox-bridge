@@ -11,6 +11,8 @@
     "large": "/drivers/alarmsensor/assets/images/large.png",
     "small": "/drivers/alarmsensor/assets/images/small.png"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "pair": [
     {
       "id": "list_devices",

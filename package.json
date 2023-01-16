@@ -1,10 +1,11 @@
 {
   "name": "com.puschie.fritzbox-bridge",
-  "version": "0.6.0",
+  "version": "0.9.0",
   "description": "Fritzbox Bridge",
   "main": "app.ts",
   "dependencies": {
-    "fritzapi": "^0.13.0"
+    "fritzapi": "^0.13.0",
+    "set-interval-async": "^3.0.3"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.11",
@@ -12,11 +13,12 @@
     "@types/node": "^18.11.9",
     "eslint": "^7.32.0",
     "eslint-config-athom": "^3.1.1",
-    "typescript": "^4.8.4",
-    "homey": "^2.0.6"
+    "homey": "^2.0.6",
+    "typescript": "^4.8.4"
   },
   "author": "Puschie",
   "scripts": {
+    "run": "homey app run",
     "build": "tsc",
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore"
   }

@@ -20,6 +20,8 @@
     "large": "/drivers/temperaturesensor/assets/images/large.png",
     "small": "/drivers/temperaturesensor/assets/images/small.png"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "pair": [
     {
       "id": "list_devices",

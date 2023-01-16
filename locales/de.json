@@ -1,4 +1,5 @@
 {
+  "ThermostatError": {
 	"ErrorCode0": "Kein Fehler",
 	"ErrorCode1": "Keine Adaptierung möglich. Gerät korrekt am Heizkörper montiert?",
 	"ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Ventilstößel per Hand mehrmals öfnen und schließen oder neue Batterien einsetzen.",
@@ -6,4 +7,34 @@
 	"ErrorCode4": "Die Installation wird gerade vorbereitet",
 	"ErrorCode5": "Der Heizkörperregler ist im Installationsmodus und kann auf das Heizungsventil montiert werden",
 	"ErrorCode6": "Der Heizkörperregler passt sich nun an den Hub des Heizungsventils an"
+  },
+  "Message": {
+	"InvalidLogin": "Ungültige Login-Daten",
+	"ErrorLogin": "Fehler während des Logins aufgetreten",
+	"ValidLogin": "Login erfolgreich",
+	"Timeout": "Keine Verbindung / Ungültige Adresse",
+	"NotFound": "Ungültige Adresse",
+	"InvalidSSL": "SSL Validierung fehlgeschlagen",
+	"ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )"
+  },
+  "Settings": {
+	"Title": "Einstellungen",
+	"Status": "Login status",
+	"Fritzbox": {
+	  "Title": "Fritzbox Konfiguration",
+	  "Ip": "Fritzbox Adresse",
+	  "Username": "Benutzername",
+	  "Password": "Password",
+	  "StrictSSL": "SSL Validierung"
+	},
+	"Bridge": {
+	  "Title": "Bridge Konfiguration",
+	  "PollingActive": "Geräte-Datenabfrage Aktiv",
+	  "PollingInterval": "Geräte-Datenabfrage Intervall",
+	  "StatusPollingActive": "Fritzbox-Datenabfrage Aktiv",
+	  "StatusPollingInterval": "Fritzbox-Datenabfrage Intervall",
+	  "ShowUnconnected": "Zeige nicht verbundene Geräte an"
+	},
+	"Save": "Änderung Speichern"
+  }
 }

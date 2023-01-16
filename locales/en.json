@@ -1,4 +1,5 @@
 {
+  "ThermostatError": {
 	"ErrorCode0": "No error",
 	"ErrorCode1": "No adaptation possible. Device correctly mounted on radiator?",
 	"ErrorCode2": "Valve stroke too short or battery power too low. Open and close valve tappet several times by hand or Insert new batteries.",
@@ -6,4 +7,34 @@
 	"ErrorCode4": "The installation is currently being prepared",
 	"ErrorCode5": "The radiator controller is in installation mode and can be mounted on the heating valve",
 	"ErrorCode6": "The radiator controller now adapts to the stroke of the heating valve"
+  },
+  "Message": {
+	"InvalidLogin": "Invalid login-data",
+	"ErrorLogin": "Error occurred while login",
+	"ValidLogin": "Login successfully",
+	"Timeout": "No connection / Invalid address",
+	"NotFound": "Invalid address",
+	"InvalidSSL": "SSL validation failed",
+	"ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )"
+  },
+  "Settings": {
+	"Title": "Settings",
+	"Status": "Login status",
+	"Fritzbox": {
+	  "Title": "Fritzbox configuration",
+	  "Ip": "Fritzbox address",
+	  "Username": "Username",
+	  "Password": "Password",
+	  "StrictSSL": "SSL validation"
+	},
+	"Bridge": {
+	  "Title": "Bridge configuration",
+	  "PollingActive": "Device data query active",
+	  "PollingInterval": "Device data query interval",
+	  "StatusPollingActive": "Fritzbox data query active",
+	  "StatusPollingInterval": "Fritzbox data query interval",
+	  "ShowUnconnected": "Show unconnected devices"
+	},
+	"Save": "Save changes"
+  }
 }

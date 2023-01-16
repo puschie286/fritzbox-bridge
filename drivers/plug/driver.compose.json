@@ -17,6 +17,8 @@
     "large": "/drivers/plug/assets/images/large.png",
     "small": "/drivers/plug/assets/images/small.png"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "pair": [
     {
       "id": "list_devices",
