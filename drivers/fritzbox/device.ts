@@ -90,9 +90,6 @@ export class Device extends BaseDevice
 			removedDevices.push( this.DeviceList.get( key )! );
 		}
 
-		console.debug( 'new: ' + newDevices.length );
-		console.debug( 'removed: ' + removedDevices.length );
-
 		for( const device of newDevices )
 		{
 			await this.ConnectedTrigger.trigger( this.CreateDeviceToken( device ) );
