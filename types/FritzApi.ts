@@ -1,3 +1,6 @@
+import { LoadNetwork, LoadOverview } from "../lib/FritzboxApiExtend";
+import * as Process from "process";
+
 const fritzapi = require( 'fritzapi/index' );
 
 export enum FritzApiBitmask
@@ -131,10 +134,14 @@ export class FritzApi
 		return this.api.getBasicDeviceStats();
 	}
 
-	public async getOverviewList(): Promise<string[]>
+	public async getFritzboxOverview(): Promise<string[]>
 	{
-		// TODO: implement
-		return [];
+		return this.api.call( LoadOverview );
+	}
+
+	public async getFritzboxNetwork(): Promise<string[]>
+	{
+		return this.api.call( LoadNetwork );
 	}
 
 	/**

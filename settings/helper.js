@@ -140,17 +140,29 @@ let SettingHelper = {};
 
 		target.addEventListener( 'click', function()
         {
+			target.disabled = true;
             for( const ID of ValueIDArray )
 			{
 				Helper.Save( ID.id, Homey, ID.type );
 			}
-
-			target.disabled = true;
         } );
 
 		Homey.on( 'settings.set', function( name )
 		{
-			if( name !== 'validation' ) return;
+			if( name !== 'validation' )
+			{
+				if( [
+					'showunconnected',
+					'pollinginterval',
+					'pollingactive',
+					'statuspollinginterval',
+					'statuspollingactive'
+					].includes( name ) )
+				{
+					target.disabled = false;
+				}
+				return;
+			}
 
 			Helper.Validate( Homey, target, result );
 		} );

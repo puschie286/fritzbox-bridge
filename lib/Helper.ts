@@ -1,5 +1,3 @@
-// TODO: Validate helper usage ( move to lowest scope )
-
 export function Validate( object: any ): boolean
 {
 	return object !== undefined && object !== null;

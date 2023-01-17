@@ -39,7 +39,7 @@
 		</div>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="statuspollingactive" data-i18n="Settings.Bridge.StatusPollingActive"></label>
-			<input class="homey-form-input" id="statuspollingactive" type="checkbox" value="" />
+			<input class="homey-form-input" id="statuspollingactive" type="checkbox" checked="" />
 		</div>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="statuspollinginterval" data-i18n="Settings.Bridge.StatusPollingInterval"></label>
@@ -69,6 +69,7 @@
                 { id: 'pollinginterval', default: 60 },
                 { id: 'pollingactive', type: 'checkbox', default: true },
                 { id: 'statuspollinginterval', default: 60 },
+				{ id: 'statuspollingactive', type: 'checkbox', default: false },
                 { id: 'showunconnected', type: 'checkbox', default: false },
             ]);
 

@@ -2,14 +2,17 @@ import { BaseDevice } from "../../lib/BaseDevice";
 import { CapabilityDefinition } from "../../types/CapabilityDefinition";
 import { CapabilityType } from "../../types/CapabilityType";
 import { FlowCardTrigger } from "homey";
+import { FritzboxDevice } from "../../types/FritzboxDevice";
 
-class Device extends BaseDevice
+export class Device extends BaseDevice
 {
 	private FirstCheck: boolean = true;
-	private DeviceList: Array<string> = [];
+	private DeviceList: Map<string, FritzboxDevice> = new Map<string, FritzboxDevice>();
 
-	private ConnectedTrigger?: FlowCardTrigger;
-	private DisconnectTrigger?: FlowCardTrigger;
+	// @ts-ignore
+	private ConnectedTrigger: FlowCardTrigger;
+	// @ts-ignore
+	private DisconnectTrigger: FlowCardTrigger;
 
 	protected CapabilityDefinitions(): CapabilityDefinition
 	{
@@ -22,54 +25,84 @@ class Device extends BaseDevice
 
 	protected RegisterTrigger()
 	{
-		this.ConnectedTrigger = this.homey.flow.getTriggerCard( 'wlan_device_connected' );
-		this.DisconnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_disconnected' );
+		this.ConnectedTrigger = this.homey.flow.getTriggerCard( 'network_device_connected' );
+		this.DisconnectTrigger = this.homey.flow.getTriggerCard( 'network_device_disconnected' );
 	}
 
-	public async Update( data: any )
+	private UpdateDeviceList( deviceList: Array<FritzboxDevice> )
 	{
-		await super.Update( data );
-
-		// check for device change
-		await this.checkDevices( data );
-	}
-
-	protected async checkDevices( data: any )
-	{
-		const devicesList = data['data']['net']['devices'];
-
-		let connectedDevices: string[] = [];
-		for( const device of devicesList )
+		if( deviceList.length === 0 )
 		{
-			connectedDevices.push( device['name'] );
+			return;
 		}
+
+		for( const device of deviceList )
+		{
+			this.DeviceList.set( device.mac, device );
+		}
+	}
+
+	private CreateDeviceToken( device: FritzboxDevice ): object
+	{
+		return {
+			'device_name': device.name,
+			'device_ip': device.ipv4.ip,
+			'device_mac': device.mac,
+			'device_connection_type': device.type
+		};
+	}
+
+	public async UpdateDevices( network: any )
+	{
+		const devicesList: Array<FritzboxDevice> = network['data']['active'];
 
 		if( this.FirstCheck )
 		{
-			this.DeviceList = connectedDevices;
+			this.UpdateDeviceList( devicesList );
 			this.FirstCheck = false;
 			return;
 		}
 
-		let removedDevices = this.DeviceList.filter( device => !connectedDevices.includes( device ) );
-		let newDevices = connectedDevices.filter( device => !this.DeviceList.includes( device ) );
+		// determine add
+		let newDevices: Array<FritzboxDevice> = [];
+		let newMacList: Array<string> = [];
+		for( const device of devicesList )
+		{
+			const mac: string = device.mac;
+			if( !this.DeviceList.has( mac ) )
+			{
+				newDevices.push( device );
+			}
+
+			newMacList.push( mac );
+		}
+		// determine remove
+		let removedDevices: Array<FritzboxDevice> = [];
+		const keys = Array.from( this.DeviceList.keys() );
+		for( const key of keys )
+		{
+			if( newMacList.includes( key ) )
+			{
+				continue;
+			}
+
+			this.DeviceList.delete( key );
+			removedDevices.push( this.DeviceList.get( key )! );
+		}
+
+		console.debug( 'new: ' + newDevices.length );
+		console.debug( 'removed: ' + removedDevices.length );
 
 		for( const device of newDevices )
 		{
-			const token = {
-				'device_name': device
-			}
-			await this.ConnectedTrigger!.trigger( token );
+			await this.ConnectedTrigger.trigger( this.CreateDeviceToken( device ) );
 		}
 		for( const device of removedDevices )
 		{
-			const token = {
-				'device_name': device
-			}
-			await this.DisconnectTrigger!.trigger( token );
+			await this.DisconnectTrigger.trigger( this.CreateDeviceToken( device ) );
 		}
 
-		this.DeviceList = connectedDevices;
+		this.UpdateDeviceList( devicesList );
 	}
 }
 

@@ -5,6 +5,7 @@ import { BaseDriver } from "./BaseDriver";
 import { BaseDevice } from "./BaseDevice";
 import Homey from "homey/lib/Homey";
 import {clearIntervalAsync, setIntervalAsync, SetIntervalAsyncTimer} from "set-interval-async";
+import { Device } from "../drivers/fritzbox/device";
 
 export class FritzboxManager
 {
@@ -124,6 +125,8 @@ export class FritzboxManager
 
 		this.homey.log( 'start status polling with ' + ( Math.round( ( interval / 1000 ) * 100 ) / 100 ) + 's interval' );
 		this.statusPolling = setIntervalAsync( this.StatusPoll.bind( this ), interval );
+
+		// direct update
 		await this.StatusPoll();
 	}
 
@@ -238,16 +241,16 @@ export class FritzboxManager
 		}
 	}
 
-	private async ProcessStatusPoll( data: any[] ): Promise<void>
+	private async ProcessStatusPoll( overview: any[], network: any[] ): Promise<void>
 	{
 		// TODO: check for memory performance
 		const devices = this.homey.drivers.getDriver( 'fritzbox' ).getDevices();
 		for( const device of devices )
 		{
-			// @ts-ignore
-			const baseDevice = device as BaseDevice;
+			const fritzboxDevice = device as Device;
 
-			await baseDevice.Update( data );
+			await fritzboxDevice.Update( overview );
+			await fritzboxDevice.UpdateDevices( network );
 		}
 	}
 
@@ -290,8 +293,9 @@ export class FritzboxManager
 
 		try
 		{
-			const overview = await this.GetApi().getOverviewList();
-			await this.ProcessStatusPoll( overview );
+			const overview = await this.GetApi().getFritzboxOverview();
+			const network = await this.GetApi().getFritzboxNetwork();
+			await this.ProcessStatusPoll( overview, network );
 		}
 		catch( error: any )
 		{
