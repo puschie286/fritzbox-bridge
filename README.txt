@@ -6,14 +6,6 @@ supported devices:
 * HANFUN Alarm
 * FRITZ!Box
 
-flow trigger:
-* wlan device connected
-* wlan device disconnected
-
-backward compatibility ( >= 0.5.0 ):
-all devices that were paired before update will not be affected by device changes.
-only new paired devices will use the newest device version
-
 supported sensors & values:
 https://github.com/puschie286/fritzbox-bridge/wiki/Supported-devices-&-sensors
 

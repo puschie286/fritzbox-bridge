@@ -1,6 +1,6 @@
 {
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.6.0",
+  "version": "0.9.0",
   "compatibility": ">=5.0.0",
   "platforms": [ "local" ],
   "brandColor": "#f02d1f",
@@ -63,5 +63,12 @@
   "author": {
     "name": "Christoph",
     "email": "christoph286@googlemail.com"
+  },
+  "contributing": {
+	"donate": {
+	  "paypal": {
+		"username": "puschie286"
+	  }
+	}
   }
 }

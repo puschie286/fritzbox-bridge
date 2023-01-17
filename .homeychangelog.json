@@ -40,5 +40,8 @@
   },
   "0.5.8": {
     "en": "* Workaround for Homey 7.1.3 device storage problem"
+  },
+  "0.9.0": {
+	"en": "* Updated for v6.0.0 / SDK v3\n* Rewrite in Typescript\n* Reworked settings (it show the login state at the bottom now)\n* Renamed fritzbox device triggers and added more tags"
   }
 }
