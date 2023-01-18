@@ -1,0 +1,29 @@
+{
+  "name": {
+	"en": "Blind",
+	"de": "Rollanden"
+  },
+  "class": "",
+  "capabilities": [
+
+  ],
+  "images": {
+	"large": "/drivers/blind/assets/images/large.png",
+	"small": "/drivers/blind/assets/images/small.png"
+  },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "pair": [
+	{
+	  "id": "list_devices",
+	  "template": "list_devices",
+	  "navigation": {
+		"next": "add_devices"
+	  }
+	},
+	{
+	  "id": "add_devices",
+	  "template": "add_devices"
+	}
+  ]
+}
