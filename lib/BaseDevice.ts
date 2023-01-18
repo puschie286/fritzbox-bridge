@@ -24,7 +24,6 @@ export abstract class BaseDevice extends Device
 			await this.UpdateCapabilities();
 
 			this.RegisterListener();
-			this.RegisterTrigger();
 		}
 		catch( error: any )
 		{
@@ -168,11 +167,6 @@ export abstract class BaseDevice extends Device
 	protected CapabilityListener(): CapabilityListener|null
 	{
 		return null;
-	}
-
-	protected RegisterTrigger()
-	{
-
 	}
 
 	/**

@@ -74,6 +74,16 @@
       }
     }
   },
+  "api": {
+    "getDevices": {
+      "method": "GET",
+      "path": "/devices"
+    },
+    "getNetworkDevices": {
+      "method": "GET",
+      "path": "/network-devices"
+    }
+  },
   "flow": {
     "triggers": [
       {

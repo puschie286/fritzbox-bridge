@@ -27,6 +27,7 @@ class SettingHelper
 
 	#InitDebug()
 	{
+		// TODO: implement with sent to sentry
 		/*this.#debugButton.addEventListener( 'click', function()
 		{
 			this.#homey.api( 'GET', '/devices', {}, function( err, result )

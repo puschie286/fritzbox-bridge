@@ -6,6 +6,10 @@ import { BaseDevice } from "./BaseDevice";
 import Homey from "homey/lib/Homey";
 import {clearIntervalAsync, setIntervalAsync, SetIntervalAsyncTimer} from "set-interval-async";
 import { Device } from "../drivers/fritzbox/device";
+import { SentryLog } from "../types/SentryLog";
+import { FritzboxTracker } from "./FritzboxTracker";
+
+const { Log } = require( 'homey-log' );
 
 export class FritzboxManager
 {
@@ -14,7 +18,9 @@ export class FritzboxManager
 	private pollRunning: boolean = false;
 	private statusPolling?: SetIntervalAsyncTimer<[]>;
 	private statusPollRunning: boolean = false;
-	private homey: Homey;
+	private readonly homey: Homey;
+	private readonly log: SentryLog;
+	private readonly tracker: FritzboxTracker;
 
 	private static instance?: FritzboxManager;
 
@@ -26,6 +32,9 @@ export class FritzboxManager
 		}
 
 		this.homey = homey;
+		this.log = new Log( { homey: this.homey } );
+		this.tracker = new FritzboxTracker( homey );
+
 		FritzboxManager.instance = this;
 	}
 
@@ -50,6 +59,16 @@ export class FritzboxManager
 			throw new Error( 'no api instance' );
 		}
 		return this.apiInstance;
+	}
+
+	/**
+	 * get log instance (sentry log)
+	 *
+	 * @return SentryLog
+	 */
+	public GetLog(): SentryLog
+	{
+		return this.log;
 	}
 
 	// TODO: validate url, add http/https to address
@@ -243,14 +262,14 @@ export class FritzboxManager
 
 	private async ProcessStatusPoll( overview: any[], network: any[] ): Promise<void>
 	{
-		// TODO: check for memory performance
+		await this.tracker.UpdateDevices( network );
+
 		const devices = this.homey.drivers.getDriver( 'fritzbox' ).getDevices();
 		for( const device of devices )
 		{
 			const fritzboxDevice = device as Device;
 
 			await fritzboxDevice.Update( overview );
-			await fritzboxDevice.UpdateDevices( network );
 		}
 	}
 
