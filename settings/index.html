@@ -57,11 +57,13 @@
 	</fieldset>
 
     <button id="save" class="homey-button-primary-full" data-i18n="Settings.Save"></button>
+	<!--<button id="debug" class="homey-button-secondary-shadow" data-i18n="Settings.Debug"></button>-->
 
     <script type="text/javascript">
         function onHomeyReady( Homey )
         {
-            SettingHelper.AutoConfig( Homey, 'save', 'status', [
+			SettingHelper.AutoConfig( Homey, 'save', 'status', 'debug',
+			[
                 { id: 'password', default: '' },
                 { id: 'username', default: '' },
                 { id: 'fritzboxip', default: 'https://fritz.box' },
@@ -76,10 +78,5 @@
             Homey.ready();
         }
     </script>
-    <style>
-        #save:disabled {
-            color: #55555575;
-        }
-    </style>
 </body>
 </html>

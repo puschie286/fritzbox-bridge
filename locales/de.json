@@ -35,6 +35,7 @@
 	  "StatusPollingInterval": "Fritzbox-Datenabfrage Intervall",
 	  "ShowUnconnected": "Zeige nicht verbundene Geräte an"
 	},
-	"Save": "Änderung Speichern"
+	"Save": "Änderung Speichern",
+	"Debug": "Debug info"
   }
 }

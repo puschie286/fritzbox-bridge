@@ -70,5 +70,15 @@
 		"username": "puschie286"
 	  }
 	}
+  },
+  "api": {
+	"getDevices": {
+	  "method": "GET",
+	  "path": "/devices"
+	},
+	"getNetworkDevices": {
+	  "method": "GET",
+	  "path": "/network-devices"
+	}
   }
 }

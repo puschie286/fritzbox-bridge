@@ -35,6 +35,7 @@
 	  "StatusPollingInterval": "Fritzbox data query interval",
 	  "ShowUnconnected": "Show unconnected devices"
 	},
-	"Save": "Save changes"
+	"Save": "Save changes",
+	"Debug": "Debug info"
   }
 }

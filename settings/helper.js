@@ -1,170 +1,215 @@
 "use strict";
-let SettingHelper = {};
-(function(Helper){
 
-    /*
-    Load id from Homey and store it in id value
-     */
-    Helper.Load = function( id, Homey, type, defaultValue )
-    {
-        Homey.get( id, function( err, value )
-        {
-            if( err ) return Homey.alert( err );
-            let Target = document.getElementById( id );
-            if( ( value === null || value === undefined ) && defaultValue !== undefined )
-            {
-                value = defaultValue;
-            }
-            if( type === 'checkbox' )
-            {
-                Target.checked = Boolean( value );
-            }
-            else
-            {
-                Target.value = value;
-            }
-        });
-    };
+let Helper = null;
+const ButtonLoadingClass = 'is-loading';
 
-    /*
-    Save id value to Homey
-     */
-    Helper.Save = function( id, Homey, type )
-    {
-        let Target = document.getElementById( id );
-        let Value;
-        if( type === 'checkbox' )
-        {
-            Value = Target.checked;
-        }
-        else
-        {
-            Value = Target.value;
-        }
-		Homey.get( id, function( err, value )
-		{
-			if( err ) return Homey.alert( err );
-			if( value === Value ) return;
-			Homey.set( id, Value, function( err )
-			{
-				if( err ) return Homey.alert( err );
-			});
-		} );
-    };
+class SettingHelper
+{
+	#homey;
+	#saveButton;
+	#loginInfo;
+	#debugButton;
 
-	Helper.Validate = function( Homey, target, result )
+	constructor( homey, saveId, infoId, debugId )
 	{
-		Homey.get( 'validation', function( err, value )
-		{
-			if( err )
-			{
-				// loop end
-				target.disabled = false;
-				result.innerText = Homey.__( 'Message.ErrorLogin' );
-				console.log( 'error: ' + err );
-				return;
-			}
-
-			let Value = Number.parseInt( value );
-
-			// check for wait state -> back to begin
-			if( Value === 2 )
-			{
-				// add delay to save performance
-				setTimeout( () => Helper.Validate( Homey, target, result ), 500 );
-				return;
-			}
-
-			// make sure we re-enable button
-			target.disabled = false;
-
-			// show result to user
-			if( Value === 1 )
-			{
-				result.innerText = Homey.__( 'Message.ValidLogin' );
-			}
-			else
-			{
-				Homey.get( 'validationInfo', function( err, value )
-				{
-					console.log( 'validtion info: ' + value );
-					if( err )
-					{
-						console.log( 'error: ' + err );
-						result.innerText = Homey.__( 'Message.InvalidLogin' );
-					}
-					else
-					{
-						result.innerText = value;
-					}
-				} );
-			}
-		});
+		this.#homey = homey;
+		this.#saveButton = document.getElementById( saveId );
+		this.#loginInfo = document.getElementById( infoId );
+		this.#debugButton = document.getElementById( debugId );
 	}
 
-    /*
-    Load ValueIDArray and create click listener on SaveID to Save ValueIDArray
-     */
-    Helper.AutoConfig = function( Homey, SaveId, StatusId, ValueIDArray )
-    {
-        if( !Array.isArray( ValueIDArray ) || ValueIDArray.length === 0 )
-            return Homey.alert( 'Invalid ID Array' );
+	Configure( settingConfigs )
+	{
+		this.#InitInfo();
+		this.#InitSettings( settingConfigs );
+		this.#InitDebug();
+	}
 
-        if( !Homey )
-        {
-            return alert( 'Invalid Homey instance' );
-        }
-
-        const target = document.getElementById( SaveId );
-        if( target === null )
-        {
-            return Homey.alert( 'Invalid SaveId' );
-        }
-		const result = document.getElementById( StatusId );
-		if( result === null )
+	#InitDebug()
+	{
+		/*this.#debugButton.addEventListener( 'click', function()
 		{
-			return Homey.alert( 'Invalid StatusId' );
-		}
-		Homey.get( 'validation', function( err, value )
+			this.#homey.api( 'GET', '/devices', {}, function( err, result )
+			{
+				this.#homey.alert( )
+				if( err )
+				{
+
+					this.#homey.alert( err );
+				}
+				else
+				{
+					this.#homey.alert( result );
+				}
+			}.bind( this ) )
+		}.bind( this ) );*/
+	}
+
+	#InitInfo()
+	{
+		// init login status
+		this.#homey.get( 'validation', function( err, value )
 		{
 			if( !(err || Number.parseInt( value ) !== 1) )
 			{
-				result.innerText = Homey.__( 'Message.ValidLogin' );
+				this.#SetLocalizedInfo( 'Message.ValidLogin' );
 			}
-		} );
+		}.bind( this ) );
+	}
 
-        for( const ID of ValueIDArray )
+	#InitSettings( settingConfigs )
+	{
+		// load setting values
+		for( const settingConfig of settingConfigs )
 		{
-			Helper.Load( ID.id, Homey, ID.type, ID.default );
+			this.#Load( settingConfig.id, settingConfig.type, settingConfig.default );
 		}
 
-		target.addEventListener( 'click', function()
-        {
-			target.disabled = true;
-            for( const ID of ValueIDArray )
-			{
-				Helper.Save( ID.id, Homey, ID.type );
-			}
-        } );
+		// register save
+		this.#saveButton.addEventListener( 'click', function()
+		{
+			this.#DisableSave();
 
-		Homey.on( 'settings.set', function( name )
+			for( const settingConfig of settingConfigs )
+			{
+				this.#Save( settingConfig.id, settingConfig.type );
+			}
+		}.bind( this ) );
+
+		// callback for settings
+		this.#homey.on( 'settings.set', function( name )
 		{
 			if( name !== 'validation' )
 			{
+				// no validation for bridge settings
 				if( [
 					'showunconnected',
 					'pollinginterval',
 					'pollingactive',
 					'statuspollinginterval',
 					'statuspollingactive'
-					].includes( name ) )
+				].includes( name ) )
 				{
-					target.disabled = false;
+					this.#ResetSave();
 				}
 				return;
 			}
+			this.#Validate();
+		}.bind( this ) );
+	}
 
-			Helper.Validate( Homey, target, result );
-		} );
-    };
-})(SettingHelper);
+	#DisableSave()
+	{
+		this.#saveButton.disabled = true;
+		this.#saveButton.classList.add( ButtonLoadingClass );
+	}
+
+	#ResetSave()
+	{
+		this.#saveButton.disabled = false;
+		this.#saveButton.classList.remove( ButtonLoadingClass );
+	}
+
+	#SetInfo( info )
+	{
+		this.#loginInfo.innerText = info;
+	}
+
+	#SetLocalizedInfo( key )
+	{
+		this.#loginInfo.innerText = this.#homey.__( key );
+	}
+
+	#Load( id, type, defaultValue )
+	{
+		this.#homey.get( id, function( err, value )
+		{
+			if( err ) return this.#homey.alert( err );
+			const Target = document.getElementById( id );
+			if( ( value === null || value === undefined ) && defaultValue !== undefined )
+			{
+				value = defaultValue;
+			}
+			if( type === 'checkbox' )
+			{
+				Target.checked = Boolean( value );
+			}
+			else
+			{
+				Target.value = value;
+			}
+		}.bind( this ) );
+	}
+
+	#Save( id, type )
+	{
+		const Target = document.getElementById( id );
+		const Value = ( type === 'checkbox' ) ? Target.checked : Target.value;
+		this.#homey.get( id, function( err, value )
+		{
+			if( err ) return this.#homey.alert( err );
+			if( value === Value ) return;
+			this.#homey.set( id, Value, function( err )
+			{
+				if( err ) return this.#homey.alert( err );
+			}.bind( this ) );
+		}.bind( this ) );
+	}
+
+	#Validate()
+	{
+		this.#homey.get( 'validation', function( err, value )
+		{
+			if( err )
+			{
+				// loop end
+				this.#ResetSave();
+				this.#SetLocalizedInfo( 'Message.ErrorLogin' );
+				console.log( 'error: ' + err );
+				return;
+			}
+
+			const Value = Number.parseInt( value );
+
+			// check for wait state -> back to begin
+			if( Value === 2 )
+			{
+				// add delay to save performance
+				setTimeout( this.#Validate.bind( this ), 500 );
+				return;
+			}
+
+			// make sure we re-enable button
+			this.#ResetSave();
+
+			// show result to user
+			if( Value === 1 )
+			{
+				this.#SetLocalizedInfo( 'Message.ValidLogin' );
+			}
+			else
+			{
+				this.#homey.get( 'validationInfo', function( err, value )
+				{
+					console.log( 'validation info: ' + value );
+					if( err )
+					{
+						console.log( 'error: ' + err );
+						this.#SetLocalizedInfo( 'Message.InvalidLogin' );
+					}
+					else
+					{
+						this.#SetInfo( value );
+					}
+				}.bind( this ) );
+			}
+		}.bind( this ) );
+	}
+
+	static AutoConfig( Homey, SaveId, StatusId, DebugId, ValueIDArray )
+	{
+		Helper = new SettingHelper( Homey, SaveId, StatusId, DebugId );
+
+		Helper.Configure( ValueIDArray );
+	};
+}

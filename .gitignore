@@ -153,3 +153,4 @@ typings/
 
 # Added by Homey CLI
 /.homeybuild/
+/env.json
