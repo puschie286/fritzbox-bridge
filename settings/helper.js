@@ -27,23 +27,31 @@ class SettingHelper
 
 	#InitDebug()
 	{
-		// TODO: implement with sent to sentry
-		/*this.#debugButton.addEventListener( 'click', function()
+		this.#debugButton.addEventListener( 'click', async function()
 		{
-			this.#homey.api( 'GET', '/devices', {}, function( err, result )
-			{
-				this.#homey.alert( )
-				if( err )
-				{
+			this.#DisableDebug();
 
-					this.#homey.alert( err );
-				}
-				else
+			// ask for sending data
+			if( !await this.#homey.confirm( this.#homey.__( 'Message.SendDebugData' ) ) )
+			{
+				this.#ResetDebug();
+				return;
+			}
+
+			this.#homey.api( 'GET', '/devices?upload=true', {}, async function( err, result )
+			{
+				if( err || result === 'failed' )
 				{
-					this.#homey.alert( result );
+					this.#ResetDebug();
+					console.debug( err );
+					this.#homey.alert( this.#homey.__( 'Message.SendFailed' ) );
+					return;
 				}
+
+				this.#homey.alert( this.#homey.__( 'Message.SendSuccess' ) );
+				this.#ResetDebug();
 			}.bind( this ) )
-		}.bind( this ) );*/
+		}.bind( this ) );
 	}
 
 	#InitInfo()
@@ -109,6 +117,16 @@ class SettingHelper
 	{
 		this.#saveButton.disabled = false;
 		this.#saveButton.classList.remove( ButtonLoadingClass );
+	}
+
+	#DisableDebug()
+	{
+		this.#debugButton.disabled = true;
+	}
+
+	#ResetDebug()
+	{
+		this.#debugButton.disabled = false;
 	}
 
 	#SetInfo( info )
@@ -212,5 +230,7 @@ class SettingHelper
 		Helper = new SettingHelper( Homey, SaveId, StatusId, DebugId );
 
 		Helper.Configure( ValueIDArray );
+
+		Homey.ready();
 	};
 }

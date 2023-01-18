@@ -15,7 +15,10 @@
 	"Timeout": "Keine Verbindung / Ungültige Adresse",
 	"NotFound": "Ungültige Adresse",
 	"InvalidSSL": "SSL Validierung fehlgeschlagen",
-	"ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )"
+	"ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )",
+	"SendDebugData": "Sie sind dabei Debug-Informationen zu senden. Diese Information enthalten eine Liste aller verbundenen DECT-Geräte",
+	"SendFailed": "Fehler beim senden der Informationen",
+	"SendSuccess": "Informationen wurden erfolgreich übertragen. Vielen Dank"
   },
   "Settings": {
 	"Title": "Einstellungen",

@@ -5,21 +5,23 @@ const fritzapi = require( 'fritzapi/index' );
 
 export enum FritzApiBitmask
 {
-	hanFun = fritzapi.FUNCTION_HANFUN,
-	Light = fritzapi.FUNCTION_LIGHT,
-	Alarm = fritzapi.FUNCTION_ALARM,
-	Button = fritzapi.FUNCTION_BUTTON,
-	Thermostat = fritzapi.FUNCTION_THERMOSTAT,
-	EnergyMeter = fritzapi.FUNCTION_ENERGYMETER,
-	TemperatureSensor = fritzapi.FUNCTION_TEMPERATURESENSOR,
-	Outlet = fritzapi.FUNCTION_OUTLET,
-	DECTRepeater = fritzapi.FUNCTION_DECTREPEATER,
-	Microphone = fritzapi.FUNCTION_MICROFONE,
-	Template = fritzapi.FUNCTION_TEMPLATE,
-	HanFunUnit = fritzapi.FUNCTION_HANFUNUNIT,
-	SwitchControl = fritzapi.FUNCTION_SWITCHCONTROL,
-	LevelControl = fritzapi.FUNCTION_LEVELCONTROL,
-	ColorControl = fritzapi.FUNCTION_LEVELCONTROL
+	hanFun = fritzapi.FUNCTION_HANFUN,                      // Bit 0
+	Light = fritzapi.FUNCTION_LIGHT,                        // Bit 2
+	Alarm = fritzapi.FUNCTION_ALARM,                        // Bit 4
+	Button = fritzapi.FUNCTION_BUTTON,                      // Bit 5
+	Thermostat = fritzapi.FUNCTION_THERMOSTAT,              // Bit 6
+	EnergyMeter = fritzapi.FUNCTION_ENERGYMETER,            // Bit 7
+	TemperatureSensor = fritzapi.FUNCTION_TEMPERATURESENSOR,// Bit 8
+	Outlet = fritzapi.FUNCTION_OUTLET,                      // Bit 9
+	DECTRepeater = fritzapi.FUNCTION_DECTREPEATER,          // Bit 10
+	Microphone = fritzapi.FUNCTION_MICROFONE,               // Bit 11
+	Template = fritzapi.FUNCTION_TEMPLATE,                  // Bit 12
+	HanFunUnit = fritzapi.FUNCTION_HANFUNUNIT,              // Bit 13
+	SwitchControl = fritzapi.FUNCTION_SWITCHCONTROL,        // Bit 15
+	LevelControl = fritzapi.FUNCTION_LEVELCONTROL,          // Bit 16
+	ColorControl = fritzapi.FUNCTION_COLORCONTROL,          // Bit 17
+	BlindControl = 1 << 18,                                 // Bit 18
+	HumiditySensor = 1 << 20
 }
 
 export enum FritzApiColor

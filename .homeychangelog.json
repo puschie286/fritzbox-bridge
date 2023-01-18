@@ -43,5 +43,8 @@
   },
   "0.9.0": {
 	"en": "* Updated for v6.0.0 / SDK v3\n* Rewrite in Typescript\n* Reworked settings (it show the login state at the bottom now)\n* Renamed fritzbox device triggers and added more tags"
+  },
+  "0.9.1": {
+	"en": "* Restore old triggers for compatibility reasons\n* Added debug-button to send information that will help fixing problems and implement new devices\n*Added api method to forward data to other apps\n*Improve settings stability furthermore"
   }
 }

@@ -15,7 +15,10 @@
 	"Timeout": "No connection / Invalid address",
 	"NotFound": "Invalid address",
 	"InvalidSSL": "SSL validation failed",
-	"ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )"
+	"ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )",
+	"SendDebugData": "You are about to send debug information. This information contains a list of all connected DECT devices",
+	"SendFailed": "Error sending the information",
+	"SendSuccess": "Information was successfully transferred. Thank you"
   },
   "Settings": {
 	"Title": "Settings",

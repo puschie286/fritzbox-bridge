@@ -57,7 +57,8 @@
 	</fieldset>
 
     <button id="save" class="homey-button-primary-full" data-i18n="Settings.Save"></button>
-	<!--<button id="debug" class="homey-button-secondary-shadow" data-i18n="Settings.Debug"></button>-->
+	<br/>
+	<button id="debug" class="homey-button-secondary-shadow" data-i18n="Settings.Debug"></button>
 
     <script type="text/javascript">
         function onHomeyReady( Homey )
@@ -74,8 +75,6 @@
 				{ id: 'statuspollingactive', type: 'checkbox', default: false },
                 { id: 'showunconnected', type: 'checkbox', default: false },
             ]);
-
-            Homey.ready();
         }
     </script>
 </body>

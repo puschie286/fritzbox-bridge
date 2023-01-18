@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local"
@@ -199,6 +199,42 @@
             }
           }
         ]
+      },
+      {
+        "id": "wlan_device_connected",
+        "title": {
+          "en": "WLAN device has connected",
+          "de": "WLAN Gerät hat sich verbunden"
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "device name",
+              "de": "Geräte Name"
+            }
+          }
+        ],
+        "deprecated": true
+      },
+      {
+        "id": "wlan_device_disconnected",
+        "title": {
+          "en": "WLAN device has disconnected",
+          "de": "WLAN Gerät hat sich getrennt"
+        },
+        "tokens": [
+          {
+            "name": "device_name",
+            "type": "string",
+            "title": {
+              "en": "device name",
+              "de": "Geräte Name"
+            }
+          }
+        ],
+        "deprecated": true
       }
     ]
   },
