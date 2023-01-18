@@ -5,13 +5,16 @@ module.exports = {
 
 	async getDevices( params: ApiParameter )
 	{
-		const api = FritzboxManager.GetSingleton().GetApi();
+		const manager = FritzboxManager.GetSingleton();
+		const api = manager.GetApi();
 
 		const data = await api.getDeviceList();
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			const result = FritzboxManager.GetSingleton().GetLog().captureMessage( JSON.stringify( data ) );
+			manager.LogInformation( data );
+
+			const result = manager.GetLog().captureMessage( JSON.stringify( data ) );
 
 			if( result === undefined )
 			{
@@ -26,14 +29,24 @@ module.exports = {
 
 	async getNetworkDevices( params: ApiParameter )
 	{
-		const api = FritzboxManager.GetSingleton().GetApi();
+		const manager = FritzboxManager.GetSingleton();
+		const api = manager.GetApi();
 
 		// @ts-ignore
 		const data = ( await api.getFritzboxNetwork() )['data']['active'];
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			return FritzboxManager.GetSingleton().GetLog().captureMessage( JSON.stringify( data ) );
+			manager.LogInformation( data );
+
+			const result = manager.GetLog().captureMessage( JSON.stringify( data ) );
+
+			if( result === undefined )
+			{
+				return 'failed';
+			}
+
+			return await result;
 		}
 
 		return data;
@@ -43,5 +56,5 @@ module.exports = {
 function ShouldDataBeUploaded( params: ApiParameter ): boolean
 {
 	// @ts-ignore
-	return params.query.upload !== undefined && params.query.upload === true;
+	return params.query.upload !== undefined && params.query.upload === 'true';
 }
