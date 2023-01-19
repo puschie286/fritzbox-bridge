@@ -48,7 +48,6 @@ class SettingHelper
 					return;
 				}
 
-				console.debug( result );
 				this.#homey.alert( this.#homey.__( 'Message.SendSuccess' ) );
 				this.#ResetDebug();
 			}.bind( this ) )

@@ -8,6 +8,12 @@
 	"ErrorCode5": "Der Heizkörperregler ist im Installationsmodus und kann auf das Heizungsventil montiert werden",
 	"ErrorCode6": "Der Heizkörperregler passt sich nun an den Hub des Heizungsventils an"
   },
+  "Rollo": {
+	"NoEndPos": "Endlage ist nicht eingestellt",
+	"AutoMode": "Automatische Zeitschaltung",
+	"ManuelMode": "Manuelle Steuerung",
+	"UnknownMode": "Unbekannt"
+  },
   "Message": {
 	"InvalidLogin": "Ungültige Login-Daten",
 	"ErrorLogin": "Fehler während des Logins aufgetreten",

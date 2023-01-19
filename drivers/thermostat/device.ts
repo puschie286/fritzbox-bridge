@@ -14,7 +14,7 @@ class Device extends BaseDevice
 	{
 		return {
 			//'onoff': { state: 'hkr.tsoll', type: CapabilityType.Boolean, valueFunc: this.OnOffValues, option: CapabilityOption.NoCast },
-			'availability': { state: 'present', type: CapabilityType.Boolean },
+			'availability': { state: 'present', type: CapabilityType.Boolean, hidden: true },
 			'measure_device_locked': { state: 'hkr.devicelock', type: CapabilityType.Boolean },
 			'measure_api_locked': { state: 'hkr.lock', type: CapabilityType.Boolean },
 			'measure_open_window': { state: 'hkr.windowopenactiv', type: CapabilityType.Boolean },
@@ -88,13 +88,13 @@ class Device extends BaseDevice
 		}
 	}
 
-	onTargetTemperature( value: any )
+	private onTargetTemperature( value: any )
 	{
 		this.log( 'send setTarget: ' + parseFloat( value ) );
 		this.api.setTempTarget( this.getData().id, parseFloat( value ) );
 	}
 
-	onOnOff( value: any )
+	private onOnOff( value: any )
 	{
 		let Value = Boolean( value );
 		this.log( 'send onOff: ', Value );

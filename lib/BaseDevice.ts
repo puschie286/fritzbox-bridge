@@ -48,9 +48,9 @@ export abstract class BaseDevice extends Device
 		const registeredCapabilities = this.getCapabilities();
 		let definedCapabilities: string[] = [];
 
-		for( const [ name, ] of Object.entries( this.CapabilityDefinitions() ) )
+		for( const [ name, capability ] of Object.entries( this.CapabilityDefinitions() ) )
 		{
-			if( name === Availability ) continue;
+			if( capability.hidden === true ) continue;
 
 			definedCapabilities.push( name );
 		}
@@ -81,14 +81,19 @@ export abstract class BaseDevice extends Device
 		const capabilities = this.CapabilityDefinitions();
 		for( const [name, capability] of Object.entries( capabilities ) )
 		{
-			// gather data from device
-			// TODO: make gathering more stable ( if property doesnt exist )
-			let value = capability.state.split( '.' ).reduce( ( o, i ) => o[i], data );
+			let value = undefined;
 
-			// check for casting
-			if( capability.option != CapabilityOption.NoCast || value === undefined )
+			if( capability.state != null )
 			{
-				value = this.CastValue( capability.type, value );
+				// gather data from device
+				// TODO: make gathering more stable ( if property doesnt exist )
+				let value = capability.state.split( '.' ).reduce( ( o, i ) => o[i], data );
+
+				// check for casting
+				if( capability.option != CapabilityOption.NoCast && capability.type != null )
+				{
+					value = this.CastValue( capability.type, value );
+				}
 			}
 
 			await this.UpdateProperty( name, capability, value );
@@ -158,8 +163,14 @@ export abstract class BaseDevice extends Device
 			value = await capability.valueFunc( value );
 		}
 
-		// default update routines
-		await this.updateCapability( name, value );
+		const oldValue = this.getCapabilityValue( name );
+
+		await this.capabilityUpdated( name, value, oldValue );
+
+		if( oldValue !== value )
+		{
+			await this.capabilityChanged( name, value, oldValue );
+		}
 	}
 
 	protected abstract CapabilityDefinitions(): CapabilityDefinition;
@@ -170,19 +181,25 @@ export abstract class BaseDevice extends Device
 	}
 
 	/**
-	 * Update capability value
+	 * called on capability update
 	 * @param name capability id
 	 * @param value new value
-	 * @return true on value changed
+	 * @param oldValue old value
 	 */
-	protected async updateCapability( name: string, value: any ): Promise<boolean>
+	protected async capabilityUpdated( name: string, value: any, oldValue: any )
 	{
-		// compare value
-		const oldValue = this.getCapabilityValue( name );
-		if( oldValue === value ) return false;
 
+	}
+
+	/**
+	 * called on capability value has changed
+	 * @param name capability id
+	 * @param value new value
+	 * @param oldValue old value
+	 */
+	protected async capabilityChanged( name: string, value: any, oldValue: any )
+	{
 		console.debug( 'update ' + name + ' from ' + oldValue + ' to ' + value );
 		await this.setCapabilityValue( name, value ).catch( this.error.bind( this ) );
-		return true;
 	}
 }

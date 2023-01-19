@@ -9,13 +9,14 @@ class Device extends BaseDevice
 	protected CapabilityDefinitions(): CapabilityDefinition
 	{
 		return {
-			'availability': { state: 'present', type: CapabilityType.Boolean },
+			'availability': { state: 'present', type: CapabilityType.Boolean, hidden: true },
 			'measure_power': { state: 'powermeter.power', type: CapabilityType.Number, valueFunc: ConvertHelper.ConvertPower },
 			'meter_power': { state: 'powermeter.energy', type: CapabilityType.Number, valueFunc: ConvertHelper.ConvertPower },
 			'measure_voltage': { state: 'powermeter.voltage', type: CapabilityType.Number, valueFunc: ConvertHelper.ConvertPower },
 		}
 	}
 
+	// TODO: move to capability updated
 	protected async UpdateProperty( name: string, capability: Capability, value: any )
 	{
 		// calculate measure_current with power, energy, voltage

@@ -10,7 +10,7 @@ class Device extends BaseDevice
 	protected CapabilityDefinitions(): CapabilityDefinition
 	{
 		return {
-			'availability': { state: 'present', type: CapabilityType.Boolean },
+			'availability': { state: 'present', type: CapabilityType.Boolean, hidden: true },
 			'measure_switch_mode': { state: 'switch.mode', type: CapabilityType.Boolean, valueFunc: ConvertHelper.CompareAuto, option: CapabilityOption.NoCast },
 			'measure_device_locked': { state: 'switch.devicelock', type: CapabilityType.Boolean },
 			'measure_api_locked': { state: 'switch.lock', type: CapabilityType.Boolean },
@@ -28,7 +28,7 @@ class Device extends BaseDevice
 		}
 	}
 
-	onOnOff( value: any )
+	private onOnOff( value: any )
 	{
 		let Value = Boolean( value );
 		this.log( 'send onOff: ', Value );

@@ -275,6 +275,64 @@
     },
     {
       "name": {
+        "en": "Blind",
+        "de": "Rolladen"
+      },
+      "class": "blinds",
+      "capabilities": [
+        "windowcoverings_set",
+        "blind_mode",
+        "button.open",
+        "button.close",
+        "button.stop"
+      ],
+      "capabilitiesOptions": {
+        "button.open": {
+          "title": {
+            "en": "Open blind",
+            "de": "Rolladen öffnen"
+          }
+        },
+        "button.close": {
+          "title": {
+            "en": "Close blind",
+            "de": "Rolladen schließen"
+          }
+        },
+        "button.stop": {
+          "title": {
+            "en": "Stop blind",
+            "de": "Rolladen stoppen"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/blind/assets/images/large.png",
+        "small": "/drivers/blind/assets/images/small.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "blind"
+    },
+    {
+      "name": {
         "en": "Energymeter",
         "de": "Energiezähler"
       },
@@ -541,6 +599,15 @@
       "title": {
         "en": "update available",
         "de": "Update verfügbar"
+      },
+      "getable": true,
+      "setable": false
+    },
+    "blind_mode": {
+      "type": "string",
+      "title": {
+        "en": "Rolladen Modus",
+        "de": "Blind Mode"
       },
       "getable": true,
       "setable": false

@@ -1,0 +1,9 @@
+{
+  "type": "string",
+  "title": {
+	"en": "Rolladen Modus",
+	"de": "Blind Mode"
+  },
+  "getable": true,
+  "setable": false
+}

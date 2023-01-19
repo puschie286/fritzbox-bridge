@@ -7,7 +7,7 @@ class Device extends BaseDevice
 	protected CapabilityDefinitions(): CapabilityDefinition
 	{
 		return {
-			'availability': { state: 'present', type: CapabilityType.Boolean },
+			'availability': { state: 'present', type: CapabilityType.Boolean, hidden: true },
 			'measure_temperature': { state: 'temperature.celsius', type: CapabilityType.Number, valueFunc: this.ConvertTemperature },
 			'measure_temperature.offset': { state: 'temperature.offset', type: CapabilityType.Number, valueFunc: this.ConvertTemperature }
 		}

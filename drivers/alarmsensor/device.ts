@@ -7,7 +7,7 @@ class Device extends BaseDevice
 	protected CapabilityDefinitions(): CapabilityDefinition
 	{
 		return {
-			'availability': { state: 'present', type: CapabilityType.Boolean },
+			'availability': { state: 'present', type: CapabilityType.Boolean, hidden: true },
 			'alarm_generic': { state: 'alert.state', type: CapabilityType.Boolean }
 		}
 	}
