@@ -17,7 +17,7 @@
   "Message": {
 	"InvalidLogin": "Invalid login-data",
 	"ErrorLogin": "Error occurred while login",
-	"ValidLogin": "Login successfully",
+	"ValidLogin": "Login successful",
 	"Timeout": "No connection / Invalid address",
 	"NotFound": "Invalid address",
 	"InvalidSSL": "SSL validation failed",

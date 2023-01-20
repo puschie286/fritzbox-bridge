@@ -83,14 +83,14 @@ export abstract class BaseDevice extends Device
 		{
 			let value = undefined;
 
-			if( capability.state != null )
+			if( capability.state !== undefined )
 			{
 				// gather data from device
 				// TODO: make gathering more stable ( if property doesnt exist )
-				let value = capability.state.split( '.' ).reduce( ( o, i ) => o[i], data );
+				value = capability.state.split( '.' ).reduce( ( o, i ) => o[i], data );
 
 				// check for casting
-				if( capability.option != CapabilityOption.NoCast && capability.type != null )
+				if( capability.option !== CapabilityOption.NoCast && capability.type !== undefined )
 				{
 					value = this.CastValue( capability.type, value );
 				}
@@ -158,7 +158,7 @@ export abstract class BaseDevice extends Device
 		}
 
 		// check for value function
-		if( capability.valueFunc !== undefined && capability.valueFunc !== null )
+		if( capability.valueFunc !== undefined )
 		{
 			value = await capability.valueFunc( value );
 		}
