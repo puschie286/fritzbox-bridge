@@ -1,5 +1,5 @@
 import { FritzApi } from "../types/FritzApi";
-import { Validate } from "./Helper";
+import { MaskCheck, Validate } from "./Helper";
 import { Settings } from "./Settings";
 import { BaseDriver } from "./BaseDriver";
 import { BaseDevice } from "./BaseDevice";
@@ -198,18 +198,13 @@ export class FritzboxManager
 	 */
 	public FilterDevices( deviceList: any[], functionMask: number ): any[]
 	{
-		let PassedDevices: any[] = [];
-		if( deviceList.length > 0 )
+		let validDevices: any[] = [];
+		for( const device of deviceList )
 		{
-			deviceList.forEach( function( device )
-			{
-				// check if device contain driver function
-				if( (Number( device.functionbitmask ) & functionMask) !== functionMask ) return;
-
-				PassedDevices.push( device );
-			} );
+			if( !MaskCheck( device.functionbitmask, functionMask ) ) continue;
+			validDevices.push( device );
 		}
-		return PassedDevices;
+		return validDevices;
 	}
 
 	// TODO: specify deviceList type, specify identifier type
@@ -245,7 +240,7 @@ export class FritzboxManager
 			const baseDriver = driver as BaseDriver;
 
 			// skip fritzbox driver
-			if( baseDriver.GetFunctionMask() === -1 ) continue;
+			if( baseDriver.GetBaseFunction() === -1 ) continue;
 
 			const devices = driver.getDevices();
 
@@ -253,7 +248,7 @@ export class FritzboxManager
 			if( devices.length === 0 ) continue;
 
 			// filter specific driver
-			let DriverDeviceList = this.FilterDevices( data, baseDriver.GetFunctionMask() );
+			let DriverDeviceList = this.FilterDevices( data, baseDriver.GetBaseFunction() );
 
 			// update device
 			for( const device of devices )

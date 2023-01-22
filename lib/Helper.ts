@@ -29,3 +29,8 @@ export function Round( value: number, offset: number = 1 ): number
 
 	return Math.round( value * splitFactor ) / splitFactor;
 }
+
+export function MaskCheck( value: number, mask: number ): boolean
+{
+	return ( value & mask ) === mask;
+}

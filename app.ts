@@ -3,13 +3,12 @@ import { Settings, SettingsDefault } from "./lib/Settings";
 import { Validate, ValidateUrl } from "./lib/Helper";
 import { LoginValidation } from "./types/LoginValidation";
 import { FritzboxManager } from "./lib/FritzboxManager";
-import { clearIntervalAsync, setIntervalAsync, SetIntervalAsyncTimer } from "set-interval-async";
 
 class FritzboxBridge extends App
 {
 	// @ts-ignore
 	private fritzbox: FritzboxManager;
-	private validation?: SetIntervalAsyncTimer<[]>;
+	private validation?: NodeJS.Timeout;
 
 	async onInit()
 	{
@@ -125,12 +124,11 @@ class FritzboxBridge extends App
 		// reset running timout
 		if( this.validation !== undefined )
 		{
-			await clearIntervalAsync( this.validation );
-			this.validation = undefined;
+			clearTimeout( this.validation );
 		}
 
 		// delay validation
-		this.validation = setIntervalAsync( this.ValidateLogin.bind( this ), 100 );
+		this.validation = setTimeout( this.ValidateLogin.bind( this ), 100 );
 	}
 
 	private async ValidateLogin()
@@ -152,11 +150,7 @@ class FritzboxBridge extends App
 			this.setValidation( LoginValidation.Invalid );
 		}
 
-		if( this.validation !== undefined )
-		{
-			await clearIntervalAsync( this.validation );
-			this.validation = undefined;
-		}
+		this.validation = undefined;
 	}
 
 	private ParseError( error: any ): string

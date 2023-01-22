@@ -20,7 +20,7 @@ export abstract class BaseDevice extends Device
 		{
 			this.api = FritzboxManager.GetSingleton().GetApi();
 
-			// update capabilities
+			// update functions
 			await this.UpdateCapabilities();
 
 			this.RegisterListener();
@@ -60,10 +60,12 @@ export abstract class BaseDevice extends Device
 
 		for( const addedCapability of added )
 		{
+			this.homey.log( 'added ' + addedCapability );
 			await this.addCapability( addedCapability );
 		}
 		for( const removedCapability of removed )
 		{
+			this.homey.log( 'removed ' + removedCapability );
 			await this.removeCapability( removedCapability );
 		}
 	}
