@@ -1,0 +1,11 @@
+{
+  "identifier": "0",
+  "id": "409",
+  "functionbitmask": "1",
+  "fwversion": "00.00",
+  "manufacturer": "0x2c3c",
+  "productname": "HAN-FUN",
+  "present": "0",
+  "txbusy": "0",
+  "name": "EXAMPLE"
+}

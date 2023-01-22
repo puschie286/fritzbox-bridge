@@ -1,0 +1,11 @@
+{
+  "identifier": "0",
+  "id": "407",
+  "functionbitmask": "1",
+  "fwversion": "37.16.08#1.1R",
+  "manufacturer": "0x37c4",
+  "productname": "RolloTron DECT",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE"
+}

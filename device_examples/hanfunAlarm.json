@@ -1,0 +1,20 @@
+{
+  "identifier": "0",
+  "id": "2000",
+  "functionbitmask": "8208",
+  "fwversion": "0.0",
+  "manufacturer": "0x2c3c",
+  "productname": "HAN-FUN",
+  "present": "0",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "etsiunitinfo": {
+	"etsideviceid": "409",
+	"unittype": "515",
+	"interfaces": "32514,256"
+  },
+  "alert": {
+	"state": "",
+	"lastalertchgtimestamp": ""
+  }
+}

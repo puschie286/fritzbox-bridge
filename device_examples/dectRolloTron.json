@@ -1,0 +1,28 @@
+{
+  "identifier": "0",
+  "id": "2000",
+  "functionbitmask": "335888",
+  "fwversion": "0.0",
+  "manufacturer": "0x37c4",
+  "productname": "RolloTron DECT",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "blind": {
+	"endpositionsset": "1",
+	"mode": "manuell"
+  },
+  "levelcontrol": {
+	"level": "0",
+	"levelpercentage": "0"
+  },
+  "etsiunitinfo": {
+	"etsideviceid": "406",
+	"unittype": "281",
+	"interfaces": "256,513,516,517"
+  },
+  "alert": {
+	"state": "0",
+	"lastalertchgtimestamp": ""
+  }
+}

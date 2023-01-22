@@ -1,0 +1,38 @@
+{
+  "identifier": "0",
+  "id": "18",
+  "functionbitmask": "320",
+  "fwversion": "03.68",
+  "manufacturer": "AVM",
+  "productname": "Comet DECT",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "battery": "20",
+  "batterylow": "0",
+  "temperature": {
+	"celsius": "240",
+	"offset": "-5"
+  },
+  "hkr": {
+	"tist": "48",
+	"tsoll": "254",
+	"absenk": "32",
+	"komfort": "38",
+	"lock": "0",
+	"devicelock": "0",
+	"errorcode": "0",
+	"windowopenactiv": "0",
+	"windowopenactiveendtime": "0",
+	"boostactive": "0",
+	"boostactiveendtime": "0",
+	"batterylow": "0",
+	"battery": "20",
+	"nextchange": {
+	  "endperiod": "0",
+	  "tchange": "38"
+	},
+	"summeractive": "0",
+	"holidayactive": "0"
+  }
+}
