@@ -12,5 +12,4 @@ export class Fritzbox extends BaseFeature
 			{ name: 'power_usage', state: 'data.fritzos.energy', type: CapabilityType.Integer }
 		];
 	}
-
 }

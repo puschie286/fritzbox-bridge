@@ -16,7 +16,7 @@ export abstract class BaseFeature
 	{
 		for( const capability of this.Capabilities() )
 		{
-			await this.OnCapabilityUpdate( capability, this.GetValue( capability, data ) );
+			await this.OnCapabilityUpdate( capability, await this.GetValue( capability, data ) );
 		}
 	}
 
@@ -35,7 +35,7 @@ export abstract class BaseFeature
 		await this.device.setCapabilityValue( capability.name, value ).catch( this.device.error );
 	}
 
-	protected GetValue( capability: Capability, data: any ): any
+	protected async GetValue( capability: Capability, data: any ): Promise<any>
 	{
 		if( capability.state === undefined )
 		{
@@ -57,7 +57,7 @@ export abstract class BaseFeature
 			return castedValue;
 		}
 
-		return capability.valueFunc( capability );
+		return await capability.valueFunc( castedValue );
 	}
 
 	protected CastValue( type: CapabilityType, value: any ): any

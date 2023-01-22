@@ -4,13 +4,7 @@
 	"de": "Rolladen"
   },
   "class": "blinds",
-  "capabilities": [
-	"windowcoverings_set",
-	"blind_mode",
-	"button.open",
-	"button.close",
-	"button.stop"
-  ],
+  "capabilities": [],
   "capabilitiesOptions": {
 	"button.open": {
 	  "title": {
@@ -49,6 +43,5 @@
 	  "id": "add_devices",
 	  "template": "add_devices"
 	}
-  ],
-  "deprecated": true
+  ]
 }

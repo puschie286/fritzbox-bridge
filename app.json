@@ -245,9 +245,7 @@
         "de": "Alarmsensor"
       },
       "class": "sensor",
-      "capabilities": [
-        "alarm_generic"
-      ],
+      "capabilities": [],
       "images": {
         "large": "/drivers/alarmsensor/assets/images/large.png",
         "small": "/drivers/alarmsensor/assets/images/small.png"
@@ -279,13 +277,7 @@
         "de": "Rolladen"
       },
       "class": "blinds",
-      "capabilities": [
-        "windowcoverings_set",
-        "blind_mode",
-        "button.open",
-        "button.close",
-        "button.stop"
-      ],
+      "capabilities": [],
       "capabilitiesOptions": {
         "button.open": {
           "title": {
@@ -337,12 +329,7 @@
         "de": "Energiezähler"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_current",
-        "measure_voltage",
-        "measure_power",
-        "meter_power"
-      ],
+      "capabilities": [],
       "images": {
         "large": "/drivers/energymeter/assets/images/large.png",
         "small": "/drivers/energymeter/assets/images/small.png"
@@ -366,6 +353,7 @@
           "template": "add_devices"
         }
       ],
+      "deprecated": true,
       "id": "energymeter"
     },
     {
@@ -374,11 +362,7 @@
         "de": "Fritzbox Router"
       },
       "class": "other",
-      "capabilities": [
-        "alert_update_available",
-        "os_version",
-        "power_usage"
-      ],
+      "capabilities": [],
       "images": {
         "large": "/drivers/fritzbox/assets/images/large.png",
         "small": "/drivers/fritzbox/assets/images/small.png"
@@ -406,19 +390,11 @@
     },
     {
       "name": {
-        "en": "(G)Plug",
-        "de": "(G)Steckdose"
+        "en": "Plug",
+        "de": "Steckdose"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_switch_mode",
-        "measure_device_locked",
-        "measure_api_locked",
-        "measure_voltage",
-        "measure_power",
-        "meter_power"
-      ],
+      "capabilities": [],
       "images": {
         "large": "/drivers/plug/assets/images/large.png",
         "small": "/drivers/plug/assets/images/small.png"
@@ -450,12 +426,7 @@
         "de": "Steckdosenschalter"
       },
       "class": "socket",
-      "capabilities": [
-        "onoff",
-        "measure_switch_mode",
-        "measure_device_locked",
-        "measure_api_locked"
-      ],
+      "capabilities": [],
       "images": {
         "large": "/drivers/socket/assets/images/large.png",
         "small": "/drivers/socket/assets/images/small.png"
@@ -487,18 +458,7 @@
         "de": "Temperatursensor"
       },
       "class": "sensor",
-      "capabilities": [
-        "measure_temperature",
-        "measure_temperature.offset"
-      ],
-      "capabilitiesOptions": {
-        "measure_temperature.offset": {
-          "title": {
-            "en": "Temperature offset",
-            "de": "Temperatur Offset"
-          }
-        }
-      },
+      "capabilities": [],
       "images": {
         "large": "/drivers/temperaturesensor/assets/images/large.png",
         "small": "/drivers/temperaturesensor/assets/images/small.png"
@@ -530,37 +490,7 @@
         "de": "Thermostat"
       },
       "class": "thermostat",
-      "capabilities": [
-        "measure_open_window",
-        "measure_device_locked",
-        "measure_api_locked",
-        "measure_device_error",
-        "measure_battery",
-        "measure_battery_low",
-        "target_temperature",
-        "measure_temperature",
-        "measure_temperature.komfort",
-        "measure_temperature.night"
-      ],
-      "capabilitiesOptions": {
-        "measure_temperature.komfort": {
-          "title": {
-            "en": "Fritzbox: comfort temperature",
-            "de": "Fritzbox: Komforttemperatur"
-          }
-        },
-        "measure_temperature.night": {
-          "title": {
-            "en": "Fritzbox: night temperature",
-            "de": "Fritzbox: Spartemperatur"
-          }
-        },
-        "target_temperature": {
-          "min": 8,
-          "max": 28,
-          "step": 0.5
-        }
-      },
+      "capabilities": [],
       "images": {
         "large": "/drivers/thermostat/assets/images/large.png",
         "small": "/drivers/thermostat/assets/images/small.png"

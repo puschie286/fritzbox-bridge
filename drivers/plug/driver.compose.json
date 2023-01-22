@@ -1,7 +1,7 @@
 {
   "name": {
-    "en": "(G)Plug",
-    "de": "(G)Steckdose"
+    "en": "Plug",
+    "de": "Steckdose"
   },
   "class": "socket",
   "capabilities": [],

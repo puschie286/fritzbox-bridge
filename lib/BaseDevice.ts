@@ -47,21 +47,23 @@ export abstract class BaseDevice extends Device
 			return;
 		}
 
-		let functions = this.getStoreValue( 'functions' );
+		let functions = Number( this.getStoreValue( 'functions' ) );
 		if( typeof dataFunctions === 'number' && functions !== dataFunctions )
 		{
 			await this.setStoreValue( 'functions', dataFunctions );
 			functions = dataFunctions;
 		}
 
-		if( typeof functions !== 'number' ) return;
+		if( Number.isNaN( functions ) ) return;
+
+		this.initialized = true;
+
+		this.log( 'init with ' + functions );
 
 		this.features = FunctionFactory.Create( await this.GetFunctionMask( functions ), this );
 
 		await this.UpdateCapabilities();
 		this.UpdateListeners();
-
-		this.initialized = true;
 	}
 
 	protected async UpdateCapabilities()
@@ -90,7 +92,7 @@ export abstract class BaseDevice extends Device
 
 		for( const add of added )
 		{
-			this.homey.log( 'added ' + add );
+			this.homey.log( 'added ' + add.name );
 			await this.addCapability( add.name );
 			if( add.options !== undefined )
 			{
@@ -113,7 +115,7 @@ export abstract class BaseDevice extends Device
 
 			for( const listener of listeners )
 			{
-				this.registerCapabilityListener( listener.name, listener.callback.bind( this ) );
+				this.registerCapabilityListener( listener.name, listener.callback.bind( feature ) );
 			}
 		}
 	}
@@ -127,7 +129,7 @@ export abstract class BaseDevice extends Device
 		}
 
 		// ensure initialization
-		await this.Initialize( data.functionbitmask );
+		await this.Initialize( Number( data.functionbitmask ) );
 
 		// update each capability
 		for( const feature of this.features )

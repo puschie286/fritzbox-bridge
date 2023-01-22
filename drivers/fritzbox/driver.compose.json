@@ -4,11 +4,7 @@
     "de": "Fritzbox Router"
   },
   "class": "other",
-  "capabilities": [
-    "alert_update_available",
-    "os_version",
-    "power_usage"
-  ],
+  "capabilities": [],
   "images": {
     "large": "/drivers/fritzbox/assets/images/large.png",
     "small": "/drivers/fritzbox/assets/images/small.png"

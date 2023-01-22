@@ -1,7 +1,6 @@
 import { BaseFeature } from "../lib/BaseFeature";
 import { Capability } from "../types/Capability";
 import { CapabilityType } from "../types/CapabilityType";
-import { ConvertHelper } from "../lib/ConvertHelper";
 import { CapabilityListener } from "../types/CapabilityListener";
 
 export class Outlet extends BaseFeature
@@ -9,7 +8,7 @@ export class Outlet extends BaseFeature
 	Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'measure_switch_mode', state: 'switch.mode', valueFunc: ConvertHelper.CompareAuto
+			name: 'measure_switch_mode', state: 'switch.mode', valueFunc: Outlet.CompareAuto
 		}, {
 			name: 'measure_device_locked', state: 'switch.devicelock', type: CapabilityType.Boolean
 		}, {
@@ -35,5 +34,10 @@ export class Outlet extends BaseFeature
 		{
 			this.device.GetAPI().setSwitchOff( this.device.getData().id );
 		}
+	}
+
+	private static CompareAuto( value: any ): boolean
+	{
+		return String( value ) === 'auto';
 	}
 }

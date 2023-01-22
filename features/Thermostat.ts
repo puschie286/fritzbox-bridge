@@ -44,7 +44,7 @@ export class Thermostat extends BaseFeature
 				}
 			}
 		}, {
-			name: 'measure_device_error', state: 'hkr.errorcode', valueFunc: this.HandleError.bind( this ),
+			name: 'measure_device_error', state: 'hkr.errorcode', type: CapabilityType.Integer, valueFunc: this.HandleError.bind( this ),
 		}, {
 			name: 'target_temperature',
 			state: 'hkr.tsoll',
