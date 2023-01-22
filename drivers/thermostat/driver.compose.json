@@ -4,37 +4,7 @@
     "de": "Thermostat"
   },
   "class": "thermostat",
-  "capabilities": [
-    "measure_open_window",
-    "measure_device_locked",
-    "measure_api_locked",
-    "measure_device_error",
-    "measure_battery",
-    "measure_battery_low",
-    "target_temperature",
-    "measure_temperature",
-    "measure_temperature.komfort",
-    "measure_temperature.night"
-  ],
-  "capabilitiesOptions": {
-    "measure_temperature.komfort": {
-      "title": {
-        "en": "Fritzbox: comfort temperature",
-        "de": "Fritzbox: Komforttemperatur"
-      }
-    },
-    "measure_temperature.night": {
-      "title": {
-        "en": "Fritzbox: night temperature",
-        "de": "Fritzbox: Spartemperatur"
-      }
-    },
-	"target_temperature": {
-	  "min": 8,
-	  "max": 28,
-	  "step": 0.5
-	}
-  },
+  "capabilities": [],
   "images": {
     "large": "/drivers/thermostat/assets/images/large.png",
     "small": "/drivers/thermostat/assets/images/small.png"

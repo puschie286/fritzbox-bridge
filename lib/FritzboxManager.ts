@@ -190,7 +190,7 @@ export class FritzboxManager
 
 	// TODO: specify deviceList type
 	/**
-	 * filter deviceList based on functionmask ( device functions )
+	 * filter deviceList based on functionmask ( device features )
 	 *
 	 * @param deviceList        list of all device objects
 	 * @param functionMask      function bitmask number

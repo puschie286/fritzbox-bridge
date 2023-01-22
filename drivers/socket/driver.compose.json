@@ -4,12 +4,7 @@
     "de": "Steckdosenschalter"
   },
   "class": "socket",
-  "capabilities": [
-    "onoff",
-    "measure_switch_mode",
-    "measure_device_locked",
-    "measure_api_locked"
-  ],
+  "capabilities": [],
   "images": {
     "large": "/drivers/socket/assets/images/large.png",
     "small": "/drivers/socket/assets/images/small.png"

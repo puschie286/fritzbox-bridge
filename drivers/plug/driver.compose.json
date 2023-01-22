@@ -4,15 +4,7 @@
     "de": "(G)Steckdose"
   },
   "class": "socket",
-  "capabilities": [
-    "onoff",
-    "measure_switch_mode",
-    "measure_device_locked",
-    "measure_api_locked",
-    "measure_voltage",
-    "measure_power",
-    "meter_power"
-  ],
+  "capabilities": [],
   "images": {
     "large": "/drivers/plug/assets/images/large.png",
     "small": "/drivers/plug/assets/images/small.png"

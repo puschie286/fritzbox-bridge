@@ -29,35 +29,34 @@ export abstract class BaseDriver extends Driver
 
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
-		let ShowDisconnected = this.homey.settings.get( Settings.SHOW_UNCONNECTED ) === true;
-		let self = this;
+		const ShowDisconnected = this.homey.settings.get( Settings.SHOW_UNCONNECTED ) === true;
 
 		const list = await this.fritzbox.GetApi().getDeviceList();
-		const mask = this.GetFunctionMask();
 
-		let DeviceFounded: ParingDevice[] = [];
-		this.fritzbox.FilterDevices( list, mask ).forEach( function( entry )
+		let validDevices: ParingDevice[] = [];
+
+		const devices = this.fritzbox.FilterDevices( list, this.GetBaseFunction() );
+		for( const device of devices )
 		{
 			// check if device is connected
-			if( !ShowDisconnected && !Boolean( entry.present ) ) return;
+			if( !ShowDisconnected && !Boolean( device.present ) ) continue;
 
 			// base setup
-			let Device: ParingDevice = {
-				name: entry.name,
+			let validDevice: ParingDevice = {
+				name: device.name,
 				data: {
-					id: entry.identifier
+					id: device.identifier
 				},
-				store: {},
+				store: {
+					functions: device.functionbitmask
+				},
 				settings: {}
 			};
 
-			// apply driver specific setup
-			self.PrepareParingDevice( entry, Device );
+			validDevices.push( validDevice );
+		}
 
-			DeviceFounded.push( Device );
-		} );
-
-		return DeviceFounded;
+		return validDevices;
 	}
 
 	protected isLoginValid(): boolean
@@ -65,10 +64,5 @@ export abstract class BaseDriver extends Driver
 		return this.homey.settings.get( Settings.VALIDATION ) === LoginValidation.Valid;
 	}
 
-	public abstract GetFunctionMask(): number;
-
-	protected PrepareParingDevice( device: any, paringDevice: ParingDevice ): void
-	{
-
-	}
+	public abstract GetBaseFunction(): number;
 }

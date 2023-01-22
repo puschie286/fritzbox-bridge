@@ -1,5 +1,6 @@
 import { BaseDriver } from "../../lib/BaseDriver";
 
+// TODO: support multiple fritzbox router
 class Driver extends BaseDriver
 {
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
@@ -25,7 +26,7 @@ class Driver extends BaseDriver
 		];
 	}
 
-	public GetFunctionMask(): number
+	public GetBaseFunction(): number
 	{
 		return -1;
 	}

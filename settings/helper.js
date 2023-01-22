@@ -9,6 +9,7 @@ class SettingHelper
 	#saveButton;
 	#loginInfo;
 	#debugButton;
+	#values = [];
 
 	constructor( homey, saveId, infoId, debugId )
 	{
@@ -56,14 +57,7 @@ class SettingHelper
 
 	#InitInfo()
 	{
-		// init login status
-		this.#homey.get( 'validation', function( err, value )
-		{
-			if( !(err || Number.parseInt( value ) !== 1) )
-			{
-				this.#SetLocalizedInfo( 'Message.ValidLogin' );
-			}
-		}.bind( this ) );
+		this.#Validate();
 	}
 
 	#InitSettings( settingConfigs )
@@ -79,9 +73,18 @@ class SettingHelper
 		{
 			this.#DisableSave();
 
+			let hasChanges = false;
 			for( const settingConfig of settingConfigs )
 			{
-				this.#Save( settingConfig.id, settingConfig.type );
+				if( this.#Save( settingConfig.id, settingConfig.type ) )
+				{
+					hasChanges = true;
+				}
+			}
+
+			if( !hasChanges )
+			{
+				this.#ResetSave();
 			}
 		}.bind( this ) );
 
@@ -157,6 +160,8 @@ class SettingHelper
 			{
 				Target.value = value;
 			}
+
+			this.#values[id] = value;
 		}.bind( this ) );
 	}
 
@@ -164,15 +169,24 @@ class SettingHelper
 	{
 		const Target = document.getElementById( id );
 		const Value = ( type === 'checkbox' ) ? Target.checked : Target.value;
+
+		if( this.#values[id] === Value )
+		{
+			return false;
+		}
+
 		this.#homey.get( id, function( err, value )
 		{
 			if( err ) return this.#homey.alert( err );
 			if( value === Value ) return;
 			this.#homey.set( id, Value, function( err )
 			{
+				this.#values[id] = Value;
 				if( err ) return this.#homey.alert( err );
 			}.bind( this ) );
 		}.bind( this ) );
+
+		return true;
 	}
 
 	#Validate()

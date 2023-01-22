@@ -3,7 +3,7 @@ import { BaseDriver } from "../../lib/BaseDriver";
 
 class Driver extends BaseDriver
 {
-	GetFunctionMask(): number
+	GetBaseFunction(): number
 	{
 		return FritzApiBitmask.Alarm;
 	}

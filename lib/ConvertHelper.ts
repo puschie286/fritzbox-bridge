@@ -4,14 +4,4 @@ export class ConvertHelper
 	{
 		return String( value ) === 'auto';
 	}
-
-	public static ConvertPower( value: number|null ): number|null
-	{
-		if( value === null )
-		{
-			return null;
-		}
-
-		return value / 1000;
-	}
 }

@@ -3,9 +3,9 @@ import { FritzApiBitmask } from "../../types/FritzApi";
 
 class Driver extends BaseDriver
 {
-	GetFunctionMask(): number
+	GetBaseFunction(): number
 	{
-		return FritzApiBitmask.EnergyMeter | FritzApiBitmask.Outlet;
+		return FritzApiBitmask.EnergyMeter;
 	}
 }
 

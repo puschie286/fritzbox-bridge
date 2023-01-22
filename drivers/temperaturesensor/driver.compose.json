@@ -4,18 +4,7 @@
     "de": "Temperatursensor"
   },
   "class": "sensor",
-  "capabilities": [
-    "measure_temperature",
-    "measure_temperature.offset"
-  ],
-  "capabilitiesOptions": {
-    "measure_temperature.offset": {
-      "title": {
-        "en": "Temperature offset",
-        "de": "Temperatur Offset"
-      }
-    }
-  },
+  "capabilities": [],
   "images": {
     "large": "/drivers/temperaturesensor/assets/images/large.png",
     "small": "/drivers/temperaturesensor/assets/images/small.png"

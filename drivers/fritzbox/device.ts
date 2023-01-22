@@ -1,18 +1,21 @@
 import { BaseDevice } from "../../lib/BaseDevice";
-import { CapabilityDefinition } from "../../types/CapabilityDefinition";
-import { CapabilityType } from "../../types/CapabilityType";
-import { FlowCardTrigger } from "homey";
-import { FritzboxDevice } from "../../types/FritzboxDevice";
+import { Fritzbox } from "../../features/Fritzbox";
 
 export class Device extends BaseDevice
 {
-	protected CapabilityDefinitions(): CapabilityDefinition
+	protected async Initialize( dataFunctions?: number ): Promise<void>
 	{
-		return {
-			'os_version': { state: 'data.fritzos.nspver', type: CapabilityType.String },
-			'alert_update_available': { state: 'data.fritzos.isUpdateAvail', type: CapabilityType.Boolean },
-			'power_usage': { state: 'data.fritzos.energy', type: CapabilityType.Integer }
-		};
+		if( this.initialized )
+		{
+			return;
+		}
+
+		this.features = [ new Fritzbox( this ) ];
+
+		await this.UpdateCapabilities();
+		this.UpdateListeners();
+
+		this.initialized = true;
 	}
 }
 

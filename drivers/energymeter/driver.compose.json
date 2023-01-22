@@ -4,12 +4,7 @@
     "de": "Energiezähler"
   },
   "class": "sensor",
-  "capabilities": [
-    "measure_current",
-    "measure_voltage",
-    "measure_power",
-    "meter_power"
-  ],
+  "capabilities": [],
   "images": {
     "large": "/drivers/energymeter/assets/images/large.png",
     "small": "/drivers/energymeter/assets/images/small.png"
@@ -28,5 +23,6 @@
       "id": "add_devices",
       "template": "add_devices"
     }
-  ]
+  ],
+  "deprecated": true
 }

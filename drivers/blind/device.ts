@@ -1,5 +1,4 @@
 import { BaseDevice } from "../../lib/BaseDevice";
-import { CapabilityDefinition } from "../../types/CapabilityDefinition";
 import { CapabilityType } from "../../types/CapabilityType";
 import { CapabilityListener } from "../../types/CapabilityListener";
 import { FritzApiBlind } from "../../types/FritzApi";
@@ -9,7 +8,7 @@ class Device extends BaseDevice
 {
 	// TODO: create mode, end_set capability
 
-	protected CapabilityDefinitions(): CapabilityDefinition
+	protected CapabilityDefinitions(): CapabilityObject
 	{
 		return {
 			'availability': { state: 'present', type: CapabilityType.Boolean, hidden: true },
