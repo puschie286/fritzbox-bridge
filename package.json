@@ -1,6 +1,6 @@
 {
   "name": "com.puschie.fritzbox-bridge",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Fritzbox Bridge",
   "main": "app.ts",
   "dependencies": {

@@ -55,5 +55,8 @@
   },
   "0.9.4": {
     "en": "Auto detection of supported functionality\nImprove blind support"
+  },
+  "0.9.5": {
+	"en": "Fix upgrade problem"
   }
 }

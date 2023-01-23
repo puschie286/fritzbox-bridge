@@ -40,6 +40,24 @@ export abstract class BaseDevice extends Device
 		return this.api;
 	}
 
+	private async GetFunctionValue( dataFunctions?: number ): Promise<number>
+	{
+		const functions: number = Number( this.getStoreValue( 'functions' ) );
+
+		if( typeof dataFunctions === 'number' && dataFunctions > 0 && dataFunctions !== functions )
+		{
+			await this.setStoreValue( 'functions', dataFunctions ).catch( this.error );
+			return dataFunctions;
+		}
+
+		if( functions > 0 )
+		{
+			return functions;
+		}
+
+		return -1;
+	}
+
 	protected async Initialize( dataFunctions?: number)
 	{
 		if( this.initialized )
@@ -47,14 +65,11 @@ export abstract class BaseDevice extends Device
 			return;
 		}
 
-		let functions = Number( this.getStoreValue( 'functions' ) );
-		if( typeof dataFunctions === 'number' && functions !== dataFunctions )
+		let functions = await this.GetFunctionValue( dataFunctions );
+		if( functions === -1 )
 		{
-			await this.setStoreValue( 'functions', dataFunctions );
-			functions = dataFunctions;
+			return;
 		}
-
-		if( Number.isNaN( functions ) ) return;
 
 		this.initialized = true;
 
