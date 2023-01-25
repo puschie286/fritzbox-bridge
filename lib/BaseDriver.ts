@@ -1,7 +1,7 @@
-import { FritzboxManager } from "./FritzboxManager";
-import { Settings } from "./Settings";
-import { LoginValidation } from "../types/LoginValidation";
-import { Driver } from "homey";
+import { FritzboxManager } from './FritzboxManager';
+import { Settings } from './Settings';
+import { LoginValidation } from '../types/LoginValidation';
+import { Driver } from 'homey';
 
 export abstract class BaseDriver extends Driver
 {
@@ -27,6 +27,8 @@ export abstract class BaseDriver extends Driver
 		return this.GetDeviceList();
 	}
 
+	public abstract GetBaseFunction(): number;
+
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
 		const ShowDisconnected = this.homey.settings.get( Settings.SHOW_UNCONNECTED ) === true;
@@ -43,14 +45,11 @@ export abstract class BaseDriver extends Driver
 
 			// base setup
 			let validDevice: ParingDevice = {
-				name: device.name,
-				data: {
+				name: device.name, data: {
 					id: device.identifier
-				},
-				store: {
+				}, store: {
 					functions: device.functionbitmask
-				},
-				settings: {}
+				}, settings: {}
 			};
 
 			validDevices.push( validDevice );
@@ -63,6 +62,4 @@ export abstract class BaseDriver extends Driver
 	{
 		return this.homey.settings.get( Settings.VALIDATION ) === LoginValidation.Valid;
 	}
-
-	public abstract GetBaseFunction(): number;
 }

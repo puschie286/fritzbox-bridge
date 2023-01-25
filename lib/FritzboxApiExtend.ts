@@ -1,45 +1,43 @@
-import { FritzboxPages } from "../types/FritzboxPages";
+import { FritzboxPages } from '../types/FritzboxPages';
 
 const extend = require( 'extend' );
 const request = require( 'request' );
 
 const defaults = { url: 'https://fritz.box' };
 
-function httpRequest(path: string, req: any, options: any)
+function httpRequest( path: string, req: any, options: any )
 {
-	return new Promise(function(resolve, reject) {
-		req = extend({}, defaults, req, options);
+	return new Promise( function( resolve, reject )
+	{
+		req = extend( {}, defaults, req, options );
 		req.url += path;
 
-		request( req, function( error: any, response: any, body: any) {
-			if (error || !(/^2/.test('' + response.statusCode)) || /action=".?login.lua"/.test(body)) {
-				if (/action=".?login.lua"/.test(body)) {
+		request( req, function( error: any, response: any, body: any )
+		{
+			if( error || !( /^2/.test( '' + response.statusCode ) ) || /action=".?login.lua"/.test( body ) )
+			{
+				if( /action=".?login.lua"/.test( body ) )
+				{
 					// fake failed login if redirected to login page without HTTP 403
 					response.statusCode = 403;
 				}
-				reject({
-					error: error,
-					response: response,
-					options: req
-				});
+				reject( {
+					error: error, response: response, options: req
+				} );
 			}
-			else {
-				resolve(body.trim());
+			else
+			{
+				resolve( body.trim() );
 			}
-		});
-	});
+		} );
+	} );
 }
 
 async function LoadData( sid: any, options: any, page: string, xhrId: string )
 {
 	const req = {
-		method: 'POST',
-		form: {
-			sid: sid,
-			useajax: '1',
-			xhrId: xhrId,
-			xhr: '1',
-			page: page
+		method: 'POST', form: {
+			sid: sid, useajax: '1', xhrId: xhrId, xhr: '1', page: page
 		}
 	};
 

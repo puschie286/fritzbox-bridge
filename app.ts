@@ -1,8 +1,8 @@
-import { App } from "homey";
-import { Settings, SettingsDefault } from "./lib/Settings";
-import { Validate, ValidateUrl } from "./lib/Helper";
-import { LoginValidation } from "./types/LoginValidation";
-import { FritzboxManager } from "./lib/FritzboxManager";
+import { App } from 'homey';
+import { Settings, SettingsDefault } from './lib/Settings';
+import { Validate, ValidateUrl } from './lib/Helper';
+import { LoginValidation } from './types/LoginValidation';
+import { FritzboxManager } from './lib/FritzboxManager';
 
 class FritzboxBridge extends App
 {

@@ -1,17 +1,18 @@
-import { FritzApi } from "../types/FritzApi";
-import { MaskCheck, Validate } from "./Helper";
-import { Settings } from "./Settings";
-import { BaseDriver } from "./BaseDriver";
-import { BaseDevice } from "./BaseDevice";
-import Homey from "homey/lib/Homey";
-import { Device } from "../drivers/fritzbox/device";
-import { SentryLog } from "../types/SentryLog";
-import { FritzboxTracker } from "./FritzboxTracker";
+import { FritzApi } from '../types/FritzApi';
+import { MaskCheck, Validate } from './Helper';
+import { Settings } from './Settings';
+import { BaseDriver } from './BaseDriver';
+import { BaseDevice } from './BaseDevice';
+import Homey from 'homey/lib/Homey';
+import { Device } from '../drivers/fritzbox/device';
+import { SentryLog } from '../types/SentryLog';
+import { FritzboxTracker } from './FritzboxTracker';
 
 const { Log } = require( 'homey-log' );
 
 export class FritzboxManager
 {
+	private static instance?: FritzboxManager;
 	private apiInstance?: FritzApi;
 	private polling?: NodeJS.Timeout;
 	private pollRunning: boolean = false;
@@ -20,8 +21,6 @@ export class FritzboxManager
 	private readonly homey: Homey;
 	private readonly log: SentryLog;
 	private readonly tracker: FritzboxTracker;
-
-	private static instance?: FritzboxManager;
 	private lastDeviceData?: any;
 
 	public constructor( homey: Homey )
@@ -124,7 +123,7 @@ export class FritzboxManager
 			this.StopPolling();
 		}
 
-		this.homey.log( 'start polling with ' + (Math.round( (interval / 1000) * 100 ) / 100) + 's interval' );
+		this.homey.log( 'start polling with ' + ( Math.round( ( interval / 1000 ) * 100 ) / 100 ) + 's interval' );
 		this.polling = this.homey.setInterval( this.Poll.bind( this ), interval );
 
 		// direct update
@@ -187,7 +186,7 @@ export class FritzboxManager
 			return;
 		}
 
-		this.homey.log('stop status polling');
+		this.homey.log( 'stop status polling' );
 		this.homey.clearInterval( this.statusPolling );
 		this.statusPolling = undefined;
 		this.statusPollRunning = false;
@@ -227,8 +226,7 @@ export class FritzboxManager
 		let Device = null;
 		deviceList.some( function( device )
 		{
-			if( device.identifier !== identifier )
-				return false;
+			if( device.identifier !== identifier ) return false;
 
 			Device = device;
 			return true;
@@ -240,7 +238,7 @@ export class FritzboxManager
 	{
 		const drivers = Object.entries( this.homey.drivers.getDrivers() );
 
-		for( const [ _, driver] of drivers )
+		for( const [ _, driver ] of drivers )
 		{
 			const baseDriver = driver as BaseDriver;
 
@@ -286,7 +284,7 @@ export class FritzboxManager
 	{
 		if( this.pollRunning )
 		{
-			console.debug('Skip poll - still waiting on last poll');
+			console.debug( 'Skip poll - still waiting on last poll' );
 			return;
 		}
 
@@ -296,8 +294,7 @@ export class FritzboxManager
 		{
 			this.lastDeviceData = await this.GetApi().getDeviceList();
 			await this.ProcessPoll( this.lastDeviceData );
-		}
-		catch( error: any )
+		} catch( error: any )
 		{
 			this.logPolError( error );
 		}
@@ -321,8 +318,7 @@ export class FritzboxManager
 			const overview = await this.GetApi().getFritzboxOverview();
 			const network = await this.GetApi().getFritzboxNetwork();
 			await this.ProcessStatusPoll( overview, network );
-		}
-		catch( error: any )
+		} catch( error: any )
 		{
 			this.logPolError( error );
 		}

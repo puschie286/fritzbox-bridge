@@ -5,6 +5,7 @@ supported devices:
 * Fritz!DECT 200/210, FRITZ!Powerline 546E
 * HANFUN Alarm
 * FRITZ!Box
+* RolloTron DECT
 
 supported sensors & values:
 https://github.com/puschie286/fritzbox-bridge/wiki/Supported-devices-&-sensors

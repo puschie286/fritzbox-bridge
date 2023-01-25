@@ -25,7 +25,7 @@ export function Round( value: number, offset: number = 1 ): number
 		return value;
 	}
 
-	let splitFactor =  1 / offset;
+	let splitFactor = 1 / offset;
 
 	return Math.round( value * splitFactor ) / splitFactor;
 }

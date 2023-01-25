@@ -60,6 +60,6 @@
 	"en": "Fix upgrade problem"
   },
   "0.9.6": {
-	"en": "Fix switch mode parsing\nImprove cleanup"
+	"en": "Data update right after paring\nFix switch mode parsing\nImprove cleanup"
   }
 }

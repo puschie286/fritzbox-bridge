@@ -1,5 +1,5 @@
-import { FritzboxManager } from "./lib/FritzboxManager";
-import { ApiParameter } from "./types/ApiParameter";
+import { FritzboxManager } from './lib/FritzboxManager';
+import { ApiParameter } from './types/ApiParameter';
 
 module.exports = {
 
