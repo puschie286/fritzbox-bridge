@@ -1,14 +1,22 @@
-import { BaseFeature } from "../lib/BaseFeature";
-import { Capability } from "../types/Capability";
-import { CapabilityType } from "../types/CapabilityType";
-import { CapabilityListener } from "../types/CapabilityListener";
+import { BaseFeature } from '../lib/BaseFeature';
+import { Capability } from '../types/Capability';
+import { CapabilityType } from '../types/CapabilityType';
+import { CapabilityListener } from '../types/CapabilityListener';
 
 export class Outlet extends BaseFeature
 {
+	private static CompareAuto( value: any ): boolean
+	{
+		return String( value ) === 'auto';
+	}
+
 	Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'measure_switch_mode', state: 'switch.mode', type: CapabilityType.String, valueFunc: Outlet.CompareAuto
+			name: 'measure_switch_mode',
+			state: 'switch.mode',
+			type: CapabilityType.String,
+			valueFunc: Outlet.CompareAuto
 		}, {
 			name: 'measure_device_locked', state: 'switch.devicelock', type: CapabilityType.Boolean
 		}, {
@@ -30,14 +38,10 @@ export class Outlet extends BaseFeature
 		if( Value )
 		{
 			this.device.GetAPI().setSwitchOn( this.device.getData().id );
-		} else
+		}
+		else
 		{
 			this.device.GetAPI().setSwitchOff( this.device.getData().id );
 		}
-	}
-
-	private static CompareAuto( value: any ): boolean
-	{
-		return String( value ) === 'auto';
 	}
 }

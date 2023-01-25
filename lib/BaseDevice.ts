@@ -1,9 +1,9 @@
-import { FritzApi } from "../types/FritzApi";
-import { FritzboxManager } from "./FritzboxManager";
-import { Device } from "homey";
-import { BaseFeature } from "./BaseFeature";
-import { FunctionFactory } from "./FunctionFactory";
-import { Capability } from "../types/Capability";
+import { FritzApi } from '../types/FritzApi';
+import { FritzboxManager } from './FritzboxManager';
+import { Device } from 'homey';
+import { BaseFeature } from './BaseFeature';
+import { FunctionFactory } from './FunctionFactory';
+import { Capability } from '../types/Capability';
 
 export abstract class BaseDevice extends Device
 {
@@ -22,17 +22,11 @@ export abstract class BaseDevice extends Device
 
 			// try to initialize
 			await this.Initialize();
-		}
-		catch( error: any )
+		} catch( error: any )
 		{
 			console.debug( error );
 			this.homey.error( error );
 		}
-	}
-
-	protected async GetFunctionMask( functionMask: number ): Promise<number>
-	{
-		return functionMask;
 	}
 
 	public GetAPI(): FritzApi
@@ -40,25 +34,30 @@ export abstract class BaseDevice extends Device
 		return this.api;
 	}
 
-	private async GetFunctionValue( dataFunctions?: number ): Promise<number>
+	public async Update( data: any )
 	{
-		const functions: number = Number( this.getStoreValue( 'functions' ) );
-
-		if( typeof dataFunctions === 'number' && dataFunctions > 0 && dataFunctions !== functions )
+		if( data === null )
 		{
-			await this.setStoreValue( 'functions', dataFunctions ).catch( this.error );
-			return dataFunctions;
+			console.debug( 'device data not found: ' + this.getName() );
+			return;
 		}
 
-		if( functions > 0 )
-		{
-			return functions;
-		}
+		// ensure initialization
+		await this.Initialize( Number( data.functionbitmask ) );
 
-		return -1;
+		// update each capability
+		for( const feature of this.features )
+		{
+			await feature.Update( data );
+		}
+	};
+
+	protected async GetFunctionMask( functionMask: number ): Promise<number>
+	{
+		return functionMask;
 	}
 
-	protected async Initialize( dataFunctions?: number)
+	protected async Initialize( dataFunctions?: number )
 	{
 		if( this.initialized )
 		{
@@ -85,12 +84,6 @@ export abstract class BaseDevice extends Device
 		{
 			await this.InitUpdate();
 		}
-	}
-
-	private async InitUpdate()
-	{
-		const fritzbox = FritzboxManager.GetSingleton();
-		await this.Update( fritzbox.FilterDevice( fritzbox.GetLastData(), this.getData().id ) );
 	}
 
 	protected async UpdateCapabilities()
@@ -147,21 +140,27 @@ export abstract class BaseDevice extends Device
 		}
 	}
 
-	public async Update( data: any )
+	private async GetFunctionValue( dataFunctions?: number ): Promise<number>
 	{
-		if( data === null )
+		const functions: number = Number( this.getStoreValue( 'functions' ) );
+
+		if( typeof dataFunctions === 'number' && dataFunctions > 0 && dataFunctions !== functions )
 		{
-			console.debug( 'device data not found: ' + this.getName() );
-			return;
+			await this.setStoreValue( 'functions', dataFunctions ).catch( this.error );
+			return dataFunctions;
 		}
 
-		// ensure initialization
-		await this.Initialize( Number( data.functionbitmask ) );
-
-		// update each capability
-		for( const feature of this.features )
+		if( functions > 0 )
 		{
-			await feature.Update( data );
+			return functions;
 		}
-	};
+
+		return -1;
+	}
+
+	private async InitUpdate()
+	{
+		const fritzbox = FritzboxManager.GetSingleton();
+		await this.Update( fritzbox.FilterDevice( fritzbox.GetLastData(), this.getData().id ) );
+	}
 }

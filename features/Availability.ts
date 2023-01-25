@@ -1,6 +1,6 @@
-import { BaseFeature } from "../lib/BaseFeature";
-import { Capability } from "../types/Capability";
-import { CapabilityType } from "../types/CapabilityType";
+import { BaseFeature } from '../lib/BaseFeature';
+import { Capability } from '../types/Capability';
+import { CapabilityType } from '../types/CapabilityType';
 
 export class Availability extends BaseFeature
 {
@@ -19,7 +19,8 @@ export class Availability extends BaseFeature
 		{
 			await this.device.setAvailable();
 			this.device.log( 'Device ' + this.device.getName() + ' got available' );
-		} else
+		}
+		else
 		{
 			await this.device.setUnavailable();
 			this.device.log( 'Device ' + this.device.getName() + ' got unavailable' );

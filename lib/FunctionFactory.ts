@@ -1,13 +1,15 @@
-import { BaseFeature } from "./BaseFeature";
-import { MaskCheck } from "./Helper";
-import { FritzApiBitmask } from "../types/FritzApi";
-import { Temperature } from "../features/Temperature";
-import { BaseDevice } from "./BaseDevice";
-import { Availability } from "../features/Availability";
-import { Alarm } from "../features/Alarm";
-import { EnergyMeter } from "../features/EnergyMeter";
-import { Outlet } from "../features/Outlet";
-import { Thermostat } from "../features/Thermostat";
+import { BaseFeature } from './BaseFeature';
+import { MaskCheck } from './Helper';
+import { FritzApiBitmask } from '../types/FritzApi';
+import { Temperature } from '../features/Temperature';
+import { BaseDevice } from './BaseDevice';
+import { Availability } from '../features/Availability';
+import { Alarm } from '../features/Alarm';
+import { EnergyMeter } from '../features/EnergyMeter';
+import { Outlet } from '../features/Outlet';
+import { Thermostat } from '../features/Thermostat';
+import { Blind } from '../features/Blind';
+import { LevelControl } from '../features/LevelControl';
 
 export class FunctionFactory
 {

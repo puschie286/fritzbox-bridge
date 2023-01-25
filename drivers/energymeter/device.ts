@@ -1,4 +1,4 @@
-import { BaseDevice } from "../../lib/BaseDevice";
+import { BaseDevice } from '../../lib/BaseDevice';
 
 class Device extends BaseDevice
 {

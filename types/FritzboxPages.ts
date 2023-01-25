@@ -1,5 +1,4 @@
 export enum FritzboxPages
 {
-	Overview = 'overview',
-	Network = 'netDev'
+	Overview = 'overview', Network = 'netDev'
 }

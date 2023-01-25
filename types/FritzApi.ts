@@ -1,4 +1,4 @@
-import { LoadNetwork, LoadOverview } from "../lib/FritzboxApiExtend";
+import { LoadNetwork, LoadOverview } from '../lib/FritzboxApiExtend';
 
 const fritzapi = require( 'fritzapi/index' );
 
@@ -72,6 +72,42 @@ export class FritzApi
 		this.api.options = {
 			url: url, strictSSL: ssl
 		};
+	}
+
+	/**
+	 * Round value to 0.5c accuracy<br>
+	 * Special cases:
+	 * <pre>
+	 *     254: 'on'
+	 *     253: 'off'
+	 * </pre>
+	 */
+	public static Api2Temp( value: number ): string | number
+	{
+		return fritzapi.api2temp( value );
+	}
+
+	/**
+	 * Camp value to MIN (8) and MAX (28) and round to 0.5c accuracy<br>
+	 * Special cases:
+	 * <pre>
+	 *     'on' / true: 254
+	 *     'off' / false: 253
+	 * </pre>
+	 */
+	public static Temp2Api( state: string | boolean | number ): number
+	{
+		return fritzapi.temp2api( state );
+	}
+
+	public static GetSessionID( username: string, password: string, options: {} ): string
+	{
+		return fritzapi.getSessionID( username, password, options );
+	}
+
+	public static CheckSession( sid: string, options: {} )
+	{
+		return fritzapi.checkSession( sid, options );
 	}
 
 	/**
@@ -299,6 +335,12 @@ export class FritzApi
 		return this.api.setHkrBoost( ain, seconds );
 	}
 
+	/* doesnt exist
+	getDimmableBulbList()
+	{
+		return this.api.getDimmableBulbList();
+	}*/
+
 	/**
 	 * activate window open  with end time or deactivate boost
 	 * @param ain device id
@@ -338,12 +380,6 @@ export class FritzApi
 		return this.api.getColorBulbList();
 	}
 
-	/* doesnt exist
-	getDimmableBulbList()
-	{
-		return this.api.getDimmableBulbList();
-	}*/
-
 	/**
 	 * switch the device on, of or toggle
 	 * @param ain device id
@@ -354,6 +390,12 @@ export class FritzApi
 	{
 		return this.api.setSimpleOnOff( ain, state );
 	}
+
+	/* not active
+	getColorDefaults( ain: string )
+	{
+		return this.api.getColorDefaults( ain );
+	}*/
 
 	/**
 	 * Dim the device
@@ -401,12 +443,6 @@ export class FritzApi
 	{
 		return this.api.setColorTemperature( ain, temperature, duration );
 	}
-
-	/* not active
-	getColorDefaults( ain: string )
-	{
-		return this.api.getColorDefaults( ain );
-	}*/
 
 	/**
 	 * Send command to blind device
@@ -466,41 +502,5 @@ export class FritzApi
 	public getPhoneList(): string
 	{
 		return this.api.getPhoneList();
-	}
-
-	/**
-	 * Round value to 0.5c accuracy<br>
-	 * Special cases:
-	 * <pre>
-	 *     254: 'on'
-	 *     253: 'off'
-	 * </pre>
-	 */
-	public static Api2Temp( value: number ): string | number
-	{
-		return fritzapi.api2temp( value );
-	}
-
-	/**
-	 * Camp value to MIN (8) and MAX (28) and round to 0.5c accuracy<br>
-	 * Special cases:
-	 * <pre>
-	 *     'on' / true: 254
-	 *     'off' / false: 253
-	 * </pre>
-	 */
-	public static Temp2Api( state: string | boolean | number ): number
-	{
-		return fritzapi.temp2api( state );
-	}
-
-	public static GetSessionID( username: string, password: string, options: {} ): string
-	{
-		return fritzapi.getSessionID( username, password, options );
-	}
-
-	public static CheckSession( sid: string, options: {} )
-	{
-		return fritzapi.checkSession( sid, options );
 	}
 }

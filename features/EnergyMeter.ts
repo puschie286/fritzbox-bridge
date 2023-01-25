@@ -1,12 +1,22 @@
-import { BaseFeature } from "../lib/BaseFeature";
-import { Capability } from "../types/Capability";
-import { CapabilityType } from "../types/CapabilityType";
+import { BaseFeature } from '../lib/BaseFeature';
+import { Capability } from '../types/Capability';
+import { CapabilityType } from '../types/CapabilityType';
 
 export class EnergyMeter extends BaseFeature
 {
 	private readonly Current: string = 'measure_current';
 	private readonly Power: string = 'measure_power';
 	private readonly Voltage: string = 'measure_voltage';
+
+	private static ConvertPower( value: number | null ): number | null
+	{
+		if( value === null )
+		{
+			return null;
+		}
+
+		return value / 1000;
+	}
 
 	Capabilities(): Array<Capability>
 	{
@@ -44,15 +54,5 @@ export class EnergyMeter extends BaseFeature
 
 		// calc final value and round to 4 digits
 		return ( power / voltage ).toFixed( 4 );
-	}
-
-	private static ConvertPower( value: number|null ): number|null
-	{
-		if( value === null )
-		{
-			return null;
-		}
-
-		return value / 1000;
 	}
 }

@@ -1,4 +1,4 @@
-import { Device } from "homey";
+import { Device } from 'homey';
 
 export interface CapabilityListener
 {

@@ -1,5 +1,5 @@
-import { BaseDevice } from "../../lib/BaseDevice";
-import { Fritzbox } from "../../features/Fritzbox";
+import { BaseDevice } from '../../lib/BaseDevice';
+import { Fritzbox } from '../../features/Fritzbox';
 
 export class Device extends BaseDevice
 {

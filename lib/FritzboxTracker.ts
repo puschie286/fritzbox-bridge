@@ -1,6 +1,6 @@
-import Homey from "homey/lib/Homey";
-import { FritzboxDevice } from "../types/FritzboxDevice";
-import { FlowCardTrigger } from "homey";
+import Homey from 'homey/lib/Homey';
+import { FritzboxDevice } from '../types/FritzboxDevice';
+import { FlowCardTrigger } from 'homey';
 
 export class FritzboxTracker
 {
@@ -24,29 +24,6 @@ export class FritzboxTracker
 
 		this.wlanConnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_connected' );
 		this.wlanDisconnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_disconnected' );
-	}
-
-	private UpdateDeviceList( deviceList: Array<FritzboxDevice> )
-	{
-		if( deviceList.length === 0 )
-		{
-			return;
-		}
-
-		for( const device of deviceList )
-		{
-			this.DeviceList.set( device.mac, device );
-		}
-	}
-
-	private CreateDeviceToken( device: FritzboxDevice ): object
-	{
-		return {
-			'device_name': device.name,
-			'device_ip': device.ipv4.ip,
-			'device_mac': device.mac,
-			'device_connection_type': device.type
-		};
 	}
 
 	public async UpdateDevices( network: any )
@@ -101,5 +78,28 @@ export class FritzboxTracker
 		}
 
 		this.UpdateDeviceList( devicesList );
+	}
+
+	private UpdateDeviceList( deviceList: Array<FritzboxDevice> )
+	{
+		if( deviceList.length === 0 )
+		{
+			return;
+		}
+
+		for( const device of deviceList )
+		{
+			this.DeviceList.set( device.mac, device );
+		}
+	}
+
+	private CreateDeviceToken( device: FritzboxDevice ): object
+	{
+		return {
+			'device_name': device.name,
+			'device_ip': device.ipv4.ip,
+			'device_mac': device.mac,
+			'device_connection_type': device.type
+		};
 	}
 }

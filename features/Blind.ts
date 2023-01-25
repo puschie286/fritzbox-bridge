@@ -1,8 +1,8 @@
-import { BaseFeature } from "../lib/BaseFeature";
-import { Capability } from "../types/Capability";
-import { CapabilityType } from "../types/CapabilityType";
-import { CapabilityListener } from "../types/CapabilityListener";
-import { FritzApiBlind } from "../types/FritzApi";
+import { BaseFeature } from '../lib/BaseFeature';
+import { Capability } from '../types/Capability';
+import { CapabilityType } from '../types/CapabilityType';
+import { CapabilityListener } from '../types/CapabilityListener';
+import { FritzApiBlind } from '../types/FritzApi';
 
 export class Blind extends BaseFeature
 {

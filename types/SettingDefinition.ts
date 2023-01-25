@@ -1,4 +1,4 @@
-import { SettingType } from "./SettingType";
+import { SettingType } from './SettingType';
 
 export interface SettingDefinition
 {

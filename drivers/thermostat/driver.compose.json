@@ -1,33 +1,37 @@
 {
   "name": {
-    "en": "Thermostat",
-    "de": "Thermostat"
+	"en": "Thermostat",
+	"de": "Thermostat"
   },
   "class": "thermostat",
   "capabilities": [],
   "images": {
-    "large": "/drivers/thermostat/assets/images/large.png",
-    "small": "/drivers/thermostat/assets/images/small.png"
+	"large": "/drivers/thermostat/assets/images/large.png",
+	"small": "/drivers/thermostat/assets/images/small.png"
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+	"local"
+  ],
+  "connectivity": [
+	"lan"
+  ],
   "pair": [
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_devices"
-      }
-    },
-    {
-      "id": "add_devices",
-      "template": "add_devices"
-    }
+	{
+	  "id": "list_devices",
+	  "template": "list_devices",
+	  "navigation": {
+		"next": "add_devices"
+	  }
+	},
+	{
+	  "id": "add_devices",
+	  "template": "add_devices"
+	}
   ],
   "energy": {
-    "batteries": [
-      "AA",
-      "AA"
-    ]
+	"batteries": [
+	  "AA",
+	  "AA"
+	]
   }
 }

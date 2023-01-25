@@ -9,8 +9,12 @@
 	"large": "/drivers/blind/assets/images/large.png",
 	"small": "/drivers/blind/assets/images/small.png"
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+	"local"
+  ],
+  "connectivity": [
+	"lan"
+  ],
   "pair": [
 	{
 	  "id": "list_devices",

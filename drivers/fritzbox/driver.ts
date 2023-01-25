@@ -1,8 +1,13 @@
-import { BaseDriver } from "../../lib/BaseDriver";
+import { BaseDriver } from '../../lib/BaseDriver';
 
 // TODO: support multiple fritzbox router
 class Driver extends BaseDriver
 {
+	public GetBaseFunction(): number
+	{
+		return -1;
+	}
+
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
 		console.debug( 'request device list for: fritzbox' );
@@ -14,21 +19,11 @@ class Driver extends BaseDriver
 			return [];
 		}
 
-		return [
-			{
-				name: 'Fritzbox',
-				data: {
-					id: 'fritzbox'
-				},
-				store: {},
-				settings: {}
-			}
-		];
-	}
-
-	public GetBaseFunction(): number
-	{
-		return -1;
+		return [ {
+			name: 'Fritzbox', data: {
+				id: 'fritzbox'
+			}, store: {}, settings: {}
+		} ];
 	}
 }
 

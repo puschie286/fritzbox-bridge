@@ -1,27 +1,31 @@
 {
   "name": {
-    "en": "Plug",
-    "de": "Steckdose"
+	"en": "Plug",
+	"de": "Steckdose"
   },
   "class": "socket",
   "capabilities": [],
   "images": {
-    "large": "/drivers/plug/assets/images/large.png",
-    "small": "/drivers/plug/assets/images/small.png"
+	"large": "/drivers/plug/assets/images/large.png",
+	"small": "/drivers/plug/assets/images/small.png"
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+	"local"
+  ],
+  "connectivity": [
+	"lan"
+  ],
   "pair": [
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_devices"
-      }
-    },
-    {
-      "id": "add_devices",
-      "template": "add_devices"
-    }
+	{
+	  "id": "list_devices",
+	  "template": "list_devices",
+	  "navigation": {
+		"next": "add_devices"
+	  }
+	},
+	{
+	  "id": "add_devices",
+	  "template": "add_devices"
+	}
   ]
 }

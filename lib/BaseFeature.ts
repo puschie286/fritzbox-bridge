@@ -1,7 +1,7 @@
-import { BaseDevice } from "./BaseDevice";
-import { CapabilityListener } from "../types/CapabilityListener";
-import { Capability } from "../types/Capability";
-import { CapabilityType } from "../types/CapabilityType";
+import { BaseDevice } from './BaseDevice';
+import { CapabilityListener } from '../types/CapabilityListener';
+import { Capability } from '../types/Capability';
+import { CapabilityType } from '../types/CapabilityType';
 
 export abstract class BaseFeature
 {
@@ -18,6 +18,13 @@ export abstract class BaseFeature
 		{
 			await this.OnCapabilityUpdate( capability, await this.GetValue( capability, data ) );
 		}
+	}
+
+	public abstract Capabilities(): Array<Capability>;
+
+	public Listeners(): Array<CapabilityListener>
+	{
+		return [];
 	}
 
 	protected async OnCapabilityUpdate( capability: Capability, value: any )
@@ -88,12 +95,5 @@ export abstract class BaseFeature
 		}
 
 		return value;
-	}
-
-	public abstract Capabilities(): Array<Capability>;
-
-	public Listeners(): Array<CapabilityListener>
-	{
-		return [];
 	}
 }

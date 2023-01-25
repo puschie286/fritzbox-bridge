@@ -1,27 +1,31 @@
 {
   "name": {
-    "en": "Socket switch",
-    "de": "Steckdosenschalter"
+	"en": "Socket switch",
+	"de": "Steckdosenschalter"
   },
   "class": "socket",
   "capabilities": [],
   "images": {
-    "large": "/drivers/socket/assets/images/large.png",
-    "small": "/drivers/socket/assets/images/small.png"
+	"large": "/drivers/socket/assets/images/large.png",
+	"small": "/drivers/socket/assets/images/small.png"
   },
-  "platforms": ["local"],
-  "connectivity": ["lan"],
+  "platforms": [
+	"local"
+  ],
+  "connectivity": [
+	"lan"
+  ],
   "pair": [
-    {
-      "id": "list_devices",
-      "template": "list_devices",
-      "navigation": {
-        "next": "add_devices"
-      }
-    },
-    {
-      "id": "add_devices",
-      "template": "add_devices"
-    }
+	{
+	  "id": "list_devices",
+	  "template": "list_devices",
+	  "navigation": {
+		"next": "add_devices"
+	  }
+	},
+	{
+	  "id": "add_devices",
+	  "template": "add_devices"
+	}
   ]
 }

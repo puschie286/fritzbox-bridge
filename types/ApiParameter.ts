@@ -1,4 +1,4 @@
-import Homey from "homey/lib/Homey";
+import Homey from 'homey/lib/Homey';
 
 export interface ApiParameter
 {

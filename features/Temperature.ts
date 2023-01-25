@@ -1,9 +1,19 @@
-import { BaseFeature } from "../lib/BaseFeature";
-import { Capability } from "../types/Capability";
-import { CapabilityType } from "../types/CapabilityType";
+import { BaseFeature } from '../lib/BaseFeature';
+import { Capability } from '../types/Capability';
+import { CapabilityType } from '../types/CapabilityType';
 
 export class Temperature extends BaseFeature
 {
+	private static ConvertTemperature( value?: number ): number | null
+	{
+		if( typeof value !== 'number' )
+		{
+			return null;
+		}
+
+		return value / 10;
+	}
+
 	public Capabilities(): Capability[]
 	{
 		return [ {
@@ -17,20 +27,10 @@ export class Temperature extends BaseFeature
 			type: CapabilityType.Number,
 			valueFunc: Temperature.ConvertTemperature,
 			options: {
-				"title": {
-					"en": "Temperature offset", "de": "Temperatur Offset"
+				'title': {
+					'en': 'Temperature offset', 'de': 'Temperatur Offset'
 				}
 			}
 		} ];
-	}
-
-	private static ConvertTemperature( value?: number ): number | null
-	{
-		if( typeof value !== 'number' )
-		{
-			return null;
-		}
-
-		return value / 10;
 	}
 }
