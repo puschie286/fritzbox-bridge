@@ -1,26 +1,25 @@
 import { LoadNetwork, LoadOverview } from "../lib/FritzboxApiExtend";
-import * as Process from "process";
 
 const fritzapi = require( 'fritzapi/index' );
 
 export enum FritzApiBitmask
 {
-	hanFun = fritzapi.FUNCTION_HANFUN,                      // Bit 0
-	Light = fritzapi.FUNCTION_LIGHT,                        // Bit 2
-	Alarm = fritzapi.FUNCTION_ALARM,                        // Bit 4
-	Button = fritzapi.FUNCTION_BUTTON,                      // Bit 5
-	Thermostat = fritzapi.FUNCTION_THERMOSTAT,              // Bit 6
-	EnergyMeter = fritzapi.FUNCTION_ENERGYMETER,            // Bit 7
-	TemperatureSensor = fritzapi.FUNCTION_TEMPERATURESENSOR,// Bit 8
-	Outlet = fritzapi.FUNCTION_OUTLET,                      // Bit 9
-	DECTRepeater = fritzapi.FUNCTION_DECTREPEATER,          // Bit 10
-	Microphone = fritzapi.FUNCTION_MICROFONE,               // Bit 11
-	Template = fritzapi.FUNCTION_TEMPLATE,                  // Bit 12
-	HanFunUnit = fritzapi.FUNCTION_HANFUNUNIT,              // Bit 13
-	SwitchControl = fritzapi.FUNCTION_SWITCHCONTROL,        // Bit 15
-	LevelControl = fritzapi.FUNCTION_LEVELCONTROL,          // Bit 16
-	ColorControl = fritzapi.FUNCTION_COLORCONTROL,          // Bit 17
-	BlindControl = 1 << 18,                                 // Bit 18
+	hanFun = 1,
+	Light = 1 << 2,
+	Alarm = 1 << 4,
+	Button = 1 << 5,
+	Thermostat = 1 << 6,
+	EnergyMeter = 1 << 7,
+	TemperatureSensor = 1 << 8,
+	Outlet = 1 << 9,
+	DECTRepeater = 1 << 10,
+	Microphone = 1 << 11,
+	Template = 1 << 12,
+	HanFunUnit = 1 << 13,
+	SwitchControl = 1 << 15,
+	LevelControl = 1 << 16,
+	ColorControl = 1 << 17,
+	BlindControl = 1 << 18,
 	HumiditySensor = 1 << 20
 }
 
@@ -55,9 +54,7 @@ export enum FritzApiTemperature
 
 export enum FritzApiBlind
 {
-	Open = 'open',
-	Close = 'close',
-	Stop = 'stop'
+	Open = 'open', Close = 'close', Stop = 'stop'
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -73,49 +70,8 @@ export class FritzApi
 		this.api = new fritzapi.Fritz( username, password, url );
 
 		this.api.options = {
-			url: url,
-			strictSSL: ssl
+			url: url, strictSSL: ssl
 		};
-	}
-
-	/**
-	 * get session id
-	 */
-	public getSID(): string
-	{
-		return this.api.getSID();
-	}
-
-	/**
-	 * get OS version
-	 */
-	public getOSVersion(): string | null
-	{
-		return this.api.getOSVersion();
-	}
-
-	/**
-	 * get detailed device information (XML)
-	 */
-	public getDeviceListInfos(): Promise<string>
-	{
-		return this.api.getDeviceListInfos();
-	}
-
-	/**
-	 * get template information (XML)
-	 */
-	public getTemplateListInfos(): string
-	{
-		return this.api.getTemplateListInfos();
-	}
-
-	/**
-	 * get template information (json)
-	 */
-	public getTemplateList(): string
-	{
-		return this.api.getTemplateList();
 	}
 
 	/**

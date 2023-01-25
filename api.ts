@@ -12,7 +12,7 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			manager.LogInformation( data );
+			//manager.LogInformation( data );
 
 			const result = manager.GetLog().captureMessage( JSON.stringify( data ) );
 
@@ -37,7 +37,7 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			manager.LogInformation( data );
+			//manager.LogInformation( data );
 
 			const result = manager.GetLog().captureMessage( JSON.stringify( data ) );
 

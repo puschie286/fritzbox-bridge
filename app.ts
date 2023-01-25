@@ -20,7 +20,7 @@ class FritzboxBridge extends App
 		this.homey.settings.on( 'set', this.applySettings.bind( this ) );
 
 		// configure api
-		await this.initializeFritzbox();
+		this.initializeFritzbox();
 	}
 
 	private async applySettings( name: string )
@@ -31,7 +31,7 @@ class FritzboxBridge extends App
 			case Settings.PASSWORD:
 			case Settings.FRITZBOX_URL:
 			case Settings.STRICT_SSL:
-				await this.initializeFritzbox();
+				this.initializeFritzbox();
 				break;
 
 			case Settings.POLL_ACTIVE:
@@ -50,7 +50,7 @@ class FritzboxBridge extends App
 	{
 		if( !this.isLoginValid() || !this.isPollingEnabled() )
 		{
-			await this.fritzbox.StopPolling();
+			this.fritzbox.StopPolling();
 			return;
 		}
 
@@ -62,7 +62,7 @@ class FritzboxBridge extends App
 	{
 		if( !this.isLoginValid() || !this.isStatusPollingEnabled() )
 		{
-			await this.fritzbox.StopStatusPolling();
+			this.fritzbox.StopStatusPolling();
 			return;
 		}
 
@@ -100,7 +100,7 @@ class FritzboxBridge extends App
 		return this.homey.settings.get( Settings.STATUS_ACTIVE ) == true;
 	}
 
-	private async initializeFritzbox()
+	private initializeFritzbox()
 	{
 		this.setValidation( LoginValidation.Progress );
 
@@ -113,22 +113,22 @@ class FritzboxBridge extends App
 		const validUrl = ValidateUrl( url );
 
 		// use browser login to get sid
-		await this.fritzbox.Connect( username, password, validUrl, strictSSL );
+		this.fritzbox.Connect( username, password, validUrl, strictSSL );
 
 		// (lazy) validate login
-		await this.StartLoginValidation();
+		this.StartLoginValidation();
 	}
 
-	private async StartLoginValidation()
+	private StartLoginValidation()
 	{
 		// reset running timout
 		if( this.validation !== undefined )
 		{
-			clearTimeout( this.validation );
+			this.homey.clearTimeout( this.validation );
 		}
 
 		// delay validation
-		this.validation = setTimeout( this.ValidateLogin.bind( this ), 100 );
+		this.validation = this.homey.setTimeout( this.ValidateLogin.bind( this ), 100 );
 	}
 
 	private async ValidateLogin()

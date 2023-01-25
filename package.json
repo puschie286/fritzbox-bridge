@@ -5,8 +5,7 @@
   "main": "app.ts",
   "dependencies": {
     "fritzapi": "^0.13.0",
-    "homey-log": "^2.1.0",
-    "set-interval-async": "^3.0.3"
+    "homey-log": "^2.1.0"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.11",

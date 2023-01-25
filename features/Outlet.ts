@@ -8,7 +8,7 @@ export class Outlet extends BaseFeature
 	Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'measure_switch_mode', state: 'switch.mode', valueFunc: Outlet.CompareAuto
+			name: 'measure_switch_mode', state: 'switch.mode', type: CapabilityType.String, valueFunc: Outlet.CompareAuto
 		}, {
 			name: 'measure_device_locked', state: 'switch.devicelock', type: CapabilityType.Boolean
 		}, {

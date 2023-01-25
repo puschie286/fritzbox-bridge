@@ -5,26 +5,6 @@
   },
   "class": "blinds",
   "capabilities": [],
-  "capabilitiesOptions": {
-	"button.open": {
-	  "title": {
-		"en": "Open blind",
-		"de": "Rolladen öffnen"
-	  }
-	},
-	"button.close": {
-	  "title": {
-		"en": "Close blind",
-		"de": "Rolladen schließen"
-	  }
-	},
-	"button.stop": {
-	  "title": {
-		"en": "Stop blind",
-		"de": "Rolladen stoppen"
-	  }
-	}
-  },
   "images": {
 	"large": "/drivers/blind/assets/images/large.png",
 	"small": "/drivers/blind/assets/images/small.png"

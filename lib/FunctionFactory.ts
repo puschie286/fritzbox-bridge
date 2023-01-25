@@ -35,6 +35,14 @@ export class FunctionFactory
 		{
 			functions.push( new Thermostat( device ) );
 		}
+		if( MaskCheck( functionMask, FritzApiBitmask.BlindControl ) )
+		{
+			functions.push( new Blind( device ) );
+		}
+		if( MaskCheck( functionMask, FritzApiBitmask.LevelControl ) )
+		{
+			functions.push( new LevelControl( device ) );
+		}
 
 		return functions;
 	}

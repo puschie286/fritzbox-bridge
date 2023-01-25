@@ -12,19 +12,30 @@ export class Blind extends BaseFeature
 	Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'blind_mode', state: 'blind.mode', type: CapabilityType.String, valueFunc: this.translateBlindMode.bind( this )
+			name: 'blind_mode',
+			state: 'blind.mode',
+			type: CapabilityType.String,
+			valueFunc: this.translateBlindMode.bind( this )
 		}, {
 			name: this.EndPositionSet, state: 'blind.endpositionsset', type: CapabilityType.Boolean, hidden: true
 		}, {
-			name: 'windowcoverings_set', state: 'levelcontrol.levelpercentage', options: { min: 0, max: 100, step: 1 }
-		}, ];
+			name: 'button.open', options: {
+				'title': { 'en': 'Open blind', 'de': 'Rolladen öffnen' }
+			}
+		}, {
+			name: 'button.close', options: {
+				'title': { 'en': 'Close blind', 'de': 'Rolladen schließen' }
+			}
+		}, {
+			name: 'button.stop', options: {
+				'title': { 'en': 'Stop blind', 'de': 'Rolladen stoppen' }
+			}
+		} ];
 	}
 
 	Listeners(): Array<CapabilityListener>
 	{
 		return [ {
-			name: 'windowcoverings_set', callback: this.setBlindLevel
-		}, {
 			name: 'button.open', callback: this.open
 		}, {
 			name: 'button.close', callback: this.close
@@ -55,7 +66,8 @@ export class Blind extends BaseFeature
 		if( value )
 		{
 			await this.device.unsetWarning();
-		} else
+		}
+		else
 		{
 			await this.device.setWarning( this.device.homey.__( 'Rollo.NoEndPos' ) );
 		}
@@ -73,12 +85,6 @@ export class Blind extends BaseFeature
 		}
 
 		return this.device.homey.__( 'Rollo.UnknownMode' );
-	}
-
-	private setBlindLevel( value: any )
-	{
-		this.device.log( 'send setLevelPercentage: ' + parseInt( value ) );
-		this.device.GetAPI().setLevelPercentage( this.device.getData().id, parseInt( value ) );
 	}
 
 	private open()

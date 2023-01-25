@@ -79,6 +79,18 @@ export abstract class BaseDevice extends Device
 
 		await this.UpdateCapabilities();
 		this.UpdateListeners();
+
+		// update with existing data when adding device ( called from onInit )
+		if( dataFunctions === undefined )
+		{
+			await this.InitUpdate();
+		}
+	}
+
+	private async InitUpdate()
+	{
+		const fritzbox = FritzboxManager.GetSingleton();
+		await this.Update( fritzbox.FilterDevice( fritzbox.GetLastData(), this.getData().id ) );
 	}
 
 	protected async UpdateCapabilities()

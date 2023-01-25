@@ -4,7 +4,6 @@ import { Settings } from "./Settings";
 import { BaseDriver } from "./BaseDriver";
 import { BaseDevice } from "./BaseDevice";
 import Homey from "homey/lib/Homey";
-import {clearIntervalAsync, setIntervalAsync, SetIntervalAsyncTimer} from "set-interval-async";
 import { Device } from "../drivers/fritzbox/device";
 import { SentryLog } from "../types/SentryLog";
 import { FritzboxTracker } from "./FritzboxTracker";
@@ -14,15 +13,16 @@ const { Log } = require( 'homey-log' );
 export class FritzboxManager
 {
 	private apiInstance?: FritzApi;
-	private polling?: SetIntervalAsyncTimer<[]>;
+	private polling?: NodeJS.Timeout;
 	private pollRunning: boolean = false;
-	private statusPolling?: SetIntervalAsyncTimer<[]>;
+	private statusPolling?: NodeJS.Timeout;
 	private statusPollRunning: boolean = false;
 	private readonly homey: Homey;
 	private readonly log: SentryLog;
 	private readonly tracker: FritzboxTracker;
 
 	private static instance?: FritzboxManager;
+	private lastDeviceData?: any;
 
 	public constructor( homey: Homey )
 	{
@@ -71,6 +71,12 @@ export class FritzboxManager
 		return this.log;
 	}
 
+	public GetLastData(): any
+	{
+		return this.lastDeviceData;
+	}
+
+
 	public LogInformation( data: any )
 	{
 		this.homey.log( 'debug data:' );
@@ -86,10 +92,10 @@ export class FritzboxManager
 	 * @param url       fritzbox ip address         ( default: http://fritz.box )
 	 * @param ssl       enable/disable strict ssl   ( default: true )
 	 */
-	public async Connect( username: string, password: string, url: string, ssl: boolean )
+	public Connect( username: string, password: string, url: string, ssl: boolean )
 	{
-		await this.StopPolling();
-		await this.StopStatusPolling();
+		this.StopPolling();
+		this.StopStatusPolling();
 
 		delete this.apiInstance;
 		this.apiInstance = new FritzApi( username, password, url, ssl );
@@ -115,11 +121,11 @@ export class FritzboxManager
 		}
 		if( this.polling !== undefined )
 		{
-			await this.StopPolling();
+			this.StopPolling();
 		}
 
 		this.homey.log( 'start polling with ' + (Math.round( (interval / 1000) * 100 ) / 100) + 's interval' );
-		this.polling = setIntervalAsync( this.Poll.bind( this ), interval );
+		this.polling = this.homey.setInterval( this.Poll.bind( this ), interval );
 
 		// direct update
 		await this.Poll();
@@ -145,11 +151,11 @@ export class FritzboxManager
 		}
 		if( this.statusPolling !== undefined )
 		{
-			await this.StopStatusPolling();
+			this.StopStatusPolling();
 		}
 
 		this.homey.log( 'start status polling with ' + ( Math.round( ( interval / 1000 ) * 100 ) / 100 ) + 's interval' );
-		this.statusPolling = setIntervalAsync( this.StatusPoll.bind( this ), interval );
+		this.statusPolling = this.homey.setInterval( this.StatusPoll.bind( this ), interval );
 
 		// direct update
 		await this.StatusPoll();
@@ -158,7 +164,7 @@ export class FritzboxManager
 	/**
 	 * stop active polling ( ignored when inactive on call )
 	 */
-	public async StopPolling()
+	public StopPolling()
 	{
 		if( this.polling === undefined )
 		{
@@ -166,7 +172,7 @@ export class FritzboxManager
 		}
 
 		this.homey.log( 'stop polling' );
-		await clearIntervalAsync( this.polling );
+		this.homey.clearInterval( this.polling );
 		this.polling = undefined;
 		this.pollRunning = false;
 	}
@@ -174,7 +180,7 @@ export class FritzboxManager
 	/**
 	 * stop active status polling ( ignored when inactive on call )
 	 */
-	public async StopStatusPolling()
+	public StopStatusPolling()
 	{
 		if( this.statusPolling === undefined )
 		{
@@ -182,8 +188,7 @@ export class FritzboxManager
 		}
 
 		this.homey.log('stop status polling');
-
-		await clearIntervalAsync( this.statusPolling );
+		this.homey.clearInterval( this.statusPolling );
 		this.statusPolling = undefined;
 		this.statusPollRunning = false;
 	}
@@ -289,8 +294,8 @@ export class FritzboxManager
 
 		try
 		{
-			const devices = await this.GetApi().getDeviceList();
-			await this.ProcessPoll( devices );
+			this.lastDeviceData = await this.GetApi().getDeviceList();
+			await this.ProcessPoll( this.lastDeviceData );
 		}
 		catch( error: any )
 		{
