@@ -87,7 +87,9 @@ export class Thermostat extends BaseFeature
 
 	Listeners(): Array<CapabilityListener>
 	{
-		return [ { name: 'target_temperature', callback: this.onTargetTemperature } ]
+		return [ {
+			name: 'target_temperature', callback: this.onTargetTemperature
+		} ];
 	}
 
 	/*private onOnOff( value: any )

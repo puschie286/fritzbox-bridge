@@ -8,16 +8,14 @@ export class LevelControl extends BaseFeature
 	Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'windowcoverings_set', state: 'levelcontrol.levelpercentage', type: CapabilityType.Integer, options: {
-				'title': { 'en': 'Level', 'de': 'Level' }
-			}
+			name: 'measure_level', state: 'levelcontrol.levelpercentage', type: CapabilityType.Integer
 		} ];
 	}
 
 	Listeners(): Array<CapabilityListener>
 	{
 		return [ {
-			name: 'windowcoverings_set', callback: this.setLevel
+			name: 'measure_level', callback: this.setLevel
 		} ];
 	}
 

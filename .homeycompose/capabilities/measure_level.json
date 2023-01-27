@@ -1,0 +1,11 @@
+{
+  "type": "number",
+  "title": { "en": "Level", "de": "Level" },
+  "uiComponent": "slider",
+  "getable": true,
+  "setable": true,
+  "units": { "en": "%" },
+  "min": 0,
+  "max": 100,
+  "step": 1
+}

@@ -1,0 +1,6 @@
+[{
+  "id": "ignore_energy",
+  "type": "checkbox",
+  "value": false,
+  "label": { "en": "Ignore energy in total", "de": "Ignoriere Leistung in Gesamt" }
+}]

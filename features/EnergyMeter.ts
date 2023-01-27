@@ -5,7 +5,7 @@ import { CapabilityType } from '../types/CapabilityType';
 export class EnergyMeter extends BaseFeature
 {
 	private readonly Current: string = 'measure_current';
-	private readonly Power: string = 'measure_power';
+	private Power: string = 'measure_power';
 	private readonly Voltage: string = 'measure_voltage';
 
 	private static ConvertPower( value: number | null ): number | null
@@ -16,6 +16,23 @@ export class EnergyMeter extends BaseFeature
 		}
 
 		return value / 1000;
+	}
+
+	async LateInit(): Promise<void>
+	{
+		return this.UpdatePowerState( this.device.getSetting( 'ignore_energy' ) );
+	}
+
+	private async UpdatePowerState( state: boolean )
+	{
+		this.Power = state ? 'alternative_power' : 'measure_power';
+	}
+
+	public async SettingsChanged( oldSettings: any, newSettings: any, changedKeys: string[] ): Promise<void>
+	{
+		console.log( newSettings );
+
+		return this.UpdatePowerState( newSettings.ignore_energy );
 	}
 
 	Capabilities(): Array<Capability>
@@ -53,6 +70,7 @@ export class EnergyMeter extends BaseFeature
 		const voltage = Number( this.device.getCapabilityValue( this.Voltage ) );
 
 		// calc final value and round to 4 digits
-		return ( power / voltage ).toFixed( 4 );
+		const current = ( power / voltage ).toFixed( 4 )
+		return Number( current );
 	}
 }

@@ -8,4 +8,5 @@ export interface Capability
 	readonly valueFunc?: ( value: any ) => Promise<any> | any,
 	readonly hidden?: boolean,
 	readonly options?: object,
+	readonly noUpdate?: boolean,
 }

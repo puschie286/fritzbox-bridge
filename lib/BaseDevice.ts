@@ -34,11 +34,31 @@ export abstract class BaseDevice extends Device
 		return this.api;
 	}
 
+	async onSettings( {
+		oldSettings,
+		newSettings,
+		changedKeys
+	}: { oldSettings: object; newSettings: object; changedKeys: string[] } ): Promise<string | void>
+	{
+		if( !this.initialized )
+		{
+			return;
+		}
+
+		await super.onSettings( { oldSettings, newSettings, changedKeys } );
+
+		for( const feature of this.features )
+		{
+			await feature.SettingsChanged( oldSettings, newSettings, changedKeys );
+		}
+
+		await this.UpdateCapabilities();
+	}
+
 	public async Update( data: any )
 	{
 		if( data === null )
 		{
-			console.debug( 'device data not found: ' + this.getName() );
 			return;
 		}
 
@@ -75,6 +95,11 @@ export abstract class BaseDevice extends Device
 		this.log( 'init with ' + functions );
 
 		this.features = FunctionFactory.Create( await this.GetFunctionMask( functions ), this );
+
+		for( const feature of this.features )
+		{
+			await feature.LateInit();
+		}
 
 		await this.UpdateCapabilities();
 		this.UpdateListeners();

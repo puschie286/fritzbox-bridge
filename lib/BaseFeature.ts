@@ -12,10 +12,25 @@ export abstract class BaseFeature
 		this.device = device;
 	}
 
+	public async LateInit()
+	{
+
+	}
+
+	public async SettingsChanged( oldSettings: object, newSettings: object, changedKeys: string[] )
+	{
+
+	}
+
 	public async Update( data: any )
 	{
 		for( const capability of this.Capabilities() )
 		{
+			if( capability.noUpdate === true )
+			{
+				continue;
+			}
+
 			await this.OnCapabilityUpdate( capability, await this.GetValue( capability, data ) );
 		}
 	}

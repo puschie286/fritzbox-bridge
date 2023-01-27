@@ -21,15 +21,18 @@ export class Blind extends BaseFeature
 		}, {
 			name: 'button.open', options: {
 				'title': { 'en': 'Open blind', 'de': 'Rolladen öffnen' }
-			}
+			},
+			noUpdate: true
 		}, {
 			name: 'button.close', options: {
 				'title': { 'en': 'Close blind', 'de': 'Rolladen schließen' }
-			}
+			},
+			noUpdate: true
 		}, {
 			name: 'button.stop', options: {
 				'title': { 'en': 'Stop blind', 'de': 'Rolladen stoppen' }
-			}
+			},
+			noUpdate: true
 		} ];
 	}
 

@@ -1,0 +1,25 @@
+{
+  "identifier": "0",
+  "id": "20000",
+  "functionbitmask": "33408",
+  "fwversion": "07.14",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!Powerline 546E",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "switch": {
+	"state": "1",
+	"mode": "manuell",
+	"lock": "0",
+	"devicelock": "0"
+  },
+  "simpleonoff": {
+	"state": "1"
+  },
+  "powermeter": {
+	"voltage": "236915",
+	"power": "1570",
+	"energy": "402"
+  }
+}
