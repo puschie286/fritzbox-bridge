@@ -1,19 +1,19 @@
 {
   "name": {
-	"en": "Thermostat",
-	"de": "Thermostat"
+    "en": "Universal",
+	"de": "Universal"
   },
-  "class": "thermostat",
+  "class": "other",
   "capabilities": [],
   "images": {
-	"large": "/drivers/thermostat/assets/images/large.png",
-	"small": "/drivers/thermostat/assets/images/small.png"
+	"small": "/drivers/universal/assets/images/small.png",
+	"large": "/drivers/universal/assets/images/large.png"
   },
   "platforms": [
-	"local"
+    "local"
   ],
   "connectivity": [
-	"lan"
+    "lan"
   ],
   "pair": [
 	{
@@ -27,12 +27,5 @@
 	  "id": "add_devices",
 	  "template": "add_devices"
 	}
-  ],
-  "energy": {
-	"batteries": [
-	  "AA",
-	  "AA"
-	]
-  },
-  "deprecated": true
+  ]
 }

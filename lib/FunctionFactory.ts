@@ -10,6 +10,7 @@ import { Outlet } from '../features/Outlet';
 import { Thermostat } from '../features/Thermostat';
 import { Blind } from '../features/Blind';
 import { LevelControl } from '../features/LevelControl';
+import { ColorControl } from '../features/ColorControl';
 
 export class FunctionFactory
 {
@@ -44,6 +45,10 @@ export class FunctionFactory
 		if( MaskCheck( functionMask, FritzApiBitmask.LevelControl ) )
 		{
 			functions.push( new LevelControl( device ) );
+		}
+		if( MaskCheck( functionMask, FritzApiBitmask.ColorControl ) )
+		{
+			functions.push( new ColorControl( device ) );
 		}
 
 		return functions;

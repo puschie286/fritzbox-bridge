@@ -95,6 +95,7 @@ class SettingHelper
 			{
 				// no validation for bridge settings
 				if( [
+					'allowmultiple',
 					'showunconnected',
 					'pollinginterval',
 					'pollingactive',

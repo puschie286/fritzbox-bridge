@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local"
@@ -269,6 +269,7 @@
           "template": "add_devices"
         }
       ],
+      "deprecated": true,
       "id": "alarmsensor"
     },
     {
@@ -301,6 +302,7 @@
           "template": "add_devices"
         }
       ],
+      "deprecated": true,
       "id": "blind"
     },
     {
@@ -398,6 +400,7 @@
           "template": "add_devices"
         }
       ],
+      "deprecated": true,
       "id": "plug",
       "settings": [
         {
@@ -474,6 +477,7 @@
           "template": "add_devices"
         }
       ],
+      "deprecated": true,
       "id": "temperaturesensor"
     },
     {
@@ -512,7 +516,477 @@
           "AA"
         ]
       },
+      "deprecated": true,
       "id": "thermostat"
+    },
+    {
+      "name": {
+        "en": "Universal",
+        "de": "Universal"
+      },
+      "class": "other",
+      "capabilities": [],
+      "images": {
+        "small": "/drivers/universal/assets/images/small.png",
+        "large": "/drivers/universal/assets/images/large.png"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "universal",
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General",
+            "de": "Allgemein"
+          },
+          "children": [
+            {
+              "id": "device_class",
+              "type": "dropdown",
+              "label": {
+                "en": "Device class",
+                "de": "Geräte Klasse"
+              },
+              "values": [
+                {
+                  "id": "amplifier",
+                  "label": {
+                    "en": "Amplifier",
+                    "nl": "Versterker",
+                    "de": "Verstärker",
+                    "fr": "Amplificateur",
+                    "it": "Amplificatore",
+                    "sv": "Förstärkare",
+                    "no": "Forsterker",
+                    "es": "Amplificador",
+                    "da": "Forstærker",
+                    "ru": "Усилитель",
+                    "pl": "Wzmacniacz"
+                  }
+                },
+                {
+                  "id": "blinds",
+                  "label": {
+                    "en": "Blinds",
+                    "nl": "Jaloezieën & Lamellen",
+                    "de": "Rolladen",
+                    "fr": "Stores",
+                    "it": "Tapparelle",
+                    "sv": "Persienner",
+                    "no": "Persienner",
+                    "es": "Persianas",
+                    "da": "Persienner",
+                    "ru": "Жалюзи",
+                    "pl": "Rolety"
+                  }
+                },
+                {
+                  "id": "button",
+                  "label": {
+                    "en": "Button",
+                    "nl": "Knop",
+                    "de": "Taste",
+                    "fr": "Bouton",
+                    "it": "Pulsante",
+                    "sv": "Knapp",
+                    "no": "Knapp",
+                    "es": "Botón",
+                    "da": "Knap",
+                    "ru": "Кнопка",
+                    "pl": "Przycisk"
+                  }
+                },
+                {
+                  "id": "camera",
+                  "label": {
+                    "en": "Camera",
+                    "nl": "Camera",
+                    "de": "Kamera",
+                    "fr": "Caméra",
+                    "it": "Telecamera",
+                    "sv": "Kamera",
+                    "no": "Kamera",
+                    "es": "Cámara",
+                    "da": "Kamera",
+                    "ru": "Камера",
+                    "pl": "Kamera"
+                  }
+                },
+                {
+                  "id": "coffeemachine",
+                  "label": {
+                    "en": "Coffee machine",
+                    "nl": "Koffiemachine",
+                    "de": "Kaffemaschine",
+                    "fr": "Machine à café",
+                    "it": "Macchina per il caffè",
+                    "sv": "Kaffemaskin",
+                    "no": "Kaffemaskin",
+                    "es": "Máquina de café",
+                    "da": "Kaffemaskine",
+                    "ru": "Кофемашина",
+                    "pl": "Ekspres do kawy"
+                  }
+                },
+                {
+                  "id": "curtain",
+                  "label": {
+                    "en": "Curtains",
+                    "nl": "Gordijnen",
+                    "de": "Vorhänge",
+                    "fr": "Rideaux",
+                    "it": "Tende",
+                    "sv": "Gardiner",
+                    "no": "Gardiner",
+                    "es": "Cortinas",
+                    "da": "Gardiner",
+                    "ru": "Шторы",
+                    "pl": "Zasłony"
+                  }
+                },
+                {
+                  "id": "doorbell",
+                  "label": {
+                    "en": "Doorbell",
+                    "nl": "Deurbel",
+                    "de": "Türklingel",
+                    "fr": "Sonnette",
+                    "it": "Campanello",
+                    "sv": "Dörrklocka",
+                    "no": "Dørklokke",
+                    "es": "Timbre",
+                    "da": "Dørklokke",
+                    "ru": "Дверной звонок",
+                    "pl": "Dzwonek do drzwi"
+                  }
+                },
+                {
+                  "id": "fan",
+                  "label": {
+                    "en": "Fan",
+                    "nl": "Ventilator",
+                    "de": "Ventilator",
+                    "fr": "Ventilateur",
+                    "it": "Ventilatore",
+                    "sv": "Fläkt",
+                    "no": "Vifte",
+                    "es": "Ventilador",
+                    "da": "Ventilator",
+                    "ru": "Вентилятор",
+                    "pl": "Wentylator"
+                  }
+                },
+                {
+                  "id": "garagedoor",
+                  "label": {
+                    "en": "Garage door",
+                    "nl": "Garagedeur",
+                    "de": "Garagentor",
+                    "fr": "Porte de garage",
+                    "it": "Porta del garage",
+                    "sv": "Garagedörr",
+                    "no": "Garasjedør",
+                    "es": "Puerta de garaje",
+                    "da": "Garageport",
+                    "ru": "Дверь гаража",
+                    "pl": "Brama garażowa"
+                  }
+                },
+                {
+                  "id": "heater",
+                  "label": {
+                    "en": "Heater",
+                    "nl": "Heater",
+                    "de": "Heizung",
+                    "fr": "Radiateur",
+                    "it": "Termosifone",
+                    "sv": "Element",
+                    "no": "Varmeelement",
+                    "es": "Calefactor",
+                    "da": "Varmeapparat",
+                    "ru": "Обогреватель",
+                    "pl": "Grzejnik"
+                  }
+                },
+                {
+                  "id": "homealarm",
+                  "label": {
+                    "en": "Home Security",
+                    "nl": "Huisbeveiliging",
+                    "de": "Heim-Sicherheit",
+                    "fr": "Sécurité de la maison",
+                    "it": "Sicurezza della casa",
+                    "sv": "Hemsäkerhet",
+                    "no": "Hjemmesikkerhet",
+                    "es": "Seguridad de la casa",
+                    "da": "Hjemmesikkerhed",
+                    "ru": "Домашняя безопасность",
+                    "pl": "Bezpieczeństwo domowe"
+                  }
+                },
+                {
+                  "id": "kettle",
+                  "label": {
+                    "en": "Kettle",
+                    "nl": "Waterkoker",
+                    "de": "Wasserkocher",
+                    "fr": "Bouilloire",
+                    "it": "Bollitore",
+                    "sv": "Vattenkokare",
+                    "no": "Vannkoker",
+                    "es": "Hervidor",
+                    "da": "Elkedel",
+                    "ru": "Чайник",
+                    "pl": "Czajnik"
+                  }
+                },
+                {
+                  "id": "light",
+                  "label": {
+                    "en": "Light",
+                    "nl": "Lamp",
+                    "de": "Lampe",
+                    "fr": "Lampe",
+                    "it": "Lampada",
+                    "sv": "Lampa",
+                    "no": "Lampe",
+                    "es": "Lámpara",
+                    "da": "Lys",
+                    "ru": "Лампа",
+                    "pl": "Oświetlenie"
+                  }
+                },
+                {
+                  "id": "lock",
+                  "label": {
+                    "en": "Lock",
+                    "nl": "Slot",
+                    "de": "Schloss",
+                    "fr": "Verrou",
+                    "it": "Serratura",
+                    "sv": "Lås",
+                    "no": "Lås",
+                    "es": "Cerradura",
+                    "da": "Lås",
+                    "ru": "Замок",
+                    "pl": "Zamek"
+                  }
+                },
+                {
+                  "id": "other",
+                  "label": {
+                    "en": "Other",
+                    "nl": "Overig",
+                    "de": "Andere",
+                    "fr": "Autre",
+                    "it": "Altro",
+                    "sv": "Övrigt",
+                    "no": "Annet",
+                    "es": "Otro",
+                    "da": "Andet",
+                    "ru": "Другое",
+                    "pl": "Inne"
+                  }
+                },
+                {
+                  "id": "remote",
+                  "label": {
+                    "en": "Remote",
+                    "nl": "Afstandsbediening",
+                    "de": "Fernbedienung",
+                    "fr": "Télécommande",
+                    "it": "Telecomando",
+                    "sv": "Fjärrkontroll",
+                    "no": "Fjernkontroll",
+                    "es": "Mando a distancia",
+                    "da": "Fjernbetjening",
+                    "ru": "Пульт",
+                    "pl": "Pilot"
+                  }
+                },
+                {
+                  "id": "sensor",
+                  "label": {
+                    "en": "Sensor",
+                    "nl": "Sensor",
+                    "de": "Sensor",
+                    "fr": "Capteur",
+                    "it": "Sensore",
+                    "sv": "Sensor",
+                    "no": "Sensor",
+                    "es": "Sensor",
+                    "da": "Sensor",
+                    "ru": "Датчик",
+                    "pl": "Czujnik"
+                  }
+                },
+                {
+                  "id": "socket",
+                  "label": {
+                    "en": "Wall Plug",
+                    "nl": "Schakeldoos",
+                    "de": "Steckdose",
+                    "fr": "Prise murale",
+                    "it": "Presa a muro",
+                    "sv": "Väggkontakt",
+                    "no": "Veggkontakt",
+                    "es": "Enchufe de pared",
+                    "da": "Stikkontakt",
+                    "ru": "Настенная розетка",
+                    "pl": "Wtyczka"
+                  }
+                },
+                {
+                  "id": "speaker",
+                  "label": {
+                    "en": "Speaker",
+                    "nl": "Speaker",
+                    "de": "Lautsprecher",
+                    "fr": "Haut-parleur",
+                    "it": "Altoparlante",
+                    "sv": "Högtalare",
+                    "no": "Høyttaler",
+                    "es": "Altavoz",
+                    "da": "Højttaler",
+                    "ru": "Колонка",
+                    "pl": "Głośnik"
+                  }
+                },
+                {
+                  "id": "solarpanel",
+                  "label": {
+                    "en": "Solar Panel",
+                    "nl": "Zonnepaneel",
+                    "de": "Solarmodul",
+                    "sv": "Solpanel",
+                    "no": "Solpanel",
+                    "es": "Panel solar",
+                    "da": "Solpanel",
+                    "ru": "Солнечная панель",
+                    "pl": "Panel fotowoltaiczny"
+                  }
+                },
+                {
+                  "id": "sunshade",
+                  "label": {
+                    "en": "Sunshade",
+                    "nl": "Zonnescherm",
+                    "de": "Sonnenschirm",
+                    "fr": "Auvent",
+                    "it": "Parasole",
+                    "sv": "Markis",
+                    "no": "Markise",
+                    "es": "Toldo",
+                    "da": "Markise",
+                    "ru": "Навес",
+                    "pl": "Markiza"
+                  }
+                },
+                {
+                  "id": "thermostat",
+                  "label": {
+                    "en": "Thermostat",
+                    "nl": "Thermostaat",
+                    "de": "Thermostat",
+                    "fr": "Thermostat",
+                    "it": "Termostato",
+                    "sv": "Termostat",
+                    "no": "Termostat",
+                    "es": "Termostato",
+                    "da": "Termostat",
+                    "ru": "Термостат",
+                    "pl": "Termostat"
+                  }
+                },
+                {
+                  "id": "tv",
+                  "label": {
+                    "en": "TV",
+                    "nl": "TV",
+                    "de": "TV",
+                    "fr": "TV",
+                    "it": "TV",
+                    "sv": "TV",
+                    "no": "TV",
+                    "es": "TV",
+                    "da": "TV",
+                    "ru": "Телевизор",
+                    "pl": "Telewizor"
+                  }
+                },
+                {
+                  "id": "vacuumcleaner",
+                  "label": {
+                    "en": "Vacuum Cleaner",
+                    "nl": "Stofzuiger",
+                    "de": "Staubsauger",
+                    "fr": "Aspirateur",
+                    "it": "Aspirapolvere",
+                    "sv": "Dammsugare",
+                    "no": "Støvsuger",
+                    "es": "Aspiradora",
+                    "da": "Støvsuger",
+                    "ru": "Пылесос",
+                    "pl": "Odkurzacz"
+                  }
+                },
+                {
+                  "id": "windowcoverings",
+                  "label": {
+                    "en": "Window Coverings",
+                    "nl": "Raambekleding",
+                    "de": "Fenster-Abdeckungen",
+                    "fr": "Couverture de fenêtre",
+                    "it": "Rivestimenti per finestre",
+                    "sv": "Fönsterskydd",
+                    "no": "Vindusbeskyttelse",
+                    "es": "Cobertores de ventanas",
+                    "da": "Vinduesdække",
+                    "ru": "Оконные навесы",
+                    "pl": "Osłony okienne"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Energy",
+            "de": "Energie"
+          },
+          "children": [
+            {
+              "id": "ignore_energy",
+              "type": "checkbox",
+              "value": false,
+              "label": {
+                "en": "Ignore energy in total",
+                "de": "Ignoriere Leistung in Gesamt"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "capabilities": {
@@ -583,6 +1057,227 @@
       },
       "getable": true,
       "setable": false
+    },
+    "color_hue": {
+      "type": "enum",
+      "title": {
+        "en": "Hue",
+        "nl": "Hue",
+        "de": "Farbton",
+        "fr": "Teinte",
+        "it": "Tonalità",
+        "sv": "Nyans",
+        "no": "Fargetone",
+        "es": "Tonalidad",
+        "da": "Farvetone",
+        "ru": "Оттенок",
+        "pl": "Odcień"
+      },
+      "getalbe": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "red",
+          "title": {
+            "en": "red",
+            "de": "Rot"
+          }
+        },
+        {
+          "id": "orange",
+          "title": {
+            "en": "orange",
+            "de": "Orange"
+          }
+        },
+        {
+          "id": "yellow",
+          "title": {
+            "en": "yellow",
+            "de": "Gelb"
+          }
+        },
+        {
+          "id": "lime",
+          "title": {
+            "en": "lime"
+          }
+        },
+        {
+          "id": "green",
+          "title": {
+            "en": "green",
+            "de": "Grün"
+          }
+        },
+        {
+          "id": "turquoise",
+          "title": {
+            "en": "turquoise",
+            "de": "Türkis"
+          }
+        },
+        {
+          "id": "cyan",
+          "title": {
+            "en": "cyan",
+            "de": "Cyan"
+          }
+        },
+        {
+          "id": "lightblue",
+          "title": {
+            "en": "lightblue",
+            "de": "Hellblau"
+          }
+        },
+        {
+          "id": "blue",
+          "title": {
+            "en": "blue",
+            "de": "Blau"
+          }
+        },
+        {
+          "id": "purple",
+          "title": {
+            "en": "purple",
+            "de": "Lila"
+          }
+        },
+        {
+          "id": "magenta",
+          "title": {
+            "en": "magenta",
+            "de": "Magenta"
+          }
+        },
+        {
+          "id": "pink",
+          "title": {
+            "en": "pink",
+            "de": "Pink"
+          }
+        }
+      ]
+    },
+    "color_saturation": {
+      "type": "enum",
+      "title": {
+        "en": "Color saturation",
+        "nl": "Kleurverzadiging",
+        "de": "Farbsättigung",
+        "fr": "Saturation de couleur",
+        "it": "Saturazione colore",
+        "sv": "Färggmättnad",
+        "no": "Fargemetning",
+        "es": "Saturación del color",
+        "da": "Farvemætning",
+        "ru": "Насыщенность цвета",
+        "pl": "Nasycenie barwy"
+      },
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "high",
+          "title": {
+            "en": "high",
+            "de": "Hoch"
+          }
+        },
+        {
+          "id": "mid",
+          "title": {
+            "en": "mid",
+            "de": "Mittel"
+          }
+        },
+        {
+          "id": "low",
+          "title": {
+            "en": "low",
+            "de": "Niedrig"
+          }
+        }
+      ]
+    },
+    "color_temperature": {
+      "type": "enum",
+      "title": {
+        "en": "Color temperature",
+        "nl": "Kleurtemperatuur",
+        "de": "Farbtemperatur",
+        "fr": "Température de couleur",
+        "it": "Temperatura colore",
+        "sv": "Färgtemperatur",
+        "no": "Fargetemperatur",
+        "es": "Temperatura del color",
+        "da": "Farvetemperatur",
+        "ru": "Температура цвета",
+        "pl": "Temperatura barwy"
+      },
+      "getable": true,
+      "setable": true,
+      "units": {
+        "en": "Kelvin"
+      },
+      "values": [
+        {
+          "id": "2700",
+          "title": {
+            "en": "2700"
+          }
+        },
+        {
+          "id": "3000",
+          "title": {
+            "en": "3000"
+          }
+        },
+        {
+          "id": "3400",
+          "title": {
+            "en": "3400"
+          }
+        },
+        {
+          "id": "3800",
+          "title": {
+            "en": "3800"
+          }
+        },
+        {
+          "id": "4200",
+          "title": {
+            "en": "4200"
+          }
+        },
+        {
+          "id": "4700",
+          "title": {
+            "en": "4700"
+          }
+        },
+        {
+          "id": "5300",
+          "title": {
+            "en": "5300"
+          }
+        },
+        {
+          "id": "5900",
+          "title": {
+            "en": "5900"
+          }
+        },
+        {
+          "id": "6500",
+          "title": {
+            "en": "6500"
+          }
+        }
+      ]
     },
     "measure_api_locked": {
       "type": "boolean",

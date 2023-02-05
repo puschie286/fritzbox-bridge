@@ -2,7 +2,7 @@
 interface ParingDevice
 {
 	name: string,
-	data: { id: string },
+	data: { id: string, time: number|undefined },
 	store: object,
 	settings: object
 }

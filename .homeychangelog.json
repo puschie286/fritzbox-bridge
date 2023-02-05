@@ -64,5 +64,8 @@
   },
   "0.9.7": {
 	"en": "Plug-Option to ignore power in total\nFix current parsing"
+  },
+  "0.9.8": {
+	"en": "Add Universal device driver\nAdd option to add same device multiple times\nAdd support for DECT 500"
   }
 }

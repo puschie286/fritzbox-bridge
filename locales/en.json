@@ -42,7 +42,8 @@
 	  "PollingInterval": "Device data query interval",
 	  "StatusPollingActive": "Fritzbox data query active",
 	  "StatusPollingInterval": "Fritzbox data query interval",
-	  "ShowUnconnected": "Show unconnected devices"
+	  "ShowUnconnected": "Show unconnected devices",
+	  "AllowMultiple": "Allow to add same device multiple times"
 	},
 	"Save": "Save changes",
 	"Debug": "Debug info"

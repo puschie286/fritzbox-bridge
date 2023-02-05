@@ -47,7 +47,11 @@
 		</div>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="showunconnected" data-i18n="Settings.Bridge.ShowUnconnected"></label>
-			<input class="homey-form-input" id="showunconnected" type="checkbox" value="" />
+			<input class="homey-form-input" id="showunconnected" type="checkbox" checked="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="allowmultiple" data-i18n="Settings.Bridge.AllowMultiple"></label>
+			<input class="homey-form-inpuit" id="allowmultiple" type="checkbox" checked="" />
 		</div>
 	</fieldset>
 
@@ -74,6 +78,7 @@
                 { id: 'statuspollinginterval', default: 60 },
 				{ id: 'statuspollingactive', type: 'checkbox', default: false },
                 { id: 'showunconnected', type: 'checkbox', default: false },
+				{ id: 'allowmultiple', type: 'checkbox', default: false }
             ]);
         }
     </script>

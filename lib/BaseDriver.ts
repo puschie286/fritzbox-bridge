@@ -32,10 +32,13 @@ export abstract class BaseDriver extends Driver
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
 		const ShowDisconnected = this.homey.settings.get( Settings.SHOW_UNCONNECTED ) === true;
+		const AllowMultiple = this.homey.settings.get( Settings.ALLOW_MULTIPLE_REFERENCES ) === true;
 
 		const list = await this.fritzbox.GetApi().getDeviceList();
 
 		let validDevices: ParingDevice[] = [];
+
+		const time = AllowMultiple ? Date.now() : undefined;
 
 		const devices = this.fritzbox.FilterDevices( list, this.GetBaseFunction() );
 		for( const device of devices )
@@ -45,8 +48,10 @@ export abstract class BaseDriver extends Driver
 
 			// base setup
 			let validDevice: ParingDevice = {
-				name: device.name, data: {
-					id: device.identifier
+				name: device.name,
+				data: {
+					id: device.identifier,
+					time: time
 				}, store: {
 					functions: device.functionbitmask
 				}, settings: {}

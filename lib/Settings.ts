@@ -11,6 +11,7 @@ export class Settings
 	public static readonly VALIDATION: string = 'validation';
 	public static readonly VALIDATION_INFO: string = 'validationInfo';
 	public static readonly SHOW_UNCONNECTED: string = 'showunconnected';
+	public static readonly ALLOW_MULTIPLE_REFERENCES: string = 'allowmultiple';
 
 	public static readonly POLL_MAX: number = 86400; // in seconds
 	public static readonly POLL_MIN: number = 1; // in seconds
@@ -27,4 +28,5 @@ export class SettingsDefault
 	public static readonly STATUS_INTERVAL: number = 60;
 	public static readonly STATUS_ACTIVE: boolean = false;
 	public static readonly SHOW_UNCONNECTED: boolean = false;
+	public static readonly ALLOW_MULTIPLE_REFERENCES: boolean = false;
 }

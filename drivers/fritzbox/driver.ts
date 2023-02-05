@@ -21,7 +21,8 @@ class Driver extends BaseDriver
 
 		return [ {
 			name: 'Fritzbox', data: {
-				id: 'fritzbox'
+				id: 'fritzbox',
+				time: undefined
 			}, store: {}, settings: {}
 		} ];
 	}

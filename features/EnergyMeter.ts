@@ -20,7 +20,9 @@ export class EnergyMeter extends BaseFeature
 
 	async LateInit(): Promise<void>
 	{
-		return this.UpdatePowerState( this.device.getSetting( 'ignore_energy' ) );
+		const value = this.device.getSetting( 'ignore_energy' ) ?? true;
+
+		return this.UpdatePowerState( value );
 	}
 
 	private async UpdatePowerState( state: boolean )
@@ -30,8 +32,6 @@ export class EnergyMeter extends BaseFeature
 
 	public async SettingsChanged( oldSettings: any, newSettings: any, changedKeys: string[] ): Promise<void>
 	{
-		console.log( newSettings );
-
 		return this.UpdatePowerState( newSettings.ignore_energy );
 	}
 

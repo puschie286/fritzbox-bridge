@@ -13,6 +13,11 @@ export class Thermostat extends BaseFeature
 			return null;
 		}
 
+		if( value == 253 || value === 254 )
+		{
+			return null;
+		}
+
 		return value / 2;
 	}
 
@@ -23,7 +28,22 @@ export class Thermostat extends BaseFeature
 			return null;
 		}
 
+		if( value == 253 || value === 254 )
+		{
+			return null;
+		}
+
 		return Round( Clamp( value / 2, 4, 35 ), 0.01 )
+	}
+
+	private static OnOffState( value: number | null ): boolean | null
+	{
+		if( value === null )
+		{
+			return null;
+		}
+
+		return value !== 253;
 	}
 
 	/*if( name === 'target_temperature' && ( value === 254 || value === 253 ) )
@@ -82,43 +102,33 @@ export class Thermostat extends BaseFeature
 			options: {
 				'min': 8, 'max': 28, 'step': 0.5
 			}
+		}, {
+			name: 'onoff',
+			state: 'hkr.tsoll',
+			type: CapabilityType.Integer,
+			valueFunc: Thermostat.OnOffState
 		} ];
 	}
 
 	Listeners(): Array<CapabilityListener>
 	{
 		return [ {
-			name: 'target_temperature', callback: this.onTargetTemperature
+			name: 'target_temperature', callback: this.onTargetTemperature,
+		}, {
+			name: 'onoff', callback: this.onOnOff
 		} ];
 	}
 
-	/*private onOnOff( value: any )
+	private onOnOff( value: any )
 	{
 		let Value = Boolean( value );
-		this.log( 'send onOff: ', Value );
-		this.api.setTempTarget( this.getData().id, Value );
-	}*/
+		this.device.log( 'send onOff: ', Value );
+		this.device.GetAPI().setTempTarget( this.device.getData().id, Value );
+	}
 	private onTargetTemperature( value: any )
 	{
 		this.device.log( 'send setTarget: ' + parseFloat( value ) );
 		this.device.GetAPI().setTempTarget( this.device.getData().id, parseFloat( value ) );
-	}
-
-	private OnOffValues( value: any ): boolean | null
-	{
-		if( value === null )
-		{
-			return null;
-		}
-
-		const intValue = parseInt( value );
-
-		if( isNaN( intValue ) )
-		{
-			return null;
-		}
-
-		return intValue !== 253;
 	}
 
 	private async HandleError( error: any ): Promise<string>
