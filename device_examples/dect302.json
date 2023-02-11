@@ -1,0 +1,40 @@
+{
+  "identifier": "0",
+  "id": "49",
+  "functionbitmask": "320",
+  "fwversion": "05.13",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!DECT 302",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "battery": "90",
+  "batterylow": "0",
+  "temperature": {
+	"celsius": "235",
+	"offset": "-35"
+  },
+  "hkr": {
+	"tist": "47",
+	"tsoll": "45",
+	"absenk": "45",
+	"komfort": "46",
+	"lock": "0",
+	"devicelock": "0",
+	"errorcode": "0",
+	"windowopenactiv": "0",
+	"windowopenactiveendtime": "0",
+	"boostactive": "0",
+	"boostactiveendtime": "0",
+	"batterylow": "0",
+	"battery": "90",
+	"nextchange": {
+	  "endperiod": "1675958400",
+	  "tchange": "46"
+	},
+	"summeractive": "0",
+	"holidayactive": "0",
+	"adaptiveHeatingActive": "1",
+	"adaptiveHeatingRunning": "0"
+  }
+}

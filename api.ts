@@ -12,9 +12,7 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			//manager.LogInformation( data );
-
-			const result = manager.GetLog().captureMessage( JSON.stringify( data ) );
+			const result = manager.LogMessageOnline( JSON.stringify( data ) );
 
 			if( result === undefined )
 			{
@@ -37,9 +35,7 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			//manager.LogInformation( data );
-
-			const result = manager.GetLog().captureMessage( JSON.stringify( data ) );
+			const result = manager.LogMessageOnline( JSON.stringify( data ) );
 
 			if( result === undefined )
 			{

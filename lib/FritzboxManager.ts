@@ -60,14 +60,24 @@ export class FritzboxManager
 		return this.apiInstance;
 	}
 
-	/**
-	 * get log instance (sentry log)
-	 *
-	 * @return SentryLog
-	 */
-	public GetLog(): SentryLog
+
+	public async LogMessageOnline( message: string ): Promise<boolean>
 	{
-		return this.log;
+		const maxLength = 8000;
+		let sendingMessage = message;
+
+		while( sendingMessage.length >= maxLength )
+		{
+			const messagePart = sendingMessage.substr( 0, maxLength );
+			sendingMessage = sendingMessage.substr( maxLength );
+
+			if( await this.log.captureMessage( messagePart ) === undefined )
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public GetLastData(): any
