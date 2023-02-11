@@ -1,0 +1,26 @@
+{
+  "id": "network_device_is_connected_by_mac",
+  "title": {
+	"en": "Network device is !{{connected|disconnected}}",
+	"de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+  },
+  "titleFormatted": {
+	"en": "[[mac]] is !{{connected|disconnected}}",
+	"de": "[[mac]] ist !{{verbunden|nicht verbunden}}"
+  },
+  "hint": {
+	"en": "Checks if network device is connected",
+	"de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+  },
+  "args": [ {
+	"type": "text",
+	"name": "mac",
+	"title": {
+	  "en": "Device MAC address",
+	  "de": "Geräte MAC Adresse"
+	},
+	"placeholder": {
+	  "en": "00:1B:44:11:3A:B7"
+	}
+  } ]
+}

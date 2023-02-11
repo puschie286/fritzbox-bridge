@@ -13,8 +13,7 @@
         "de": "Geräte Name"
       },
 	  "example": {
-		"en": "Max-phone",
-		"de": "Max-phone"
+		"en": "Max-phone"
 	  }
     },
 	{
@@ -25,8 +24,7 @@
 		"de": "Geräte Ip"
 	  },
 	  "example": {
-		"en": "192.168.178.25",
-		"de": "192.168.178.25"
+		"en": "192.168.178.25"
 	  }
 	},
 	{
@@ -37,8 +35,7 @@
 		"de": "Geräte MAC Adresse"
 	  },
 	  "example": {
-		"en": "00:1B:44:11:3A:B7",
-		"de": "00:1B:44:11:3A:B7"
+		"en": "00:1B:44:11:3A:B7"
 	  }
 	},
 	{

@@ -22,7 +22,7 @@ export class FunctionFactory
 		{
 			functions.push( new Temperature( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.Alarm ) )
+		if( MaskCheck( functionMask, FritzApiBitmask.Alarm ) && !MaskCheck( functionMask, FritzApiBitmask.BlindControl ) )
 		{
 			functions.push( new Alarm( device ) );
 		}

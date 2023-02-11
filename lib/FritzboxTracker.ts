@@ -24,6 +24,47 @@ export class FritzboxTracker
 
 		this.wlanConnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_connected' );
 		this.wlanDisconnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_disconnected' );
+
+		this.homey.flow.getConditionCard( 'network_device_is_connected_by_ip' ).registerRunListener( this.OnConditionConnectedByIp.bind( this ) );
+		this.homey.flow.getConditionCard( 'network_device_is_connected_by_mac' ).registerRunListener( this.OnConditionConnectedByMac.bind( this ) );
+		this.homey.flow.getConditionCard( 'network_device_is_connected_by_name' ).registerRunListener( this.OnConditionConnectedByName.bind( this ) );
+	}
+
+	private async OnConditionConnectedByIp( args: any )
+	{
+		const ip = args.ip;
+
+		for( const device of this.DeviceList.values() )
+		{
+			if( device.ipv4.ip === ip )
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private async OnConditionConnectedByMac( args: any )
+	{
+		const mac = args.mac;
+
+		return this.DeviceList.has( mac );
+	}
+
+	private async OnConditionConnectedByName( args: any )
+	{
+		const name = args.name;
+
+		for( const device of this.DeviceList.values() )
+		{
+			if( device.name === name )
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public async UpdateDevices( network: any )
