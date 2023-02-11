@@ -1,29 +1,29 @@
 {
-		"identifier": "0",
-		"id": "30",
-		"functionbitmask": "35712",
-		"fwversion": "04.25",
-		"manufacturer": "AVM",
-		"productname": "FRITZ!DECT 210",
-		"present": "1",
-		"txbusy": "0",
-		"name": "EXAMPLE",
-		"switch": {
-			"state": "0",
-			"mode": "manuell",
-			"lock": "0",
-			"devicelock": "0"
-		},
-		"simpleonoff": {
-			"state": "0"
-		},
-		"powermeter": {
-			"voltage": "237509",
-			"power": "0",
-			"energy": "5015"
-		},
-		"temperature": {
-			"celsius": "140",
-			"offset": "0"
-		}
-	}
+  "identifier": "0",
+  "id": "30",
+  "functionbitmask": "35712",
+  "fwversion": "04.25",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!DECT 210",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "switch": {
+	"state": "0",
+	"mode": "manuell",
+	"lock": "0",
+	"devicelock": "0"
+  },
+  "simpleonoff": {
+	"state": "0"
+  },
+  "powermeter": {
+	"voltage": "237509",
+	"power": "0",
+	"energy": "5015"
+  },
+  "temperature": {
+	"celsius": "140",
+	"offset": "0"
+  }
+}

@@ -1,40 +1,40 @@
 {
-		"identifier": "0",
-		"id": "21",
-		"functionbitmask": "320",
-		"fwversion": "05.08",
-		"manufacturer": "AVM",
-		"productname": "FRITZ!DECT 301",
-		"present": "1",
-		"txbusy": "0",
-		"name": "EXAMPLE",
-		"battery": "100",
-		"batterylow": "0",
-		"temperature": {
-			"celsius": "170",
-			"offset": "-10"
-		},
-		"hkr": {
-			"tist": "34",
-			"tsoll": "34",
-			"absenk": "28",
-			"komfort": "34",
-			"lock": "0",
-			"devicelock": "0",
-			"errorcode": "0",
-			"windowopenactiv": "0",
-			"windowopenactiveendtime": "0",
-			"boostactive": "0",
-			"boostactiveendtime": "0",
-			"batterylow": "0",
-			"battery": "100",
-			"nextchange": {
-				"endperiod": "1674342000",
-				"tchange": "34"
-			},
-			"summeractive": "0",
-			"holidayactive": "0",
-			"adaptiveHeatingActive": "1",
-			"adaptiveHeatingRunning": "0"
-		}
-	}
+  "identifier": "0",
+  "id": "21",
+  "functionbitmask": "320",
+  "fwversion": "05.08",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!DECT 301",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "battery": "100",
+  "batterylow": "0",
+  "temperature": {
+	"celsius": "170",
+	"offset": "-10"
+  },
+  "hkr": {
+	"tist": "34",
+	"tsoll": "34",
+	"absenk": "28",
+	"komfort": "34",
+	"lock": "0",
+	"devicelock": "0",
+	"errorcode": "0",
+	"windowopenactiv": "0",
+	"windowopenactiveendtime": "0",
+	"boostactive": "0",
+	"boostactiveendtime": "0",
+	"batterylow": "0",
+	"battery": "100",
+	"nextchange": {
+	  "endperiod": "1674342000",
+	  "tchange": "34"
+	},
+	"summeractive": "0",
+	"holidayactive": "0",
+	"adaptiveHeatingActive": "1",
+	"adaptiveHeatingRunning": "0"
+  }
+}

@@ -75,13 +75,6 @@ export class FritzboxManager
 		return this.lastDeviceData;
 	}
 
-
-	public LogInformation( data: any )
-	{
-		this.homey.log( 'debug data:' );
-		this.homey.log( JSON.stringify( data ) );
-	}
-
 	// TODO: validate url, add http/https to address
 	/**
 	 * create new api instance ( set new login credential & options )

@@ -1,0 +1,46 @@
+{
+  "identifier": "0",
+  "id": "35",
+  "functionbitmask": "1048864",
+  "fwversion": "05.25",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!DECT 440",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "battery": "100",
+  "batterylow": "0",
+  "temperature": {
+	"celsius": "185",
+	"offset": "0"
+  },
+  "humidity": {
+	"rel_humidity": "46"
+  },
+  "button": [
+	{
+	  "identifier": "0-1",
+	  "id": "5012",
+	  "name": "EXAMPLE: Oben rechts",
+	  "lastpressedtimestamp": "1675272402"
+	},
+	{
+	  "identifier": "0-3",
+	  "id": "5013",
+	  "name": "EXAMPLE: Unten rechts",
+	  "lastpressedtimestamp": "1674661138"
+	},
+	{
+	  "identifier": "0-5",
+	  "id": "5014",
+	  "name": "EXAMPLE:Unten links",
+	  "lastpressedtimestamp": "1674661138"
+	},
+	{
+	  "identifier": "0-7",
+	  "id": "5015",
+	  "name": "EXAMPLE: Oben links",
+	  "lastpressedtimestamp": ""
+	}
+  ]
+}

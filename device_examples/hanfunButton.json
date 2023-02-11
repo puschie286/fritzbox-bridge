@@ -1,0 +1,19 @@
+{
+  "identifier": "0-2",
+  "id": "2024",
+  "functionbitmask": "8200",
+  "fwversion": "0.0",
+  "manufacturer": "0x0feb",
+  "productname": "HAN-FUN",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE - F2",
+  "etsiunitinfo": {
+	"etsideviceid": "406",
+	"unittype": "273",
+	"interfaces": "772"
+  },
+  "button": {
+	"lastpressedtimestamp": ""
+  }
+}

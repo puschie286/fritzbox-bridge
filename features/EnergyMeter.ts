@@ -6,7 +6,6 @@ export class EnergyMeter extends BaseFeature
 {
 	private readonly Current: string = 'measure_current';
 	private Power: string = 'measure_power';
-	private readonly Voltage: string = 'measure_voltage';
 
 	private static ConvertPower( value: number | null ): number | null
 	{
@@ -44,7 +43,7 @@ export class EnergyMeter extends BaseFeature
 			type: CapabilityType.Number,
 			valueFunc: EnergyMeter.ConvertPower
 		}, {
-			name: this.Voltage,
+			name: 'measure_voltage',
 			state: 'powermeter.voltage',
 			type: CapabilityType.Number,
 			valueFunc: EnergyMeter.ConvertPower
@@ -67,7 +66,7 @@ export class EnergyMeter extends BaseFeature
 
 		// get all needed values
 		const power = Number( this.device.getCapabilityValue( this.Power ) );
-		const voltage = Number( this.device.getCapabilityValue( this.Voltage ) );
+		const voltage = Number( this.device.getCapabilityValue( 'measure_voltage' ) );
 
 		// calc final value and round to 4 digits
 		const current = ( power / voltage ).toFixed( 4 )

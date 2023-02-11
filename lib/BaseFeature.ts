@@ -53,7 +53,7 @@ export abstract class BaseFeature
 
 	protected async OnCapabilityChanged( capability: Capability, value: any, oldValue: any )
 	{
-		console.debug( 'update ' + capability.name + ' from ' + oldValue + ' to ' + value );
+		//console.debug( 'update ' + capability.name + ' from ' + oldValue + ' to ' + value );
 		await this.device.setCapabilityValue( capability.name, value ).catch( this.device.error );
 	}
 

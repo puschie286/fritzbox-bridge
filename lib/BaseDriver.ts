@@ -52,15 +52,24 @@ export abstract class BaseDriver extends Driver
 				data: {
 					id: device.identifier,
 					time: time
-				}, store: {
+				},
+				store: {
 					functions: device.functionbitmask
-				}, settings: {}
+				},
+				settings: {}
 			};
+
+			await this.LateSetup( validDevice, device );
 
 			validDevices.push( validDevice );
 		}
 
 		return validDevices;
+	}
+
+	protected async LateSetup( deviceSetup: ParingDevice, device: any )
+	{
+
 	}
 
 	protected isLoginValid(): boolean

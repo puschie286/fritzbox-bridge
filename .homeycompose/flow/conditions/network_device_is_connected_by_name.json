@@ -12,15 +12,17 @@
 	"en": "Checks if network device is connected",
 	"de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
   },
-  "args": [ {
-	"type": "text",
-	"name": "name",
-	"title": {
-	  "en": "Device name",
-	  "de": "Geräte Name"
-	},
-	"placeholder": {
-	  "en": "Max-phone"
+  "args": [
+	{
+	  "type": "text",
+	  "name": "name",
+	  "title": {
+		"en": "Device name",
+		"de": "Geräte Name"
+	  },
+	  "placeholder": {
+		"en": "Max-phone"
+	  }
 	}
-  } ]
+  ]
 }
