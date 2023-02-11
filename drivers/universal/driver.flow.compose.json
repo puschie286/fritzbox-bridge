@@ -1,0 +1,36 @@
+{
+  "triggers": [
+    {
+      "id": "button_triggered",
+      "title": {
+        "en": "Button triggered",
+		"de": "Taste ausgelöst"
+      },
+	  "titleFormatted": {
+		"en": "Button [[name]] was triggered",
+		"de": "Taste [[name] wurde ausgelöst"
+	  },
+      "args": [
+        {
+          "type": "autocomplete",
+          "name": "name",
+          "placeholder": {
+            "en": "Button: up left",
+			"de": "Taste: Oben Links"
+          }
+        }
+      ]
+    },
+	{
+	  "id": "button_single_triggered",
+	  "title": {
+		"en": "Button triggered",
+		"de": "Taste ausgelöst"
+	  },
+	  "titleFormatted": {
+		"en": "Button was triggered",
+		"de": "Taste wurde ausgelöst"
+	  }
+	}
+  ]
+}

@@ -1,12 +1,18 @@
 [
   {
 	"type": "group",
-	"label": { "en": "General", "de": "Allgemein" },
+	"label": {
+	  "en": "General",
+	  "de": "Allgemein"
+	},
 	"children": [
 	  {
 		"id": "device_class",
 		"type": "dropdown",
-		"label": { "en": "Device class", "de": "Geräte Klasse" },
+		"label": {
+		  "en": "Device class",
+		  "de": "Geräte Klasse"
+		},
 		"values": [
 		  {
 			"id": "amplifier",
@@ -412,12 +418,20 @@
   },
   {
 	"type": "group",
-	"label": { "en": "Energy", "de": "Energie" },
-	"children": [{
-	  "id": "ignore_energy",
-	  "type": "checkbox",
-	  "value": false,
-	  "label": { "en": "Ignore energy in total", "de": "Ignoriere Leistung in Gesamt" }
-	}]
+	"label": {
+	  "en": "Energy",
+	  "de": "Energie"
+	},
+	"children": [
+	  {
+		"id": "ignore_energy",
+		"type": "checkbox",
+		"value": false,
+		"label": {
+		  "en": "Ignore energy in total",
+		  "de": "Ignoriere Leistung in Gesamt"
+		}
+	  }
+	]
   }
 ]

@@ -11,6 +11,8 @@ import { Thermostat } from '../features/Thermostat';
 import { Blind } from '../features/Blind';
 import { LevelControl } from '../features/LevelControl';
 import { ColorControl } from '../features/ColorControl';
+import { Humidity } from '../features/Humidity';
+import { Button } from '../features/Button';
 
 export class FunctionFactory
 {
@@ -49,6 +51,14 @@ export class FunctionFactory
 		if( MaskCheck( functionMask, FritzApiBitmask.ColorControl ) )
 		{
 			functions.push( new ColorControl( device ) );
+		}
+		if( MaskCheck( functionMask, FritzApiBitmask.HumiditySensor ) )
+		{
+			functions.push( new Humidity( device ) );
+		}
+		if( MaskCheck( functionMask, FritzApiBitmask.Button ) )
+		{
+			functions.push( new Button( device ) );
 		}
 
 		return functions;
