@@ -1,0 +1,34 @@
+{
+  "identifier": "0-1",
+  "id": "2000",
+  "functionbitmask": "237572",
+  "fwversion": "0.0",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!DECT 500",
+  "present": "1",
+  "txbusy": "0",
+  "name": "EXAMPLE",
+  "simpleonoff": {
+	"state": "0"
+  },
+  "levelcontrol": {
+	"level": "255",
+	"levelpercentage": "100"
+  },
+  "colorcontrol": {
+	"supported_modes": "5",
+	"current_mode": "4",
+	"fullcolorsupport": "1",
+	"mapped": "0",
+	"hue": "",
+	"saturation": "",
+	"unmapped_hue": "",
+	"unmapped_saturation": "",
+	"temperature": "2700"
+  },
+  "etsiunitinfo": {
+	"etsideviceid": "430",
+	"unittype": "278",
+	"interfaces": "512,514,513"
+  }
+}

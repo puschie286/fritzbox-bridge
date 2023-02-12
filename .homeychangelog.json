@@ -76,5 +76,8 @@
   },
   "0.9.11": {
     "en": "Fix fritzbox driver, blind loca and hanfun device detection"
+  },
+  "0.9.12": {
+    "en": "Fix button trigger assignment"
   }
 }

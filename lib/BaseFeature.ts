@@ -56,6 +56,8 @@ export abstract class BaseFeature
 
 	protected async OnCapabilityUpdate( capability: Capability, value: any )
 	{
+		if( capability.hidden === true ) return;
+
 		const oldValue = this.device.getCapabilityValue( capability.name );
 
 		if( oldValue === value ) return;
