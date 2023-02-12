@@ -27,6 +27,11 @@ class Driver extends BaseDriver
 
 	private HanFunFixer( deviceSetup: ParingDevice, device: any )
 	{
+		if( device.etsiunitinfo === undefined )
+		{
+			return;
+		}
+
 		const unitType = parseInt( device.etsiunitinfo.unittype );
 		let functionBitMask = device.functionbitmask;
 
