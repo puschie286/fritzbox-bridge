@@ -2,6 +2,7 @@ import { BaseDevice } from './BaseDevice';
 import { CapabilityListener } from '../types/CapabilityListener';
 import { Capability } from '../types/Capability';
 import { CapabilityType } from '../types/CapabilityType';
+import Homey from 'homey/lib/Homey';
 
 export abstract class BaseFeature
 {
@@ -18,6 +19,11 @@ export abstract class BaseFeature
 	}
 
 	public async SettingsChanged( oldSettings: object, newSettings: object, changedKeys: string[] )
+	{
+
+	}
+
+	public static RegisterCards( homey: Homey )
 	{
 
 	}

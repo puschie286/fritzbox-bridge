@@ -1,26 +1,27 @@
 {
   "triggers": [
-    {
-      "id": "button_triggered",
-      "title": {
-        "en": "Button triggered",
+	{
+	  "id": "button_triggered",
+	  "title": {
+		"en": "Button triggered",
 		"de": "Taste ausgelöst"
-      },
+	  },
 	  "titleFormatted": {
 		"en": "Button [[name]] was triggered",
-		"de": "Taste [[name] wurde ausgelöst"
+		"de": "Taste [[name]] wurde ausgelöst"
 	  },
-      "args": [
-        {
-          "type": "autocomplete",
-          "name": "name",
-          "placeholder": {
-            "en": "Button: up left",
+	  "$filter": "capabilities=button_triggered_time_0",
+	  "args": [
+		{
+		  "type": "autocomplete",
+		  "name": "name",
+		  "placeholder": {
+			"en": "Button: up left",
 			"de": "Taste: Oben Links"
-          }
-        }
-      ]
-    },
+		  }
+		}
+	  ]
+	},
 	{
 	  "id": "button_single_triggered",
 	  "title": {
@@ -30,7 +31,37 @@
 	  "titleFormatted": {
 		"en": "Button was triggered",
 		"de": "Taste wurde ausgelöst"
-	  }
+	  },
+	  "$filter": "capabilities=button_triggered_time"
+	}
+  ],
+  "conditions": [
+	{
+	  "id": "temperature_is",
+	  "title": {
+		"en": "Temperature is equal or !{{above|below}}",
+		"de": "Temperatur ist gleich oder !{{über|unter}}"
+	  },
+	  "titleFormatted": {
+		"en": "Temperature is equal or !{{above|below}} [[temperature]]",
+		"de": "Temperatur ist gleich oder !{{über|unter}} [[temperature]]"
+	  },
+	  "$filter": "capabilities=measure_temperature",
+	  "args": [
+		{
+		  "name": "temperature",
+		  "type": "number",
+		  "placeholder": {
+			"en": "temperature",
+			"de": "Temperatur"
+		  },
+		  "min": 5,
+		  "max": 40,
+		  "step": 0.5,
+		  "label": "°C",
+		  "labelDecimals": 1
+		}
+	  ]
 	}
   ]
 }

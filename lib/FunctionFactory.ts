@@ -13,9 +13,15 @@ import { LevelControl } from '../features/LevelControl';
 import { ColorControl } from '../features/ColorControl';
 import { Humidity } from '../features/Humidity';
 import { Button } from '../features/Button';
+import Homey from 'homey/lib/Homey';
 
 export class FunctionFactory
 {
+	public static RegisterCards( homey: Homey )
+	{
+		Temperature.RegisterCards( homey );
+	}
+
 	public static Create( functionMask: number, device: BaseDevice ): Array<BaseFeature>
 	{
 		let functions: Array<BaseFeature> = [ new Availability( device ) ];

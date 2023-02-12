@@ -1,6 +1,7 @@
 import Homey from 'homey/lib/Homey';
 import { FritzboxDevice } from '../types/FritzboxDevice';
 import { FlowCardTrigger } from 'homey';
+import { FunctionFactory } from './FunctionFactory';
 
 export class FritzboxTracker
 {
@@ -19,15 +20,20 @@ export class FritzboxTracker
 	{
 		this.homey = homey;
 
+		// global trigger
 		this.ConnectedTrigger = this.homey.flow.getTriggerCard( 'network_device_connected' );
 		this.DisconnectTrigger = this.homey.flow.getTriggerCard( 'network_device_disconnected' );
 
 		this.wlanConnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_connected' );
 		this.wlanDisconnectTrigger = this.homey.flow.getTriggerCard( 'wlan_device_disconnected' );
 
+		// global conditions
 		this.homey.flow.getConditionCard( 'network_device_is_connected_by_ip' ).registerRunListener( this.OnConditionConnectedByIp.bind( this ) );
 		this.homey.flow.getConditionCard( 'network_device_is_connected_by_mac' ).registerRunListener( this.OnConditionConnectedByMac.bind( this ) );
 		this.homey.flow.getConditionCard( 'network_device_is_connected_by_name' ).registerRunListener( this.OnConditionConnectedByName.bind( this ) );
+
+		// temperature
+		FunctionFactory.RegisterCards( homey );
 	}
 
 	private async OnConditionConnectedByIp( args: any )

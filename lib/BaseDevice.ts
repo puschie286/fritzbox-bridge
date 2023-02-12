@@ -55,6 +55,17 @@ export abstract class BaseDevice extends Device
 		await this.UpdateCapabilities();
 	}
 
+	public GetFeature( type: string )
+	{
+		for( const feature of this.features )
+		{
+			if( typeof feature === type )
+			{
+				return feature;
+			}
+		}
+	}
+
 	public async Update( data: any )
 	{
 		if( data === null )

@@ -1,6 +1,8 @@
 import { BaseFeature } from '../lib/BaseFeature';
 import { Capability } from '../types/Capability';
 import { CapabilityType } from '../types/CapabilityType';
+import { FlowCardCondition, FlowCardTriggerDevice } from 'homey';
+import Homey from 'homey/lib/Homey';
 
 export class Temperature extends BaseFeature
 {
@@ -32,5 +34,19 @@ export class Temperature extends BaseFeature
 				}
 			}
 		} ];
+	}
+
+	public static RegisterCards( homey: Homey )
+	{
+		homey.flow.getConditionCard( 'temperature_is' ).registerRunListener( this.OnConditionTemperatureEqual );
+	}
+
+	private static OnConditionTemperatureEqual( args: any, state: any )
+	{
+		const device = args.device;
+		const temperature = args.temperature;
+
+		const value = parseFloat( device.getCapabilityValue( 'measure_temperature' ) );
+		return value >= temperature;
 	}
 }
