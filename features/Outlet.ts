@@ -10,7 +10,7 @@ export class Outlet extends BaseFeature
 		return String( value ) === 'auto';
 	}
 
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'measure_switch_mode',

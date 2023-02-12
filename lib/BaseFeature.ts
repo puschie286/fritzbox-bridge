@@ -7,6 +7,7 @@ import Homey from 'homey/lib/Homey';
 export abstract class BaseFeature
 {
 	protected readonly device: BaseDevice;
+	private capabilities: Array<Capability> = [];
 
 	public constructor( device: BaseDevice )
 	{
@@ -15,7 +16,7 @@ export abstract class BaseFeature
 
 	public async LateInit()
 	{
-
+		this.capabilities = this.Capabilities();
 	}
 
 	public async SettingsChanged( oldSettings: object, newSettings: object, changedKeys: string[] )
@@ -30,7 +31,7 @@ export abstract class BaseFeature
 
 	public async Update( data: any )
 	{
-		for( const capability of this.Capabilities() )
+		for( const capability of this.capabilities )
 		{
 			if( capability.noUpdate === true )
 			{
@@ -41,7 +42,12 @@ export abstract class BaseFeature
 		}
 	}
 
-	public abstract Capabilities(): Array<Capability>;
+	public GetCapabilities(): Array<Capability>
+	{
+		return this.capabilities;
+	}
+
+	protected abstract Capabilities(): Array<Capability>;
 
 	public Listeners(): Array<CapabilityListener>
 	{
@@ -67,12 +73,16 @@ export abstract class BaseFeature
 	{
 		if( capability.state === undefined )
 		{
-			return undefined;
+			if( capability.valueFunc === undefined )
+			{
+				return undefined;
+			}
+
+			return await capability.valueFunc( undefined );
 		}
 
 		// gather data from device
-		const value = capability.state.split( '.' ).reduce( ( o, i ) => o[i], data );
-
+		const value = this.FilterValue( capability.state, data );
 		if( capability.type === undefined )
 		{
 			return value;
@@ -86,6 +96,21 @@ export abstract class BaseFeature
 		}
 
 		return await capability.valueFunc( castedValue );
+	}
+
+	private FilterValue( state: string, data: any )
+	{
+		try
+		{
+			return state.split( '.' ).reduce( ( o, i ) => o[i], data );
+		}
+		catch( e )
+		{
+			this.device.error( 'failed to parse: ' + state );
+			this.device.error( 'on: ' + JSON.stringify( data ) );
+		}
+
+		return '';
 	}
 
 	protected CastValue( type: CapabilityType, value: any ): any

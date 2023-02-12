@@ -16,7 +16,7 @@ export class Temperature extends BaseFeature
 		return value / 10;
 	}
 
-	public Capabilities(): Capability[]
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'measure_temperature',

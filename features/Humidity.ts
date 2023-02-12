@@ -14,10 +14,10 @@ export class Humidity extends BaseFeature
 		return value;
 	}
 
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'mesaure_humidity',
+			name: 'measure_humidity',
 			state: 'humidity.rel_humidity',
 			type: CapabilityType.Integer,
 			valueFunc: Humidity.ParseHumidity

@@ -46,13 +46,23 @@ export class Thermostat extends BaseFeature
 		return value !== 253;
 	}
 
+	async LateInit(): Promise<void>
+	{
+		await super.LateInit();
+
+		// set batteries for thermostat
+		return this.device.setEnergy( {
+			batteries: [ "AA", "AA" ]
+		} );
+	}
+
 	/*if( name === 'target_temperature' && ( value === 254 || value === 253 ) )
 {
 	//await this.updateCapability( 'onoff', value === 254 );
 	return;
 }*/
 
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'measure_device_locked', state: 'hkr.devicelock', type: CapabilityType.Boolean

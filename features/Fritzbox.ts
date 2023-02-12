@@ -4,7 +4,7 @@ import { CapabilityType } from '../types/CapabilityType';
 
 export class Fritzbox extends BaseFeature
 {
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'os_version',

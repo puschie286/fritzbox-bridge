@@ -4,7 +4,7 @@ import { CapabilityType } from '../types/CapabilityType';
 
 export class Availability extends BaseFeature
 {
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'availability', state: 'present', type: CapabilityType.Boolean, hidden: true

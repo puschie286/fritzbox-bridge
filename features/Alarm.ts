@@ -4,8 +4,24 @@ import { CapabilityType } from '../types/CapabilityType';
 
 export class Alarm extends BaseFeature
 {
-	Capabilities(): Array<Capability>
+	private static FormatTimestamp( value: number | null ): string | null
 	{
-		return [ { name: 'alarm_generic', state: 'alert.state', type: CapabilityType.Boolean } ]
+		if( value === null || value === 0 )
+		{
+			return null;
+		}
+
+		const date = new Date( value );
+
+		return date.toLocaleString();
+	}
+
+	protected Capabilities(): Array<Capability>
+	{
+		return [ {
+			name: 'alarm_generic', state: 'alert.state', type: CapabilityType.Boolean
+		}, {
+			name: 'alarm_datetime', state: 'alert.lastalertchgtimestamp', type: CapabilityType.Integer, valueFunc: Alarm.FormatTimestamp
+		} ]
 	}
 }

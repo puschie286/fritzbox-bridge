@@ -1,67 +1,91 @@
 {
   "triggers": [
-	{
-	  "id": "button_triggered",
-	  "title": {
-		"en": "Button triggered",
-		"de": "Taste ausgelöst"
-	  },
-	  "titleFormatted": {
-		"en": "Button [[name]] was triggered",
-		"de": "Taste [[name]] wurde ausgelöst"
-	  },
-	  "$filter": "capabilities=button_triggered_time_0",
-	  "args": [
-		{
-		  "type": "autocomplete",
-		  "name": "name",
-		  "placeholder": {
-			"en": "Button: up left",
-			"de": "Taste: Oben Links"
-		  }
-		}
-	  ]
-	},
-	{
-	  "id": "button_single_triggered",
-	  "title": {
-		"en": "Button triggered",
-		"de": "Taste ausgelöst"
-	  },
-	  "titleFormatted": {
-		"en": "Button was triggered",
-		"de": "Taste wurde ausgelöst"
-	  },
-	  "$filter": "capabilities=button_triggered_time"
-	}
+    {
+      "id": "button_triggered",
+      "title": {
+        "en": "Button triggered",
+        "de": "Taste ausgelöst"
+      },
+      "titleFormatted": {
+        "en": "Button [[name]] was triggered",
+        "de": "Taste [[name]] wurde ausgelöst"
+      },
+      "$filter": "capabilities=button.0",
+      "args": [
+        {
+          "type": "autocomplete",
+          "name": "name",
+          "placeholder": {
+            "en": "Button: up left",
+            "de": "Taste: Oben Links"
+          }
+        }
+      ]
+    },
+    {
+      "id": "button_single_triggered",
+      "title": {
+        "en": "Button triggered",
+        "de": "Taste ausgelöst"
+      },
+      "titleFormatted": {
+        "en": "Button was triggered",
+        "de": "Taste wurde ausgelöst"
+      },
+      "$filter": "capabilities=button.single"
+    }
   ],
   "conditions": [
+    {
+      "id": "temperature_is",
+      "title": {
+        "en": "Temperature is equal or !{{above|below}}",
+        "de": "Temperatur ist gleich oder !{{über|unter}}"
+      },
+      "titleFormatted": {
+        "en": "Temperature is equal or !{{above|below}} [[temperature]] °C",
+        "de": "Temperatur ist gleich oder !{{über|unter}} [[temperature]] °C"
+      },
+      "$filter": "capabilities=measure_temperature",
+      "args": [
+        {
+          "name": "temperature",
+          "type": "number",
+          "placeholder": {
+            "en": "temperature",
+            "de": "Temperatur"
+          },
+          "min": 5,
+          "max": 40,
+          "step": 0.5
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "blind_open",
+      "title": {
+        "en": "Open blind",
+		"de": "Rolladen öffnen"
+      },
+	  "$filter": "capabilities=blind_mode"
+    },
 	{
-	  "id": "temperature_is",
+	  "id": "blind_close",
 	  "title": {
-		"en": "Temperature is equal or !{{above|below}}",
-		"de": "Temperatur ist gleich oder !{{über|unter}}"
+		"en": "Close blind",
+		"de": "Rolladen schließen"
 	  },
-	  "titleFormatted": {
-		"en": "Temperature is equal or !{{above|below}} [[temperature]]",
-		"de": "Temperatur ist gleich oder !{{über|unter}} [[temperature]]"
+	  "$filter": "capabilities=blind_mode"
+	},
+	{
+	  "id": "blind_stop",
+	  "title": {
+		"en": "Stop blind",
+		"de": "Rolladen stoppen"
 	  },
-	  "$filter": "capabilities=measure_temperature",
-	  "args": [
-		{
-		  "name": "temperature",
-		  "type": "number",
-		  "placeholder": {
-			"en": "temperature",
-			"de": "Temperatur"
-		  },
-		  "min": 5,
-		  "max": 40,
-		  "step": 0.5,
-		  "label": "°C",
-		  "labelDecimals": 1
-		}
-	  ]
+	  "$filter": "capabilities=blind_mode"
 	}
   ]
 }

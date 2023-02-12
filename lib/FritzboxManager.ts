@@ -222,19 +222,18 @@ export class FritzboxManager
 	 * @param identifier        device unique identifier
 	 * @return null|{}          founded device or null
 	 */
-	public FilterDevice( deviceList: any[], identifier: any ): any[] | null
+	public FilterDevice( deviceList: any[], identifier: any ): object | null
 	{
 		if( !Array.isArray( deviceList ) || deviceList.length === 0 ) return null;
 
-		let Device = null;
-		deviceList.some( function( device )
+		for( const device of deviceList )
 		{
-			if( device.identifier !== identifier ) return false;
+			if( device.identifier !== identifier ) continue;
 
-			Device = device;
-			return true;
-		} );
-		return Device;
+			return device;
+		}
+
+		return null;
 	}
 
 	private async ProcessPoll( data: any[] )

@@ -12,7 +12,9 @@
 	"NoEndPos": "No end position is configured",
 	"AutoMode": "Automatic timer",
 	"ManualMode": "Manual control",
-	"UnknownMode": "Unknown"
+	"UnknownMode": "Unknown",
+	"ErrorObstacle": "Obstacle alarm",
+	"ErrorTemperature": "Temperature alarm"
   },
   "Message": {
 	"InvalidLogin": "Invalid login-data",

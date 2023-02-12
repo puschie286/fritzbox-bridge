@@ -200,7 +200,7 @@ export class ColorControl extends BaseFeature
 		return null;
 	}
 
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'light_mode',

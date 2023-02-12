@@ -23,6 +23,11 @@ export enum FritzApiBitmask
 	HumiditySensor = 1 << 20
 }
 
+export enum HanFunTypes
+{
+	SimpleButton = 273
+}
+
 export enum FritzApiColor
 {
 	Red = 'red',
@@ -141,7 +146,7 @@ export class FritzApi
 	/**
 	 * get device list (json)
 	 */
-	public async getDeviceList(): Promise<string[]>
+	public async getDeviceList(): Promise<object[]>
 	{
 		return this.api.getDeviceList();
 	}

@@ -20,6 +20,15 @@ export class FunctionFactory
 	public static RegisterCards( homey: Homey )
 	{
 		Temperature.RegisterCards( homey );
+		Alarm.RegisterCards( homey );
+		EnergyMeter.RegisterCards( homey );
+		Outlet.RegisterCards( homey );
+		Thermostat.RegisterCards( homey );
+		Blind.RegisterCards( homey );
+		LevelControl.RegisterCards( homey );
+		ColorControl.RegisterCards( homey );
+		Humidity.RegisterCards( homey );
+		Button.RegisterCards( homey );
 	}
 
 	public static Create( functionMask: number, device: BaseDevice ): Array<BaseFeature>

@@ -3,13 +3,14 @@ import { Capability } from '../types/Capability';
 import { CapabilityType } from '../types/CapabilityType';
 import { CapabilityListener } from '../types/CapabilityListener';
 import { FritzApiBlind } from '../types/FritzApi';
+import Homey from 'homey/lib/Homey';
 
 export class Blind extends BaseFeature
 {
-	private readonly EndPositionSet: string = 'end_position_set';
-	private validEndPosition: boolean = true;
+	private endPositionWarning: string|null = null;
+	private alertWarning: string|null = null;
 
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'blind_mode',
@@ -17,22 +18,29 @@ export class Blind extends BaseFeature
 			type: CapabilityType.String,
 			valueFunc: this.translateBlindMode.bind( this )
 		}, {
-			name: this.EndPositionSet, state: 'blind.endpositionsset', type: CapabilityType.Boolean, hidden: true
+			name: 'blind_errors',
+			state: 'alert.state',
+			type: CapabilityType.Integer,
+			valueFunc: this.updateAlert.bind( this ),
+			hidden: true
+		}, {
+			name: 'end_position_set',
+			state: 'blind.endpositionsset',
+			type: CapabilityType.Boolean,
+			valueFunc: this.updateEndPositionState.bind( this ),
+			hidden: true
 		}, {
 			name: 'button.open', options: {
 				'title': { 'en': 'Open blind', 'de': 'Rolladen öffnen' }
-			},
-			noUpdate: true
+			}, noUpdate: true
 		}, {
 			name: 'button.close', options: {
 				'title': { 'en': 'Close blind', 'de': 'Rolladen schließen' }
-			},
-			noUpdate: true
+			}, noUpdate: true
 		}, {
 			name: 'button.stop', options: {
 				'title': { 'en': 'Stop blind', 'de': 'Rolladen stoppen' }
-			},
-			noUpdate: true
+			}, noUpdate: true
 		} ];
 	}
 
@@ -47,33 +55,65 @@ export class Blind extends BaseFeature
 		} ];
 	}
 
-	protected async OnCapabilityUpdate( capability: Capability, value: any ): Promise<void>
+	public static RegisterCards( homey: Homey )
 	{
-		if( capability.name !== this.EndPositionSet )
-		{
-			return super.OnCapabilityUpdate( capability, value );
-		}
-
-		await this.updateEndPositionState( value !== null && Boolean( value ) );
+		homey.flow.getActionCard( 'blind_open' ).registerRunListener( this.OnActionOpen );
+		homey.flow.getActionCard( 'blind_close' ).registerRunListener( this.OnActionClose );
+		homey.flow.getActionCard( 'blind_stop' ).registerRunListener( this.OnActionStop );
 	}
 
-	private async updateEndPositionState( value: boolean )
+	private async updateAlert( value: number | null )
 	{
-		if( this.validEndPosition === value )
+		if( value === null  )
 		{
 			return;
 		}
 
-		this.validEndPosition = value;
+		if( value === 0 )
+		{
+			this.alertWarning = null;
+		}
+		// hindernis
+		else if( ( value & 1 ) !== 0 )
+		{
+			this.alertWarning = this.device.homey.__( 'Rollo.ErrorObstacle' );
+		}
+		// overheated
+		else if( ( value & 2 ) !== 0 )
+		{
+			this.alertWarning = this.device.homey.__( 'Rollo.ErrorTemperature' );
+		}
 
+		return this.UpdateWarning();
+	}
+
+	private async updateEndPositionState( value: boolean )
+	{
 		if( value )
 		{
-			await this.device.unsetWarning();
+			this.endPositionWarning = null;
 		}
 		else
 		{
-			await this.device.setWarning( this.device.homey.__( 'Rollo.NoEndPos' ) );
+			this.endPositionWarning = this.device.homey.__( 'Rollo.NoEndPos' );
 		}
+
+		return this.UpdateWarning();
+	}
+
+	private async UpdateWarning()
+	{
+		if( this.alertWarning !== null )
+		{
+			return this.device.setWarning( this.alertWarning );
+		}
+
+		if( this.endPositionWarning !== null )
+		{
+			return this.device.setWarning( this.endPositionWarning );
+		}
+
+		return this.device.unsetWarning();
 	}
 
 	private translateBlindMode( state: string ): string
@@ -106,5 +146,23 @@ export class Blind extends BaseFeature
 	{
 		this.device.log( 'send stop' );
 		this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Stop );
+	}
+
+	private static OnActionOpen( args: any, state: any )
+	{
+		const feature = args.device.GetFeature( Blind.name );
+		feature.open();
+	}
+
+	private static OnActionStop( args: any, state: any )
+	{
+		const feature = args.device.GetFeature( Blind.name );
+		feature.stop();
+	}
+
+	private static OnActionClose( args: any, state: any )
+	{
+		const feature = args.device.GetFeature( Blind.name );
+		feature.close();
 	}
 }

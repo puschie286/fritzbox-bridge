@@ -5,7 +5,7 @@ import { CapabilityListener } from '../types/CapabilityListener';
 
 export class LevelControl extends BaseFeature
 {
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
 		return [ {
 			name: 'measure_level', state: 'levelcontrol.levelpercentage', type: CapabilityType.Integer

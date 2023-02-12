@@ -11,8 +11,10 @@
   "Rollo": {
 	"NoEndPos": "Endlage ist nicht eingestellt",
 	"AutoMode": "Automatische Zeitschaltung",
-	"ManuelMode": "Manuelle Steuerung",
-	"UnknownMode": "Unbekannt"
+	"ManualMode": "Manuelle Steuerung",
+	"UnknownMode": "Unbekannt",
+	"ErrorObstacle": "Hindernisalarm",
+	"ErrorTemperature": "Temperaturalarm"
   },
   "Message": {
 	"InvalidLogin": "Ungültige Login-Daten",

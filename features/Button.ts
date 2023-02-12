@@ -7,64 +7,67 @@ import { FlowCard, FlowCardTriggerDevice } from 'homey';
 export class Button extends BaseFeature
 {
 	private lastButtonTimes: Array<number> = [];
-	private buttons: Array<Capability> = [];
 	// @ts-ignore
 	private buttonTrigger: FlowCardTriggerDevice;
 	private singleMode: boolean = false;
 
-	async LateInit(): Promise<void>
-	{
-		const buttonSetup: Array<ButtonInfo>|undefined = this.device.getStoreValue( 'buttonConfig' );
-		this.singleMode = buttonSetup === undefined;
-
-		// single mode
-		if( buttonSetup === undefined )
-		{
-			this.SingleButtonSetup();
-			return;
-		}
-
-		// multi mode
-		this.MultiButtonSetup( buttonSetup );
-	}
-
-	private SingleButtonSetup()
+	private SingleButtonSetup(): Capability
 	{
 		this.buttonTrigger = this.device.homey.flow.getDeviceTriggerCard( 'button_single_triggered' );
+		this.lastButtonTimes.push( -1 );
 
-		this.buttons.push( {
-			name: 'button_triggered_time',
+		return {
+			name: 'button.single',
 			state: 'button.lastpressedtimestamp',
 			type: CapabilityType.Integer,
 			valueFunc: value => this.buttonTime( value, 0 ),
-			hidden: true
-		} );
+			options: {
+				uiComponent: null,
+				uiQuickAction: false
+			}
+		};
 	}
 
-	private MultiButtonSetup( buttonSetup: Array<ButtonInfo> )
+	private MultiButtonSetup( buttonSetup: Array<ButtonInfo> ): Array<Capability>
 	{
 		this.buttonTrigger = this.device.homey.flow.getDeviceTriggerCard( 'button_triggered' );
 		this.buttonTrigger.registerArgumentAutocompleteListener( 'name', this.TriggerAutocompletion.bind( this ) );
-		this.buttonTrigger.registerRunListener( this.TriggerValidation.bind( this ) );
+		this.buttonTrigger.registerRunListener( this.TriggerValidation );
 
+		let buttons: Array<Capability> = [];
 		for( let index = 0; index < buttonSetup.length; index++ )
 		{
 			const buttonLastTrigger: Capability = {
-				name: 'button_triggered_time',
+				name: 'button.' + index,
 				state: 'button.' + index + '.lastpressedtimestamp',
 				type: CapabilityType.Integer,
 				valueFunc: value => this.buttonTime( value, index ),
-				hidden: true
+				options: {
+					uiComponent: null,
+					uiQuickAction: false
+				}
 			};
 
-			this.buttons.push( buttonLastTrigger )
-			this.lastButtonTimes.push( 0 );
+			buttons.push( buttonLastTrigger )
+			this.lastButtonTimes.push( -1 );
 		}
+
+		return buttons;
 	}
 
-	Capabilities(): Array<Capability>
+	protected Capabilities(): Array<Capability>
 	{
-		return this.buttons;
+		const buttonSetup: Array<ButtonInfo>|null = this.device.getStoreValue( 'buttonConfig' );
+		this.singleMode = buttonSetup === null;
+
+		// single mode
+		if( buttonSetup === null )
+		{
+			return [ this.SingleButtonSetup() ];
+		}
+
+		// multi mode
+		return this.MultiButtonSetup( buttonSetup );
 	}
 
 	private TriggerAutocompletion( query: any ): FlowCard.ArgumentAutocompleteResults
@@ -78,18 +81,22 @@ export class Button extends BaseFeature
 
 	private TriggerValidation( args: any, state: ButtonInfo )
 	{
-		return args.name === state.name;
+		return args.name.name === state.name;
 	}
 
 	private async buttonTime( value: number | null, index: number )
 	{
-		if( value === null )
+		const lastValue = this.lastButtonTimes[index];
+
+		// initial value set
+		if( lastValue === -1 )
 		{
+			this.lastButtonTimes[index] = value ?? 0;
 			return;
 		}
 
 		// no change
-		if( this.lastButtonTimes[index] === value )
+		if( value === null || lastValue === value  )
 		{
 			return;
 		}
@@ -107,7 +114,6 @@ export class Button extends BaseFeature
 		}
 
 		const Info: ButtonInfo = this.device.getStoreValue( 'buttonConfig' )[index];
-
 		return this.buttonTrigger.trigger( this.device, undefined, Info );
 	}
 }
