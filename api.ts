@@ -12,14 +12,10 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			const result = manager.LogMessageOnline( JSON.stringify( data ) );
-
-			if( result === undefined )
+			if( !await manager.LogMessageOnline( JSON.stringify( data ) ) )
 			{
 				return 'failed';
 			}
-
-			return await result;
 		}
 
 		return data;
@@ -35,14 +31,10 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			const result = manager.LogMessageOnline( JSON.stringify( data ) );
-
-			if( result === undefined )
+			if( !await manager.LogMessageOnline( JSON.stringify( data ) ) )
 			{
 				return 'failed';
 			}
-
-			return await result;
 		}
 
 		return data;

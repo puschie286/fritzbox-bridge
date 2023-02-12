@@ -57,18 +57,21 @@
     "en": "Auto detection of supported functionality\nImprove blind support"
   },
   "0.9.5": {
-	"en": "Fix upgrade problem"
+    "en": "Fix upgrade problem"
   },
   "0.9.6": {
-	"en": "Data update right after paring\nFix switch mode parsing\nImprove cleanup"
+    "en": "Data update right after paring\nFix switch mode parsing\nImprove cleanup"
   },
   "0.9.7": {
-	"en": "Plug-Option to ignore power in total\nFix current parsing"
+    "en": "Plug-Option to ignore power in total\nFix current parsing"
   },
   "0.9.8": {
-	"en": "Add Universal device driver\nAdd option to add same device multiple times\nAdd support for DECT 500"
+    "en": "Add Universal device driver\nAdd option to add same device multiple times\nAdd support for DECT 500"
   },
   "0.9.9": {
-	"en": "Button support ( DECT 400 & 440 )\nNew flow cards"
+    "en": "Button support ( DECT 400 & 440 )\nNew flow cards"
+  },
+  "0.9.10": {
+    "en": "Fix debug info transmittion"
   }
 }

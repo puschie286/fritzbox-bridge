@@ -66,7 +66,7 @@ export class FritzboxManager
 		const maxLength = 8000;
 		let sendingMessage = message;
 
-		while( sendingMessage.length >= maxLength )
+		while( sendingMessage.length > 0 )
 		{
 			const messagePart = sendingMessage.substr( 0, maxLength );
 			sendingMessage = sendingMessage.substr( maxLength );

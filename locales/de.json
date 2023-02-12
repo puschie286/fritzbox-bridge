@@ -2,7 +2,7 @@
   "ThermostatError": {
 	"ErrorCode0": "Kein Fehler",
 	"ErrorCode1": "Keine Adaptierung möglich. Gerät korrekt am Heizkörper montiert?",
-	"ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Ventilstößel per Hand mehrmals öfnen und schließen oder neue Batterien einsetzen.",
+	"ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Ventilstößel per Hand mehrmals öffnen und schließen oder neue Batterien einsetzen.",
 	"ErrorCode3": "Keine Ventilbewegung möglich. Ventilstößel frei?",
 	"ErrorCode4": "Die Installation wird gerade vorbereitet",
 	"ErrorCode5": "Der Heizkörperregler ist im Installationsmodus und kann auf das Heizungsventil montiert werden",
