@@ -10,8 +10,6 @@ class Driver extends BaseDriver
 
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
-		console.debug( 'request device list for: fritzbox' );
-
 		const data = await this.fritzbox.GetApi().getFritzboxOverview();
 
 		if( data.length === 0 )
