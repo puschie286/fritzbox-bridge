@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local"
@@ -101,8 +101,7 @@
               "de": "Geräte Name"
             },
             "example": {
-              "en": "Max-phone",
-              "de": "Max-phone"
+              "en": "Max-phone"
             }
           },
           {
@@ -113,8 +112,7 @@
               "de": "Geräte Ip"
             },
             "example": {
-              "en": "192.168.178.25",
-              "de": "192.168.178.25"
+              "en": "192.168.178.25"
             }
           },
           {
@@ -125,8 +123,7 @@
               "de": "Geräte MAC Adresse"
             },
             "example": {
-              "en": "00:1B:44:11:3A:B7",
-              "de": "00:1B:44:11:3A:B7"
+              "en": "00:1B:44:11:3A:B7"
             }
           },
           {
@@ -235,6 +232,209 @@
           }
         ],
         "deprecated": true
+      },
+      {
+        "id": "button_triggered",
+        "title": {
+          "en": "Button triggered",
+          "de": "Taste ausgelöst"
+        },
+        "titleFormatted": {
+          "en": "Button [[name]] was triggered",
+          "de": "Taste [[name]] wurde ausgelöst"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=universal&capabilities=button.0"
+          },
+          {
+            "type": "autocomplete",
+            "name": "name",
+            "placeholder": {
+              "en": "Button: up left",
+              "de": "Taste: Oben Links"
+            }
+          }
+        ]
+      },
+      {
+        "id": "button_single_triggered",
+        "title": {
+          "en": "Button triggered",
+          "de": "Taste ausgelöst"
+        },
+        "titleFormatted": {
+          "en": "Button was triggered",
+          "de": "Taste wurde ausgelöst"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=universal&capabilities=button.single"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "network_device_is_connected_by_ip",
+        "title": {
+          "en": "Network device is !{{connected|disconnected}}",
+          "de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+        },
+        "titleFormatted": {
+          "en": "[[ip]] is !{{connected|disconnected}}",
+          "de": "[[ip]] ist !{{verbunden|nicht verbunden}}"
+        },
+        "hint": {
+          "en": "Checks if network device is connected",
+          "de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+        },
+        "args": [
+          {
+            "type": "text",
+            "name": "ip",
+            "title": {
+              "en": "Device ip",
+              "de": "Geräte Ip"
+            },
+            "placeholder": {
+              "en": "192.168.178.25"
+            }
+          }
+        ]
+      },
+      {
+        "id": "network_device_is_connected_by_mac",
+        "title": {
+          "en": "Network device is !{{connected|disconnected}}",
+          "de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+        },
+        "titleFormatted": {
+          "en": "[[mac]] is !{{connected|disconnected}}",
+          "de": "[[mac]] ist !{{verbunden|nicht verbunden}}"
+        },
+        "hint": {
+          "en": "Checks if network device is connected",
+          "de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+        },
+        "args": [
+          {
+            "type": "text",
+            "name": "mac",
+            "title": {
+              "en": "Device MAC address",
+              "de": "Geräte MAC Adresse"
+            },
+            "placeholder": {
+              "en": "00:1B:44:11:3A:B7"
+            }
+          }
+        ]
+      },
+      {
+        "id": "network_device_is_connected_by_name",
+        "title": {
+          "en": "Network device is !{{connected|disconnected}}",
+          "de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+        },
+        "titleFormatted": {
+          "en": "[[name]] is !{{connected|disconnected}}",
+          "de": "[[name]] ist !{{verbunden|nicht verbunden}}"
+        },
+        "hint": {
+          "en": "Checks if network device is connected",
+          "de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+        },
+        "args": [
+          {
+            "type": "text",
+            "name": "name",
+            "title": {
+              "en": "Device name",
+              "de": "Geräte Name"
+            },
+            "placeholder": {
+              "en": "Max-phone"
+            }
+          }
+        ]
+      },
+      {
+        "id": "temperature_is",
+        "title": {
+          "en": "Temperature is equal or !{{above|below}}",
+          "de": "Temperatur ist gleich oder !{{über|unter}}"
+        },
+        "titleFormatted": {
+          "en": "Temperature is equal or !{{above|below}} [[temperature]] °C",
+          "de": "Temperatur ist gleich oder !{{über|unter}} [[temperature]] °C"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=universal&capabilities=measure_temperature"
+          },
+          {
+            "name": "temperature",
+            "type": "number",
+            "placeholder": {
+              "en": "temperature",
+              "de": "Temperatur"
+            },
+            "min": 5,
+            "max": 40,
+            "step": 0.5
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "blind_open",
+        "title": {
+          "en": "Open blind",
+          "de": "Rolladen öffnen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=universal&capabilities=blind_mode"
+          }
+        ]
+      },
+      {
+        "id": "blind_close",
+        "title": {
+          "en": "Close blind",
+          "de": "Rolladen schließen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=universal&capabilities=blind_mode"
+          }
+        ]
+      },
+      {
+        "id": "blind_stop",
+        "title": {
+          "en": "Stop blind",
+          "de": "Rolladen stoppen"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=universal&capabilities=blind_mode"
+          }
+        ]
       }
     ]
   },
@@ -965,24 +1165,6 @@
                   }
                 }
               ]
-            }
-          ]
-        },
-        {
-          "type": "group",
-          "label": {
-            "en": "Energy",
-            "de": "Energie"
-          },
-          "children": [
-            {
-              "id": "ignore_energy",
-              "type": "checkbox",
-              "value": false,
-              "label": {
-                "en": "Ignore energy in total",
-                "de": "Ignoriere Leistung in Gesamt"
-              }
             }
           ]
         }

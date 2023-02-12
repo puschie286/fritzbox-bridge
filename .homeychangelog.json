@@ -67,5 +67,8 @@
   },
   "0.9.8": {
 	"en": "Add Universal device driver\nAdd option to add same device multiple times\nAdd support for DECT 500"
+  },
+  "0.9.9": {
+	"en": "Button support ( DECT 400 & 440 )\nNew flow cards"
   }
 }
