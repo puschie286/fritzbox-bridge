@@ -171,20 +171,8 @@ export abstract class BaseDevice extends Device
 
 			for( const listener of listeners )
 			{
-				this.registerCapabilityListener( listener.name, ( value: any, opts: any ) => this.callbackWrapper( value, opts, listener.callback.bind( feature ) ) );
+				this.registerCapabilityListener( listener.name, listener.callback.bind( feature ) );
 			}
-		}
-	}
-
-	private async callbackWrapper( value: any, opts: any, callback: Device.CapabilityCallback )
-	{
-		try
-		{
-			await callback( value, opts );
-		}
-		catch( error: any )
-		{
-			console.error( JSON.stringify( error ) );
 		}
 	}
 

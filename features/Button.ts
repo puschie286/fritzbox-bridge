@@ -115,22 +115,23 @@ export class Button extends BaseFeature
 	private async buttonTime( value: number | null, index: number )
 	{
 		const lastValue = this.lastButtonTimes[index];
+		const newValue = value ?? 0;
 
 		// initial value set
 		if( lastValue === -1 )
 		{
-			this.lastButtonTimes[index] = value ?? 0;
+			this.lastButtonTimes[index] = newValue;
 			return;
 		}
 
 		// no change
-		if( value === null || lastValue === value  )
+		if( lastValue === newValue )
 		{
 			return;
 		}
 
 		// triggered
-		this.lastButtonTimes[index] = value;
+		this.lastButtonTimes[index] = newValue;
 		return this.ButtonTrigger( index );
 	}
 

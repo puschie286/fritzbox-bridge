@@ -415,5 +415,23 @@
 		]
 	  }
 	]
+  },
+  {
+	"type": "group",
+	"label": {
+	  "en": "level control",
+	  "de": "Regler"
+	},
+	"children": [
+	  {
+		"id": "invert_level_control",
+		"type": "checkbox",
+		"value": false,
+		"label": {
+		  "en": "Invert level",
+		  "de": "Invertiere Regler"
+		}
+	  }
+	]
   }
 ]

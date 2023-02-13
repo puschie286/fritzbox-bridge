@@ -47,7 +47,7 @@ export abstract class BaseDriver extends Driver
 			if( !ShowDisconnected && !Boolean( device.present ) ) continue;
 
 			// skip hanfun main devices
-			if( device.functionbitmask === 1 ) continue;
+			if( device.functionbitmask === '1' ) continue;
 
 			// base setup
 			let validDevice: ParingDevice = {

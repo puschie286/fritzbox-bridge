@@ -79,5 +79,8 @@
   },
   "0.9.12": {
     "en": "Fix button trigger assignment"
+  },
+  "0.9.13": {
+    "en": "Invert option for level control"
   }
 }

@@ -8,7 +8,10 @@ export class LevelControl extends BaseFeature
 	protected Capabilities(): Array<Capability>
 	{
 		return [ {
-			name: 'measure_level', state: 'levelcontrol.levelpercentage', type: CapabilityType.Integer
+			name: 'measure_level',
+			state: 'levelcontrol.levelpercentage',
+			type: CapabilityType.Integer,
+			valueFunc: this.levelAdjust.bind( this )
 		} ];
 	}
 
@@ -19,9 +22,26 @@ export class LevelControl extends BaseFeature
 		} ];
 	}
 
+	private levelAdjust( value: null | number ): null | number
+	{
+		if( value === null )
+		{
+			return null;
+		}
+
+		const invert = this.device.getSetting( 'invert_level_control' );
+		if( invert )
+		{
+			return 100 - value;
+		}
+
+		return value;
+	}
+
 	private setLevel( value: any )
 	{
-		this.device.log( 'send setLevelPercentage: ' + parseInt( value ) );
-		this.device.GetAPI().setLevelPercentage( this.device.getData().id, parseInt( value ) );
+		const level = this.levelAdjust( parseInt( value ) );
+		this.device.log( 'send setLevelPercentage: ' + level );
+		this.device.GetAPI().setLevelPercentage( this.device.getData().id, level! );
 	}
 }
