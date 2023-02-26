@@ -5,6 +5,15 @@ export function Validate( object: any ): boolean
 
 export function ValidateUrl( url: string ): string
 {
+	// filter
+	for( const invalid of [ '\n', '\t', '\r' ] )
+	{
+		url = url.replaceAll( invalid, '' );
+	}
+
+	// replace forward slashes
+	url = url.replaceAll( '\\', '/' );
+
 	if( url.indexOf( '://' ) === -1 )
 	{
 		return 'https://' + url;

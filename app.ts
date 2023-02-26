@@ -99,6 +99,11 @@ class FritzboxBridge extends App
 		return Validate( error ) && Validate( error.response ) && Validate( error.response.statusCode );
 	}
 
+	private isErrorMessage( error: any ): boolean
+	{
+		return Validate( error ) && Validate( error.error ) && Validate( error.error.data ) && Validate( error.error.data.code );
+	}
+
 	private isPollingEnabled(): boolean
 	{
 		return this.homey.settings.get( Settings.POLL_ACTIVE ) == true;
@@ -167,6 +172,10 @@ class FritzboxBridge extends App
 		if( this.isErrorCode( error ) )
 		{
 			return this.CheckErrorCode( error.error.code );
+		}
+		else if( this.isErrorMessage( error ) )
+		{
+			return this.CheckErrorCode( error.error.data.code );
 		}
 		else if( this.isErrorResponse( error ) )
 		{

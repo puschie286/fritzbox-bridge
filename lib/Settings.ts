@@ -21,12 +21,6 @@ export class SettingsDefault
 {
 	public static readonly USERNAME: string = '';
 	public static readonly PASSWORD: string = '';
-	public static readonly FRITZBOX_URL: string = 'https://fritz.box';
+	public static readonly FRITZBOX_URL: string = 'fritz.box';
 	public static readonly STRICT_SSL: boolean = false;
-	public static readonly POLL_INTERVAL: number = 60;
-	public static readonly POLL_ACTIVE: boolean = true;
-	public static readonly STATUS_INTERVAL: number = 60;
-	public static readonly STATUS_ACTIVE: boolean = false;
-	public static readonly SHOW_UNCONNECTED: boolean = false;
-	public static readonly ALLOW_MULTIPLE_REFERENCES: boolean = false;
 }
