@@ -12,10 +12,11 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			if( !await manager.LogMessageOnline( JSON.stringify( data ) ) )
+			console.log( JSON.stringify( data ) );
+			/*if( !await manager.LogMessageOnline( JSON.stringify( data ) ) )
 			{
 				return 'failed';
-			}
+			}*/
 		}
 
 		return data;
@@ -31,10 +32,11 @@ module.exports = {
 
 		if( ShouldDataBeUploaded( params ) )
 		{
-			if( !await manager.LogMessageOnline( JSON.stringify( data ) ) )
+			console.log( JSON.stringify( data ) );
+			/*if( !await manager.LogMessageOnline( JSON.stringify( data ) ) )
 			{
 				return 'failed';
-			}
+			}*/
 		}
 
 		return data;

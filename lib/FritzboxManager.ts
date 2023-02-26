@@ -5,10 +5,7 @@ import { BaseDriver } from './BaseDriver';
 import { BaseDevice } from './BaseDevice';
 import Homey from 'homey/lib/Homey';
 import { Device } from '../drivers/fritzbox/device';
-import { SentryLog } from '../types/SentryLog';
 import { FritzboxTracker } from './FritzboxTracker';
-
-const { Log } = require( 'homey-log' );
 
 export class FritzboxManager
 {
@@ -19,7 +16,6 @@ export class FritzboxManager
 	private statusPolling?: NodeJS.Timeout;
 	private statusPollRunning: boolean = false;
 	private readonly homey: Homey;
-	private readonly log: SentryLog;
 	private readonly tracker: FritzboxTracker;
 	private lastDeviceData?: any;
 
@@ -31,7 +27,6 @@ export class FritzboxManager
 		}
 
 		this.homey = homey;
-		this.log = new Log( { homey: this.homey } );
 		this.tracker = new FritzboxTracker( homey );
 
 		FritzboxManager.instance = this;
@@ -61,7 +56,7 @@ export class FritzboxManager
 	}
 
 
-	public async LogMessageOnline( message: string ): Promise<boolean>
+	/*public async LogMessageOnline( message: string ): Promise<boolean>
 	{
 		const maxLength = 8000;
 		let sendingMessage = message;
@@ -78,7 +73,7 @@ export class FritzboxManager
 		}
 
 		return true;
-	}
+	}*/
 
 	public GetLastData(): any
 	{

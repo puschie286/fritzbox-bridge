@@ -13,6 +13,7 @@ class FritzboxBridge extends App
 	async onInit()
 	{
 		this.homey.log( 'start Fritzbox Bridge' );
+		this.homey.on( 'unload', this.onUninit );
 
 		this.fritzbox = new FritzboxManager( this.homey );
 
@@ -21,6 +22,14 @@ class FritzboxBridge extends App
 
 		// configure api
 		this.initializeFritzbox();
+	}
+
+	async onUninit()
+	{
+		this.homey.log( 'stop Fritzbox Bridge' );
+
+		this.fritzbox.StopPolling();
+		this.fritzbox.StopStatusPolling();
 	}
 
 	private async applySettings( name: string )

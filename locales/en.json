@@ -25,8 +25,8 @@
 	"InvalidSSL": "SSL validation failed",
 	"ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )",
 	"SendDebugData": "You are about to send debug information. This information contains a list of all connected DECT devices",
-	"SendFailed": "Error sending the information",
-	"SendSuccess": "Information was successfully transferred. Thank you"
+	"SendFailed": "Error requesting information",
+	"SendSuccess": "Information was successfully logged. Please submit a diagnostic report"
   },
   "Settings": {
 	"Title": "Settings",

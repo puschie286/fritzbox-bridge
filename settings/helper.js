@@ -33,11 +33,11 @@ class SettingHelper
 			this.#DisableDebug();
 
 			// ask for sending data
-			if( !await this.#homey.confirm( this.#homey.__( 'Message.SendDebugData' ) ) )
+			/*if( !await this.#homey.confirm( this.#homey.__( 'Message.SendDebugData' ) ) )
 			{
 				this.#ResetDebug();
 				return;
-			}
+			}*/
 
 			this.#homey.api( 'GET', '/devices?upload=true', {}, async function( err, result )
 			{

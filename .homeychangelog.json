@@ -82,5 +82,8 @@
   },
   "0.9.13": {
     "en": "Invert option for level control"
+  },
+  "0.9.14": {
+    "en": "remove homey-log and add onuninit"
   }
 }

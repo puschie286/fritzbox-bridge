@@ -25,8 +25,8 @@
 	"InvalidSSL": "SSL Validierung fehlgeschlagen",
 	"ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )",
 	"SendDebugData": "Sie sind dabei Debug-Informationen zu senden. Diese Information enthalten eine Liste aller verbundenen DECT-Geräte",
-	"SendFailed": "Fehler beim senden der Informationen",
-	"SendSuccess": "Informationen wurden erfolgreich übertragen. Vielen Dank"
+	"SendFailed": "Fehler beim abfragen der Informationen",
+	"SendSuccess": "Informationen wurden erfolgreich geloggt. Bitte sende eine Diagnosebericht"
   },
   "Settings": {
 	"Title": "Einstellungen",
