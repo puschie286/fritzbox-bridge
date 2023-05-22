@@ -330,7 +330,7 @@ export class ColorControl extends BaseFeature
 		this.device.GetAPI().setColorTemperature( this.device.getData().id, enumValue, 500 );
 	}
 
-	private setHue( value: any )
+	private async setHue( value: any )
 	{
 		if( value === null || value === undefined )
 		{
@@ -352,10 +352,10 @@ export class ColorControl extends BaseFeature
 		const saturationValue = ColorControl.ConvertSaturationToEnum( saturation );
 		const colorValue = ColorControl.ConvertColorToEnum( value );
 
-		this.device.GetAPI().setColor( this.device.getData().id, colorValue, saturationValue, 500 );
+		await this.device.GetAPI().setColor( this.device.getData().id, colorValue, saturationValue, 500 );
 	}
 
-	private setSaturation( value: any )
+	private async setSaturation( value: any )
 	{
 		if( value === null || value === undefined )
 		{
@@ -377,6 +377,6 @@ export class ColorControl extends BaseFeature
 		const saturationValue = ColorControl.ConvertSaturationToEnum( value );
 		const colorValue = ColorControl.ConvertColorToEnum( value );
 
-		this.device.GetAPI().setColor( this.device.getData().id, colorValue, saturationValue, 500 );
+		await this.device.GetAPI().setColor( this.device.getData().id, colorValue, saturationValue, 500 );
 	}
 }

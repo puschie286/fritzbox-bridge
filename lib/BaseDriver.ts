@@ -31,6 +31,7 @@ export abstract class BaseDriver extends Driver
 
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
+		console.log( 'discovery' );
 		const ShowDisconnected = this.homey.settings.get( Settings.SHOW_UNCONNECTED ) === true;
 		const AllowMultiple = this.homey.settings.get( Settings.ALLOW_MULTIPLE_REFERENCES ) === true;
 

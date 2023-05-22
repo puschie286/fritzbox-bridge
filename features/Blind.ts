@@ -130,22 +130,22 @@ export class Blind extends BaseFeature
 		return this.device.homey.__( 'Rollo.UnknownMode' );
 	}
 
-	private open()
+	private async open()
 	{
 		this.device.log( 'send open' );
-		this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Open );
+		await this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Open );
 	}
 
-	private close()
+	private async close()
 	{
 		this.device.log( 'send close' );
-		this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Close );
+		await this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Close );
 	}
 
-	private stop()
+	private async stop()
 	{
 		this.device.log( 'send stop' );
-		this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Stop );
+		await this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Stop );
 	}
 
 	private static OnActionOpen( args: any, state: any )

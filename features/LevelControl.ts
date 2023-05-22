@@ -38,10 +38,10 @@ export class LevelControl extends BaseFeature
 		return value;
 	}
 
-	private setLevel( value: any )
+	private async setLevel( value: any )
 	{
 		const level = this.levelAdjust( parseInt( value ) );
 		this.device.log( 'send setLevelPercentage: ' + level );
-		this.device.GetAPI().setLevelPercentage( this.device.getData().id, level! );
+		await this.device.GetAPI().setLevelPercentage( this.device.getData().id, level! );
 	}
 }

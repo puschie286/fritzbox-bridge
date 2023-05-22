@@ -32,10 +32,7 @@ class Device extends BaseDevice
 		{
 			classType = 'button';
 		}
-		else if(
-			MaskCheck( functionMask, FritzApiBitmask.EnergyMeter ) ||
-			MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) ||
-			MaskCheck( functionMask, FritzApiBitmask.HumiditySensor ) )
+		else if( MaskCheck( functionMask, FritzApiBitmask.EnergyMeter ) || MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) || MaskCheck( functionMask, FritzApiBitmask.HumiditySensor ) )
 		{
 			classType = 'sensor';
 		}
@@ -49,12 +46,16 @@ class Device extends BaseDevice
 
 	async onSettings( {
 		oldSettings, newSettings, changedKeys
-	}: { oldSettings: any; newSettings: any; changedKeys: string[] } ): Promise<string | void>
+	}: {
+		oldSettings: { [key: string]: boolean | string | number | undefined | null };
+		newSettings: { [key: string]: boolean | string | number | undefined | null };
+		changedKeys: string[]
+	} ): Promise<string | void>
 	{
 		// device class
 		if( changedKeys.includes( 'device_class' ) )
 		{
-			const classType = newSettings.device_class;
+			const classType = newSettings.device_class as string;
 
 			await this.setClass( classType );
 

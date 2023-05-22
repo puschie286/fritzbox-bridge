@@ -166,7 +166,7 @@ export class FritzApi
 	 * @param ain device id
 	 * @return device (json)
 	 */
-	public getDevice( ain: string ): string
+	public getDevice( ain: string ): Promise<string>
 	{
 		return this.api.getDevice( ain );
 	}
@@ -175,7 +175,7 @@ export class FritzApi
 	 * get temperature- both switches and thermostats are supported, but not powerline modules
 	 * @param ain device id
 	 */
-	public getTemperature( ain: string ): number
+	public getTemperature( ain: string ): Promise<number>
 	{
 		return this.api.getTemperature( ain );
 	}
@@ -184,16 +184,16 @@ export class FritzApi
 	 * get presence from deviceListInfo
 	 * @param ain device id
 	 */
-	public getPresence( ain: string ): boolean
+	public async getPresence( ain: string ): Promise<boolean>
 	{
-		return Boolean( this.api.getPresence( ain ) );
+		return Boolean( await this.api.getPresence( ain ) );
 	}
 
 	/**
 	 * get switch list
 	 * @return device ids
 	 */
-	public getSwitchList(): string[]
+	public getSwitchList(): Promise<string[]>
 	{
 		return this.api.getSwitchList();
 	}
@@ -202,9 +202,9 @@ export class FritzApi
 	 * get switch state
 	 * @param ain device id
 	 */
-	public getSwitchState( ain: string ): boolean
+	public async getSwitchState( ain: string ): Promise<boolean>
 	{
-		return Boolean( this.api.getSwitchState( ain ) );
+		return Boolean( await this.api.getSwitchState( ain ) );
 	}
 
 	/**
@@ -212,9 +212,9 @@ export class FritzApi
 	 * @param ain device id
 	 * @return 1
 	 */
-	public setSwitchOn( ain: string ): number
+	public async setSwitchOn( ain: string ): Promise<number>
 	{
-		return Number( this.api.setSwitchOn( ain ) );
+		return Number( await this.api.setSwitchOn( ain ) );
 	}
 
 	/**
@@ -222,9 +222,9 @@ export class FritzApi
 	 * @param ain device id
 	 * @return 0
 	 */
-	public setSwitchOff( ain: string ): number
+	public async setSwitchOff( ain: string ): Promise<number>
 	{
-		return Number( this.api.setSwitchOff( ain ) );
+		return Number( await this.api.setSwitchOff( ain ) );
 	}
 
 	/**
@@ -232,9 +232,9 @@ export class FritzApi
 	 * @param ain device id
 	 * @return state the outlet was set to ( 0 / 1 )
 	 */
-	public setSwitchToggle( ain: string ): number
+	public async setSwitchToggle( ain: string ): Promise<number>
 	{
-		return Number( this.api.setSwitchToggle( ain ) );
+		return Number( await this.api.setSwitchToggle( ain ) );
 	}
 
 	/**
@@ -242,7 +242,7 @@ export class FritzApi
 	 * @param ain device id
 	 * @return value in Wh
 	 */
-	public getSwitchEnergy( ain: string ): number
+	public getSwitchEnergy( ain: string ): Promise<number>
 	{
 		return this.api.getSwitchEnergy( ain );
 	}
@@ -252,7 +252,7 @@ export class FritzApi
 	 * @param ain device id
 	 * @return value in mW or null if unknown
 	 */
-	public getSwitchPower( ain: string ): number | null
+	public getSwitchPower( ain: string ): Promise<number | null>
 	{
 		return this.api.getSwitchPower( ain );
 	}
@@ -261,16 +261,16 @@ export class FritzApi
 	 * get the outlet presence status
 	 * @param ain device id
 	 */
-	public getSwitchPresence( ain: string ): boolean
+	public async getSwitchPresence( ain: string ): Promise<boolean>
 	{
-		return Boolean( this.api.getSwitchPresence( ain ) );
+		return Boolean( await this.api.getSwitchPresence( ain ) );
 	}
 
 	/**
 	 * get switch name
 	 * @param ain device id
 	 */
-	public getSwitchName( ain: string ): string
+	public getSwitchName( ain: string ): Promise<string>
 	{
 		return this.api.getSwitchName( ain );
 	}
@@ -279,7 +279,7 @@ export class FritzApi
 	 * get the thermostat list
 	 * @return devices (json)
 	 */
-	public getThermostatList(): string[]
+	public getThermostatList(): Promise<string[]>
 	{
 		return this.api.getThermostatList();
 	}
@@ -291,7 +291,7 @@ export class FritzApi
 	 * @return temp
 	 * @see FritzApi.Temp2Api
 	 */
-	public setTempTarget( ain: string, temp: string | boolean | number ): number
+	public setTempTarget( ain: string, temp: string | boolean | number ): Promise<number>
 	{
 		return this.api.setTempTarget( ain, temp );
 	}
@@ -302,7 +302,7 @@ export class FritzApi
 	 * @return see FritzApi.Api2Temp for values
 	 * @see FritzApi.Api2Temp
 	 */
-	public getTempTarget( ain: string ): string | number
+	public getTempTarget( ain: string ): Promise<string | number>
 	{
 		return this.api.getTempTarget( ain );
 	}
@@ -313,7 +313,7 @@ export class FritzApi
 	 * @return see FritzApi.Api2Temp for values
 	 * @see FritzApi.Api2Temp
 	 */
-	public getTempNight( ain: string ): string | number
+	public getTempNight( ain: string ): Promise<string | number>
 	{
 		return this.api.getTempNight( ain );
 	}
@@ -324,7 +324,7 @@ export class FritzApi
 	 * @return see FritzApi.Api2Temp for values
 	 * @see FritzApi.Api2Temp
 	 */
-	public getTempComfort( ain: string ): string | number
+	public getTempComfort( ain: string ): Promise<string | number>
 	{
 		return this.api.getTempComfort( ain );
 	}
@@ -335,7 +335,7 @@ export class FritzApi
 	 * @param seconds time from now in seconds, min 0 ( disabled ), max 86400 ( 24h )
 	 * @return seconds
 	 */
-	public setHkrBoost( ain: string, seconds: number ): number
+	public setHkrBoost( ain: string, seconds: number ): Promise<number>
 	{
 		return this.api.setHkrBoost( ain, seconds );
 	}
@@ -352,7 +352,7 @@ export class FritzApi
 	 * @param seconds time from now in seconds, min 0 ( disabled ), max 86400 ( 24h )
 	 * @return seconds
 	 */
-	public setHkrWindowOpen( ain: string, seconds: number ): number
+	public setHkrWindowOpen( ain: string, seconds: number ): Promise<number>
 	{
 		return this.api.setHkrWindowOpen( ain, seconds );
 	}
@@ -363,7 +363,7 @@ export class FritzApi
 	 * @param offset
 	 * @return offset
 	 */
-	public setHkrOffset( ain: string, offset: number ): number
+	public setHkrOffset( ain: string, offset: number ): Promise<number>
 	{
 		return this.api.setHkrOffset( ain, offset );
 	}
@@ -372,7 +372,7 @@ export class FritzApi
 	 * get bulb devices
 	 * @return devices (json)
 	 */
-	public getBulbList(): string[]
+	public getBulbList(): Promise<string[]>
 	{
 		return this.api.getBulbList();
 	}
@@ -380,7 +380,7 @@ export class FritzApi
 	/**
 	 * get bulb devices wich support colors
 	 */
-	public getColorBulbList(): string[]
+	public getColorBulbList(): Promise<string[]>
 	{
 		return this.api.getColorBulbList();
 	}
@@ -391,7 +391,7 @@ export class FritzApi
 	 * @param state 0 / 1 / 2 or 'off' / 'on' / 'toggle'
 	 * @return state
 	 */
-	public setSimpleOnOff( ain: string, state: number | string ): number | string
+	public setSimpleOnOff( ain: string, state: number | string ): Promise<number | string>
 	{
 		return this.api.setSimpleOnOff( ain, state );
 	}
@@ -408,7 +408,7 @@ export class FritzApi
 	 * @param level absolute dim level ( 0 - 255 )
 	 * @return level
 	 */
-	public setLevel( ain: string, level: number ): number
+	public setLevel( ain: string, level: number ): Promise<number>
 	{
 		return this.api.setLevel( ain, Math.max( 0, level ) );
 	}
@@ -419,7 +419,7 @@ export class FritzApi
 	 * @param levelInPercent percent dim level ( 0 - 100 )
 	 * @return levelInPercent
 	 */
-	public setLevelPercentage( ain: string, levelInPercent: number ): number
+	public setLevelPercentage( ain: string, levelInPercent: number ): Promise<number>
 	{
 		return this.api.setLevelPercentage( ain, Math.max( 0, levelInPercent ) );
 	}
@@ -432,7 +432,7 @@ export class FritzApi
 	 * @param duration change duration ( in 100ms, 0 = instant )
 	 * @return color
 	 */
-	public setColor( ain: string, color: FritzApiColor, saturation: number, duration: number ): string
+	public setColor( ain: string, color: FritzApiColor, saturation: number, duration: number ): Promise<string>
 	{
 		return this.api.setColor( ain, color, Math.max( 0, saturation ), Math.max( 0, duration ) );
 	}
@@ -444,7 +444,7 @@ export class FritzApi
 	 * @param duration change duration ( in 100ms, 0 = instant )
 	 * @return temperature
 	 */
-	public setColorTemperature( ain: string, temperature: FritzApiTemperature, duration: number ): number
+	public setColorTemperature( ain: string, temperature: FritzApiTemperature, duration: number ): Promise<number>
 	{
 		return this.api.setColorTemperature( ain, temperature, duration );
 	}
@@ -455,7 +455,7 @@ export class FritzApi
 	 * @param blindState command
 	 * @return blindState
 	 */
-	public setBlind( ain: string, blindState: FritzApiBlind ): string
+	public setBlind( ain: string, blindState: FritzApiBlind ): Promise<string>
 	{
 		return this.api.setBlind( ain, blindState );
 	}
@@ -466,7 +466,7 @@ export class FritzApi
 	 * @param ain device id
 	 * @return battery state
 	 */
-	public getBatteryCharge( ain: string ): boolean
+	public getBatteryCharge( ain: string ): Promise<boolean>
 	{
 		return this.api.getBatteryCharge( ain );
 	}
@@ -477,7 +477,7 @@ export class FritzApi
 	 * @param ain
 	 * @return window open state
 	 */
-	public getWindowOpen( ain: string ): boolean
+	public getWindowOpen( ain: string ): Promise<boolean>
 	{
 		return this.api.getWindowOpen( ain );
 	}
@@ -485,7 +485,7 @@ export class FritzApi
 	/**
 	 * Get guest wlan settings
 	 */
-	public getGuestWlan(): object
+	public getGuestWlan(): Promise<object>
 	{
 		return this.api.getGuestWlan();
 	}
@@ -495,7 +495,7 @@ export class FritzApi
 	 * @param enable guest wlan status
 	 * @return guest wlan settings
 	 */
-	public setGuestWlan( enable: boolean ): object
+	public setGuestWlan( enable: boolean ): Promise<object>
 	{
 		return this.api.setGuestWlan( enable );
 	}
@@ -504,7 +504,7 @@ export class FritzApi
 	 * Get phone list
 	 * @return phone list html
 	 */
-	public getPhoneList(): string
+	public getPhoneList(): Promise<string>
 	{
 		return this.api.getPhoneList();
 	}

@@ -129,16 +129,17 @@ export class Thermostat extends BaseFeature
 		} ];
 	}
 
-	private onOnOff( value: any )
+	private async onOnOff( value: any )
 	{
 		let Value = Boolean( value );
 		this.device.log( 'send onOff: ', Value );
-		this.device.GetAPI().setTempTarget( this.device.getData().id, Value );
+		await this.device.GetAPI().setTempTarget( this.device.getData().id, Value );
 	}
-	private onTargetTemperature( value: any )
+
+	private async onTargetTemperature( value: any )
 	{
 		this.device.log( 'send setTarget: ' + parseFloat( value ) );
-		this.device.GetAPI().setTempTarget( this.device.getData().id, parseFloat( value ) );
+		await this.device.GetAPI().setTempTarget( this.device.getData().id, parseFloat( value ) );
 	}
 
 	private async HandleError( error: any ): Promise<string>

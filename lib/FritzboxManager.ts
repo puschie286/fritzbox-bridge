@@ -290,6 +290,7 @@ export class FritzboxManager
 		try
 		{
 			this.lastDeviceData = await this.GetApi().getDeviceList();
+			//console.debug( JSON.stringify( this.lastDeviceData ) );
 			await this.ProcessPoll( this.lastDeviceData );
 		} catch( error: any )
 		{

@@ -35,10 +35,12 @@ export abstract class BaseDevice extends Device
 	}
 
 	async onSettings( {
-		oldSettings,
-		newSettings,
-		changedKeys
-	}: { oldSettings: object; newSettings: object; changedKeys: string[] } ): Promise<string | void>
+		oldSettings, newSettings, changedKeys
+	}: {
+		oldSettings: { [key: string]: boolean | string | number | undefined | null };
+		newSettings: { [key: string]: boolean | string | number | undefined | null };
+		changedKeys: string[]
+	} ): Promise<string | void>
 	{
 		if( !this.initialized )
 		{
@@ -171,7 +173,20 @@ export abstract class BaseDevice extends Device
 
 			for( const listener of listeners )
 			{
-				this.registerCapabilityListener( listener.name, listener.callback.bind( feature ) );
+				this.registerCapabilityListener( listener.name, async( value, opts ) =>
+				{
+					try
+					{
+						const callback = listener.callback.bind( feature );
+						await callback( value, opts );
+					} catch( any: any )
+					{
+						this.homey.error( 'listener exception: ' + JSON.stringify( any.error ) );
+						this.homey.error( 'request info: ' + any.response.statusMessage + ', ' + any.response.statusCode );
+						this.homey.error( 'request url: ' + any.options.url );
+						throw 'request failed';
+					}
+				} );
 			}
 		}
 	}

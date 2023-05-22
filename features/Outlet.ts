@@ -31,17 +31,17 @@ export class Outlet extends BaseFeature
 		return [ { name: 'onoff', callback: this.onOnOff } ];
 	}
 
-	private onOnOff( value: any )
+	private async onOnOff( value: any )
 	{
 		const Value = Boolean( value );
 		this.device.log( 'send onOff: ', Value );
 		if( Value )
 		{
-			this.device.GetAPI().setSwitchOn( this.device.getData().id );
+			await this.device.GetAPI().setSwitchOn( this.device.getData().id );
 		}
 		else
 		{
-			this.device.GetAPI().setSwitchOff( this.device.getData().id );
+			await this.device.GetAPI().setSwitchOff( this.device.getData().id );
 		}
 	}
 }

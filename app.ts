@@ -106,7 +106,7 @@ class FritzboxBridge extends App
 
 	private isPollingEnabled(): boolean
 	{
-		return this.homey.settings.get( Settings.POLL_ACTIVE ) == true;
+		return ( this.homey.settings.get( Settings.POLL_ACTIVE ) || SettingsDefault.POLL_ACTIVE ) == true;
 	}
 
 	private isStatusPollingEnabled(): boolean
