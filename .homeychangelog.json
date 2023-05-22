@@ -85,5 +85,8 @@
   },
   "0.9.14": {
     "en": "remove homey-log and add onuninit"
+  },
+  "0.9.15": {
+	"en": "Fix setting default values\nImprove error handling"
   }
 }

@@ -24,4 +24,5 @@ export class SettingsDefault
 	public static readonly FRITZBOX_URL: string = 'fritz.box';
 	public static readonly STRICT_SSL: boolean = false;
 	public static readonly POLL_ACTIVE: boolean = true;
+	public static readonly STATUS_ACTIVE: boolean = false;
 }
