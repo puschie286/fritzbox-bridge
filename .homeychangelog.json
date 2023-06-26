@@ -88,5 +88,8 @@
   },
   "0.9.15": {
 	"en": "Fix setting default values\nImprove error handling"
+  },
+  "0.9.16": {
+	"en": "Fix color setting for Dect 500\nAdded On/Off for Dect 500"
   }
 }

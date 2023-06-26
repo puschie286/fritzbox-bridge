@@ -14,6 +14,7 @@ import { ColorControl } from '../features/ColorControl';
 import { Humidity } from '../features/Humidity';
 import { Button } from '../features/Button';
 import Homey from 'homey/lib/Homey';
+import { SwitchControl } from '../features/SwitchControl';
 
 export class FunctionFactory
 {
@@ -74,6 +75,10 @@ export class FunctionFactory
 		if( MaskCheck( functionMask, FritzApiBitmask.Button ) )
 		{
 			functions.push( new Button( device ) );
+		}
+		if( MaskCheck( functionMask, FritzApiBitmask.SwitchControl ) && !MaskCheck( functionMask, FritzApiBitmask.Outlet ) )
+		{
+			functions.push( new SwitchControl( device ) );
 		}
 
 		return functions;

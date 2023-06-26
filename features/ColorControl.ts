@@ -200,6 +200,25 @@ export class ColorControl extends BaseFeature
 		return null;
 	}
 
+	private static ConvertColorTemperature( value: number | null ): string | null
+	{
+		switch( value )
+		{
+			case 2700:
+			case 3000:
+			case 3400:
+			case 3800:
+			case 4200:
+			case 4700:
+			case 5300:
+			case 5900:
+			case 6500:
+				return value.toString();
+		}
+
+		return null;
+	}
+
 	protected Capabilities(): Array<Capability>
 	{
 		return [ {
@@ -211,7 +230,8 @@ export class ColorControl extends BaseFeature
 				'setable': false
 			}
 		}, {
-			name: 'color_temperature', state: 'colorcontrol.temperature', type: CapabilityType.Integer
+			name: 'color_temperature', state: 'colorcontrol.temperature', type: CapabilityType.Integer,
+			valueFunc: ColorControl.ConvertColorTemperature
 		}, {
 			name: 'color_hue',
 			state: 'colorcontrol.hue',
