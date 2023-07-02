@@ -43,3 +43,11 @@ export function MaskCheck( value: number, mask: number ): boolean
 {
 	return ( value & mask ) === mask;
 }
+
+export function Closest( value: number, values: Array<number> ): number
+{
+	return values.reduce( function( prev, cur)
+	{
+		return ( Math.abs( cur - value ) < Math.abs( prev - value ) ? cur : prev );
+	} );
+}

@@ -21,7 +21,7 @@ class FritzboxBridge extends App
 		this.homey.settings.on( 'set', this.applySettings.bind( this ) );
 
 		// configure api
-		this.initializeFritzbox();
+		this.initializeFritzbox( 5000 );
 	}
 
 	async onUninit()
@@ -30,6 +30,11 @@ class FritzboxBridge extends App
 
 		this.fritzbox.StopPolling();
 		this.fritzbox.StopStatusPolling();
+
+		if( this.validation !== null )
+		{
+			this.homey.clearInterval( this.validation );
+		}
 	}
 
 	private async applySettings( name: string )
@@ -114,7 +119,7 @@ class FritzboxBridge extends App
 		return ( this.homey.settings.get( Settings.STATUS_ACTIVE ) || SettingsDefault.STATUS_ACTIVE ) == true;
 	}
 
-	private initializeFritzbox()
+	private initializeFritzbox( delay: number | null = null )
 	{
 		this.setValidation( LoginValidation.Progress );
 
@@ -130,7 +135,14 @@ class FritzboxBridge extends App
 		this.fritzbox.Connect( username, password, validUrl, strictSSL );
 
 		// (lazy) validate login
-		this.StartLoginValidation();
+		if( delay !== null )
+		{
+			this.validation = this.homey.setTimeout( this.ValidateLogin.bind( this ), delay );
+		}
+		else
+		{
+			this.StartLoginValidation();
+		}
 	}
 
 	private StartLoginValidation()
@@ -147,6 +159,8 @@ class FritzboxBridge extends App
 
 	private async ValidateLogin()
 	{
+		this.validation = undefined;
+
 		try
 		{
 			await this.fritzbox.GetApi().getDeviceList();

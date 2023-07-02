@@ -30,7 +30,6 @@ export enum HanFunTypes
 
 export enum FritzApiColor
 {
-	Red = 'red',
 	Orange = 'orange',
 	Yellow = 'yellow',
 	Lime = 'lime',
@@ -41,7 +40,8 @@ export enum FritzApiColor
 	Blue = 'blue',
 	Purple = 'purple',
 	Magenta = 'magenta',
-	Pink = 'pink'
+	Pink = 'pink',
+	Red = 'red'
 }
 
 export enum FritzApiTemperature
