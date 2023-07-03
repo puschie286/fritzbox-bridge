@@ -1,0 +1,55 @@
+{
+  "type": "enum",
+  "title": {
+	"en": "Hue",
+	"nl": "Hue",
+	"de": "Farbton",
+	"fr": "Teinte",
+	"it": "Tonalità",
+	"sv": "Nyans",
+	"no": "Fargetone",
+	"es": "Tonalidad",
+	"da": "Farvetone",
+	"ru": "Оттенок",
+	"pl": "Odcień"
+  },
+  "getalbe": true,
+  "setable": true,
+  "values": [{
+	"id": "red",
+	"title": { "en": "red", "de": "Rot" }
+  },{
+	"id": "orange",
+	"title": { "en": "orange", "de": "Orange" }
+  },{
+	"id": "yellow",
+	"title": { "en": "yellow", "de": "Gelb" }
+  },{
+	"id": "lime",
+	"title": { "en": "lime" }
+  },{
+	"id": "green",
+	"title": { "en": "green", "de": "Grün" }
+  },{
+	"id": "turquoise",
+	"title": { "en": "turquoise", "de": "Türkis" }
+  },{
+	"id": "cyan",
+	"title": { "en": "cyan", "de": "Cyan" }
+  },{
+	"id": "lightblue",
+	"title": { "en": "lightblue", "de": "Hellblau" }
+  },{
+	"id": "blue",
+	"title": { "en": "blue", "de": "Blau" }
+  },{
+	"id": "purple",
+	"title": { "en": "purple", "de": "Lila" }
+  },{
+	"id": "magenta",
+	"title": { "en": "magenta", "de": "Magenta" }
+  }, {
+	"id": "pink",
+	"title": { "en": "pink", "de": "Pink" }
+  }]
+}

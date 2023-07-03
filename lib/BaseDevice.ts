@@ -147,6 +147,11 @@ export abstract class BaseDevice extends Device
 		}
 
 		const removed = current.filter( ( entry: string ) => defined.indexOf( entry ) < 0 );
+		for( const remove of removed )
+		{
+			this.homey.log( 'removed ' + remove );
+			await this.removeCapability( remove );
+		}
 
 		for( const add of added )
 		{
@@ -156,11 +161,6 @@ export abstract class BaseDevice extends Device
 			{
 				await this.setCapabilityOptions( add.name, add.options );
 			}
-		}
-		for( const remove of removed )
-		{
-			this.homey.log( 'removed ' + remove );
-			await this.removeCapability( remove );
 		}
 	}
 

@@ -1,0 +1,47 @@
+{
+  "type": "enum",
+  "title": {
+	"en": "Color temperature",
+	"nl": "Kleurtemperatuur",
+	"de": "Farbtemperatur",
+	"fr": "Température de couleur",
+	"it": "Temperatura colore",
+	"sv": "Färgtemperatur",
+	"no": "Fargetemperatur",
+	"es": "Temperatura del color",
+	"da": "Farvetemperatur",
+	"ru": "Температура цвета",
+	"pl": "Temperatura barwy"
+  },
+  "getable": true,
+  "setable": true,
+  "units": { "en": "Kelvin" },
+  "values": [{
+	"id": "2700",
+	"title": { "en": "2700" }
+  }, {
+	"id": "3000",
+	"title": { "en": "3000" }
+  }, {
+	"id": "3400",
+	"title": { "en": "3400" }
+  }, {
+	"id": "3800",
+	"title": { "en": "3800" }
+  }, {
+	"id": "4200",
+	"title": { "en": "4200" }
+  }, {
+	"id": "4700",
+	"title": { "en": "4700" }
+  }, {
+	"id": "5300",
+	"title": { "en": "5300" }
+  }, {
+	"id": "5900",
+	"title": { "en": "5900" }
+  }, {
+	"id": "6500",
+	"title": { "en": "6500" }
+  }]
+}
