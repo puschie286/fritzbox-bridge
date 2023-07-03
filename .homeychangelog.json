@@ -94,5 +94,8 @@
   },
   "0.9.17": {
     "en": "Rewrite color management to use homey capabilities"
+  },
+  "0.9.18": {
+    "en": "Fix Dect 500 migration"
   }
 }
