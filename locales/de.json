@@ -40,10 +40,8 @@
 	},
 	"Bridge": {
 	  "Title": "Bridge Konfiguration",
-	  "PollingActive": "Geräte-Datenabfrage Aktiv",
-	  "PollingInterval": "Geräte-Datenabfrage Intervall",
-	  "StatusPollingActive": "Fritzbox-Datenabfrage Aktiv",
-	  "StatusPollingInterval": "Fritzbox-Datenabfrage Intervall",
+	  "PollingActive": "Datenabfrage Aktiv",
+	  "PollingInterval": "Datenabfrage Intervall",
 	  "ShowUnconnected": "Zeige nicht verbundene Geräte an",
 	  "AllowMultiple": "Erlaube das gleiche Gerät mehrfach hinzufügen"
 	},

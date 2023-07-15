@@ -52,11 +52,6 @@ class FritzboxBridge extends App
 			case Settings.POLL_INTERVAL:
 				await this.updatePolling();
 				break;
-
-			case Settings.STATUS_ACTIVE:
-			case Settings.STATUS_INTERVAL:
-				await this.updateStatusPolling();
-				break;
 		}
 	}
 
@@ -65,22 +60,12 @@ class FritzboxBridge extends App
 		if( !this.isLoginValid() || !this.isPollingEnabled() )
 		{
 			this.fritzbox.StopPolling();
+			this.fritzbox.StopStatusPolling();
 			return;
 		}
 
 		const interval = this.homey.settings.get( Settings.POLL_INTERVAL );
 		await this.fritzbox.StartPolling( interval * 1000 );
-	}
-
-	private async updateStatusPolling()
-	{
-		if( !this.isLoginValid() || !this.isStatusPollingEnabled() )
-		{
-			this.fritzbox.StopStatusPolling();
-			return;
-		}
-
-		const interval = this.homey.settings.get( Settings.STATUS_INTERVAL );
 		await this.fritzbox.StartStatusPolling( interval * 1000 );
 	}
 
@@ -112,11 +97,6 @@ class FritzboxBridge extends App
 	private isPollingEnabled(): boolean
 	{
 		return ( this.homey.settings.get( Settings.POLL_ACTIVE ) || SettingsDefault.POLL_ACTIVE ) == true;
-	}
-
-	private isStatusPollingEnabled(): boolean
-	{
-		return ( this.homey.settings.get( Settings.STATUS_ACTIVE ) || SettingsDefault.STATUS_ACTIVE ) == true;
 	}
 
 	private initializeFritzbox( delay: number | null = null )
@@ -168,7 +148,6 @@ class FritzboxBridge extends App
 			console.debug( 'validate login: success' );
 
 			await this.updatePolling();
-			await this.updateStatusPolling();
 		} catch( error: any )
 		{
 			console.debug( `login failed: ${ JSON.stringify( error ) }` );

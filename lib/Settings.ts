@@ -6,8 +6,6 @@ export class Settings
 	public static readonly STRICT_SSL: string = 'strictssl';
 	public static readonly POLL_INTERVAL: string = 'pollinginterval';
 	public static readonly POLL_ACTIVE: string = 'pollingactive';
-	public static readonly STATUS_INTERVAL: string = 'statuspollinginterval';
-	public static readonly STATUS_ACTIVE: string = 'statuspollingactive';
 	public static readonly VALIDATION: string = 'validation';
 	public static readonly VALIDATION_INFO: string = 'validationInfo';
 	public static readonly SHOW_UNCONNECTED: string = 'showunconnected';
@@ -24,5 +22,4 @@ export class SettingsDefault
 	public static readonly FRITZBOX_URL: string = 'fritz.box';
 	public static readonly STRICT_SSL: boolean = false;
 	public static readonly POLL_ACTIVE: boolean = true;
-	public static readonly STATUS_ACTIVE: boolean = false;
 }

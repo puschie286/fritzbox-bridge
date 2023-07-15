@@ -40,10 +40,8 @@
 	},
 	"Bridge": {
 	  "Title": "Bridge configuration",
-	  "PollingActive": "Device data query active",
-	  "PollingInterval": "Device data query interval",
-	  "StatusPollingActive": "Fritzbox data query active",
-	  "StatusPollingInterval": "Fritzbox data query interval",
+	  "PollingActive": "Data query active",
+	  "PollingInterval": "Data query interval",
 	  "ShowUnconnected": "Show unconnected devices",
 	  "AllowMultiple": "Allow to add same device multiple times"
 	},
