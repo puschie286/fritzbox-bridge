@@ -97,5 +97,8 @@
   },
   "0.9.18": {
     "en": "Fix Dect 500 migration"
+  },
+  "0.9.19": {
+    "en": "Fixed request blocking"
   }
 }
