@@ -12,9 +12,7 @@ export class FritzboxManager
 	private static instance?: FritzboxManager;
 	private apiInstance?: FritzApi;
 	private polling?: NodeJS.Timeout;
-	private pollRunning: boolean = false;
 	private statusPolling?: NodeJS.Timeout;
-	private statusPollRunning: boolean = false;
 	private readonly homey: Homey;
 	private readonly tracker: FritzboxTracker;
 	private lastDeviceData?: any;
@@ -171,7 +169,6 @@ export class FritzboxManager
 		this.homey.log( 'stop polling' );
 		this.homey.clearInterval( this.polling );
 		this.polling = undefined;
-		this.pollRunning = false;
 	}
 
 	/**
@@ -187,7 +184,6 @@ export class FritzboxManager
 		this.homey.log( 'stop status polling' );
 		this.homey.clearInterval( this.statusPolling );
 		this.statusPolling = undefined;
-		this.statusPollRunning = false;
 	}
 
 	// TODO: specify deviceList type
@@ -279,14 +275,6 @@ export class FritzboxManager
 	 */
 	private async Poll(): Promise<void>
 	{
-		if( this.pollRunning )
-		{
-			console.debug( 'Skip poll - still waiting on last poll' );
-			return;
-		}
-
-		this.pollRunning = true;
-
 		try
 		{
 			this.lastDeviceData = await this.GetApi().getDeviceList();
@@ -296,21 +284,10 @@ export class FritzboxManager
 		{
 			this.logPolError( error );
 		}
-
-
-		this.pollRunning = false;
 	}
 
 	private async StatusPoll()
 	{
-		if( this.statusPollRunning )
-		{
-			console.debug( 'Skip poll - still waiting on last status poll' );
-			return;
-		}
-
-		this.statusPollRunning = true;
-
 		try
 		{
 			const overview = await this.GetApi().getFritzboxOverview();
@@ -320,8 +297,6 @@ export class FritzboxManager
 		{
 			this.logPolError( error );
 		}
-
-		this.statusPollRunning = false;
 	}
 
 	// helper

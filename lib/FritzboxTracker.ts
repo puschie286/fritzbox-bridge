@@ -76,6 +76,11 @@ export class FritzboxTracker
 	public async UpdateDevices( network: any )
 	{
 		const devicesList: Array<FritzboxDevice> = network['data']['active'];
+		if( devicesList === undefined || !Array.isArray( devicesList ) )
+		{
+			// ignore invalid
+			return;
+		}
 
 		if( this.FirstCheck )
 		{

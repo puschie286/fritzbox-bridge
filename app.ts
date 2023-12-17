@@ -150,7 +150,7 @@ class FritzboxBridge extends App
 			await this.updatePolling();
 		} catch( error: any )
 		{
-			console.debug( `login failed: ${ JSON.stringify( error ) }` );
+			console.debug( `login failed` );
 			const Info: string = this.ParseError( error );
 			this.homey.error( Info );
 			this.homey.settings.set( Settings.VALIDATION_INFO, Info );
