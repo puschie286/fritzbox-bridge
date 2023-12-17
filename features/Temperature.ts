@@ -1,7 +1,6 @@
 import { BaseFeature } from '../lib/BaseFeature';
 import { Capability } from '../types/Capability';
 import { CapabilityType } from '../types/CapabilityType';
-import { FlowCardCondition, FlowCardTriggerDevice } from 'homey';
 import Homey from 'homey/lib/Homey';
 
 export class Temperature extends BaseFeature

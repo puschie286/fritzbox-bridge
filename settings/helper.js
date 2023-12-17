@@ -48,9 +48,20 @@ class SettingHelper
 					this.#homey.alert( this.#homey.__( 'Message.SendFailed' ) );
 					return;
 				}
-
-				this.#homey.alert( this.#homey.__( 'Message.SendSuccess' ) );
-				this.#ResetDebug();
+				
+				this.#homey.api( 'GET', '/network-devices?upload=true', {}, async function( err2, result2 )
+				{
+					if( err2 || result2 === 'failed' )
+					{
+						this.#ResetDebug();
+						console.debug( err2 );
+						this.#homey.alert( this.#homey.__( 'Message.SendFailed' ) );
+						return;
+					}
+					
+					this.#homey.alert( this.#homey.__( 'Message.SendSuccess' ) );
+					this.#ResetDebug();
+				}.bind( this ) );
 			}.bind( this ) )
 		}.bind( this ) );
 	}

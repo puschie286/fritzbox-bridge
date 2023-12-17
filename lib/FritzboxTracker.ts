@@ -118,12 +118,16 @@ export class FritzboxTracker
 
 		for( const device of newDevices )
 		{
+			console.log( 'device connected: ' + device.name + ' with ' + device.mac );
+			
 			await this.ConnectedTrigger.trigger( this.CreateDeviceToken( device ) );
 
 			await this.wlanConnectTrigger.trigger( { 'device_name': device.name } );
 		}
 		for( const device of removedDevices )
 		{
+			console.log( 'device disconnected: ' + device.name + ' with ' + device.mac );
+			
 			await this.DisconnectTrigger.trigger( this.CreateDeviceToken( device ) );
 
 			await this.wlanDisconnectTrigger.trigger( { 'device_name': device.name } );
