@@ -100,5 +100,8 @@
   },
   "0.9.19": {
     "en": "Fixed request blocking"
+  },
+  "0.9.20": {
+    "en": "Fix alarm timestamp"
   }
 }

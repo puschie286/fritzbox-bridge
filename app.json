@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.puschie.fritzbox-bridge",
-  "version": "0.9.19",
+  "version": "0.9.20",
   "compatibility": ">=5.0.0",
   "platforms": [
     "local"
@@ -1190,6 +1190,15 @@
     }
   ],
   "capabilities": {
+    "alarm_datetime": {
+      "type": "string",
+      "title": {
+        "en": "Alarm State Change",
+        "de": "Alarm Zustandsänderung"
+      },
+      "getable": true,
+      "setable": false
+    },
     "alert_update_available": {
       "type": "boolean",
       "title": {
