@@ -22,7 +22,7 @@ export abstract class BaseDriver extends Driver
 			throw new Error( 'Invalid login - cant request device list' );
 		}
 
-		console.debug( 'request device list for: ' + this.id );
+		this.homey.log( 'request device list for: ' + this.id );
 
 		return this.GetDeviceList();
 	}
@@ -31,7 +31,6 @@ export abstract class BaseDriver extends Driver
 
 	protected async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
-		console.log( 'discovery' );
 		const ShowDisconnected = this.homey.settings.get( Settings.SHOW_UNCONNECTED ) === true;
 		const AllowMultiple = this.homey.settings.get( Settings.ALLOW_MULTIPLE_REFERENCES ) === true;
 

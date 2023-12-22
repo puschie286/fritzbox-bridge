@@ -133,7 +133,7 @@ export class FritzApi
 		return this.api.getBasicDeviceStats();
 	}
 
-	public async getFritzboxOverview(): Promise<string[]>
+	public async getFritzboxOverview(): Promise<object>
 	{
 		return this.api.call( LoadOverview );
 	}

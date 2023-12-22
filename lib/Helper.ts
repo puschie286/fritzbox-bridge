@@ -51,3 +51,26 @@ export function Closest( value: number, values: Array<number> ): number
 		return ( Math.abs( cur - value ) < Math.abs( prev - value ) ? cur : prev );
 	} );
 }
+
+export function HandleHttpError( error: any ): 'timeout' | 'unknown' | any
+{
+	if( Validate( error ) )
+	{
+		if( Validate( error.error ) && Validate( error.error.code ) )
+		{
+			const code = error.error.code;
+			if( code === 'ENOTFOUND' || code === 'ETIMEDOUT' )
+			{
+				return 'timeout';
+			}
+		}
+		
+		if( Validate( error.request ) && Validate( error.request.response ) )
+		{
+			return error.request.response;
+		}
+	}
+	
+	console.error( error );
+	return 'unknown';
+}

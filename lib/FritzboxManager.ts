@@ -1,5 +1,5 @@
 import { FritzApi } from '../types/FritzApi';
-import { MaskCheck, Validate } from './Helper';
+import { HandleHttpError, MaskCheck } from './Helper';
 import { Settings } from './Settings';
 import { BaseDriver } from './BaseDriver';
 import { BaseDevice } from './BaseDevice';
@@ -257,7 +257,7 @@ export class FritzboxManager
 		}
 	}
 
-	private async ProcessStatusPoll( overview: any[], network: any[] ): Promise<void>
+	private async ProcessStatusPoll( overview: object, network: any[] ): Promise<void>
 	{
 		await this.tracker.UpdateDevices( network );
 
@@ -302,17 +302,14 @@ export class FritzboxManager
 	// helper
 	private logPolError( error: any )
 	{
-		if( Validate( error ) && Validate( error.error ) && Validate( error.error.code ) )
+		const result = HandleHttpError( error );
+		if( result === 'timeout' )
 		{
-			let code = error.error.code;
-			if( code === 'ENOTFOUND' || code === 'ETIMEDOUT' )
-			{
-				this.homey.log( 'poll timeout' );
-				return;
-			}
+			this.homey.log( 'poll timeout' );
+			return;
 		}
-
+		
 		this.homey.error( 'poll failed' );
-		this.homey.error( error );
+		this.homey.error( result );
 	}
 }
