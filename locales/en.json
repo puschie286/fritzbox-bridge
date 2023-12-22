@@ -1,51 +1,57 @@
 {
   "ThermostatError": {
-	"ErrorCode0": "No error",
-	"ErrorCode1": "No adaptation possible. Device correctly mounted on radiator?",
-	"ErrorCode2": "Valve stroke too short or battery power too low. Open and close valve tappet several times by hand or Insert new batteries.",
-	"ErrorCode3": "No valve movement possible. Valve tappet free?",
-	"ErrorCode4": "The installation is currently being prepared",
-	"ErrorCode5": "The radiator controller is in installation mode and can be mounted on the heating valve",
-	"ErrorCode6": "The radiator controller now adapts to the stroke of the heating valve"
+    "ErrorCode0": "No error",
+    "ErrorCode1": "No adaptation possible. Device correctly mounted on radiator?",
+    "ErrorCode2": "Valve stroke too short or battery power too low. Open and close valve tappet several times by hand or Insert new batteries.",
+    "ErrorCode3": "No valve movement possible. Valve tappet free?",
+    "ErrorCode4": "The installation is currently being prepared",
+    "ErrorCode5": "The radiator controller is in installation mode and can be mounted on the heating valve",
+    "ErrorCode6": "The radiator controller now adapts to the stroke of the heating valve"
   },
   "Rollo": {
-	"NoEndPos": "No end position is configured",
-	"AutoMode": "Automatic timer",
-	"ManualMode": "Manual control",
-	"UnknownMode": "Unknown",
-	"ErrorObstacle": "Obstacle alarm",
-	"ErrorTemperature": "Temperature alarm"
+    "NoEndPos": "No end position is configured",
+    "AutoMode": "Automatic timer",
+    "ManualMode": "Manual control",
+    "UnknownMode": "Unknown",
+    "ErrorObstacle": "Obstacle alarm",
+    "ErrorTemperature": "Temperature alarm"
   },
   "Message": {
-	"InvalidLogin": "Invalid login-data",
-	"ErrorLogin": "Error occurred while login",
-	"ValidLogin": "Login successful",
-	"Timeout": "No connection / Invalid address",
-	"NotFound": "Invalid address",
-	"InvalidSSL": "SSL validation failed",
-	"ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )",
-	"SendDebugData": "You are about to send debug information. This information contains a list of all connected DECT devices",
-	"SendFailed": "Error requesting information",
-	"SendSuccess": "Information was successfully logged. Please submit a diagnostic report"
+    "InvalidLogin": "Invalid login-data",
+    "ErrorLogin": "Error occurred while login",
+    "ValidLogin": "Login successful",
+    "Timeout": "No connection / Invalid address",
+    "NotFound": "Invalid address",
+    "InvalidSSL": "SSL validation failed",
+    "ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )",
+    "SendDebugData": "You are about to send debug information. This information contains a list of all connected DECT devices",
+    "SendFailed": "Error requesting information",
+    "SendSuccess": "Information was successfully logged. Please submit a diagnostic report",
+    "AccessForbidden": "Access denied",
+    "Unknown": "Unknown error"
   },
   "Settings": {
-	"Title": "Settings",
-	"Status": "Login status",
-	"Fritzbox": {
-	  "Title": "Fritzbox configuration",
-	  "Ip": "Fritzbox address",
-	  "Username": "Username",
-	  "Password": "Password",
-	  "StrictSSL": "SSL validation"
-	},
-	"Bridge": {
-	  "Title": "Bridge configuration",
-	  "PollingActive": "Data query active",
-	  "PollingInterval": "Data query interval",
-	  "ShowUnconnected": "Show unconnected devices",
-	  "AllowMultiple": "Allow to add same device multiple times"
-	},
-	"Save": "Save changes",
-	"Debug": "Debug info"
+    "Title": "Settings",
+    "Status": "Login status",
+    "Fritzbox": {
+      "Title": "Fritzbox configuration",
+      "Ip": "Fritzbox address",
+      "Username": "Username",
+      "Password": "Password",
+      "StrictSSL": "SSL validation"
+    },
+    "Bridge": {
+      "Title": "Bridge configuration",
+      "PollingActive": "Data query active",
+      "PollingInterval": "Data query interval",
+      "ShowUnconnected": "Show unconnected devices",
+      "AllowMultiple": "Allow to add same device multiple times"
+    },
+    "Infos": {
+      "Title": "Information",
+      "Permission": "A additional user account is required (System->FRITZ!Box-User). Login require the \"Smart Home\" permission. Data query additionally require the \"FRITZ!Box-Settings\" permission"
+    },
+    "Save": "Save changes",
+    "Debug": "Debug info"
   }
 }

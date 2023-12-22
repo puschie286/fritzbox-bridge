@@ -1,51 +1,57 @@
 {
   "ThermostatError": {
-	"ErrorCode0": "Kein Fehler",
-	"ErrorCode1": "Keine Adaptierung möglich. Gerät korrekt am Heizkörper montiert?",
-	"ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Ventilstößel per Hand mehrmals öffnen und schließen oder neue Batterien einsetzen.",
-	"ErrorCode3": "Keine Ventilbewegung möglich. Ventilstößel frei?",
-	"ErrorCode4": "Die Installation wird gerade vorbereitet",
-	"ErrorCode5": "Der Heizkörperregler ist im Installationsmodus und kann auf das Heizungsventil montiert werden",
-	"ErrorCode6": "Der Heizkörperregler passt sich nun an den Hub des Heizungsventils an"
+    "ErrorCode0": "Kein Fehler",
+    "ErrorCode1": "Keine Adaptierung möglich. Gerät korrekt am Heizkörper montiert?",
+    "ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Ventilstößel per Hand mehrmals öffnen und schließen oder neue Batterien einsetzen.",
+    "ErrorCode3": "Keine Ventilbewegung möglich. Ventilstößel frei?",
+    "ErrorCode4": "Die Installation wird gerade vorbereitet",
+    "ErrorCode5": "Der Heizkörperregler ist im Installationsmodus und kann auf das Heizungsventil montiert werden",
+    "ErrorCode6": "Der Heizkörperregler passt sich nun an den Hub des Heizungsventils an"
   },
   "Rollo": {
-	"NoEndPos": "Endlage ist nicht eingestellt",
-	"AutoMode": "Automatische Zeitschaltung",
-	"ManualMode": "Manuelle Steuerung",
-	"UnknownMode": "Unbekannt",
-	"ErrorObstacle": "Hindernisalarm",
-	"ErrorTemperature": "Temperaturalarm"
+    "NoEndPos": "Endlage ist nicht eingestellt",
+    "AutoMode": "Automatische Zeitschaltung",
+    "ManualMode": "Manuelle Steuerung",
+    "UnknownMode": "Unbekannt",
+    "ErrorObstacle": "Hindernisalarm",
+    "ErrorTemperature": "Temperaturalarm"
   },
   "Message": {
-	"InvalidLogin": "Ungültige Login-Daten",
-	"ErrorLogin": "Fehler während des Logins aufgetreten",
-	"ValidLogin": "Login erfolgreich",
-	"Timeout": "Keine Verbindung / Ungültige Adresse",
-	"NotFound": "Ungültige Adresse",
-	"InvalidSSL": "SSL Validierung fehlgeschlagen",
-	"ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )",
-	"SendDebugData": "Sie sind dabei Debug-Informationen zu senden. Diese Information enthalten eine Liste aller verbundenen DECT-Geräte",
-	"SendFailed": "Fehler beim abfragen der Informationen",
-	"SendSuccess": "Informationen wurden erfolgreich geloggt. Bitte sende eine Diagnosebericht"
+    "InvalidLogin": "Ungültige Login-Daten",
+    "ErrorLogin": "Fehler während des Logins aufgetreten",
+    "ValidLogin": "Login erfolgreich",
+    "Timeout": "Keine Verbindung / Ungültige Adresse",
+    "NotFound": "Ungültige Adresse",
+    "InvalidSSL": "SSL Validierung fehlgeschlagen",
+    "ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )",
+    "SendDebugData": "Sie sind dabei Debug-Informationen zu senden. Diese Information enthalten eine Liste aller verbundenen DECT-Geräte",
+    "SendFailed": "Fehler beim abfragen der Informationen",
+    "SendSuccess": "Informationen wurden erfolgreich geloggt. Bitte sende eine Diagnosebericht",
+    "AccessForbidden": "Zugriff verweigert",
+    "Unknown": "Unbekannter Fehler"
   },
   "Settings": {
-	"Title": "Einstellungen",
-	"Status": "Login status",
-	"Fritzbox": {
-	  "Title": "Fritzbox Konfiguration",
-	  "Ip": "Fritzbox Adresse",
-	  "Username": "Benutzername",
-	  "Password": "Password",
-	  "StrictSSL": "SSL Validierung"
-	},
-	"Bridge": {
-	  "Title": "Bridge Konfiguration",
-	  "PollingActive": "Datenabfrage Aktiv",
-	  "PollingInterval": "Datenabfrage Intervall",
-	  "ShowUnconnected": "Zeige nicht verbundene Geräte an",
-	  "AllowMultiple": "Erlaube das gleiche Gerät mehrfach hinzufügen"
-	},
-	"Save": "Änderung Speichern",
-	"Debug": "Debug info"
+    "Title": "Einstellungen",
+    "Status": "Login status",
+    "Fritzbox": {
+      "Title": "Fritzbox Konfiguration",
+      "Ip": "Fritzbox Adresse",
+      "Username": "Benutzername",
+      "Password": "Password",
+      "StrictSSL": "SSL Validierung"
+    },
+    "Bridge": {
+      "Title": "Bridge Konfiguration",
+      "PollingActive": "Datenabfrage Aktiv",
+      "PollingInterval": "Datenabfrage Intervall",
+      "ShowUnconnected": "Zeige nicht verbundene Geräte an",
+      "AllowMultiple": "Erlaube das gleiche Gerät mehrfach hinzufügen"
+    },
+    "Infos": {
+      "Title": "Informationen",
+      "Permission": "Es wird ein separater Benutzer Account benötigt (System->FRITZ!Box-Benutzer). Für die Anmeldung braucht dieser die \"Smart Home\" Berechtigung. Für Datenabfragen ist zusätzlich die \"FRITZ!Box-Einstellungen\" erforderlich"
+    },
+    "Save": "Änderung Speichern",
+    "Debug": "Debug info"
   }
 }

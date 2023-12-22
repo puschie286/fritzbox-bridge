@@ -106,5 +106,8 @@
   },
   "0.9.21": {
     "en": "Improve network related error logging"
+  },
+  "0.9.22": {
+    "en": "Normalise error messages and add permission info to setting page"
   }
 }

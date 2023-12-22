@@ -21,14 +21,15 @@ class Driver extends BaseDriver
 					data: {
 						id: 'fritzbox',
 						time: undefined
-					}, store: {}, settings: {}
+					},
+					store: {},
+					settings: {}
 				}
 			];
 		}
 		catch( error: any )
 		{
-			this.homey.error( HandleHttpError( error ) );
-			throw Error( this.homey.__( 'Message.SendFailed' ) );
+			throw Error( this.homey.__( HandleHttpError( error ) || 'Message.SendFailed' ) );
 		}
 	}
 }

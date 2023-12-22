@@ -1,6 +1,6 @@
 import { App } from 'homey';
 import { Settings, SettingsDefault } from './lib/Settings';
-import { Validate, ValidateUrl } from './lib/Helper';
+import { HandleHttpError, ValidateUrl } from './lib/Helper';
 import { LoginValidation } from './types/LoginValidation';
 import { FritzboxManager } from './lib/FritzboxManager';
 
@@ -79,21 +79,6 @@ class FritzboxBridge extends App
 		this.homey.settings.set( Settings.VALIDATION, state );
 	}
 
-	private isErrorCode( error: any ): boolean
-	{
-		return Validate( error ) && Validate( error.error ) && Validate( error.error.code );
-	}
-
-	private isErrorResponse( error: any ): boolean
-	{
-		return Validate( error ) && Validate( error.response ) && Validate( error.response.statusCode );
-	}
-
-	private isErrorMessage( error: any ): boolean
-	{
-		return Validate( error ) && Validate( error.error ) && Validate( error.error.data ) && Validate( error.error.data.code );
-	}
-
 	private isPollingEnabled(): boolean
 	{
 		return ( this.homey.settings.get( Settings.POLL_ACTIVE ) || SettingsDefault.POLL_ACTIVE ) == true;
@@ -151,66 +136,13 @@ class FritzboxBridge extends App
 		} catch( error: any )
 		{
 			console.debug( `login failed` );
-			const Info: string = this.ParseError( error );
+			const Info: string = HandleHttpError( error ) || 'Message.ErrorLogin';
 			this.homey.error( Info );
 			this.homey.settings.set( Settings.VALIDATION_INFO, Info );
 			this.setValidation( LoginValidation.Invalid );
 		}
 
 		this.validation = undefined;
-	}
-
-	private ParseError( error: any ): string
-	{
-		if( this.isErrorCode( error ) )
-		{
-			return this.CheckErrorCode( error.error.code );
-		}
-		else if( this.isErrorMessage( error ) )
-		{
-			return this.CheckErrorCode( error.error.data.code );
-		}
-		else if( this.isErrorResponse( error ) )
-		{
-			return this.CheckErrorResponse( error.response );
-		}
-		else if( error === '0000000000000000' )
-		{
-			return this.homey.__( 'Message.InvalidLogin' );
-		}
-
-		console.debug( 'unknown error: ' + JSON.stringify( error ) );
-		return this.homey.__( 'Message.ErrorLogin' );
-	}
-
-	private CheckErrorCode( errorCode: string ): string
-	{
-		if( errorCode === 'ETIMEDOUT' )
-		{
-			return this.homey.__( 'Message.Timeout' );
-		}
-		else if( errorCode === 'ENOTFOUND' )
-		{
-			return this.homey.__( 'Message.NotFound' );
-		}
-		else if( errorCode === 'DEPTH_ZERO_SELF_SIGNED_CERT' )
-		{
-			return this.homey.__( 'Message.InvalidSSL' );
-		}
-
-		console.debug( 'unknown error code: ' + errorCode );
-		return this.homey.__( 'Message.ErrorLogin' );
-	}
-
-	private CheckErrorResponse( errorResponse: any ): string
-	{
-		if( errorResponse.statusCode === 503 )
-		{
-			return this.homey.__( 'Message.ServerCrashed' );
-		}
-
-		console.debug( 'unknown error response: ' + JSON.stringify( errorResponse ) );
-		return this.homey.__( 'Message.ErrorLogin' );
 	}
 }
 

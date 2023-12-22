@@ -52,25 +52,110 @@ export function Closest( value: number, values: Array<number> ): number
 	} );
 }
 
-export function HandleHttpError( error: any ): 'timeout' | 'unknown' | any
+export function HandleHttpError( error: any ): string | undefined
 {
 	if( Validate( error ) )
 	{
-		if( Validate( error.error ) && Validate( error.error.code ) )
+		if( Validate( error.error ) )
 		{
-			const code = error.error.code;
-			if( code === 'ENOTFOUND' || code === 'ETIMEDOUT' )
+			if( Validate( error.error.code ) )
 			{
-				return 'timeout';
+				return CheckErrorCodes( error.error.code );
 			}
+			
+			if( Validate( error.error.data ) )
+			{
+				if( Validate( error.error.data.code ) )
+				{
+					return CheckErrorCodes( error.error.data)
+				}
+				
+				console.error( 'unknown data' );
+				console.error( error.error.data );
+				return undefined;
+			}
+			
+			console.error( 'unknown error' );
+			console.error( error.error );
+			return undefined;
 		}
 		
-		if( Validate( error.request ) && Validate( error.request.response ) )
+		if( Validate( error.response ) )
 		{
-			return error.request.response;
+			if( Validate( error.response.statusCode ) )
+			{
+				return CheckResponseCode( error.response.statusCode );
+			}
+			
+			console.error( 'unknown response' );
+			console.error( error.response );
+			return undefined;
 		}
+		
+		if( Validate( error.request ) )
+		{
+			if( Validate( error.request.response ) )
+			{
+				if( Validate( error.request.response.statusCode ) )
+				{
+					return CheckResponseCode( error.request.response.statusCode );
+				}
+				
+				console.error( 'unknown request response' );
+				console.error( error.request.response );
+				return undefined;
+			}
+			
+			console.error( 'unknown request' );
+			console.error( error.request );
+			return undefined;
+		}
+		
+		if( error === '0000000000000000' )
+		{
+			return 'Message.InvalidLogin';
+		}
+		
+		console.error( 'unknown error' );
+		console.error( error );
+		return undefined;
 	}
 	
-	console.error( error );
-	return 'unknown';
+	console.error( 'unknown' );
+	return undefined;
+}
+
+function CheckResponseCode( code: any ): string | undefined
+{
+	if( code == 503 )
+	{
+		return 'Message.ServerCrashed';
+	}
+	
+	if( code == 403 )
+	{
+		return 'Message.AccessForbidden';
+	}
+	
+	console.error( 'unknown response code: ' + code );
+	return undefined;
+}
+
+function CheckErrorCodes( code: any ): string | undefined
+{
+	if( code === 'ENOTFOUND' )
+	{
+		return 'Message.NotFound';
+	}
+	if( code === 'ETIMEDOUT' )
+	{
+		return 'Message.Timeout';
+	}
+	if( code === 'DEPTH_ZERO_SELF_SIGNED_CERT' )
+	{
+		return 'Message.InvalidSSL';
+	}
+
+	console.error( 'unknown error code: ' + code );
+	return undefined;
 }
