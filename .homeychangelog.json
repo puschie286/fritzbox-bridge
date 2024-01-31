@@ -109,5 +109,8 @@
   },
   "0.9.22": {
     "en": "Normalise error messages and add permission info to setting page"
+  },
+  "0.9.23": {
+    "en": "Improve request stability and reduce network load"
   }
 }

@@ -7,6 +7,9 @@ supported devices:
 * DECT 500
 * DECT 400/440
 
+require a user account with "FRITZ!Box-Settings" permissions (or at least "Smart Home" ).
+More information under https://en.avm.de/service/knowledge-base/dok/FRITZ-Box-7369-int/1522_Accessing-FRITZ-Box-from-the-home-network-with-user-accounts/
+
 supported sensors & values:
 https://github.com/puschie286/fritzbox-bridge/wiki/Supported-devices-&-sensors
 

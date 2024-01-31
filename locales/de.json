@@ -28,6 +28,7 @@
     "SendFailed": "Fehler beim abfragen der Informationen",
     "SendSuccess": "Informationen wurden erfolgreich geloggt. Bitte sende eine Diagnosebericht",
     "AccessForbidden": "Zugriff verweigert",
+    "FixLogin": "Ungültige Login-Daten - bitte aktualisiere die hinterlegten Login-Daten in den App-Einstellungen",
     "Unknown": "Unbekannter Fehler"
   },
   "Settings": {

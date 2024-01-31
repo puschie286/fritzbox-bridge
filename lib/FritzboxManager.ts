@@ -12,10 +12,11 @@ export class FritzboxManager
 	private static instance?: FritzboxManager;
 	private apiInstance?: FritzApi;
 	private polling?: NodeJS.Timeout;
-	private statusPolling?: NodeJS.Timeout;
+	private lastPolling?: number;
 	private readonly homey: Homey;
 	private readonly tracker: FritzboxTracker;
 	private lastDeviceData?: any;
+	private readonly pollingWaitTime: number = 10 * 1000;
 
 	public constructor( homey: Homey )
 	{
@@ -90,7 +91,6 @@ export class FritzboxManager
 	public Connect( username: string, password: string, url: string, ssl: boolean )
 	{
 		this.StopPolling();
-		this.StopStatusPolling();
 
 		delete this.apiInstance;
 		this.apiInstance = new FritzApi( username, password, url, ssl );
@@ -127,36 +127,6 @@ export class FritzboxManager
 	}
 
 	/**
-	 * start status polling with interval delay ( restart polling when active on call )
-	 * min: 1000        ( 1 sec )
-	 * max: 86400000    ( 1 day )
-	 * @param interval  time delay between two polls in milliseconds ( default: 60000 )
-	 */
-	public async StartStatusPolling( interval: number )
-	{
-		if( interval < Settings.POLL_MIN * 1000 || interval > Settings.POLL_MAX * 1000 )
-		{
-			this.homey.log( 'Invalid interval - cancel status polling ( ' + interval + ' )' );
-			return;
-		}
-		if( this.apiInstance === undefined )
-		{
-			this.homey.error( 'not connected to api' );
-			return;
-		}
-		if( this.statusPolling !== undefined )
-		{
-			this.StopStatusPolling();
-		}
-
-		this.homey.log( 'start status polling with ' + ( Math.round( ( interval / 1000 ) * 100 ) / 100 ) + 's interval' );
-		this.statusPolling = this.homey.setInterval( this.StatusPoll.bind( this ), interval );
-
-		// direct update
-		await this.StatusPoll();
-	}
-
-	/**
 	 * stop active polling ( ignored when inactive on call )
 	 */
 	public StopPolling()
@@ -169,21 +139,7 @@ export class FritzboxManager
 		this.homey.log( 'stop polling' );
 		this.homey.clearInterval( this.polling );
 		this.polling = undefined;
-	}
-
-	/**
-	 * stop active status polling ( ignored when inactive on call )
-	 */
-	public StopStatusPolling()
-	{
-		if( this.statusPolling === undefined )
-		{
-			return;
-		}
-
-		this.homey.log( 'stop status polling' );
-		this.homey.clearInterval( this.statusPolling );
-		this.statusPolling = undefined;
+		this.lastPolling = undefined;
 	}
 
 	// TODO: specify deviceList type
@@ -275,21 +231,21 @@ export class FritzboxManager
 	 */
 	private async Poll(): Promise<void>
 	{
-		try
+		const currentTime = new Date().getTime();
+		if( this.lastPolling && this.lastPolling + this.pollingWaitTime > currentTime )
 		{
-			this.lastDeviceData = await this.GetApi().getDeviceList();
-			//console.debug( JSON.stringify( this.lastDeviceData ) );
-			await this.ProcessPoll( this.lastDeviceData );
-		} catch( error: any )
-		{
-			this.logPolError( error );
+			console.debug( 'skip poll' );
+			return;
 		}
-	}
-
-	private async StatusPoll()
-	{
+		
+		this.lastPolling = currentTime;
+		
 		try
 		{
+			// devices
+			this.lastDeviceData = await this.GetApi().getDeviceList();
+			await this.ProcessPoll( this.lastDeviceData );
+			// network
 			const overview = await this.GetApi().getFritzboxOverview();
 			const network = await this.GetApi().getFritzboxNetwork();
 			await this.ProcessStatusPoll( overview, network );
@@ -297,6 +253,9 @@ export class FritzboxManager
 		{
 			this.logPolError( error );
 		}
+		
+		// clear waiting on last
+		this.lastPolling = undefined;
 	}
 
 	// helper

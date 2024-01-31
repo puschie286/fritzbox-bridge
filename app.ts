@@ -29,11 +29,11 @@ class FritzboxBridge extends App
 		this.homey.log( 'stop Fritzbox Bridge' );
 
 		this.fritzbox.StopPolling();
-		this.fritzbox.StopStatusPolling();
 
-		if( this.validation !== null )
+		if( this.validation )
 		{
 			this.homey.clearInterval( this.validation );
+			this.validation = undefined;
 		}
 	}
 
@@ -60,13 +60,11 @@ class FritzboxBridge extends App
 		if( !this.isLoginValid() || !this.isPollingEnabled() )
 		{
 			this.fritzbox.StopPolling();
-			this.fritzbox.StopStatusPolling();
 			return;
 		}
 
 		const interval = this.homey.settings.get( Settings.POLL_INTERVAL );
 		await this.fritzbox.StartPolling( interval * 1000 );
-		await this.fritzbox.StartStatusPolling( interval * 1000 );
 	}
 
 	private isLoginValid(): boolean
@@ -113,7 +111,7 @@ class FritzboxBridge extends App
 	private StartLoginValidation()
 	{
 		// reset running timout
-		if( this.validation !== undefined )
+		if( this.validation )
 		{
 			this.homey.clearTimeout( this.validation );
 		}

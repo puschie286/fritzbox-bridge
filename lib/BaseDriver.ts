@@ -20,7 +20,7 @@ export abstract class BaseDriver extends Driver
 	{
 		if( !this.isLoginValid() )
 		{
-			throw new Error( 'Invalid login - cant request device list' );
+			throw new Error( this.homey.__( 'Message.FixLogin' ) );
 		}
 
 		this.homey.log( 'request device list for: ' + this.id );
