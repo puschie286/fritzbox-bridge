@@ -1,4 +1,6 @@
 import { LoadNetwork, LoadOverview } from '../lib/FritzboxApiExtend';
+import { Template } from "./Template";
+import { xml2json } from "./xmlParserHelper";
 
 const fritzapi = require( 'fritzapi/index' );
 
@@ -120,9 +122,19 @@ export class FritzApi
 	 * @param ain device id
 	 * @return applied id if success
 	 */
-	public applyTemplate( ain: string ): string
+	public applyTemplate( ain: string ): Promise<string>
 	{
 		return this.api.applyTemplate( ain );
+	}
+
+	public async getTemplates(): Promise<Template[]>
+	{
+		const parsed = xml2json( await this.api.getTemplateListInfos() );
+		
+		// @ts-ignore
+		return [].concat( ( parsed.templatelist || {} ).template || [] )
+		// @ts-ignore
+		         .filter( template => template.autocreate === '0' || ( template.autocreate === '1' && typeof template.sub_templates === 'object' ) );
 	}
 
 	/**

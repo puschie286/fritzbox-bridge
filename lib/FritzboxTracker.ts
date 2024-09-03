@@ -1,7 +1,11 @@
 import Homey from 'homey/lib/Homey';
 import { FritzboxDevice } from '../types/FritzboxDevice';
-import { FlowCardTrigger } from 'homey';
+import { FlowCard, FlowCardTrigger } from 'homey';
 import { FunctionFactory } from './FunctionFactory';
+import { FritzboxManager } from "./FritzboxManager";
+import { Template } from "../types/Template";
+import { Settings } from "./Settings";
+import { LoginValidation } from "../types/LoginValidation";
 
 export class FritzboxTracker
 {
@@ -15,6 +19,9 @@ export class FritzboxTracker
 	private wlanDisconnectTrigger: FlowCardTrigger;
 
 	private readonly homey: Homey;
+	
+	private template: Template[] = [];
+	private templateLoad: number = 0;
 
 	public constructor( homey: Homey )
 	{
@@ -31,9 +38,66 @@ export class FritzboxTracker
 		this.homey.flow.getConditionCard( 'network_device_is_connected_by_ip' ).registerRunListener( this.OnConditionConnectedByIp.bind( this ) );
 		this.homey.flow.getConditionCard( 'network_device_is_connected_by_mac' ).registerRunListener( this.OnConditionConnectedByMac.bind( this ) );
 		this.homey.flow.getConditionCard( 'network_device_is_connected_by_name' ).registerRunListener( this.OnConditionConnectedByName.bind( this ) );
+		
+		// global actions
+		const templateTrigger = this.homey.flow.getActionCard( 'trigger_template' );
+		templateTrigger.registerRunListener( this.OnTemplateTrigger.bind( this ) );
+		templateTrigger.registerArgumentAutocompleteListener( 'template', this.OnTemplateTriggerAutocompletion.bind( this ) );
 
 		// temperature
 		FunctionFactory.RegisterCards( homey );
+	}
+	
+	private async OnTemplateTrigger( args: any )
+	{
+		const target = args.template.id;
+		if( target == undefined )
+		{
+			return;
+		}
+		
+		try
+		{
+			await FritzboxManager.GetSingleton().GetApi().applyTemplate( target );
+		}
+		catch( e )
+		{
+			throw new Error( this.homey.__( 'Message.TemplateExecuteFailed') );
+		}
+	}
+	
+	private async OnTemplateTriggerAutocompletion( query: any,  args: any ): Promise<FlowCard.ArgumentAutocompleteResults>
+	{
+		// check if login is valid
+		if( this.homey.settings.get( Settings.VALIDATION ) !== LoginValidation.Valid )
+		{
+			throw new Error( this.homey.__( 'Message.LoginRequired' ) );
+		}
+		
+		// check for expired template data
+		const time = Date.now();
+		if( time - this.templateLoad > 10_000 )
+		{
+			this.templateLoad = time;
+			
+			// empty -> wait for data
+			if( this.template.length === 0 )
+			{
+				this.template = await FritzboxManager.GetSingleton().GetApi().getTemplates();
+			}
+			// dont wait -> directly show results (ensure responsive)
+			else
+			{
+				FritzboxManager.GetSingleton().GetApi().getTemplates().then( templates => this.template = templates );
+			}
+		}
+		
+		return this.template
+		.filter( template => template.name.toLowerCase().includes( query.toLowerCase() ) )
+		.map( template => ({
+			name: template.name,
+			id: template.identifier
+		} ) );
 	}
 
 	private async OnConditionConnectedByIp( args: any )

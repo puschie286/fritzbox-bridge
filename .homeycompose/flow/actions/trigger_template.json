@@ -1,0 +1,19 @@
+{
+  "id": "trigger_template",
+  "title": {
+    "en": "Trigger template",
+    "de": "Vorlage auslösen"
+  },
+  "titleFormatted": {
+    "de": "Löse Vorlage [[template]] an",
+    "en": "Trigger template [[template]]"
+  },
+  "args": [ {
+    "name": "template",
+    "type": "autocomplete",
+    "title": {
+      "en": "Template",
+      "de": "Vorlage"
+    }
+  } ]
+}

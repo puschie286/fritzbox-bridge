@@ -29,7 +29,9 @@
     "SendSuccess": "Information was successfully logged. Please submit a diagnostic report",
     "AccessForbidden": "Access denied",
     "FixLogin": "Invalid login credentials - please update the stored login credentials in the app settings",
-    "Unknown": "Unknown error"
+    "Unknown": "Unknown error",
+    "TemplateExecuteFailed": "Failed to trigger template",
+    "LoginRequired": "Valid Login required"
   },
   "Settings": {
     "Title": "Settings",

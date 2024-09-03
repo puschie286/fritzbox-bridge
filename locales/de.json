@@ -29,7 +29,9 @@
     "SendSuccess": "Informationen wurden erfolgreich geloggt. Bitte sende eine Diagnosebericht",
     "AccessForbidden": "Zugriff verweigert",
     "FixLogin": "Ungültige Login-Daten - bitte aktualisiere die hinterlegten Login-Daten in den App-Einstellungen",
-    "Unknown": "Unbekannter Fehler"
+    "Unknown": "Unbekannter Fehler",
+    "TemplateExecuteFailed": "Vorlage konnte nicht ausgelöst werden",
+    "LoginRequired": "Gültiger Login wird benötigt"
   },
   "Settings": {
     "Title": "Einstellungen",
