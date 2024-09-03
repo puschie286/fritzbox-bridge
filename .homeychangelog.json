@@ -112,5 +112,8 @@
   },
   "0.9.23": {
     "en": "Improve request stability and reduce network load"
+  },
+  "0.10.0": {
+    "en": "Add template trigger action card\nIncrease fritzbox response wait time to 40sec"
   }
 }
