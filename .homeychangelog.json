@@ -115,5 +115,8 @@
   },
   "0.10.0": {
     "en": "Add template trigger action card\nIncrease fritzbox response wait time to 40sec"
+  },
+  "0.10.1": {
+    "en": "Fix spelling error"
   }
 }
