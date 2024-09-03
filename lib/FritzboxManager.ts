@@ -16,7 +16,7 @@ export class FritzboxManager
 	private readonly homey: Homey;
 	private readonly tracker: FritzboxTracker;
 	private lastDeviceData?: any;
-	private readonly pollingWaitTime: number = 10 * 1000;
+	private readonly pollingWaitTime: number = 40 * 1000; // set to >30 to ensure we dont spam fritzbox (might have negative effects on older versions) 
 
 	public constructor( homey: Homey )
 	{
