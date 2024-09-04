@@ -118,5 +118,8 @@
   },
   "0.10.1": {
     "en": "Fix spelling error"
+  },
+  "0.10.2": {
+    "en": "Fix broken network related card"
   }
 }

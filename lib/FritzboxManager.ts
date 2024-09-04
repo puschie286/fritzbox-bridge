@@ -215,10 +215,7 @@ export class FritzboxManager
 
 	private async ProcessStatusPoll( overview: object, network: any[] ): Promise<void>
 	{
-		if( network.length > 0 )
-		{
-			await this.tracker.UpdateDevices( network );
-		}
+		await this.tracker.UpdateDevices( network );
 
 		const devices = this.homey.drivers.getDriver( 'fritzbox' ).getDevices();
 		for( const device of devices )
