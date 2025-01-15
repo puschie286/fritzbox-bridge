@@ -121,5 +121,8 @@
   },
   "0.10.2": {
     "en": "Fix broken network related card"
+  },
+  "0.10.3": {
+    "en": "Remove not usable buttons (fritzbox v8+)\nFix login/device list parsing error (fritzbox v8+)"
   }
 }
