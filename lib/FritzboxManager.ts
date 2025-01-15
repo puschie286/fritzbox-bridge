@@ -54,7 +54,6 @@ export class FritzboxManager
 		return this.apiInstance;
 	}
 
-
 	/*public async LogMessageOnline( message: string ): Promise<boolean>
 	{
 		const maxLength = 8000;

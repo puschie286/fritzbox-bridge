@@ -1,8 +1,37 @@
 import { LoadNetwork, LoadOverview } from '../lib/FritzboxApiExtend';
 import { Template } from "./Template";
 import { xml2json } from "./xmlParserHelper";
+import { GetDeviceListInfo } from "./FritzboxApiTypes";
 
 const fritzapi = require( 'fritzapi/index' );
+
+// override broken methods
+fritzapi.getDeviceList = function( sid: any, options: any )
+{
+	return fritzapi.getDeviceListInfos( sid, options ).then( function( devicelistinfo: string )
+	{
+		// convert to object
+		const parsedDeviceListInfo: GetDeviceListInfo = xml2json( devicelistinfo );
+
+		// get device or devices
+		const deviceData = parsedDeviceListInfo?.devicelist?.device;
+		if( deviceData == undefined )
+		{
+			return [];
+		}
+
+		// get device array
+		let devices = Array.isArray( deviceData ) ? deviceData : [ deviceData ];
+
+		// filter invalid entries
+		devices = devices.filter( x => x.identifier != undefined );
+		
+		// clean identifier
+		devices.map( x => x.identifier = x.identifier?.replaceAll( ' ', '' ) );
+
+		return devices;
+	} );
+}
 
 export enum FritzApiBitmask
 {
@@ -131,7 +160,7 @@ export class FritzApi
 	public async getTemplates(): Promise<Template[]>
 	{
 		const parsed = xml2json( await this.api.getTemplateListInfos() );
-		
+
 		// @ts-ignore
 		return [].concat( ( parsed.templatelist || {} ).template || [] )
 		// @ts-ignore
