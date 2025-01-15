@@ -74,7 +74,8 @@ export class FunctionFactory
 		}
 		if( MaskCheck( functionMask, FritzApiBitmask.Button ) )
 		{
-			functions.push( new Button( device ) );
+			const noButtonsFlag = MaskCheck( functionMask, FritzApiBitmask.NoButtons );
+			functions.push( new Button( device, noButtonsFlag ) );
 		}
 		if( MaskCheck( functionMask, FritzApiBitmask.SwitchControl ) && !MaskCheck( functionMask, FritzApiBitmask.Outlet ) )
 		{

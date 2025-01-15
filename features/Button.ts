@@ -4,14 +4,24 @@ import { ButtonInfo } from '../types/ButtonInfo';
 import { CapabilityType } from '../types/CapabilityType';
 import { FlowCard, FlowCardTriggerDevice } from 'homey';
 import Homey from 'homey/lib/Homey';
+import { BaseDevice } from "../lib/BaseDevice";
 
 export class Button extends BaseFeature
 {
+	private readonly useButtons: boolean = false;
 	private lastButtonTimes: Array<number> = [];
 	private singleMode: boolean = false;
 
 	private static multiTrigger: FlowCardTriggerDevice;
 	private static singleTrigger: FlowCardTriggerDevice;
+	
+	public constructor( device: BaseDevice, noButtonFlag: boolean )
+	{
+		super( device );
+		
+		// can only use buttons if no button flag is NOT set
+		this.useButtons = !noButtonFlag;
+	}
 
 	public static RegisterCards( homey: Homey )
 	{
@@ -70,6 +80,11 @@ export class Button extends BaseFeature
 
 	protected Capabilities(): Array<Capability>
 	{
+		if( !this.useButtons )
+		{
+			return [];
+		}
+		
 		const buttonSetup: Array<ButtonInfo>|null = this.device.getStoreValue( 'buttonConfig' );
 		this.singleMode = buttonSetup === null;
 

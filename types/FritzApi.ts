@@ -22,7 +22,8 @@ export enum FritzApiBitmask
 	LevelControl = 1 << 16,
 	ColorControl = 1 << 17,
 	BlindControl = 1 << 18,
-	HumiditySensor = 1 << 20
+	HumiditySensor = 1 << 20,
+	NoButtons = 1 << 21
 }
 
 export enum HanFunTypes
