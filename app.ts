@@ -91,8 +91,11 @@ class FritzboxBridge extends App
 		const password = this.homey.settings.get( Settings.PASSWORD ) ?? SettingsDefault.PASSWORD;
 		const strictSSL = this.homey.settings.get( Settings.STRICT_SSL ) ?? SettingsDefault.STRICT_SSL;
 
+		// ensure it's not empty
+		const preparedUrl = url.trim() != '' ? url : SettingsDefault.FRITZBOX_URL;
+
 		// convert provided url / ip to valid url
-		const validUrl = ValidateUrl( url );
+		const validUrl = ValidateUrl( preparedUrl );
 
 		// use browser login to get sid
 		this.fritzbox.Connect( username, password, validUrl, strictSSL );

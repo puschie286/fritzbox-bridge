@@ -25,7 +25,7 @@ fritzapi.getDeviceList = function( sid: any, options: any )
 
 		// filter invalid entries
 		devices = devices.filter( x => x.identifier != undefined );
-		
+
 		// clean identifier
 		devices.map( x => x.identifier = x.identifier?.replaceAll( ' ', '' ) );
 
@@ -107,7 +107,9 @@ export class FritzApi
 		this.api = new fritzapi.Fritz( username, password, url );
 
 		this.api.options = {
-			url: url, strictSSL: ssl
+			url: url,
+			strictSSL: ssl,
+			timeout: 15000
 		};
 	}
 

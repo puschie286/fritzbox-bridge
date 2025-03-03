@@ -77,8 +77,7 @@ export class FritzboxManager
 	{
 		return this.lastDeviceData;
 	}
-
-	// TODO: validate url, add http/https to address
+	
 	/**
 	 * create new api instance ( set new login credential & options )
 	 *

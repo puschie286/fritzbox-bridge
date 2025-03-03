@@ -3,7 +3,7 @@ import { FritzboxPages } from '../types/FritzboxPages';
 const extend = require( 'extend' );
 const request = require( 'request' );
 
-const defaults = { url: 'https://fritz.box' };
+const defaults = { url: 'https://fritz.box', timeout: 15000 };
 
 function httpRequest( path: string, req: any, options: any )
 {

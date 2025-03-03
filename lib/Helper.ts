@@ -46,7 +46,7 @@ export function MaskCheck( value: number, mask: number ): boolean
 
 export function Closest( value: number, values: Array<number> ): number
 {
-	return values.reduce( function( prev, cur)
+	return values.reduce( function( prev, cur )
 	{
 		return ( Math.abs( cur - value ) < Math.abs( prev - value ) ? cur : prev );
 	} );
@@ -54,94 +54,67 @@ export function Closest( value: number, values: Array<number> ): number
 
 export function HandleHttpError( error: any ): string | undefined
 {
-	if( Validate( error ) )
+	if( !Validate( error ) )
 	{
-		if( Validate( error.error ) )
-		{
-			if( Validate( error.error.code ) )
-			{
-				return CheckErrorCodes( error.error.code );
-			}
-			
-			if( Validate( error.error.data ) )
-			{
-				if( Validate( error.error.data.code ) )
-				{
-					return CheckErrorCodes( error.error.data)
-				}
-				
-				console.error( 'unknown data' );
-				console.error( error.error.data );
-				return undefined;
-			}
-			
-			console.error( 'unknown error' );
-			console.error( error.error );
-			return undefined;
-		}
-		
-		if( Validate( error.response ) )
-		{
-			if( Validate( error.response.statusCode ) )
-			{
-				return CheckResponseCode( error.response.statusCode );
-			}
-			
-			console.error( 'unknown response' );
-			console.error( error.response );
-			return undefined;
-		}
-		
-		if( Validate( error.request ) )
-		{
-			if( Validate( error.request.response ) )
-			{
-				if( Validate( error.request.response.statusCode ) )
-				{
-					return CheckResponseCode( error.request.response.statusCode );
-				}
-				
-				console.error( 'unknown request response' );
-				console.error( error.request.response );
-				return undefined;
-			}
-			
-			console.error( 'unknown request' );
-			console.error( error.request );
-			return undefined;
-		}
-		
-		if( error === '0000000000000000' )
-		{
-			return 'Message.InvalidLogin';
-		}
-		
-		console.error( 'unknown error' );
-		console.error( error );
+		console.error( 'unknown (undefined)' );
 		return undefined;
 	}
-	
-	console.error( 'unknown' );
+
+	if( Validate( error.error ) )
+	{
+		if( Validate( error.error.code ) )
+		{
+			return CheckCode( error.error, error.error.code, 'error.code' );
+		}
+
+		if( Validate( error.error.data ) && Validate( error.error.data.code ))
+		{
+			return CheckCode( error.error, error.error.data.code, 'error.data.code' );
+		}
+
+		// fallback error
+		return CheckCode( error.error, undefined, 'error' );
+	}
+
+	if( Validate( error.response ) )
+	{
+		if( Validate( error.response.statusCode ) )
+		{
+			return CheckCode( error.response, error.response.statusCode, 'response.statusCode' );
+		}
+
+		// fallback response
+		return CheckCode( error.response, undefined, 'response' );
+	}
+
+	if( Validate( error.request ) )
+	{
+		if( Validate( error.request.response ) )
+		{
+			if( Validate( error.request.response.statusCode ) )
+			{
+				return CheckCode( error.request.response, error.request.response.statusCode, '(request).response.statusCode' );
+			}
+			
+			// fallback request response
+			return CheckCode( error.request.response, undefined, '(request).response' );
+		}
+
+		// fallback request
+		return CheckCode( error.request, undefined, 'request' );
+	}
+
+	if( error === '0000000000000000' )
+	{
+		return 'Message.InvalidLogin';
+	}
+
+	console.error( 'unknown error' );
+	console.error( error );
 	return undefined;
 }
 
-function CheckResponseCode( code: any ): string | undefined
-{
-	if( code == 503 )
-	{
-		return 'Message.ServerCrashed';
-	}
-	
-	if( code == 403 )
-	{
-		return 'Message.AccessForbidden';
-	}
-	
-	console.error( 'unknown response code: ' + code );
-	return undefined;
-}
-
-function CheckErrorCodes( code: any ): string | undefined
+function CheckCode( source: any, code: any, path: string ): string | undefined
 {
 	if( code === 'ENOTFOUND' )
 	{
@@ -155,7 +128,16 @@ function CheckErrorCodes( code: any ): string | undefined
 	{
 		return 'Message.InvalidSSL';
 	}
-
-	console.error( 'unknown error code: ' + code );
+	if( code == 503 )
+	{
+		return 'Message.ServerCrashed';
+	}
+	if( code == 403 )
+	{
+		return 'Message.AccessForbidden';
+	}
+	
+	console.error( 'unknown ' + path + ', ' + code );
+	console.error( 'unknown ' + path + ' source: ' + JSON.stringify( source ) );
 	return undefined;
 }
