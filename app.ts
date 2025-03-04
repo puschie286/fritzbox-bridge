@@ -48,8 +48,9 @@ class FritzboxBridge extends App
 				this.initializeFritzbox();
 				break;
 
-			case Settings.POLL_ACTIVE:
 			case Settings.POLL_INTERVAL:
+			case Settings.REQUEST_NETWORK:
+			case Settings.REQUEST_SMART_HOME:
 				await this.updatePolling();
 				break;
 		}
@@ -57,14 +58,17 @@ class FritzboxBridge extends App
 
 	private async updatePolling()
 	{
-		if( !this.isLoginValid() || !this.isPollingEnabled() )
+		const pollSmartHome = this.isPollingSmartHomeEnabled();
+		const pollNetwork = this.isPollingNetworkEnabled();
+
+		if( !this.isLoginValid() || ( !pollSmartHome && !pollNetwork ) )
 		{
 			this.fritzbox.StopPolling();
 			return;
 		}
 
-		const interval = this.homey.settings.get( Settings.POLL_INTERVAL );
-		await this.fritzbox.StartPolling( interval * 1000 );
+		const interval = this.homey.settings.get( Settings.POLL_INTERVAL ) || SettingsDefault.POLL_INTERVAL;
+		await this.fritzbox.StartPolling( interval * 1000, pollSmartHome, pollNetwork );
 	}
 
 	private isLoginValid(): boolean
@@ -77,9 +81,17 @@ class FritzboxBridge extends App
 		this.homey.settings.set( Settings.VALIDATION, state );
 	}
 
-	private isPollingEnabled(): boolean
+	private isPollingSmartHomeEnabled(): boolean
 	{
-		return ( this.homey.settings.get( Settings.POLL_ACTIVE ) || SettingsDefault.POLL_ACTIVE ) == true;
+		const configuration = ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) || SettingsDefault.REQUEST_SMART_HOME ) == true;
+		const hardware = this.homey.settings.get( Settings.DECT_ENABLED );
+		
+		return configuration && hardware;
+	}
+
+	private isPollingNetworkEnabled(): boolean
+	{
+		return ( this.homey.settings.get( Settings.REQUEST_NETWORK ) || SettingsDefault.REQUEST_NETWORK ) == true;
 	}
 
 	private initializeFritzbox( delay: number | null = null )
@@ -129,12 +141,18 @@ class FritzboxBridge extends App
 
 		try
 		{
-			await this.fritzbox.GetApi().getDeviceList();
+			// use network request for validation to ensure its work on non DECT devices
+			const result = await this.fritzbox.GetApi().getFritzboxOverview();
+			// check if dect is supported & enabled (required for smart home functionality)
+			this.homey.settings.set( Settings.DECT_SUPPORT, this.DectSupported( result ) );
+			this.homey.settings.set( Settings.DECT_ENABLED , this.DectEnabled( result ) );
+			// update validation
 			this.setValidation( LoginValidation.Valid );
 			console.debug( 'validate login: success' );
-
+			// force first polling
 			await this.updatePolling();
-		} catch( error: any )
+		}
+		catch( error: any )
 		{
 			console.debug( `login failed` );
 			const Info: string = HandleHttpError( error ) || 'Message.ErrorLogin';
@@ -144,6 +162,22 @@ class FritzboxBridge extends App
 		}
 
 		this.validation = undefined;
+	}
+	
+	private DectEnabled( result: any ): boolean
+	{
+		if( result.data && result.data.dect && result.data.dect.led )
+		{
+			// check for led text to ensure to work on different languages
+			return result.data.dect.led == 'led green';
+		}
+
+		return false;
+	}
+
+	private DectSupported( result: any ): boolean
+	{
+		return result.data && result.data.dect != undefined;
 	}
 }
 

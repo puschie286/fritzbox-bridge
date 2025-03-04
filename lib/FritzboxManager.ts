@@ -99,8 +99,10 @@ export class FritzboxManager
 	 * min: 1000        ( 1 sec )
 	 * max: 86400000    ( 1 day )
 	 * @param interval  time delay between two polls in milliseconds ( default: 60000 )
+	 * @param pollSmartHome request smart home data
+	 * @param pollNetwork request network data
 	 */
-	public async StartPolling( interval: number )
+	public async StartPolling( interval: number, pollSmartHome: boolean, pollNetwork: boolean )
 	{
 		if( interval < Settings.POLL_MIN * 1000 || interval > Settings.POLL_MAX * 1000 )
 		{
@@ -118,10 +120,11 @@ export class FritzboxManager
 		}
 
 		this.homey.log( 'start polling with ' + ( Math.round( ( interval / 1000 ) * 100 ) / 100 ) + 's interval' );
-		this.polling = this.homey.setInterval( this.Poll.bind( this ), interval );
+		this.homey.log( 'polling config, smart home: ' + pollSmartHome + ', network: ' + pollNetwork );
+		this.polling = this.homey.setInterval( this.Poll.bind( this ), interval, pollSmartHome, pollNetwork );
 
 		// direct update
-		await this.Poll();
+		await this.Poll( pollSmartHome, pollNetwork );
 	}
 
 	/**
@@ -227,7 +230,7 @@ export class FritzboxManager
 	/**
 	 * poll data from fritzbox
 	 */
-	private async Poll(): Promise<void>
+	private async Poll( pollSmartHome: boolean, pollNetwork: boolean): Promise<void>
 	{
 		const currentTime = new Date().getTime();
 		if( this.lastPolling && this.lastPolling + this.pollingWaitTime > currentTime )
@@ -240,13 +243,17 @@ export class FritzboxManager
 		
 		try
 		{
-			// devices
-			this.lastDeviceData = await this.GetApi().getDeviceList();
-			await this.ProcessPoll( this.lastDeviceData );
-			// network
-			const overview = await this.GetApi().getFritzboxOverview();
-			const network = await this.GetApi().getFritzboxNetwork();
-			await this.ProcessStatusPoll( overview, network );
+			if( pollSmartHome )
+			{
+				this.lastDeviceData = await this.GetApi().getDeviceList();
+				await this.ProcessPoll( this.lastDeviceData );
+			}
+			if( pollNetwork )
+			{
+				const overview = await this.GetApi().getFritzboxOverview();
+				const network = await this.GetApi().getFritzboxNetwork();
+				await this.ProcessStatusPoll( overview, network );
+			}
 		} catch( error: any )
 		{
 			this.logPolError( error );

@@ -142,11 +142,6 @@ class SettingHelper
 		this.#debugButton.disabled = false;
 	}
 
-	#SetInfo( info )
-	{
-		this.#loginInfo.innerText = info;
-	}
-
 	#SetLocalizedInfo( key )
 	{
 		this.#loginInfo.innerText = this.#homey.__( key );
@@ -229,23 +224,19 @@ class SettingHelper
 			if( Value === 1 )
 			{
 				this.#SetLocalizedInfo( 'Message.ValidLogin' );
+				return;
 			}
-			else
+
+			this.#homey.get( 'validationInfo', function( err, value )
 			{
-				this.#homey.get( 'validationInfo', function( err, value )
+				console.log( 'validation info: ' + value );
+				if( err )
 				{
-					console.log( 'validation info: ' + value );
-					if( err )
-					{
-						console.log( 'error: ' + err );
-						this.#SetLocalizedInfo( 'Message.InvalidLogin' );
-					}
-					else
-					{
-						this.#SetInfo( value );
-					}
-				}.bind( this ) );
-			}
+					console.error( 'error: ' + err );
+				}
+
+				this.#SetLocalizedInfo( value );
+			}.bind( this ) );
 		}.bind( this ) );
 	}
 

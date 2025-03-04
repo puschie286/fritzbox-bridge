@@ -136,6 +136,10 @@ function CheckCode( source: any, code: any, path: string ): string | undefined
 	{
 		return 'Message.AccessForbidden';
 	}
+	if( code == 404 )
+	{
+		return 'Message.NotFound';
+	}
 	
 	console.error( 'unknown ' + path + ', ' + code );
 	console.error( 'unknown ' + path + ' source: ' + JSON.stringify( source ) );

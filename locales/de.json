@@ -21,7 +21,7 @@
     "ErrorLogin": "Fehler während des Logins aufgetreten",
     "ValidLogin": "Login erfolgreich",
     "Timeout": "Keine Verbindung / Ungültige Adresse",
-    "NotFound": "Ungültige Adresse",
+    "NotFound": "DECT deaktiviert / nicht unterstützt",
     "InvalidSSL": "SSL Validierung fehlgeschlagen",
     "ServerCrashed": "Interner Fritzbox-Fehler - Bitte Fritzbox neustarten ( Update auf 7.20 nötig )",
     "SendDebugData": "Sie sind dabei Debug-Informationen zu senden. Diese Information enthalten eine Liste aller verbundenen DECT-Geräte",
@@ -31,7 +31,9 @@
     "FixLogin": "Ungültige Login-Daten - bitte aktualisiere die hinterlegten Login-Daten in den App-Einstellungen",
     "Unknown": "Unbekannter Fehler",
     "TemplateExecuteFailed": "Vorlage konnte nicht ausgelöst werden",
-    "LoginRequired": "Gültiger Login wird benötigt"
+    "LoginRequired": "Gültiger Login wird benötigt",
+    "DECTNotSupported": "DECT wird nicht unterstützt (SmartHome Funktionalität sind nicht verfügbar)",
+    "DECTDisabled": "DECT ist deaktiviert - bitte aktiviere DECT um SmartHome Funktionalitäten zu nutzten (Neustart der FritzboxBridge erforderlich)"
   },
   "Settings": {
     "Title": "Einstellungen",
@@ -45,7 +47,8 @@
     },
     "Bridge": {
       "Title": "Bridge Konfiguration",
-      "PollingActive": "Datenabfrage Aktiv",
+      "RequestSmartHome": "Smart Home Datenabgleich",
+      "RequestNetwork": "Netzwerk Geräte Datenabgleich",
       "PollingInterval": "Datenabfrage Intervall",
       "ShowUnconnected": "Zeige nicht verbundene Geräte an",
       "AllowMultiple": "Erlaube das gleiche Gerät mehrfach hinzufügen"

@@ -2,12 +2,28 @@ import { BaseDriver } from '../../lib/BaseDriver';
 import { MaskCheck } from '../../lib/Helper';
 import { FritzApiBitmask, HanFunTypes } from '../../types/FritzApi';
 import { ButtonInfo } from '../../types/ButtonInfo';
+import { Settings } from "../../lib/Settings";
 
 class Driver extends BaseDriver
 {
 	GetBaseFunction(): number
 	{
 		return 0;
+	}
+
+	public async onPairListDevices(): Promise<Array<any>>
+	{
+		if( !this.isDectSupported() )
+		{
+			throw new Error( this.homey.__( 'Message.DECTNotSupported' ) );
+		}
+
+		if( !this.isDectEnabled() )
+		{
+			throw new Error( this.homey.__( 'Message.DECTDisabled' ) );
+		}
+		
+		return super.onPairListDevices();
 	}
 
 	protected async LateSetup( deviceSetup: ParingDevice, device: any ): Promise<void>
@@ -65,6 +81,16 @@ class Driver extends BaseDriver
 		}
 
 		( deviceSetup.store as any ).buttonConfig = buttonInfo;
+	}
+
+	protected isDectEnabled(): boolean
+	{
+		return this.homey.settings.get( Settings.DECT_ENABLED ) === true;
+	}
+
+	protected isDectSupported(): boolean
+	{
+		return this.homey.settings.get( Settings.DECT_SUPPORT ) === true;
 	}
 }
 

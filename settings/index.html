@@ -30,8 +30,12 @@
 	<fieldset class="homey-form-fieldset">
 		<legend class="homey-form-legend" data-i18n="Settings.Bridge.Title"></legend>
 		<div class="homey-form-group">
-			<label class="homey-form-label" for="pollingactive" data-i18n="Settings.Bridge.PollingActive"></label>
-			<input class="homey-form-input" id="pollingactive" type="checkbox" checked="">
+			<label class="homey-form-label" for="request_smarthome" data-i18n="Settings.Bridge.RequestSmartHome"></label>
+			<input class="homey-form-input" id="request_smarthome" type="checkbox" checked="">
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="request_network" data-i18n="Settings.Bridge.RequestNetwork"></label>
+			<input class="homey-form-input" id="request_network" type="checkbox" checked="">
 		</div>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="pollinginterval" data-i18n="Settings.Bridge.PollingInterval"></label>
@@ -71,7 +75,8 @@
                 { id: 'fritzboxip', default: 'fritz.box' },
                 { id: 'strictssl', type: 'checkbox', default: false },
                 { id: 'pollinginterval', default: 60 },
-                { id: 'pollingactive', type: 'checkbox', default: true },
+				{ id: 'request_smarthome', type: 'checkbox', default: true },
+				{ id: 'request_network', type: 'checkbox', default: true },
                 { id: 'showunconnected', type: 'checkbox', default: false },
 				{ id: 'allowmultiple', type: 'checkbox', default: false }
             ] );

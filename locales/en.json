@@ -21,7 +21,7 @@
     "ErrorLogin": "Error occurred while login",
     "ValidLogin": "Login successful",
     "Timeout": "No connection / Invalid address",
-    "NotFound": "Invalid address",
+    "NotFound": "DECT disabled / not supported",
     "InvalidSSL": "SSL validation failed",
     "ServerCrashed": "Internal fritzbox error - please restart your fritzbox ( update to 7.20 required )",
     "SendDebugData": "You are about to send debug information. This information contains a list of all connected DECT devices",
@@ -31,7 +31,9 @@
     "FixLogin": "Invalid login credentials - please update the stored login credentials in the app settings",
     "Unknown": "Unknown error",
     "TemplateExecuteFailed": "Failed to trigger template",
-    "LoginRequired": "Valid Login required"
+    "LoginRequired": "Valid Login required",
+    "DECTNotSupported": "DECT is not supported (Smart home functionality not available)",
+    "DECTDisabled": "DECT is disabled - please enable DECT to use smart home functionality (fritzbox bridge restart required)"
   },
   "Settings": {
     "Title": "Settings",
@@ -45,7 +47,8 @@
     },
     "Bridge": {
       "Title": "Bridge configuration",
-      "PollingActive": "Data query active",
+      "RequestSmartHome": "Query smart home data",
+      "RequestNetwork": "Query network device data",
       "PollingInterval": "Data query interval",
       "ShowUnconnected": "Show unconnected devices",
       "AllowMultiple": "Allow to add same device multiple times"
