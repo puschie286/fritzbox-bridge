@@ -127,5 +127,8 @@
   },
   "0.10.4": {
     "en": "Improve error handling"
+  },
+  "0.10.5": {
+    "en": "Support fritzbox router without DECT"
   }
 }
