@@ -1,0 +1,20 @@
+{
+  "identifier": "0",
+  "id": "35",
+  "functionbitmask": "3146016",
+  "fwversion": "05.38",
+  "manufacturer": "AVM",
+  "productname": "FRITZ!Smart Control 440",
+  "present": "1",
+  "txbusy": "0",
+  "name": "Esszimmer Raumthermostat",
+  "battery": "30",
+  "batterylow": "0",
+  "temperature": {
+    "celsius": "235",
+    "offset": "0"
+  },
+  "humidity": {
+    "rel_humidity": "54"
+  }
+}

@@ -92,18 +92,11 @@ export abstract class BaseDevice extends Device
 
 	protected async Initialize( dataFunctions?: number )
 	{
-		if( this.initialized )
-		{
-			return;
-		}
-
-		let functions = await this.GetFunctionValue( dataFunctions );
+		const functions = await this.GetChangedFunction( dataFunctions );
 		if( functions === -1 )
 		{
 			return;
 		}
-
-		this.initialized = true;
 
 		this.log( 'init with ' + functions );
 
@@ -122,6 +115,27 @@ export abstract class BaseDevice extends Device
 		{
 			await this.InitUpdate();
 		}
+	}
+
+	private async GetChangedFunction( dataFunctions?: number ): Promise<number>
+	{
+		const currentFunction = await this.GetFunctionValue();
+
+		// initial call
+		if( dataFunctions === undefined )
+		{
+			return currentFunction;
+		}
+
+		const updatedFunction = await this.GetFunctionValue( dataFunctions );
+
+		// check for change
+		if( currentFunction === updatedFunction )
+		{
+			return -1;
+		}
+
+		return updatedFunction;
 	}
 
 	protected async UpdateCapabilities()
