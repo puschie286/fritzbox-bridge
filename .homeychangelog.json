@@ -130,5 +130,8 @@
   },
   "0.10.5": {
     "en": "Support fritzbox router without DECT"
+  },
+  "0.10.6": {
+    "en": "* Auto detection of functional changes and update capabilities"
   }
 }
