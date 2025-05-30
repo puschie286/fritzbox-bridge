@@ -137,7 +137,7 @@ export abstract class BaseDevice extends Device
 				if( capability.hidden === true ) continue;
 
 				// new ?
-				if( current.indexOf( capability.name ) < 0 )
+				if( current.indexOf( capability.name ) === -1 )
 				{
 					added.push( capability );
 				}
@@ -181,9 +181,9 @@ export abstract class BaseDevice extends Device
 						await callback( value, opts );
 					} catch( any: any )
 					{
-						this.homey.error( 'listener exception: ' + JSON.stringify( any.error ) );
-						this.homey.error( 'request info: ' + any.response.statusMessage + ', ' + any.response.statusCode );
-						this.homey.error( 'request url: ' + any.options.url );
+						this.homey.error( `listener exception: ${JSON.stringify( any.error )}` );
+						this.homey.error( `request info: ${any.response.statusMessage}, ${any.response.statusCode}` );
+						this.homey.error( `request url: ${any.options.url}` );
 						throw 'request failed';
 					}
 				} );

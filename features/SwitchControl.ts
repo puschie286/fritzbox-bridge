@@ -12,7 +12,7 @@ export class SwitchControl extends BaseFeature
 		} ];
 	}
 
-	Listeners(): Array<CapabilityListener>
+	public override Listeners(): Array<CapabilityListener>
 	{
 		return [ { name: 'onoff', callback: this.onOnOff } ]
 	}

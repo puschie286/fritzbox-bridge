@@ -15,7 +15,7 @@ export class LevelControl extends BaseFeature
 		} ];
 	}
 
-	Listeners(): Array<CapabilityListener>
+	public override Listeners(): Array<CapabilityListener>
 	{
 		return [ {
 			name: 'measure_level', callback: this.setLevel

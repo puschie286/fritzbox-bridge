@@ -93,7 +93,7 @@ export class ColorControl extends BaseFeature
 		} ];
 	}
 
-	Listeners(): Array<CapabilityListener>
+	public override Listeners(): Array<CapabilityListener>
 	{
 		return [ {
 			name: 'light_hue', callback: this.setHue

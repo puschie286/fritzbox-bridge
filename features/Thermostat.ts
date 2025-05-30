@@ -120,7 +120,7 @@ export class Thermostat extends BaseFeature
 		} ];
 	}
 
-	Listeners(): Array<CapabilityListener>
+	public override Listeners(): Array<CapabilityListener>
 	{
 		return [ {
 			name: 'target_temperature', callback: this.onTargetTemperature,

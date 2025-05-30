@@ -44,7 +44,7 @@ export class Blind extends BaseFeature
 		} ];
 	}
 
-	Listeners(): Array<CapabilityListener>
+	public override Listeners(): Array<CapabilityListener>
 	{
 		return [ {
 			name: 'button.open', callback: this.open
