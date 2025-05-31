@@ -133,5 +133,8 @@
   },
   "0.10.6": {
     "en": "* Auto detection of functional changes and update capabilities accordingly"
+  },
+  "0.10.7": {
+    "en": "* Support battery information for dect440"
   }
 }
