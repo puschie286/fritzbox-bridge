@@ -136,5 +136,8 @@
   },
   "0.10.7": {
     "en": "* Support battery information for dect440"
+  },
+  "0.10.8": {
+    "en": "* Only update energy config when changed"
   }
 }
