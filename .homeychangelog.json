@@ -1,42 +1,42 @@
 {
   "0.1.0": {
-    "en": "* first (basic) Version\n* basic driver: thermostat, switch, energymeter, temperature sensor, alarm sensor"
+    "en": "* First (basic) Version\n* Basic driver: thermostat, switch, energymeter, temperature sensor, alarm sensor"
   },
   "0.1.1": {
-    "en": "* fix polling settings"
+    "en": "* Fix polling settings"
   },
   "0.2.0": {
-    "en": "* added Simple-LOG support\n* tiny changes for store release"
+    "en": "* Added Simple-LOG support\n* Tiny changes for store release"
   },
   "0.2.2": {
-    "en": "* fix polling block after failing\n* add username option to fritzbox login"
+    "en": "* Fix polling block after failing\n* Add username option to fritzbox login"
   },
   "0.3.0": {
-    "en": "* add fritzbox driver\n* add status polling ( for fritzbox driver )\n* extend property filtering ( reduce memory usage by device )\n* fix energymeter units"
+    "en": "* Add fritzbox driver\n* Add status polling ( for fritzbox driver )\n* Extend property filtering ( reduce memory usage by device )\n* Fix energymeter units"
   },
   "0.3.5": {
-    "en": "* switch logging lib\n* add options ( allow to pair disconnected devices, log level )\n* add plug driver ( energymeter + switch )"
+    "en": "* Switch logging lib\n* Add options ( allow to pair disconnected devices, log level )\n* Add plug driver ( energymeter + switch )"
   },
   "0.5.0": {
-    "en": "* optimize update process\n* optimize device/driver structure\n* implemented backward-compatibility system\n* ready for beta"
+    "en": "* Optimize update process\n* Optimize device/driver structure\n* Implemented backward-compatibility system\n* Ready for beta"
   },
   "0.5.1": {
-    "en": "* add 'current' capability for energymeter"
+    "en": "* Add 'current' capability for energymeter"
   },
   "0.5.2": {
-    "en": "* add better error handling (login)"
+    "en": "* Add better error handling (login)"
   },
   "0.5.3": {
-    "en": "* improve login feedback & logging\n* add battery info to thermostats"
+    "en": "* Improve login feedback & logging\n* Add battery info to thermostats"
   },
   "0.5.4": {
-    "en": "* update for new app-store"
+    "en": "* Update for new app-store"
   },
   "0.5.5": {
-    "en": "* fix log level was not set correctly\n* added wlan device presence detection"
+    "en": "* Fix log level was not set correctly\n* Added wlan device presence detection"
   },
   "0.5.6": {
-    "en": "* improve error handling ( catch most errors )\n* added descriptions to a few errors"
+    "en": "* Improve error handling ( catch most errors )\n* Added descriptions to a few errors"
   },
   "0.5.8": {
     "en": "* Workaround for Homey 7.1.3 device storage problem"
@@ -48,90 +48,90 @@
     "en": "* Restore old triggers for compatibility reasons\n* Added debug-button to send information that will help fixing problems and implement new devices\n*Added api method to forward data to other apps\n*Improve settings stability furthermore"
   },
   "0.9.2": {
-    "en": "Added blind device support"
+    "en": "* Added blind device support"
   },
   "0.9.3": {
-    "en": "Fixed value parsing problem (introduced in v0.9.2)"
+    "en": "* Fixed value parsing problem (introduced in v0.9.2)"
   },
   "0.9.4": {
-    "en": "Auto detection of supported functionality\nImprove blind support"
+    "en": "* Auto detection of supported functionality\n* Improve blind support"
   },
   "0.9.5": {
-    "en": "Fix upgrade problem"
+    "en": "* Fix upgrade problem"
   },
   "0.9.6": {
-    "en": "Data update right after paring\nFix switch mode parsing\nImprove cleanup"
+    "en": "* Data update right after paring\n* Fix switch mode parsing\n* Improve cleanup"
   },
   "0.9.7": {
-    "en": "Plug-Option to ignore power in total\nFix current parsing"
+    "en": "* Plug-Option to ignore power in total\n* Fix current parsing"
   },
   "0.9.8": {
-    "en": "Add Universal device driver\nAdd option to add same device multiple times\nAdd support for DECT 500"
+    "en": "* Add Universal device driver\n* Add option to add same device multiple times\n* Add support for DECT 500"
   },
   "0.9.9": {
-    "en": "Button support ( DECT 400 & 440 )\nNew flow cards"
+    "en": "* Button support ( DECT 400 & 440 )\n* New flow cards"
   },
   "0.9.10": {
-    "en": "Fix debug info transmittion"
+    "en": "* Fix debug info transmission"
   },
   "0.9.11": {
-    "en": "Fix fritzbox driver, blind loca and hanfun device detection"
+    "en": "* Fix fritzbox driver, blind loca and hanfun device detection"
   },
   "0.9.12": {
-    "en": "Fix button trigger assignment"
+    "en": "* Fix button trigger assignment"
   },
   "0.9.13": {
-    "en": "Invert option for level control"
+    "en": "* Invert option for level control"
   },
   "0.9.14": {
-    "en": "remove homey-log and add onuninit"
+    "en": "* Remove homey-log and add onuninit"
   },
   "0.9.15": {
-    "en": "Fix setting default values\nImprove error handling"
+    "en": "* Fix setting default values\n* Improve error handling"
   },
   "0.9.16": {
-    "en": "Fix color setting for Dect 500\nAdded On/Off for Dect 500"
+    "en": "* Fix color setting for Dect 500\n* Added On/Off for Dect 500"
   },
   "0.9.17": {
-    "en": "Rewrite color management to use homey capabilities"
+    "en": "* Rewrite color management to use homey capabilities"
   },
   "0.9.18": {
-    "en": "Fix Dect 500 migration"
+    "en": "* Fix Dect 500 migration"
   },
   "0.9.19": {
-    "en": "Fixed request blocking"
+    "en": "* Fixed request blocking"
   },
   "0.9.20": {
-    "en": "Fix alarm timestamp"
+    "en": "* Fix alarm timestamp"
   },
   "0.9.21": {
-    "en": "Improve network related error logging"
+    "en": "* Improve network related error logging"
   },
   "0.9.22": {
-    "en": "Normalise error messages and add permission info to setting page"
+    "en": "* Normalise error messages and add permission info to setting page"
   },
   "0.9.23": {
-    "en": "Improve request stability and reduce network load"
+    "en": "* Improve request stability and reduce network load"
   },
   "0.10.0": {
-    "en": "Add template trigger action card\nIncrease fritzbox response wait time to 40sec"
+    "en": "* Add template trigger action card\n* Increase fritzbox response wait time to 40sec"
   },
   "0.10.1": {
-    "en": "Fix spelling error"
+    "en": "* Fix spelling error"
   },
   "0.10.2": {
-    "en": "Fix broken network related card"
+    "en": "* Fix broken network related card"
   },
   "0.10.3": {
-    "en": "Remove not usable buttons (fritzbox v8+)\nFix login/device list parsing error (fritzbox v8+)"
+    "en": "* Remove not usable buttons (fritzbox v8+)\n* Fix login/device list parsing error (fritzbox v8+)"
   },
   "0.10.4": {
-    "en": "Improve error handling"
+    "en": "* Improve error handling"
   },
   "0.10.5": {
-    "en": "Support fritzbox router without DECT"
+    "en": "* Support fritzbox router without DECT"
   },
   "0.10.6": {
-    "en": "* Auto detection of functional changes and update capabilities"
+    "en": "* Auto detection of functional changes and update capabilities accordingly"
   }
 }
