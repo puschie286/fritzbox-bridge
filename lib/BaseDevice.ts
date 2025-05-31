@@ -24,7 +24,6 @@ export abstract class BaseDevice extends Device
 			await this.Initialize();
 		} catch( error: any )
 		{
-			console.debug( JSON.stringify( error ) );
 			this.homey.error( error );
 		}
 	}

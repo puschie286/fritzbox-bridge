@@ -6,7 +6,7 @@ import { Settings } from "../../lib/Settings";
 
 class Driver extends BaseDriver
 {
-	GetBaseFunction(): number
+	public GetBaseFunction(): number
 	{
 		return 0;
 	}
