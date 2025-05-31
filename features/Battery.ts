@@ -8,7 +8,6 @@ export class Battery extends BaseFeature
 	{
 		await super.LateInit();
 
-		console.log( 'set battery' );
 		// set batteries (always AA)
 		await this.device.setEnergy( {
 			batteries: [ "AA", "AA" ]

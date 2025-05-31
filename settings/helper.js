@@ -44,7 +44,7 @@ class SettingHelper
 				if( err || result === 'failed' )
 				{
 					this.#ResetDebug();
-					console.debug( err );
+					console.debug( JSON.stringify( err ) );
 					this.#homey.alert( this.#homey.__( 'Message.SendFailed' ) );
 					return;
 				}
@@ -54,7 +54,7 @@ class SettingHelper
 					if( err2 || result2 === 'failed' )
 					{
 						this.#ResetDebug();
-						console.debug( err2 );
+						console.debug( JSON.stringify( err2 ) );
 						this.#homey.alert( this.#homey.__( 'Message.SendFailed' ) );
 						return;
 					}
@@ -203,7 +203,7 @@ class SettingHelper
 				// loop end
 				this.#ResetSave();
 				this.#SetLocalizedInfo( 'Message.ErrorLogin' );
-				console.log( 'error: ' + err );
+				console.log( 'error: ' + JSON.stringify( err ) );
 				return;
 			}
 
@@ -229,10 +229,10 @@ class SettingHelper
 
 			this.#homey.get( 'validationInfo', function( err, value )
 			{
-				console.log( 'validation info: ' + value );
+				console.log( 'validation info: ' + JSON.stringify( value ) );
 				if( err )
 				{
-					console.error( 'error: ' + err );
+					console.error( 'error: ' + JSON.stringify( err ) );
 				}
 
 				this.#SetLocalizedInfo( value );
