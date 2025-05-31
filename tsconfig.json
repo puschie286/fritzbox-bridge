@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowJs": true,
     "outDir": ".homeybuild/",
-    "lib": [ "dom", "es2021" ]
+    "lib": [ "dom", "es2021" ],
+    "noImplicitOverride": true
   },
 }

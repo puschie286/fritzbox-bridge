@@ -12,7 +12,7 @@ export abstract class BaseDevice extends Device
 	protected features: Array<BaseFeature> = [];
 	protected initialized: boolean = false;
 
-	async onInit()
+	public override async onInit()
 	{
 		this.log( 'load device: ' + this.getName() );
 
@@ -34,7 +34,7 @@ export abstract class BaseDevice extends Device
 		return this.api;
 	}
 
-	async onSettings( {
+	public override async onSettings( {
 		oldSettings, newSettings, changedKeys
 	}: {
 		oldSettings: { [key: string]: boolean | string | number | undefined | null };

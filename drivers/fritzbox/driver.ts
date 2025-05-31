@@ -9,7 +9,7 @@ class Driver extends BaseDriver
 		return -1;
 	}
 
-	protected async GetDeviceList(): Promise<Array<ParingDevice>>
+	protected override async GetDeviceList(): Promise<Array<ParingDevice>>
 	{
 		try
 		{

@@ -23,7 +23,7 @@ export class Button extends BaseFeature
 		this.useButtons = !noButtonFlag;
 	}
 
-	public static RegisterCards( homey: Homey )
+	public static override RegisterCards( homey: Homey )
 	{
 		this.singleTrigger = homey.flow.getDeviceTriggerCard( 'button_single_triggered' );
 		this.multiTrigger = homey.flow.getDeviceTriggerCard( 'button_triggered' );

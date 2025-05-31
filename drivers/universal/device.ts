@@ -4,7 +4,7 @@ import { FritzApiBitmask } from '../../types/FritzApi';
 
 class Device extends BaseDevice
 {
-	async onAdded()
+	public override async onAdded()
 	{
 		super.onAdded();
 
@@ -44,7 +44,7 @@ class Device extends BaseDevice
 		await this.setClass( classType );
 	}
 
-	async onSettings( {
+	public override async onSettings( {
 		oldSettings, newSettings, changedKeys
 	}: {
 		oldSettings: { [key: string]: boolean | string | number | undefined | null };

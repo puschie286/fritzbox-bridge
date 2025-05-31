@@ -9,14 +9,14 @@ export abstract class BaseDriver extends Driver
 	// @ts-ignore
 	protected fritzbox: FritzboxManager;
 
-	async onInit()
+	public override async onInit()
 	{
 		this.log( 'loaded driver' );
 
 		this.fritzbox = FritzboxManager.GetSingleton();
 	}
 
-	async onPairListDevices(): Promise<Array<any>>
+	public override async onPairListDevices(): Promise<Array<any>>
 	{
 		if( !this.isLoginValid() )
 		{

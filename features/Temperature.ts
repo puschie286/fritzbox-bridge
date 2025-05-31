@@ -35,7 +35,7 @@ export class Temperature extends BaseFeature
 		} ];
 	}
 
-	public static RegisterCards( homey: Homey )
+	public static override RegisterCards( homey: Homey )
 	{
 		homey.flow.getConditionCard( 'temperature_is' ).registerRunListener( this.OnConditionTemperatureEqual );
 	}

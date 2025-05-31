@@ -11,7 +11,7 @@ export class Availability extends BaseFeature
 		} ];
 	}
 
-	protected async OnCapabilityUpdate( capability: Capability, value: any ): Promise<void>
+	protected override async OnCapabilityUpdate( capability: Capability, value: any ): Promise<void>
 	{
 		if( this.device.getAvailable() === value ) return;
 

@@ -11,7 +11,7 @@ class Driver extends BaseDriver
 		return 0;
 	}
 
-	public async onPairListDevices(): Promise<Array<any>>
+	public override async onPairListDevices(): Promise<Array<any>>
 	{
 		if( !this.isDectSupported() )
 		{
@@ -26,7 +26,7 @@ class Driver extends BaseDriver
 		return super.onPairListDevices();
 	}
 
-	protected async LateSetup( deviceSetup: ParingDevice, device: any ): Promise<void>
+	protected override async LateSetup( deviceSetup: ParingDevice, device: any ): Promise<void>
 	{
 		// han-fun fixes
 		if( device.productname === 'HAN-FUN' )

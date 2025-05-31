@@ -10,7 +10,7 @@ class FritzboxBridge extends App
 	private fritzbox: FritzboxManager;
 	private validation?: NodeJS.Timeout;
 
-	async onInit()
+	public override async onInit()
 	{
 		this.homey.log( 'start Fritzbox Bridge' );
 		this.homey.on( 'unload', this.onUninit );
@@ -24,7 +24,7 @@ class FritzboxBridge extends App
 		this.initializeFritzbox( 5000 );
 	}
 
-	async onUninit()
+	public override async onUninit()
 	{
 		this.homey.log( 'stop Fritzbox Bridge' );
 

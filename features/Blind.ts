@@ -55,7 +55,7 @@ export class Blind extends BaseFeature
 		} ];
 	}
 
-	public static RegisterCards( homey: Homey )
+	public static override RegisterCards( homey: Homey )
 	{
 		homey.flow.getActionCard( 'blind_open' ).registerRunListener( this.OnActionOpen );
 		homey.flow.getActionCard( 'blind_close' ).registerRunListener( this.OnActionClose );

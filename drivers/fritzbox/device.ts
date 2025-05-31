@@ -3,7 +3,7 @@ import { Fritzbox } from '../../features/Fritzbox';
 
 export class Device extends BaseDevice
 {
-	protected async Initialize( dataFunctions?: number ): Promise<void>
+	protected override async Initialize( dataFunctions?: number ): Promise<void>
 	{
 		if( this.initialized )
 		{
