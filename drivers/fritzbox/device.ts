@@ -11,10 +11,11 @@ export class Device extends BaseDevice
 		}
 
 		this.features = [ new Fritzbox( this ) ];
-		await this.features[0].LateInit();
 
 		await this.UpdateCapabilities();
 		this.UpdateListeners();
+
+		await this.features[0].LateInit();
 
 		this.initialized = true;
 	}

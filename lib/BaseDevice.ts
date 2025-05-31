@@ -102,13 +102,13 @@ export abstract class BaseDevice extends Device
 
 		this.features = FunctionFactory.Create( await this.GetFunctionMask( functions ), this );
 
+		await this.UpdateCapabilities();
+		this.UpdateListeners();
+
 		for( const feature of this.features )
 		{
 			await feature.LateInit();
 		}
-
-		await this.UpdateCapabilities();
-		this.UpdateListeners();
 
 		// update with existing data when adding device ( called from onInit )
 		if( dataFunctions === undefined )

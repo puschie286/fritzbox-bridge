@@ -7,16 +7,17 @@ import Homey from 'homey/lib/Homey';
 export abstract class BaseFeature
 {
 	protected readonly device: BaseDevice;
-	private capabilities: Array<Capability> = [];
+	private readonly capabilities: Array<Capability> = [];
 
 	public constructor( device: BaseDevice )
 	{
 		this.device = device;
+		this.capabilities = this.Capabilities();
 	}
 
 	public async LateInit()
 	{
-		this.capabilities = this.Capabilities();
+
 	}
 
 	public async SettingsChanged( oldSettings: object, newSettings: object, changedKeys: string[] )
