@@ -46,22 +46,6 @@ export class Thermostat extends BaseFeature
 		return value !== 253;
 	}
 
-	async LateInit(): Promise<void>
-	{
-		await super.LateInit();
-
-		// set batteries for thermostat
-		return this.device.setEnergy( {
-			batteries: [ "AA", "AA" ]
-		} );
-	}
-
-	/*if( name === 'target_temperature' && ( value === 254 || value === 253 ) )
-{
-	//await this.updateCapability( 'onoff', value === 254 );
-	return;
-}*/
-
 	protected Capabilities(): Array<Capability>
 	{
 		return [ {
@@ -70,10 +54,6 @@ export class Thermostat extends BaseFeature
 			name: 'measure_api_locked', state: 'hkr.lock', type: CapabilityType.Boolean
 		}, {
 			name: 'measure_open_window', state: 'hkr.windowopenactiv', type: CapabilityType.Boolean
-		}, {
-			name: 'measure_battery_low', state: 'hkr.batterylow', type: CapabilityType.Boolean
-		}, {
-			name: 'measure_battery', state: 'hkr.battery', type: CapabilityType.Integer
 		}, {
 			name: 'measure_temperature',
 			state: 'hkr.tist',

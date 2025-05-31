@@ -15,6 +15,7 @@ import { Humidity } from '../features/Humidity';
 import { Button } from '../features/Button';
 import Homey from 'homey/lib/Homey';
 import { SwitchControl } from '../features/SwitchControl';
+import { Battery } from "../features/Battery";
 
 export class FunctionFactory
 {
@@ -36,6 +37,11 @@ export class FunctionFactory
 	{
 		let functions: Array<BaseFeature> = [ new Availability( device ) ];
 
+		// only dect30X (thermostat) & dect440 have batteries
+		if( MaskCheck( functionMask, FritzApiBitmask.Thermostat ) || this.IsDect440( functionMask ) )
+		{
+			functions.push( new Battery( device ) );
+		}
 		if( MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) )
 		{
 			functions.push( new Temperature( device ) );
@@ -83,5 +89,12 @@ export class FunctionFactory
 		}
 
 		return functions;
+	}
+
+	private static IsDect440( functionMask: number ): boolean
+	{
+		return MaskCheck( functionMask, FritzApiBitmask.Button ) &&
+			MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) &&
+			MaskCheck( functionMask, FritzApiBitmask.HumiditySensor );
 	}
 }
