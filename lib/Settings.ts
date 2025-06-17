@@ -9,6 +9,7 @@ export class Settings
 	public static readonly REQUEST_NETWORK: string = 'request_network';
 	public static readonly SHOW_UNCONNECTED: string = 'showunconnected';
 	public static readonly ALLOW_MULTIPLE_REFERENCES: string = 'allowmultiple';
+	public static readonly SKIP_DECT_CHECK: string = 'skipdectcheck';
 
 	public static readonly DECT_SUPPORT: string = 'dect_supported';
 	public static readonly DECT_ENABLED: string = 'dect_enabled';
@@ -28,4 +29,5 @@ export class SettingsDefault
 	public static readonly POLL_INTERVAL: number = 30;
 	public static readonly REQUEST_SMART_HOME: boolean = true;
 	public static readonly REQUEST_NETWORK: boolean = true;
+	public static readonly SKIP_DECT_CHECK: boolean = false;
 }

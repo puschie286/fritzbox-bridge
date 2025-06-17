@@ -109,7 +109,8 @@ class SettingHelper
 					'allowmultiple',
 					'showunconnected',
 					'pollinginterval',
-					'pollingactive'
+					'pollingactive',
+					'skipdectcheck'
 				].includes( name ) )
 				{
 					this.#ResetSave();

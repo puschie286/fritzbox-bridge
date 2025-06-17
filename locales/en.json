@@ -51,7 +51,8 @@
       "RequestNetwork": "Query network device data",
       "PollingInterval": "Data query interval",
       "ShowUnconnected": "Show unconnected devices",
-      "AllowMultiple": "Allow to add same device multiple times"
+      "AllowMultiple": "Allow to add same device multiple times",
+      "SkipDectCheck": "Skip DECT check"
     },
     "Infos": {
       "Title": "Information",

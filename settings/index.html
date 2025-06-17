@@ -47,7 +47,11 @@
 		</div>
 		<div class="homey-form-group">
 			<label class="homey-form-label" for="allowmultiple" data-i18n="Settings.Bridge.AllowMultiple"></label>
-			<input class="homey-form-inpuit" id="allowmultiple" type="checkbox" checked="" />
+			<input class="homey-form-input" id="allowmultiple" type="checkbox" checked="" />
+		</div>
+		<div class="homey-form-group">
+			<label class="homey-form-label" for="skipdectcheck" data-i18n="Settings.Bridge.SkipDectCheck"></label>
+			<input class="homey-form-input" id="skipdectcheck" type="checkbox" checked="" />
 		</div>
 	</fieldset>
 	
@@ -78,7 +82,8 @@
 				{ id: 'request_smarthome', type: 'checkbox', default: true },
 				{ id: 'request_network', type: 'checkbox', default: true },
                 { id: 'showunconnected', type: 'checkbox', default: false },
-				{ id: 'allowmultiple', type: 'checkbox', default: false }
+				{ id: 'allowmultiple', type: 'checkbox', default: false },
+				{ id: 'skipdectcheck', type: 'checkbox', default: false },
             ] );
         }
     </script>

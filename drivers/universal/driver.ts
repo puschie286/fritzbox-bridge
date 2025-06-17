@@ -2,7 +2,7 @@ import { BaseDriver } from '../../lib/BaseDriver';
 import { MaskCheck } from '../../lib/Helper';
 import { FritzApiBitmask, HanFunTypes } from '../../types/FritzApi';
 import { ButtonInfo } from '../../types/ButtonInfo';
-import { Settings } from "../../lib/Settings";
+import { Settings, SettingsDefault } from "../../lib/Settings";
 
 class Driver extends BaseDriver
 {
@@ -13,12 +13,14 @@ class Driver extends BaseDriver
 
 	public override async onPairListDevices(): Promise<Array<any>>
 	{
-		if( !this.isDectSupported() )
+		const enableChecks = !this.skipDectCheck();
+
+		if( enableChecks && !this.isDectSupported() )
 		{
 			throw new Error( this.homey.__( 'Message.DECTNotSupported' ) );
 		}
 
-		if( !this.isDectEnabled() )
+		if( enableChecks && !this.isDectEnabled() )
 		{
 			throw new Error( this.homey.__( 'Message.DECTDisabled' ) );
 		}
@@ -81,6 +83,11 @@ class Driver extends BaseDriver
 		}
 
 		( deviceSetup.store as any ).buttonConfig = buttonInfo;
+	}
+
+	protected skipDectCheck(): boolean
+	{
+		return ( this.homey.settings.get( Settings.SKIP_DECT_CHECK ) ?? SettingsDefault.SKIP_DECT_CHECK ) === true;
 	}
 
 	protected isDectEnabled(): boolean
