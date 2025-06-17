@@ -139,5 +139,8 @@
   },
   "0.10.8": {
     "en": "* Only update energy config when changed"
+  },
+  "0.10.9": {
+    "en": "* Added option to skip DECT verification"
   }
 }
