@@ -13,14 +13,12 @@ class Driver extends BaseDriver
 
 	public override async onPairListDevices(): Promise<Array<any>>
 	{
-		const enableChecks = !this.skipDectCheck();
-
-		if( enableChecks && !this.isDectSupported() )
+		if( !this.isDectSupported() )
 		{
 			throw new Error( this.homey.__( 'Message.DECTNotSupported' ) );
 		}
 
-		if( enableChecks && !this.isDectEnabled() )
+		if( !this.skipDectCheck() && !this.isDectEnabled() )
 		{
 			throw new Error( this.homey.__( 'Message.DECTDisabled' ) );
 		}
