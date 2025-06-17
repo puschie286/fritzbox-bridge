@@ -142,5 +142,8 @@
   },
   "0.10.9": {
     "en": "* Added option to skip DECT verification"
+  },
+  "0.10.10": {
+    "en": "* Support dect data updates when its disable on the fritzbox"
   }
 }
