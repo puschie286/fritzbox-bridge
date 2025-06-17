@@ -83,10 +83,12 @@ class FritzboxBridge extends App
 
 	private isPollingSmartHomeEnabled(): boolean
 	{
-		const configuration = ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) || SettingsDefault.REQUEST_SMART_HOME ) == true;
-		const hardware = this.homey.settings.get( Settings.DECT_ENABLED );
-		
-		return configuration && hardware;
+		if( this.homey.settings.get( Settings.DECT_SUPPORT ) !== true )
+		{
+			return false;
+		}
+
+		return ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) || SettingsDefault.REQUEST_SMART_HOME ) == true;
 	}
 
 	private isPollingNetworkEnabled(): boolean
