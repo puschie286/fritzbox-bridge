@@ -24,7 +24,15 @@ export class Battery extends BaseFeature
 		console.log( `change energy config: ${JSON.stringify( currentConfig )} -> ${JSON.stringify( targetConfig )}` );
 
 		// update energy config
-		await this.device.setEnergy( targetConfig );
+		try
+		{
+			await this.device.setEnergy( targetConfig );
+		}
+		catch( e )
+		{
+			console.error( 'failed to set energy config -> skip' );
+			console.error( e );
+		}
 	}
 
 	protected Capabilities(): Array<Capability>
