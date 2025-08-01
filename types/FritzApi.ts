@@ -109,7 +109,7 @@ export class FritzApi
 		this.api.options = {
 			url: url,
 			strictSSL: ssl,
-			timeout: 15000
+			timeout: 30000
 		};
 	}
 

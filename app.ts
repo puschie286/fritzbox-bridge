@@ -49,8 +49,6 @@ class FritzboxBridge extends App
 				break;
 
 			case Settings.POLL_INTERVAL:
-			case Settings.REQUEST_NETWORK:
-			case Settings.REQUEST_SMART_HOME:
 				await this.updatePolling();
 				break;
 		}
@@ -58,17 +56,14 @@ class FritzboxBridge extends App
 
 	private async updatePolling()
 	{
-		const pollSmartHome = this.isPollingSmartHomeEnabled();
-		const pollNetwork = this.isPollingNetworkEnabled();
-
-		if( !this.isLoginValid() || ( !pollSmartHome && !pollNetwork ) )
+		if( !this.isLoginValid() )
 		{
 			this.fritzbox.StopPolling();
 			return;
 		}
 
 		const interval = this.homey.settings.get( Settings.POLL_INTERVAL ) || SettingsDefault.POLL_INTERVAL;
-		await this.fritzbox.StartPolling( interval * 1000, pollSmartHome, pollNetwork );
+		await this.fritzbox.StartPolling( interval * 1000 );
 	}
 
 	private isLoginValid(): boolean
@@ -79,21 +74,6 @@ class FritzboxBridge extends App
 	private setValidation( state: LoginValidation )
 	{
 		this.homey.settings.set( Settings.VALIDATION, state );
-	}
-
-	private isPollingSmartHomeEnabled(): boolean
-	{
-		if( this.homey.settings.get( Settings.DECT_SUPPORT ) !== true )
-		{
-			return false;
-		}
-
-		return ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) || SettingsDefault.REQUEST_SMART_HOME ) == true;
-	}
-
-	private isPollingNetworkEnabled(): boolean
-	{
-		return ( this.homey.settings.get( Settings.REQUEST_NETWORK ) || SettingsDefault.REQUEST_NETWORK ) == true;
 	}
 
 	private initializeFritzbox( delay: number | null = null )
@@ -151,6 +131,8 @@ class FritzboxBridge extends App
 			// update validation
 			this.setValidation( LoginValidation.Valid );
 			console.debug( 'validate login: success' );
+			// directly update
+			await this.fritzbox.updateFritzboxData( result );
 			// force first polling
 			await this.updatePolling();
 		}

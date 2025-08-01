@@ -3,7 +3,7 @@ import { FritzboxPages } from '../types/FritzboxPages';
 const extend = require( 'extend' );
 const request = require( 'request' );
 
-const defaults = { url: 'https://fritz.box', timeout: 15000 };
+const defaults = { url: 'https://fritz.box', timeout: 30000 };
 
 function httpRequest( path: string, req: any, options: any )
 {
@@ -35,6 +35,8 @@ function httpRequest( path: string, req: any, options: any )
 
 async function LoadData( sid: any, options: any, page?: string, xhrId?: string )
 {
+	console.debug( 'sid: ' + sid );
+
 	const req = {
 		method: 'POST', form: {
 			sid: sid,

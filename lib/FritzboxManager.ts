@@ -1,6 +1,6 @@
 import { FritzApi } from '../types/FritzApi';
 import { HandleHttpError, MaskCheck } from './Helper';
-import { Settings } from './Settings';
+import { Settings, SettingsDefault } from './Settings';
 import { BaseDriver } from './BaseDriver';
 import { BaseDevice } from './BaseDevice';
 import Homey from 'homey/lib/Homey';
@@ -13,10 +13,12 @@ export class FritzboxManager
 	private apiInstance?: FritzApi;
 	private polling?: NodeJS.Timeout;
 	private lastPolling?: number;
+	private lastLongPolling?: number;
 	private readonly homey: Homey;
 	private readonly tracker: FritzboxTracker;
 	private lastDeviceData?: any;
-	private readonly pollingWaitTime: number = 40 * 1000; // set to >30 to ensure we dont spam fritzbox (might have negative effects on older versions) 
+	private readonly pollingWaitTime: number = 45 * 1000; // set to >30 to ensure we don't spam fritzbox (might have negative effects on older versions)
+	private readonly longPollingWaitTime: number = 10 * 60 * 1000; // long polls are fixed to update every 10 min
 
 	public constructor( homey: Homey )
 	{
@@ -99,10 +101,8 @@ export class FritzboxManager
 	 * min: 1000        ( 1 sec )
 	 * max: 86400000    ( 1 day )
 	 * @param interval  time delay between two polls in milliseconds ( default: 60000 )
-	 * @param pollSmartHome request smart home data
-	 * @param pollNetwork request network data
 	 */
-	public async StartPolling( interval: number, pollSmartHome: boolean, pollNetwork: boolean )
+	public async StartPolling( interval: number )
 	{
 		if( interval < Settings.POLL_MIN * 1000 || interval > Settings.POLL_MAX * 1000 )
 		{
@@ -120,11 +120,11 @@ export class FritzboxManager
 		}
 
 		this.homey.log( 'start polling with ' + ( Math.round( ( interval / 1000 ) * 100 ) / 100 ) + 's interval' );
-		this.homey.log( 'polling config, smart home: ' + pollSmartHome + ', network: ' + pollNetwork );
-		this.polling = this.homey.setInterval( this.Poll.bind( this ), interval, pollSmartHome, pollNetwork );
+		this.homey.log( 'polling config, smart home: ' + this.isPollingSmartHomeEnabled() + ', network: ' + this.isPollingNetworkEnabled() );
+		this.polling = this.homey.setInterval( this.Poll.bind( this ), interval );
 
 		// direct update
-		await this.Poll( pollSmartHome, pollNetwork );
+		await this.Poll();
 	}
 
 	/**
@@ -184,6 +184,21 @@ export class FritzboxManager
 		return null;
 	}
 
+	private isPollingSmartHomeEnabled(): boolean
+	{
+		if( this.homey.settings.get( Settings.DECT_SUPPORT ) !== true )
+		{
+			return false;
+		}
+
+		return ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) || SettingsDefault.REQUEST_SMART_HOME ) == true;
+	}
+
+	private isPollingNetworkEnabled(): boolean
+	{
+		return ( this.homey.settings.get( Settings.REQUEST_NETWORK ) || SettingsDefault.REQUEST_NETWORK ) == true;
+	}
+
 	private async ProcessPoll( data: any[] )
 	{
 		const drivers = Object.entries( this.homey.drivers.getDrivers() );
@@ -214,23 +229,64 @@ export class FritzboxManager
 		}
 	}
 
-	private async ProcessStatusPoll( overview: object, network: any[] ): Promise<void>
+	private async ExecuteSmartHomePoll()
 	{
-		await this.tracker.UpdateDevices( network );
+		if( !this.isPollingSmartHomeEnabled() )
+		{
+			return;
+		}
 
-		const devices = this.homey.drivers.getDriver( 'fritzbox' ).getDevices();
-		for( const device of devices )
+		this.lastDeviceData = await this.GetApi().getDeviceList();
+		await this.ProcessPoll( this.lastDeviceData );
+	}
+
+	private async ExecuteNetworkPoll()
+	{
+		if( !this.isPollingNetworkEnabled() )
+		{
+			return;
+		}
+
+		const network = await this.GetApi().getFritzboxNetwork();
+		await this.tracker.UpdateDevices( network );
+	}
+
+	private async ExecuteStatusPoll()
+	{
+		const fritzbox = this.homey.drivers.getDriver( 'fritzbox' ).getDevices();
+		if( fritzbox.length > 0 )
+		{
+			return;
+		}
+
+		const currentTime = new Date().getTime();
+		if( this.lastLongPolling && this.lastLongPolling + this.longPollingWaitTime > currentTime )
+		{
+			return;
+		}
+
+		// update devices
+		const overview = await this.GetApi().getFritzboxOverview();
+		await this.updateFritzboxData( overview, );
+	}
+
+	public async updateFritzboxData( overview: object )
+	{
+		this.lastLongPolling = new Date().getTime();
+		for( const device of this.homey.drivers.getDriver( 'fritzbox' ).getDevices() )
 		{
 			const fritzboxDevice = device as Device;
 
 			await fritzboxDevice.Update( overview );
 		}
+
+		console.log( 'fritzbox data updated' );
 	}
 
 	/**
 	 * poll data from fritzbox
 	 */
-	private async Poll( pollSmartHome: boolean, pollNetwork: boolean): Promise<void>
+	private async Poll(): Promise<void>
 	{
 		const currentTime = new Date().getTime();
 		if( this.lastPolling && this.lastPolling + this.pollingWaitTime > currentTime )
@@ -243,17 +299,9 @@ export class FritzboxManager
 		
 		try
 		{
-			if( pollSmartHome )
-			{
-				this.lastDeviceData = await this.GetApi().getDeviceList();
-				await this.ProcessPoll( this.lastDeviceData );
-			}
-			if( pollNetwork )
-			{
-				const overview = await this.GetApi().getFritzboxOverview();
-				const network = await this.GetApi().getFritzboxNetwork();
-				await this.ProcessStatusPoll( overview, network );
-			}
+			await this.ExecuteSmartHomePoll();
+			await this.ExecuteNetworkPoll();
+			await this.ExecuteStatusPoll();
 		} catch( error: any )
 		{
 			this.logPolError( error );
