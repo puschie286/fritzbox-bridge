@@ -33,21 +33,32 @@ function httpRequest( path: string, req: any, options: any )
 	} );
 }
 
-async function LoadData( sid: any, options: any, page: string, xhrId: string )
+async function LoadData( sid: any, options: any, page?: string, xhrId?: string )
 {
 	const req = {
 		method: 'POST', form: {
-			sid: sid, useajax: '1', xhrId: xhrId, xhr: '1', page: page
+			sid: sid,
+			xhrId: xhrId,
+			xhr: 1,
+			page: page
 		}
 	};
 
 	const body: any = await httpRequest( '/data.lua', req, options );
-	return JSON.parse( body );
+	try
+	{
+		return JSON.parse( body );
+	}
+	catch( e )
+	{
+		console.error( 'failed to parse json: ' + body );
+		return [];
+	}
 }
 
 export async function LoadOverview( sid: any, options: any )
 {
-	return LoadData( sid, options, FritzboxPages.Overview, 'all' );
+	return LoadData( sid, options );
 }
 
 export async function LoadNetwork( sid: any, options: any )

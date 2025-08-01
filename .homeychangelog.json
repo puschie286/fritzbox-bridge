@@ -145,5 +145,11 @@
   },
   "0.10.10": {
     "en": "* Support dect data updates when its disable on the fritzbox"
+  },
+  "0.10.11": {
+    "en": "* Revert dependency updates"
+  },
+  "0.10.12": {
+    "en": "* Fixes for fritzbox 8.1+"
   }
 }
