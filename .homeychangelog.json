@@ -151,5 +151,8 @@
   },
   "0.10.12": {
     "en": "* Fixes for fritzbox 8.1+"
+  },
+  "0.11.0": {
+    "en": "* Fix error messages when not authenticated\n* Improve data requests by updating os version only every 10min"
   }
 }
