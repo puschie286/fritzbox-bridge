@@ -11,7 +11,7 @@ function universalDriver( fixture )
 	const Driver = loadTypescript( 'drivers/universal/driver.ts', {
 		homey: { Driver: class {} },
 		[ path.resolve( root, 'lib/FritzboxManager.ts' ) ]: { FritzboxManager: {} },
-		[ path.resolve( root, 'types/FritzApi.ts' ) ]: { FritzApiBitmask: {}, HanFunTypes: {} }
+		[ path.resolve( root, 'types/FritzboxTypes.ts' ) ]: { FritzboxBitmask: {}, HanFunTypes: {} }
 	} );
 	const driver = new Driver();
 	driver.homey = fixture.homey;
@@ -28,39 +28,35 @@ function universalDriver( fixture )
 
 test( 'session-only login obtains a SID without requesting router overview', async () =>
 {
-	const fritzapi = require( 'fritzapi/index' );
-	const getSessionID = fritzapi.getSessionID;
-	const getDeviceList = fritzapi.getDeviceList;
+	const { EventEmitter } = require( 'node:events' );
 	const sessions = [];
-	fritzapi.getSessionID = async ( username, password, options ) =>
-	{
-		sessions.push( { username, password, options } );
-		return 'authenticated-session';
-	};
-	try
-	{
-		const { FritzApi } = loadTypescript( 'types/FritzApi.ts', {
-			[ path.resolve( root, 'types/xmlParserHelper.ts' ) ]: loadTypescript( 'types/xmlParserHelper.js' ),
-			[ path.resolve( root, 'lib/FritzboxApiExtend.ts' ) ]: {
-				LoadOverview: () => assert.fail( 'login requested router overview' ),
-				LoadNetwork: () => assert.fail( 'login requested network devices' )
+	const { FritzboxClient } = loadTypescript( 'lib/FritzboxClient.ts', {
+		'node:https': {
+			request( url, options, callback )
+			{
+				assert.equal( url.pathname, '/login_sid.lua', 'login must only request a session' );
+				sessions.push( { url: url.toString(), options } );
+				const request = new EventEmitter();
+				request.end = () => queueMicrotask( () =>
+				{
+					const response = new EventEmitter();
+					response.statusCode = 200;
+					response.headers = { 'content-type': 'text/xml' };
+					response.setEncoding = () => {};
+					callback( response );
+					response.emit( 'data', '<SessionInfo><SID>0123456789abcdef</SID></SessionInfo>' );
+					response.emit( 'end' );
+				} );
+				return request;
 			}
-		} );
-		const api = new FritzApi( 'restricted-user', 'password', 'https://fritz.box', true );
-		await api.login();
-		await api.login();
-		assert.equal( sessions.length, 1 );
-		assert.equal( sessions[0].username, 'restricted-user' );
-		assert.equal( sessions[0].password, 'password' );
-		assert.equal( sessions[0].options.url, 'https://fritz.box' );
-		assert.equal( sessions[0].options.strictSSL, true );
-		assert.equal( sessions[0].options.timeout, 30000 );
-	}
-	finally
-	{
-		fritzapi.getSessionID = getSessionID;
-		fritzapi.getDeviceList = getDeviceList;
-	}
+		}
+	} );
+	const api = new FritzboxClient( 'restricted-user', 'password', 'https://fritz.box', true );
+	await api.login();
+	await api.login();
+	assert.equal( sessions.length, 1 );
+	assert.equal( sessions[0].url, 'https://fritz.box/login_sid.lua?version=2' );
+	assert.equal( sessions[0].options.rejectUnauthorized, true );
 } );
 
 test( 'disabled network polling still attempts DECT detection without requiring overview permission', async () =>

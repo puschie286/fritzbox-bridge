@@ -1,6 +1,6 @@
 import { BaseFeature } from './BaseFeature';
 import { MaskCheck } from './Helper';
-import { FritzApiBitmask } from '../types/FritzApi';
+import { FritzboxBitmask } from '../types/FritzboxTypes';
 import { Temperature } from '../features/Temperature';
 import { BaseDevice } from './BaseDevice';
 import { Availability } from '../features/Availability';
@@ -38,52 +38,52 @@ export class FunctionFactory
 		let functions: Array<BaseFeature> = [ new Availability( device ) ];
 
 		// only dect30X (thermostat) & dect440 have batteries
-		if( MaskCheck( functionMask, FritzApiBitmask.Thermostat ) || this.IsDect440( functionMask ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.Thermostat ) || this.IsDect440( functionMask ) )
 		{
 			functions.push( new Battery( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.TemperatureSensor ) )
 		{
 			functions.push( new Temperature( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.Alarm ) && !MaskCheck( functionMask, FritzApiBitmask.BlindControl ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.Alarm ) && !MaskCheck( functionMask, FritzboxBitmask.BlindControl ) )
 		{
 			functions.push( new Alarm( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.EnergyMeter ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.EnergyMeter ) )
 		{
 			functions.push( new EnergyMeter( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.Outlet ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.Outlet ) )
 		{
 			functions.push( new Outlet( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.Thermostat ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.Thermostat ) )
 		{
 			functions.push( new Thermostat( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.BlindControl ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.BlindControl ) )
 		{
 			functions.push( new Blind( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.LevelControl ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.LevelControl ) )
 		{
 			functions.push( new LevelControl( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.ColorControl ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.ColorControl ) )
 		{
 			functions.push( new ColorControl( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.HumiditySensor ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.HumiditySensor ) )
 		{
 			functions.push( new Humidity( device ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.Button ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.Button ) )
 		{
-			const noButtonsFlag = MaskCheck( functionMask, FritzApiBitmask.NoButtons );
+			const noButtonsFlag = MaskCheck( functionMask, FritzboxBitmask.NoButtons );
 			functions.push( new Button( device, noButtonsFlag ) );
 		}
-		if( MaskCheck( functionMask, FritzApiBitmask.SwitchControl ) && !MaskCheck( functionMask, FritzApiBitmask.Outlet ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.SwitchControl ) && !MaskCheck( functionMask, FritzboxBitmask.Outlet ) )
 		{
 			functions.push( new SwitchControl( device ) );
 		}
@@ -93,8 +93,8 @@ export class FunctionFactory
 
 	private static IsDect440( functionMask: number ): boolean
 	{
-		return MaskCheck( functionMask, FritzApiBitmask.Button ) &&
-			MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) &&
-			MaskCheck( functionMask, FritzApiBitmask.HumiditySensor );
+		return MaskCheck( functionMask, FritzboxBitmask.Button ) &&
+			MaskCheck( functionMask, FritzboxBitmask.TemperatureSensor ) &&
+			MaskCheck( functionMask, FritzboxBitmask.HumiditySensor );
 	}
 }

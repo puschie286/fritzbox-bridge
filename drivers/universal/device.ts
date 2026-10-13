@@ -1,6 +1,6 @@
 import { BaseDevice } from '../../lib/BaseDevice';
 import { MaskCheck } from '../../lib/Helper';
-import { FritzApiBitmask } from '../../types/FritzApi';
+import { FritzboxBitmask } from '../../types/FritzboxTypes';
 
 class Device extends BaseDevice
 {
@@ -16,23 +16,23 @@ class Device extends BaseDevice
 		// determine initial class
 		let classType = 'other';
 		const functionMask = this.getStoreValue( 'functions' ) ?? 0;
-		if( MaskCheck( functionMask, FritzApiBitmask.Thermostat ) )
+		if( MaskCheck( functionMask, FritzboxBitmask.Thermostat ) )
 		{
 			classType = 'thermostat';
 		}
-		else if( MaskCheck( functionMask, FritzApiBitmask.BlindControl ) )
+		else if( MaskCheck( functionMask, FritzboxBitmask.BlindControl ) )
 		{
 			classType = 'blinds';
 		}
-		else if( MaskCheck( functionMask, FritzApiBitmask.Outlet ) )
+		else if( MaskCheck( functionMask, FritzboxBitmask.Outlet ) )
 		{
 			classType = 'socket';
 		}
-		else if( MaskCheck( functionMask, FritzApiBitmask.Button ) )
+		else if( MaskCheck( functionMask, FritzboxBitmask.Button ) )
 		{
 			classType = 'button';
 		}
-		else if( MaskCheck( functionMask, FritzApiBitmask.EnergyMeter ) || MaskCheck( functionMask, FritzApiBitmask.TemperatureSensor ) || MaskCheck( functionMask, FritzApiBitmask.HumiditySensor ) )
+		else if( MaskCheck( functionMask, FritzboxBitmask.EnergyMeter ) || MaskCheck( functionMask, FritzboxBitmask.TemperatureSensor ) || MaskCheck( functionMask, FritzboxBitmask.HumiditySensor ) )
 		{
 			classType = 'sensor';
 		}

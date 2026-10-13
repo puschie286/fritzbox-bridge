@@ -1,6 +1,6 @@
 import { BaseDriver } from '../../lib/BaseDriver';
 import { MaskCheck } from '../../lib/Helper';
-import { FritzApiBitmask, HanFunTypes } from '../../types/FritzApi';
+import { FritzboxBitmask, HanFunTypes } from '../../types/FritzboxTypes';
 import { ButtonInfo } from '../../types/ButtonInfo';
 import { Settings, SettingsDefault } from "../../lib/Settings";
 
@@ -38,7 +38,7 @@ class Driver extends BaseDriver
 		}
 
 		// button preparations
-		if( MaskCheck( device.functionbitmask, FritzApiBitmask.Button ) )
+		if( MaskCheck( device.functionbitmask, FritzboxBitmask.Button ) )
 		{
 			this.SetupButton( deviceSetup, device );
 		}
@@ -58,7 +58,7 @@ class Driver extends BaseDriver
 		switch( unitType )
 		{
 			case HanFunTypes.SimpleButton:
-				functionBitMask |= FritzApiBitmask.Button;
+				functionBitMask |= FritzboxBitmask.Button;
 				break;
 		}
 

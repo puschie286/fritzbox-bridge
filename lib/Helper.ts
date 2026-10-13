@@ -63,10 +63,10 @@ export function LoginValidationMessage( state: unknown, info: unknown ): string
 	return typeof info === 'string' && info.startsWith( 'Message.' ) ? info : 'Message.ErrorLogin';
 }
 
-function GetHttpErrorCode( error: any ): string | number | undefined
+export function GetHttpErrorCode( error: any ): string | number | undefined
 {
 	return error?.error?.code ?? error?.error?.data?.code ?? error?.code ?? error?.cause?.code
-		?? error?.response?.statusCode ?? error?.request?.response?.statusCode;
+		?? error?.statusCode ?? error?.response?.statusCode ?? error?.request?.response?.statusCode;
 }
 
 export function IsRetryableHttpError( error: any ): boolean
@@ -81,6 +81,7 @@ export function HandleHttpError( error: any ): string | undefined
 {
 	if( error === '0000000000000000' ) return 'Message.InvalidLogin';
 	const code = String( GetHttpErrorCode( error ) );
+	if( code === 'EAUTH' ) return 'Message.InvalidLogin';
 	if( [ 'ENOTFOUND', 'EAI_AGAIN' ].includes( code ) ) return 'Message.HostNotFound';
 	if( [ 'ETIMEDOUT', 'ESOCKETTIMEDOUT', '504' ].includes( code ) ) return 'Message.Timeout';
 	if( [ 'ECONNREFUSED', 'ECONNRESET', 'EHOSTUNREACH', 'ENETUNREACH' ].includes( code ) )

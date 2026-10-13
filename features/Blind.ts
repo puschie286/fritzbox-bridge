@@ -2,7 +2,7 @@ import { BaseFeature } from '../lib/BaseFeature';
 import { Capability } from '../types/Capability';
 import { CapabilityType } from '../types/CapabilityType';
 import { CapabilityListener } from '../types/CapabilityListener';
-import { FritzApiBlind } from '../types/FritzApi';
+import { FritzboxBlind } from '../types/FritzboxTypes';
 import Homey from 'homey/lib/Homey';
 
 export class Blind extends BaseFeature
@@ -133,19 +133,19 @@ export class Blind extends BaseFeature
 	private async open()
 	{
 		this.device.log( 'send open' );
-		await this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Open );
+		await this.device.GetAPI().setBlind( this.device.getData().id, FritzboxBlind.Open );
 	}
 
 	private async close()
 	{
 		this.device.log( 'send close' );
-		await this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Close );
+		await this.device.GetAPI().setBlind( this.device.getData().id, FritzboxBlind.Close );
 	}
 
 	private async stop()
 	{
 		this.device.log( 'send stop' );
-		await this.device.GetAPI().setBlind( this.device.getData().id, FritzApiBlind.Stop );
+		await this.device.GetAPI().setBlind( this.device.getData().id, FritzboxBlind.Stop );
 	}
 
 	private static OnActionOpen( args: any, state: any )

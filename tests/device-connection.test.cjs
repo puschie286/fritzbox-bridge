@@ -19,7 +19,7 @@ async function createDevices()
 		async setSwitchOff( id ) { this.commands.push( [ 'off', id ] ); }
 	}
 	const { FritzboxManager } = loadTypescript( 'lib/FritzboxManager.ts', {
-		[ path.resolve( root, 'types/FritzApi.ts' ) ]: { FritzApi: MockApi },
+		[ path.resolve( root, 'lib/FritzboxClient.ts' ) ]: { FritzboxClient: MockApi },
 		[ path.resolve( root, 'lib/FritzboxTracker.ts' ) ]: { FritzboxTracker: class {} }
 	} );
 	const manager = new FritzboxManager( homey );
@@ -54,8 +54,48 @@ async function createDevices()
 	const devices = [ new BaseDevice( 'outlet-1' ), new BaseDevice( 'outlet-2' ) ];
 	for( const device of devices ) await device.onInit();
 	assert.deepEqual( homey.errors, [] );
-	return { manager, connect, devices };
+	return { manager, connect, devices, homey };
 }
+
+test( 'actuator failures retain their category and log only sanitized diagnostics', async () =>
+{
+	const f = await createDevices();
+	const secret = 'private-password-and-sid';
+	for( const failure of [
+		Object.assign( new Error( secret ), { code: 'EAUTH' } ),
+		Object.assign( new Error( secret ), { code: 'ECONNRESET' } ),
+		new SyntaxError( 'Malformed response: ' + secret ),
+		{ cause: { code: 'ETIMEDOUT' }, message: secret },
+		{ statusCode: 403, message: secret },
+		{ error: { code: 'ENOTFOUND', message: secret }, response: { statusCode: 503, statusMessage: secret },
+			options: { url: 'http://user:' + secret + '@fritz.box/?sid=' + secret } },
+		{ code: 'bad code: ' + secret, options: { url: secret } },
+		'0000000000000000', null, undefined
+	] )
+	{
+		f.manager.GetApi().setSwitchOn = async () => { throw failure; };
+		await assert.rejects( f.devices[0].listeners.get( 'onoff' )( true ), error => error === failure );
+	}
+	assert.ok( f.homey.errors.some( entry => entry[0] === 'listener exception: EAUTH' ) );
+	assert.ok( f.homey.errors.some( entry => entry[0] === 'listener exception: ECONNRESET' ) );
+	assert.ok( f.homey.errors.some( entry => entry[0] === 'listener exception: 403' ) );
+	assert.equal( JSON.stringify( f.homey.errors ).includes( secret ), false );
+} );
+
+test( 'typed invalid credentials retain the existing non-retryable login mapping', () =>
+{
+	const { HandleHttpError, IsRetryableHttpError } = loadTypescript( 'lib/Helper.ts' );
+	for( const failure of [ { code: 'EAUTH' }, { cause: { code: 'EAUTH' } }, '0000000000000000' ] )
+	{
+		assert.equal( HandleHttpError( failure ), 'Message.InvalidLogin' );
+		assert.equal( IsRetryableHttpError( failure ), false );
+	}
+	for( const statusCode of [ 401, 403 ] )
+	{
+		assert.equal( HandleHttpError( { statusCode } ), 'Message.AccessForbidden' );
+		assert.equal( IsRetryableHttpError( { statusCode } ), false );
+	}
+} );
 
 for( const change of [
 	{ username: 'corrected-user' }, { password: 'corrected-password' },

@@ -4,13 +4,12 @@
   "description": "Fritzbox Bridge",
   "main": "app.js",
   "dependencies": {
-    "fritzapi": "^0.13.0",
-    "extend": "^3.0.2",
-    "request": "^2.88.2"
+    "sax": "^1.6.1"
   },
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12",
     "@types/node": "^22.0.0",
+    "@types/sax": "^1.2.7",
     "eslint": "^8.57.1",
     "eslint-config-athom": "^4.0.2",
     "homey": "^4.6.0",

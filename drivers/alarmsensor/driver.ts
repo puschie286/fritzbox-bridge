@@ -1,11 +1,11 @@
-import { FritzApiBitmask } from '../../types/FritzApi';
+import { FritzboxBitmask } from '../../types/FritzboxTypes';
 import { BaseDriver } from '../../lib/BaseDriver';
 
 class Driver extends BaseDriver
 {
 	GetBaseFunction(): number
 	{
-		return FritzApiBitmask.Alarm;
+		return FritzboxBitmask.Alarm;
 	}
 }
 

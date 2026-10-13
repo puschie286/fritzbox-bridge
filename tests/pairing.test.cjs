@@ -11,7 +11,7 @@ function pairDriver( fixture, universal )
 	const replacements = {
 		homey: { Driver: class {} },
 		[ path.resolve( root, 'lib/FritzboxManager.ts' ) ]: { FritzboxManager: {} },
-		[ path.resolve( root, 'types/FritzApi.ts' ) ]: { FritzApiBitmask: {}, HanFunTypes: {} }
+		[ path.resolve( root, 'types/FritzboxTypes.ts' ) ]: { FritzboxBitmask: {}, HanFunTypes: {} }
 	};
 	const BaseDriver = loadTypescript( 'lib/BaseDriver.ts', replacements ).BaseDriver;
 	const Driver = universal ? loadTypescript( 'drivers/universal/driver.ts', replacements )

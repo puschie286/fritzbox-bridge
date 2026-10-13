@@ -26,7 +26,7 @@ function polling( settings = {}, router = false )
 		} } ),
 		getDriver: () => ( { getDevices: () => router ? [ { Update: async data => routerUpdates.push( data ) } ] : [] } )
 	};
-	class FritzApi
+	class FritzboxClient
 	{
 		constructor() { this.calls = { smart: 0, network: 0, overview: 0 }; }
 		async getDeviceList()
@@ -39,7 +39,7 @@ function polling( settings = {}, router = false )
 	}
 	class Tracker { async UpdateDevices( data ) { networkUpdates.push( data ); } }
 	const Manager = loadTypescript( 'lib/FritzboxManager.ts', {
-		[ path.resolve( root, 'types/FritzApi.ts' ) ]: { FritzApi },
+		[ path.resolve( root, 'lib/FritzboxClient.ts' ) ]: { FritzboxClient },
 		[ path.resolve( root, 'lib/FritzboxTracker.ts' ) ]: { FritzboxTracker: Tracker }
 	} ).FritzboxManager;
 	const manager = new Manager( homey );

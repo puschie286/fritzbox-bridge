@@ -5,7 +5,7 @@ import { LoginValidation } from './types/LoginValidation';
 import { LoginSettings } from './types/LoginSettings';
 import { AppSettings } from './types/AppSettings';
 import { FritzboxManager } from './lib/FritzboxManager';
-import type { FritzApi } from './types/FritzApi';
+import type { FritzboxClient } from './lib/FritzboxClient';
 
 const LoginSettingKeys = [ 'username', 'password', 'fritzboxip', 'strictssl' ] as const;
 const BridgeBooleanKeys = [ 'request_smarthome', 'request_network', 'showunconnected', 'allowmultiple', 'skipdectcheck' ] as const;
@@ -252,7 +252,7 @@ export class FritzboxBridge extends App
 
 	private async ValidateLogin( generation: number ): Promise<void>
 	{
-		let api: FritzApi;
+		let api: FritzboxClient;
 		try
 		{
 			api = this.fritzbox.GetApi();

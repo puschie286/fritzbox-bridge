@@ -1,4 +1,4 @@
-import { FritzApi } from '../types/FritzApi';
+import { FritzboxClient } from './FritzboxClient';
 import { HandleHttpError, MaskCheck } from './Helper';
 import { Settings, SettingsDefault } from './Settings';
 import { BaseDriver } from './BaseDriver';
@@ -10,7 +10,7 @@ import { FritzboxTracker } from './FritzboxTracker';
 export class FritzboxManager
 {
 	private static instance?: FritzboxManager;
-	private apiInstance?: FritzApi;
+	private apiInstance?: FritzboxClient;
 	private polling?: NodeJS.Timeout;
 	private lastPolling?: number;
 	private lastLongPolling?: number;
@@ -43,11 +43,11 @@ export class FritzboxManager
 	}
 
 	/**
-	 * get api instance (fritzapi)
+	 * get FRITZ!Box client instance
 	 *
-	 * @return fritz
+	 * @return client
 	 */
-	public GetApi(): FritzApi
+	public GetApi(): FritzboxClient
 	{
 		if( this.apiInstance === undefined )
 		{
@@ -93,7 +93,7 @@ export class FritzboxManager
 		this.StopPolling();
 
 		delete this.apiInstance;
-		this.apiInstance = new FritzApi( username, password, url, ssl );
+		this.apiInstance = new FritzboxClient( username, password, url, ssl );
 	}
 
 	/**

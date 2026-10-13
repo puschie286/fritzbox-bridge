@@ -1,9 +1,10 @@
-import { FritzApi } from '../types/FritzApi';
+import { FritzboxClient } from './FritzboxClient';
 import { FritzboxManager } from './FritzboxManager';
 import { Device } from 'homey';
 import { BaseFeature } from './BaseFeature';
 import { FunctionFactory } from './FunctionFactory';
 import { Capability } from '../types/Capability';
+import { GetHttpErrorCode } from './Helper';
 
 export abstract class BaseDevice extends Device
 {
@@ -24,7 +25,7 @@ export abstract class BaseDevice extends Device
 		}
 	}
 
-	public GetAPI(): FritzApi
+	public GetAPI(): FritzboxClient
 	{
 		return FritzboxManager.GetSingleton().GetApi();
 	}
@@ -188,12 +189,13 @@ export abstract class BaseDevice extends Device
 					{
 						const callback = listener.callback.bind( feature );
 						await callback( value, opts );
-					} catch( any: any )
+					} catch( error: any )
 					{
-						this.homey.error( `listener exception: ${JSON.stringify( any.error )}` );
-						this.homey.error( `request info: ${any.response.statusMessage}, ${any.response.statusCode}` );
-						this.homey.error( `request url: ${any.options.url}` );
-						throw 'request failed';
+						const code = String( GetHttpErrorCode( error ) );
+						// Request URLs, response bodies and error messages can contain login/session data.
+						const diagnostic = /^[A-Z0-9_]{1,64}$/.test( code ) ? ': ' + code : '';
+						this.homey.error( 'listener exception' + diagnostic );
+						throw error;
 					}
 				} );
 			}
