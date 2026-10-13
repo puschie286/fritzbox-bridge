@@ -151,18 +151,18 @@ export class Blind extends BaseFeature
 	private static OnActionOpen( args: any, state: any )
 	{
 		const feature = args.device.GetFeature( Blind.name );
-		feature.open();
+		return feature.open();
 	}
 
 	private static OnActionStop( args: any, state: any )
 	{
 		const feature = args.device.GetFeature( Blind.name );
-		feature.stop();
+		return feature.stop();
 	}
 
 	private static OnActionClose( args: any, state: any )
 	{
 		const feature = args.device.GetFeature( Blind.name );
-		feature.close();
+		return feature.close();
 	}
 }

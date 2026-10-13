@@ -88,7 +88,22 @@ export class FritzboxTracker
 			// dont wait -> directly show results (ensure responsive)
 			else
 			{
-				FritzboxManager.GetSingleton().GetApi().getTemplates().then( templates => this.template = templates );
+				FritzboxManager.GetSingleton().GetApi().getTemplates()
+				.then( templates => this.template = templates )
+				.catch( error =>
+				{
+					const cancelled = [ error, error?.error ].some( reason =>
+						[ 'AbortError', 'CancellationError', 'CanceledError' ].includes( reason?.name )
+						|| [ 'ABORT_ERR', 'ERR_CANCELED', 'ECANCELED' ].includes( reason?.code )
+					);
+					if( cancelled )
+					{
+						return;
+					}
+
+					const detail = error?.error?.message ?? error?.message ?? error?.response?.statusCode ?? 'unknown error';
+					this.homey.error( 'failed to refresh templates', detail );
+				} );
 			}
 		}
 		
