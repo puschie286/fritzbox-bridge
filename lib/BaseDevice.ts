@@ -7,8 +7,6 @@ import { Capability } from '../types/Capability';
 
 export abstract class BaseDevice extends Device
 {
-	// @ts-ignore
-	protected api: FritzApi;
 	protected features: Array<BaseFeature> = [];
 	protected initialized: boolean = false;
 
@@ -18,8 +16,6 @@ export abstract class BaseDevice extends Device
 
 		try
 		{
-			this.api = FritzboxManager.GetSingleton().GetApi();
-
 			// try to initialize
 			await this.Initialize();
 		} catch( error: any )
@@ -30,7 +26,7 @@ export abstract class BaseDevice extends Device
 
 	public GetAPI(): FritzApi
 	{
-		return this.api;
+		return FritzboxManager.GetSingleton().GetApi();
 	}
 
 	public override async onSettings( {
