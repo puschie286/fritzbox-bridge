@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "es2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -11,8 +11,15 @@
     "rootDir": ".",
     "outDir": ".homeybuild/",
     "sourceMap": true,
-    "lib": ["dom", "es2021"],
-    "noImplicitOverride": true
+    "lib": [
+      "es2024"
+    ],
+    "noImplicitOverride": true,
+    "types": [
+      "node",
+      "homey"
+    ],
+    "moduleDetection": "legacy"
   },
   "include": [
     "app.ts",
@@ -23,5 +30,8 @@
     "types/**/*.ts",
     "types/**/*.js"
   ],
-  "exclude": ["node_modules", ".homeybuild"]
+  "exclude": [
+    "node_modules",
+    ".homeybuild"
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "id": "com.puschie.fritzbox-bridge",
   "version": "0.11.2",
-  "compatibility": ">=5.0.0",
+  "compatibility": ">=12.9.0",
   "platforms": [
     "local"
   ],

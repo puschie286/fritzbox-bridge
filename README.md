@@ -77,8 +77,11 @@ by Git. `.homeyignore` excludes development examples and documentation from the
 installed app while retaining the App Store description in `README.txt`.
 
 The local development CLI's Node.js requirement is separate from Homey's runtime.
-The app retains its existing Homey `>=5.0.0` compatibility and compiles to ES2019
-CommonJS; app code must avoid runtime APIs unavailable on older Homey versions.
+The app requires Homey `>=12.9.0`, which runs apps on Node.js 22. Node.js 22
+types and standard libraries are used for type checking, with ES2022 output and
+CommonJS modules. Native APIs such as `replaceAll` are supported. The Homey CLI
+requires Node.js 24 or newer locally; `.nvmrc` and `devEngines` select that
+development environment, while `engines.node` declares the app runtime baseline.
 
 Dependency audits still report vulnerabilities in the legacy `fritzapi` /
 `request` stack and dependencies supplied by the Homey CLI. Compatible audit

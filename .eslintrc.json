@@ -21,7 +21,7 @@
     "@typescript-eslint/no-empty-object-type": [
       "error",
       {
-        "allowObjectTypes": true
+        "allowObjectTypes": "always"
       }
     ],
     "@typescript-eslint/no-unused-vars": [
@@ -81,7 +81,8 @@
           "warn",
           {
             "args": "none",
-            "vars": "local"
+            "vars": "local",
+            "varsIgnorePattern": "^ParingDevice$"
           }
         ]
       }
