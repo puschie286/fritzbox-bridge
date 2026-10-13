@@ -2,17 +2,18 @@
   "name": "com.puschie.fritzbox-bridge",
   "version": "0.11.2",
   "description": "Fritzbox Bridge",
-  "main": "app.ts",
+  "main": "app.js",
   "dependencies": {
-    "fritzapi": "^0.13.0"
+    "fritzapi": "^0.13.0",
+    "extend": "^3.0.2",
+    "request": "^2.88.2"
   },
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.11",
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12",
     "@types/node": "^24.1.0",
-    "eslint": "^10.7.0",
-    "eslint-config-athom": "^3.1.5",
-    "homey": "^4.4.0",
+    "eslint": "^8.57.1",
+    "eslint-config-athom": "^4.0.2",
+    "homey": "^4.6.0",
     "typescript": "^5.9.3"
   },
   "author": "Puschie",
@@ -20,6 +21,12 @@
     "run": "homey app run",
     "publish": "homey app publish",
     "build": "tsc",
-    "lint": "eslint --ext .js,.ts --ignore-path .gitignore"
+    "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
+    "typecheck": "tsc --noEmit",
+    "build:app": "homey app build",
+    "validate": "homey app validate"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

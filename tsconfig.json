@@ -1,9 +1,27 @@
 {
-  "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
+    "target": "es2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "allowJs": true,
+    "rootDir": ".",
     "outDir": ".homeybuild/",
-    "lib": [ "dom", "es2021" ],
+    "sourceMap": true,
+    "lib": ["dom", "es2021"],
     "noImplicitOverride": true
   },
+  "include": [
+    "app.ts",
+    "api.ts",
+    "drivers/**/*.ts",
+    "features/**/*.ts",
+    "lib/**/*.ts",
+    "types/**/*.ts",
+    "types/**/*.js"
+  ],
+  "exclude": ["node_modules", ".homeybuild"]
 }
