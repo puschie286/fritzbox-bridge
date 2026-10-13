@@ -124,6 +124,7 @@ export abstract class BaseFeature
 			case CapabilityType.String:
 				return String( value );
 			case CapabilityType.Integer:
+			{
 				const intValue: number = parseInt( value );
 				// handle NaN as null ( not existent )
 				if( isNaN( intValue ) )
@@ -131,7 +132,9 @@ export abstract class BaseFeature
 					return null;
 				}
 				return intValue;
+			}
 			case CapabilityType.Number:
+			{
 				const floatValue: number = parseFloat( value );
 				// handle NaN as null ( not existent )
 				if( isNaN( floatValue ) )
@@ -139,6 +142,7 @@ export abstract class BaseFeature
 					return null;
 				}
 				return floatValue;
+			}
 			case CapabilityType.Boolean:
 				return value != 0;
 		}

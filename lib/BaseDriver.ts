@@ -47,7 +47,7 @@ export abstract class BaseDriver extends Driver
 			for( const device of devices )
 			{
 				// check if device is connected
-				if( !ShowDisconnected && !Boolean( device.present ) ) continue;
+				if( !ShowDisconnected && !device.present ) continue;
 
 				// skip hanfun main devices
 				if( device.functionbitmask === '1' ) continue;

@@ -13,8 +13,8 @@ function xml2jsonRecurse(xmlStr) {
 	var obj = {},
 		tagName, indexClosingTag, inner_substring, tempVal, openingTag;
 
-	while (xmlStr.match(/<[^\/][^>]*>/)) {
-		openingTag = xmlStr.match(/<[^\/][^>]*>/)[0];
+	while (xmlStr.match(/<[^/][^>]*>/)) {
+		openingTag = xmlStr.match(/<[^/][^>]*>/)[0];
 		tagName = openingTag.substring(1, openingTag.length - 1);
 		indexClosingTag = xmlStr.indexOf(openingTag.replace('<', '</'));
 
@@ -49,7 +49,7 @@ function xml2jsonRecurse(xmlStr) {
 			}
 		}
 		inner_substring = xmlStr.substring(openingTag.length, indexClosingTag);
-		if (inner_substring.match(/<[^\/][^>]*>/)) {
+		if (inner_substring.match(/<[^/][^>]*>/)) {
 			//no need for cleanXML again
 			//tempVal = xml2json(inner_substring);
 			tempVal = xml2jsonRecurse(inner_substring);
@@ -143,7 +143,7 @@ function replaceSelfClosingTags(xmlStr) {
 //*************************************************************************************************
 function replaceAloneValues(xmlStr) {
 
-	var tagsWithAttributesAndValue = xmlStr.match(/<[^\/][^>][^<]+\s+.[^<]+[=][^<]+>{1}([^<]+)/g);
+	var tagsWithAttributesAndValue = xmlStr.match(/<[^/][^>][^<]+\s+.[^<]+[=][^<]+>{1}([^<]+)/g);
 
 	if (tagsWithAttributesAndValue) {
 		for(var i = 0; i < tagsWithAttributesAndValue.length; i++) {
