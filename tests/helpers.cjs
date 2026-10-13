@@ -69,6 +69,7 @@ function createHomey( initial = {} )
 	homey.log = ( ...args ) => homey.logs.push( args );
 	homey.error = ( ...args ) => homey.errors.push( args );
 	homey.__ = key => key;
+	homey.drivers = { getDriver: () => ( { getDevices: () => [] } ) };
 	let clock = 0;
 	let timerId = 0;
 	const timers = new Map();
@@ -111,12 +112,18 @@ async function createApp( initial = {} )
 		}
 		Connect( username, password, url, strictSSL )
 		{
-			const connection = { username, password, url, strictSSL, requests: [] };
-			connection.getFritzboxOverview = () =>
+			const connection = { username, password, url, strictSSL, requests: [], overviewRequests: [] };
+			connection.login = () =>
 			{
 				const request = deferred();
 				connection.requests.push( request );
-				return request.promise;
+				return request.promise.then( result => { connection.overview = result; } );
+			};
+			connection.getFritzboxOverview = () =>
+			{
+				connection.overviewRequests.push( true );
+				if( connection.overviewError ) return Promise.reject( connection.overviewError );
+				return connection.overviewPromise ?? Promise.resolve( connection.overview );
 			};
 			this.connections.push( connection );
 			this.api = connection;

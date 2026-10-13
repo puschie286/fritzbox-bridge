@@ -177,6 +177,11 @@ export class FritzApi
 		return this.api.getBasicDeviceStats();
 	}
 
+	public async login(): Promise<void>
+	{
+		await this.api.call( () => Promise.resolve() );
+	}
+
 	public async getFritzboxOverview(): Promise<object>
 	{
 		return this.api.call( LoadOverview );

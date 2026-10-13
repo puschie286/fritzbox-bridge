@@ -186,17 +186,17 @@ export class FritzboxManager
 
 	private isPollingSmartHomeEnabled(): boolean
 	{
-		if( this.homey.settings.get( Settings.DECT_SUPPORT ) !== true )
+		if( this.homey.settings.get( Settings.DECT_SUPPORT ) === false )
 		{
 			return false;
 		}
 
-		return ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) || SettingsDefault.REQUEST_SMART_HOME ) == true;
+		return ( this.homey.settings.get( Settings.REQUEST_SMART_HOME ) ?? SettingsDefault.REQUEST_SMART_HOME ) === true;
 	}
 
 	private isPollingNetworkEnabled(): boolean
 	{
-		return ( this.homey.settings.get( Settings.REQUEST_NETWORK ) || SettingsDefault.REQUEST_NETWORK ) == true;
+		return ( this.homey.settings.get( Settings.REQUEST_NETWORK ) ?? SettingsDefault.REQUEST_NETWORK ) === true;
 	}
 
 	private shouldUpdateStatus(): boolean

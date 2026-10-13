@@ -93,12 +93,12 @@ class Driver extends BaseDriver
 
 	protected isDectEnabled(): boolean
 	{
-		return this.homey.settings.get( Settings.DECT_ENABLED ) === true;
+		return this.homey.settings.get( Settings.DECT_ENABLED ) !== false;
 	}
 
 	protected isDectSupported(): boolean
 	{
-		return this.homey.settings.get( Settings.DECT_SUPPORT ) === true;
+		return this.homey.settings.get( Settings.DECT_SUPPORT ) !== false;
 	}
 }
 

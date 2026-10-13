@@ -5,6 +5,7 @@ import { LoginValidation } from './types/LoginValidation';
 import { LoginSettings } from './types/LoginSettings';
 import { AppSettings } from './types/AppSettings';
 import { FritzboxManager } from './lib/FritzboxManager';
+import type { FritzApi } from './types/FritzApi';
 
 const LoginSettingKeys = [ 'username', 'password', 'fritzboxip', 'strictssl' ] as const;
 const BridgeBooleanKeys = [ 'request_smarthome', 'request_network', 'showunconnected', 'allowmultiple', 'skipdectcheck' ] as const;
@@ -200,6 +201,8 @@ export class FritzboxBridge extends App
 		this.retryAttempt = 0;
 		this.validationTask = undefined;
 		this.setValidation( LoginValidation.Progress );
+		this.homey.settings.unset( Settings.DECT_SUPPORT );
+		this.homey.settings.unset( Settings.DECT_ENABLED );
 		this.connectionSettings = this.getConnectionSettings();
 		const { username, password, fritzboxip, strictssl } = this.connectionSettings;
 		const url = fritzboxip.trim() !== '' ? fritzboxip : SettingsDefault.FRITZBOX_URL;
@@ -249,12 +252,11 @@ export class FritzboxBridge extends App
 
 	private async ValidateLogin( generation: number ): Promise<void>
 	{
-		let result: any;
+		let api: FritzApi;
 		try
 		{
-			// Keep overview validation for routers without DECT.
-			const api = this.fritzbox.GetApi();
-			result = await api.getFritzboxOverview();
+			api = this.fritzbox.GetApi();
+			await api.login();
 		}
 		catch( error: any )
 		{
@@ -271,9 +273,24 @@ export class FritzboxBridge extends App
 			return;
 		}
 		if( !this.isCurrentValidation( generation ) ) return;
+		let result: any;
+		try
+		{
+			// Detect DECT on every new connection, independently of polling preferences.
+			result = await api.getFritzboxOverview();
+		}
+		catch( error: any )
+		{
+			if( !this.isCurrentValidation( generation ) ) return;
+			this.homey.error( 'overview unavailable after login', error );
+		}
+		if( !this.isCurrentValidation( generation ) ) return;
+		if( result !== undefined )
+		{
+			this.homey.settings.set( Settings.DECT_SUPPORT, this.DectSupported( result ) );
+			this.homey.settings.set( Settings.DECT_ENABLED, this.DectEnabled( result ) );
+		}
 		this.retryAttempt = 0;
-		this.homey.settings.set( Settings.DECT_SUPPORT, this.DectSupported( result ) );
-		this.homey.settings.set( Settings.DECT_ENABLED, this.DectEnabled( result ) );
 		this.setValidation( LoginValidation.Valid );
 		this.homey.log( 'validate login: success' );
 		void this.UpdateAfterLogin( result, generation );
@@ -283,7 +300,7 @@ export class FritzboxBridge extends App
 	{
 		try
 		{
-			await this.fritzbox.updateFritzboxData( result );
+			if( result !== undefined ) await this.fritzbox.updateFritzboxData( result );
 		}
 		catch( error: any )
 		{
