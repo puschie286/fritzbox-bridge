@@ -24,7 +24,8 @@
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore .",
     "typecheck": "tsc --noEmit",
     "build:app": "homey app build",
-    "validate": "homey app validate"
+    "validate": "homey app validate",
+    "test": "node --test tests/*.test.cjs"
   },
   "devEngines": {
     "runtime": {

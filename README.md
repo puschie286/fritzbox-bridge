@@ -9,6 +9,7 @@ Use **Node.js 24+** and npm. The app targets **Homey 12.9+** with Node.js 22.
 
 ```sh
 npm ci
+npm test
 npm run typecheck
 npm run lint
 npm run validate

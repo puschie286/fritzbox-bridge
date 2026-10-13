@@ -1,7 +1,18 @@
+import type { FritzboxBridge } from './app';
+import type { AppSettings } from './types/AppSettings';
 import { FritzboxManager } from './lib/FritzboxManager';
 import { ApiParameter } from './types/ApiParameter';
 
 module.exports = {
+
+	async retryLogin( params: ApiParameter )
+	{
+		const app = params.homey.app as FritzboxBridge;
+		const body = params.body as { settings?: AppSettings };
+		if( body?.settings !== undefined ) app.SaveSettings( body.settings );
+		else app.RetryLogin();
+		return true;
+	},
 
 	async getDevices( params: ApiParameter )
 	{

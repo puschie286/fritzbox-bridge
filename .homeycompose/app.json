@@ -81,6 +81,10 @@
     "getNetworkDevices": {
       "method": "GET",
       "path": "/network-devices"
+    },
+    "retryLogin": {
+      "method": "POST",
+      "path": "/retry-login"
     }
   }
 }

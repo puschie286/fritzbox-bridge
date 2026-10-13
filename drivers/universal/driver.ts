@@ -14,10 +14,7 @@ class Driver extends BaseDriver
 	public override async onPairListDevices(): Promise<Array<any>>
 	{
 		// test login first (prevent incorrect error messages)
-		if( !this.isLoginValid() )
-		{
-			throw new Error( this.homey.__( 'Message.FixLogin' ) );
-		}
+		await this.EnsureLogin();
 
 		if( !this.isDectSupported() )
 		{

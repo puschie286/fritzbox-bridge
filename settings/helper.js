@@ -9,7 +9,9 @@ class SettingHelper
 	#saveButton;
 	#loginInfo;
 	#debugButton;
-	#values = [];
+	#saving = false;
+	#validationGeneration = 0;
+	#validationTimer;
 
 	constructor( homey, saveId, infoId, debugId )
 	{
@@ -73,51 +75,51 @@ class SettingHelper
 
 	#InitSettings( settingConfigs )
 	{
-		// load setting values
-		for( const settingConfig of settingConfigs )
+		this.#DisableSave();
+		const loaded = Promise.all( settingConfigs.map( config => this.#Load( config.id, config.type, config.default ) ) );
+		void loaded.then( () =>
 		{
-			this.#Load( settingConfig.id, settingConfig.type, settingConfig.default );
-		}
+			if( !this.#saving ) this.#ResetSave();
+		}, () => this.#homey.alert( this.#homey.__( 'Message.LoadSettingsFailed' ) ) );
 
 		// register save
-		this.#saveButton.addEventListener( 'click', function()
+		this.#saveButton.addEventListener( 'click', async function()
 		{
+			this.#saving = true;
 			this.#DisableSave();
-
-			let hasChanges = false;
-			for( const settingConfig of settingConfigs )
+			try
 			{
-				if( this.#Save( settingConfig.id, settingConfig.type ) )
+				await loaded;
+				const settings = {};
+				for( const { id, type } of settingConfigs )
 				{
-					hasChanges = true;
+					const target = document.getElementById( id );
+					settings[id] = type === 'checkbox' ? target.checked
+						: type === 'number' ? Number( target.value ) : target.value;
 				}
+				await new Promise( ( resolve, reject ) =>
+				{
+					this.#homey.api( 'POST', '/retry-login', { settings }, ( error, result ) =>
+					{
+						if( error ) reject( error );
+						else resolve( result );
+					} );
+				} );
 			}
-
-			if( !hasChanges )
+			catch( error )
 			{
+				this.#homey.alert( error );
+			}
+			finally
+			{
+				this.#saving = false;
 				this.#ResetSave();
+				this.#Validate();
 			}
 		}.bind( this ) );
-
-		// callback for settings
 		this.#homey.on( 'settings.set', function( name )
 		{
-			if( name !== 'validation' )
-			{
-				// no validation for bridge settings
-				if( [
-					'allowmultiple',
-					'showunconnected',
-					'pollinginterval',
-					'pollingactive',
-					'skipdectcheck'
-				].includes( name ) )
-				{
-					this.#ResetSave();
-				}
-				return;
-			}
-			this.#Validate();
+			if( name === 'validation' || name === 'validationInfo' ) this.#Validate();
 		}.bind( this ) );
 	}
 
@@ -150,9 +152,9 @@ class SettingHelper
 
 	#Load( id, type, defaultValue )
 	{
-		this.#homey.get( id, function( err, value )
+		return new Promise( ( resolve, reject ) => this.#homey.get( id, ( error, value ) =>
 		{
-			if( err ) return this.#homey.alert( err );
+			if( error ) return reject( error );
 			const Target = document.getElementById( id );
 			if( ( value === null || value === undefined ) && defaultValue !== undefined )
 			{
@@ -167,76 +169,52 @@ class SettingHelper
 				Target.value = value;
 			}
 
-			this.#values[id] = value;
-		}.bind( this ) );
-	}
-
-	#Save( id, type )
-	{
-		const Target = document.getElementById( id );
-		const Value = ( type === 'checkbox' ) ? Target.checked : Target.value;
-
-		if( this.#values[id] === Value )
-		{
-			return false;
-		}
-
-		this.#homey.get( id, function( err, value )
-		{
-			if( err ) return this.#homey.alert( err );
-			if( value === Value ) return;
-			this.#homey.set( id, Value, function( err )
-			{
-				this.#values[id] = Value;
-				if( err ) return this.#homey.alert( err );
-			}.bind( this ) );
-		}.bind( this ) );
-
-		return true;
+			resolve();
+		} ) );
 	}
 
 	#Validate()
 	{
-		this.#homey.get( 'validation', function( err, value )
+		const generation = ++this.#validationGeneration;
+		if( this.#validationTimer !== undefined )
 		{
-			if( err )
+			clearTimeout( this.#validationTimer );
+			this.#validationTimer = undefined;
+		}
+		this.#homey.get( 'validation', function( error, value )
+		{
+			if( generation !== this.#validationGeneration || this.#saving ) return;
+			if( error )
 			{
-				// loop end
-				this.#ResetSave();
 				this.#SetLocalizedInfo( 'Message.ErrorLogin' );
-				console.log( 'error: ' + JSON.stringify( err ) );
 				return;
 			}
-
-			const Value = Number.parseInt( value );
-
-			// check for wait state -> back to begin
-			if( Value === 2 )
+			const state = Number.parseInt( value );
+			if( state === 2 )
 			{
-				// add delay to save performance
-				setTimeout( this.#Validate.bind( this ), 500 );
+				this.#SetLocalizedInfo( 'Message.LoginChecking' );
+				this.#validationTimer = setTimeout( () =>
+				{
+					if( generation === this.#validationGeneration ) this.#Validate();
+				}, 500 );
 				return;
 			}
-
-			// make sure we re-enable button
-			this.#ResetSave();
-
-			// show result to user
-			if( Value === 1 )
+			if( state === 1 )
 			{
 				this.#SetLocalizedInfo( 'Message.ValidLogin' );
 				return;
 			}
-
-			this.#homey.get( 'validationInfo', function( err, value )
+			if( state !== 0 )
 			{
-				console.log( 'validation info: ' + JSON.stringify( value ) );
-				if( err )
-				{
-					console.error( 'error: ' + JSON.stringify( err ) );
-				}
-
-				this.#SetLocalizedInfo( value );
+				this.#SetLocalizedInfo( 'Message.LoginRequired' );
+				return;
+			}
+			this.#homey.get( 'validationInfo', function( infoError, info )
+			{
+				if( generation !== this.#validationGeneration || this.#saving ) return;
+				const key = !infoError && typeof info === 'string' && info.startsWith( 'Message.' )
+					? info : 'Message.ErrorLogin';
+				this.#SetLocalizedInfo( key );
 			}.bind( this ) );
 		}.bind( this ) );
 	}

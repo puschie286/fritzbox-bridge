@@ -1,6 +1,6 @@
+import type { FritzboxBridge } from '../app';
 import { FritzboxManager } from './FritzboxManager';
 import { Settings } from './Settings';
-import { LoginValidation } from '../types/LoginValidation';
 import { Driver } from 'homey';
 import { HandleHttpError } from "./Helper";
 
@@ -18,10 +18,7 @@ export abstract class BaseDriver extends Driver
 
 	public override async onPairListDevices(): Promise<Array<any>>
 	{
-		if( !this.isLoginValid() )
-		{
-			throw new Error( this.homey.__( 'Message.FixLogin' ) );
-		}
+		await this.EnsureLogin();
 
 		this.homey.log( 'request device list for: ' + this.id );
 
@@ -83,8 +80,9 @@ export abstract class BaseDriver extends Driver
 
 	}
 
-	protected isLoginValid(): boolean
+	protected async EnsureLogin(): Promise<void>
 	{
-		return this.homey.settings.get( Settings.VALIDATION ) === LoginValidation.Valid;
+		await ( this.homey.app as FritzboxBridge ).EnsureLogin();
 	}
+
 }

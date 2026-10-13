@@ -1,3 +1,5 @@
+import { LoginValidation } from '../types/LoginValidation';
+
 export function Validate( object: any ): boolean
 {
 	return object !== undefined && object !== null;
@@ -52,96 +54,46 @@ export function Closest( value: number, values: Array<number> ): number
 	} );
 }
 
-export function HandleHttpError( error: any ): string | undefined
+export function LoginValidationMessage( state: unknown, info: unknown ): string
 {
-	if( !Validate( error ) )
-	{
-		console.error( 'unknown (undefined)' );
-		return undefined;
-	}
-
-	if( Validate( error.error ) )
-	{
-		if( Validate( error.error.code ) )
-		{
-			return CheckCode( error.error, error.error.code, 'error.code' );
-		}
-
-		if( Validate( error.error.data ) && Validate( error.error.data.code ))
-		{
-			return CheckCode( error.error, error.error.data.code, 'error.data.code' );
-		}
-
-		// fallback error
-		return CheckCode( error.error, undefined, 'error' );
-	}
-
-	if( Validate( error.response ) )
-	{
-		if( Validate( error.response.statusCode ) )
-		{
-			return CheckCode( error.response, error.response.statusCode, 'response.statusCode' );
-		}
-
-		// fallback response
-		return CheckCode( error.response, undefined, 'response' );
-	}
-
-	if( Validate( error.request ) )
-	{
-		if( Validate( error.request.response ) )
-		{
-			if( Validate( error.request.response.statusCode ) )
-			{
-				return CheckCode( error.request.response, error.request.response.statusCode, '(request).response.statusCode' );
-			}
-			
-			// fallback request response
-			return CheckCode( error.request.response, undefined, '(request).response' );
-		}
-
-		// fallback request
-		return CheckCode( error.request, undefined, 'request' );
-	}
-
-	if( error === '0000000000000000' )
-	{
-		return 'Message.InvalidLogin';
-	}
-
-	console.error( 'unknown error' );
-	console.error( error );
-	return undefined;
+	if( state === LoginValidation.Progress ) return 'Message.LoginChecking';
+	if( state === LoginValidation.Valid ) return 'Message.ValidLogin';
+	if( state !== LoginValidation.Invalid ) return 'Message.LoginRequired';
+	if( info === 'Message.InvalidLogin' ) return 'Message.FixLogin';
+	return typeof info === 'string' && info.startsWith( 'Message.' ) ? info : 'Message.ErrorLogin';
 }
 
-function CheckCode( source: any, code: any, path: string ): string | undefined
+function GetHttpErrorCode( error: any ): string | number | undefined
 {
-	if( code === 'ENOTFOUND' )
+	return error?.error?.code ?? error?.error?.data?.code ?? error?.code ?? error?.cause?.code
+		?? error?.response?.statusCode ?? error?.request?.response?.statusCode;
+}
+
+export function IsRetryableHttpError( error: any ): boolean
+{
+	return [
+		'ENOTFOUND', 'EAI_AGAIN', 'ETIMEDOUT', 'ESOCKETTIMEDOUT', 'ECONNREFUSED',
+		'ECONNRESET', 'EHOSTUNREACH', 'ENETUNREACH', '429', '502', '503', '504'
+	].includes( String( GetHttpErrorCode( error ) ) );
+}
+
+export function HandleHttpError( error: any ): string | undefined
+{
+	if( error === '0000000000000000' ) return 'Message.InvalidLogin';
+	const code = String( GetHttpErrorCode( error ) );
+	if( [ 'ENOTFOUND', 'EAI_AGAIN' ].includes( code ) ) return 'Message.HostNotFound';
+	if( [ 'ETIMEDOUT', 'ESOCKETTIMEDOUT', '504' ].includes( code ) ) return 'Message.Timeout';
+	if( [ 'ECONNREFUSED', 'ECONNRESET', 'EHOSTUNREACH', 'ENETUNREACH' ].includes( code ) )
 	{
-		return 'Message.NotFound';
+		return 'Message.ConnectionFailed';
 	}
-	if( code === 'ETIMEDOUT' )
-	{
-		return 'Message.Timeout';
-	}
-	if( code === 'DEPTH_ZERO_SELF_SIGNED_CERT' )
-	{
-		return 'Message.InvalidSSL';
-	}
-	if( code == 503 )
-	{
-		return 'Message.ServerCrashed';
-	}
-	if( code == 403 )
-	{
-		return 'Message.AccessForbidden';
-	}
-	if( code == 404 )
-	{
-		return 'Message.NotFound';
-	}
-	
-	console.error( 'unknown ' + path + ', ' + code );
-	console.error( 'unknown ' + path + ' source: ' + JSON.stringify( source ) );
+	if( [
+		'DEPTH_ZERO_SELF_SIGNED_CERT', 'SELF_SIGNED_CERT_IN_CHAIN', 'CERT_HAS_EXPIRED',
+		'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'ERR_TLS_CERT_ALTNAME_INVALID'
+	].includes( code ) ) return 'Message.InvalidSSL';
+	if( [ '429', '502', '503' ].includes( code ) ) return 'Message.ServerCrashed';
+	if( [ '401', '403' ].includes( code ) ) return 'Message.AccessForbidden';
+	if( code === '404' ) return 'Message.NotFound';
+	console.error( 'unknown HTTP error code: ' + code );
 	return undefined;
 }
