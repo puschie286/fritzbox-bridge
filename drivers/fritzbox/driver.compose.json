@@ -1,7 +1,7 @@
 {
   "name": {
-	"en": "Fritzbox router",
-	"de": "Fritzbox Router"
+	"en": "FRITZ!Box router",
+	"de": "FRITZ!Box-Router"
   },
   "class": "other",
   "capabilities": [],

@@ -2,8 +2,8 @@
   "type": "number",
   "units": "%",
   "title": {
-    "en": "power usage",
-    "de": "Energyverbrauch"
+    "en": "Power usage",
+    "de": "Energieverbrauch"
   },
   "getable": true,
   "setable": false

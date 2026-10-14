@@ -1,6 +1,6 @@
 {
   "name": {
-	"en": "Energymeter",
+	"en": "Energy meter",
 	"de": "Energiezähler"
   },
   "class": "sensor",

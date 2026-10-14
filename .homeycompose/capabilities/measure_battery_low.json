@@ -1,8 +1,8 @@
 {
   "type": "boolean",
   "title": {
-    "en": "Battery low warning",
-    "de": "Batterie schwach Warnung"
+    "en": "Low battery warning",
+    "de": "Warnung bei schwacher Batterie"
   },
   "getable": true,
   "setable": false

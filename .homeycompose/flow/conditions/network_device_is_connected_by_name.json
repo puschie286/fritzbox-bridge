@@ -2,15 +2,15 @@
   "id": "network_device_is_connected_by_name",
   "title": {
 	"en": "Network device is !{{connected|disconnected}}",
-	"de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+	"de": "Netzwerkgerät ist !{{verbunden|nicht verbunden}}"
   },
   "titleFormatted": {
 	"en": "[[name]] is !{{connected|disconnected}}",
 	"de": "[[name]] ist !{{verbunden|nicht verbunden}}"
   },
   "hint": {
-	"en": "Checks if network device is connected",
-	"de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+	"en": "Checks if a network device is connected",
+	"de": "Prüft, ob ein Netzwerkgerät verbunden ist"
   },
   "args": [
 	{
@@ -18,7 +18,7 @@
 	  "name": "name",
 	  "title": {
 		"en": "Device name",
-		"de": "Geräte Name"
+		"de": "Gerätename"
 	  },
 	  "placeholder": {
 		"en": "Max-phone"

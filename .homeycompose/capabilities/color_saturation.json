@@ -17,12 +17,12 @@
   "setable": true,
   "values": [{
 	"id": "high",
-	"title": { "en": "high", "de": "Hoch" }
+	"title": { "en": "High", "de": "Hoch" }
   },{
 	"id": "mid",
-	"title": { "en": "mid", "de": "Mittel" }
+	"title": { "en": "Medium", "de": "Mittel" }
   },{
 	"id": "low",
-	"title": { "en": "low", "de": "Niedrig" }
+	"title": { "en": "Low", "de": "Niedrig" }
   }]
 }

@@ -66,7 +66,7 @@ export class Thermostat extends BaseFeature
 			valueFunc: Thermostat.HalfValue,
 			options: {
 				'title': {
-					'en': 'Fritzbox: night temperature', 'de': 'Fritzbox: Spartemperatur'
+					'en': 'FRITZ!Box: reduced temperature', 'de': 'FRITZ!Box: Spartemperatur'
 				}
 			}
 		}, {
@@ -76,7 +76,7 @@ export class Thermostat extends BaseFeature
 			valueFunc: Thermostat.HalfValue,
 			options: {
 				'title': {
-					'en': 'Fritzbox: comfort temperature', 'de': 'Fritzbox: Komforttemperatur'
+					'en': 'FRITZ!Box: comfort temperature', 'de': 'FRITZ!Box: Komforttemperatur'
 				}
 			}
 		}, {

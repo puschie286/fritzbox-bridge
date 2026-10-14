@@ -1,12 +1,12 @@
 {
   "ThermostatError": {
     "ErrorCode0": "No error",
-    "ErrorCode1": "No adaptation possible. Device correctly mounted on radiator?",
-    "ErrorCode2": "Valve stroke too short or battery power too low. Open and close valve tappet several times by hand or Insert new batteries.",
-    "ErrorCode3": "No valve movement possible. Valve tappet free?",
+    "ErrorCode1": "Adaptation is not possible. Is the device mounted correctly on the radiator?",
+    "ErrorCode2": "Valve stroke too short or battery power too low. Open and close the valve tappet several times by hand or insert new batteries.",
+    "ErrorCode3": "The valve cannot move. Check whether the valve tappet can move freely.",
     "ErrorCode4": "The installation is currently being prepared",
     "ErrorCode5": "The radiator controller is in installation mode and can be mounted on the heating valve",
-    "ErrorCode6": "The radiator controller now adapts to the stroke of the heating valve"
+    "ErrorCode6": "The radiator controller is adapting to the stroke of the heating valve"
   },
   "Rollo": {
     "NoEndPos": "No end position is configured",
@@ -22,18 +22,18 @@
     "ValidLogin": "Login successful",
     "Timeout": "FRITZ!Box did not respond in time. Check its address and network connection.",
     "NotFound": "The requested FRITZ!Box page was not found. Check the address and FRITZ!OS compatibility.",
-    "InvalidSSL": "SSL validation failed",
+    "InvalidSSL": "SSL certificate validation failed",
     "ServerCrashed": "FRITZ!Box is temporarily unavailable.",
-    "SendDebugData": "You are about to send debug information. This information contains a list of all connected DECT devices",
-    "SendFailed": "Error requesting information",
-    "SendSuccess": "Information was successfully logged. Please submit a diagnostic report",
+    "SendDebugData": "Debug information includes details of your smart home and network devices.",
+    "SendFailed": "Could not retrieve information",
+    "SendSuccess": "Debug information was logged. Please submit a diagnostic report.",
     "AccessForbidden": "Access denied by FRITZ!Box. Check the user’s permissions, including “FRITZ!Box settings”.",
     "FixLogin": "FRITZ!Box rejected the login. Check the username and password in the app settings.",
     "Unknown": "Unknown error",
     "TemplateExecuteFailed": "Failed to trigger template",
     "LoginRequired": "Configure the FRITZ!Box connection in the app settings.",
-    "DECTNotSupported": "DECT is not supported (Smart home functionality not available)",
-    "DECTDisabled": "DECT is disabled - please enable DECT to use smart home functionality (fritzbox bridge restart required)",
+    "DECTNotSupported": "DECT is not supported. Smart home functions are unavailable.",
+    "DECTDisabled": "DECT is disabled. Enable DECT on your FRITZ!Box, then save the app settings to check the connection again.",
     "LoginChecking": "Checking the FRITZ!Box connection…",
     "InvalidConfiguration": "Check the connection settings and use a polling interval between 1 and 86400 seconds.",
     "LoadSettingsFailed": "Settings could not be loaded. Reopen this page to try again.",
@@ -46,26 +46,26 @@
     "Title": "Settings",
     "Status": "Login status",
     "Fritzbox": {
-      "Title": "Fritzbox configuration",
-      "Ip": "Fritzbox address",
+      "Title": "FRITZ!Box configuration",
+      "Ip": "FRITZ!Box address",
       "Username": "Username",
       "Password": "Password",
-      "StrictSSL": "SSL validation"
+      "StrictSSL": "Validate SSL certificate"
     },
     "Bridge": {
       "Title": "Bridge configuration",
       "RequestSmartHome": "Query smart home data",
       "RequestNetwork": "Query network device data",
-      "PollingInterval": "Data query interval",
-      "ShowUnconnected": "Show unconnected devices",
-      "AllowMultiple": "Allow to add same device multiple times",
+      "PollingInterval": "Data query interval (seconds)",
+      "ShowUnconnected": "Show disconnected devices",
+      "AllowMultiple": "Allow adding the same device more than once",
       "SkipDectCheck": "Skip DECT check"
     },
     "Infos": {
       "Title": "Information",
-      "Permission": "A additional user account is required (System->FRITZ!Box-User). Login require the \"Smart Home\" permission. Data query additionally require the \"FRITZ!Box-Settings\" permission"
+      "Permission": "Use a separate user account under System > FRITZ!Box Users. Enable “Smart Home” for smart home devices. Router status and network features also require “FRITZ!Box settings”."
     },
     "Save": "Save changes",
-    "Debug": "Debug info"
+    "Debug": "Log debug information"
   }
 }

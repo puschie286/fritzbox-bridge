@@ -1,8 +1,8 @@
 {
   "type": "string",
   "title": {
-	"en": "Rollladen Modus",
-	"de": "Blind Mode"
+    "en": "Blind mode",
+    "de": "Rollladenmodus"
   },
   "getable": true,
   "setable": false

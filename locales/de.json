@@ -1,15 +1,15 @@
 {
   "ThermostatError": {
     "ErrorCode0": "Kein Fehler",
-    "ErrorCode1": "Keine Adaptierung möglich. Gerät korrekt am Heizkörper montiert?",
-    "ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Ventilstößel per Hand mehrmals öffnen und schließen oder neue Batterien einsetzen.",
-    "ErrorCode3": "Keine Ventilbewegung möglich. Ventilstößel frei?",
+    "ErrorCode1": "Keine Adaptierung möglich. Ist das Gerät korrekt am Heizkörper montiert?",
+    "ErrorCode2": "Ventilhub zu kurz oder Batterieleistung zu schwach. Öffne und schließe den Ventilstößel mehrmals von Hand oder setze neue Batterien ein.",
+    "ErrorCode3": "Keine Ventilbewegung möglich. Prüfe, ob sich der Ventilstößel frei bewegen lässt.",
     "ErrorCode4": "Die Installation wird gerade vorbereitet",
     "ErrorCode5": "Der Heizkörperregler ist im Installationsmodus und kann auf das Heizungsventil montiert werden",
     "ErrorCode6": "Der Heizkörperregler passt sich nun an den Hub des Heizungsventils an"
   },
   "Rollo": {
-    "NoEndPos": "Endlage ist nicht eingestellt",
+    "NoEndPos": "Keine Endlage konfiguriert",
     "AutoMode": "Automatische Zeitschaltung",
     "ManualMode": "Manuelle Steuerung",
     "UnknownMode": "Unbekannt",
@@ -19,53 +19,53 @@
   "Message": {
     "InvalidLogin": "Die FRITZ!Box hat die Anmeldung abgelehnt. Prüfe Benutzername und Passwort.",
     "ErrorLogin": "Die FRITZ!Box-Anmeldung konnte nicht überprüft werden. Speichere die Einstellungen, um es erneut zu versuchen.",
-    "ValidLogin": "Login erfolgreich",
+    "ValidLogin": "Anmeldung erfolgreich",
     "Timeout": "Die FRITZ!Box hat nicht rechtzeitig geantwortet. Prüfe ihre Adresse und die Netzwerkverbindung.",
     "NotFound": "Die angeforderte FRITZ!Box-Seite wurde nicht gefunden. Prüfe die Adresse und die FRITZ!OS-Kompatibilität.",
-    "InvalidSSL": "SSL Validierung fehlgeschlagen",
+    "InvalidSSL": "SSL-Zertifikatsprüfung fehlgeschlagen",
     "ServerCrashed": "Die FRITZ!Box ist vorübergehend nicht erreichbar.",
-    "SendDebugData": "Sie sind dabei Debug-Informationen zu senden. Diese Information enthalten eine Liste aller verbundenen DECT-Geräte",
-    "SendFailed": "Fehler beim abfragen der Informationen",
-    "SendSuccess": "Informationen wurden erfolgreich geloggt. Bitte sende eine Diagnosebericht",
+    "SendDebugData": "Die Diagnoseinformationen enthalten Angaben zu deinen Smart-Home- und Netzwerkgeräten.",
+    "SendFailed": "Die Informationen konnten nicht abgerufen werden",
+    "SendSuccess": "Die Diagnoseinformationen wurden protokolliert. Bitte sende einen Diagnosebericht.",
     "AccessForbidden": "Die FRITZ!Box verweigert den Zugriff. Prüfe die Benutzerberechtigungen, einschließlich „FRITZ!Box-Einstellungen“.",
     "FixLogin": "Die FRITZ!Box hat die Anmeldung abgelehnt. Prüfe Benutzername und Passwort in den App-Einstellungen.",
     "Unknown": "Unbekannter Fehler",
     "TemplateExecuteFailed": "Vorlage konnte nicht ausgelöst werden",
     "LoginRequired": "Richte die FRITZ!Box-Verbindung in den App-Einstellungen ein.",
-    "DECTNotSupported": "DECT wird nicht unterstützt (SmartHome Funktionalität sind nicht verfügbar)",
-    "DECTDisabled": "DECT ist deaktiviert - bitte aktiviere DECT um SmartHome Funktionalitäten zu nutzten (Neustart der FritzboxBridge erforderlich)",
+    "DECTNotSupported": "DECT wird nicht unterstützt. Smart-Home-Funktionen sind nicht verfügbar.",
+    "DECTDisabled": "DECT ist deaktiviert. Aktiviere DECT auf deiner FRITZ!Box und speichere anschließend die App-Einstellungen, um die Verbindung erneut zu prüfen.",
     "LoginChecking": "Verbindung zur FRITZ!Box wird überprüft…",
     "InvalidConfiguration": "Prüfe die Verbindungseinstellungen und verwende ein Abfrageintervall zwischen 1 und 86400 Sekunden.",
     "LoadSettingsFailed": "Die Einstellungen konnten nicht geladen werden. Öffne diese Seite erneut, um es noch einmal zu versuchen.",
     "HostNotFound": "Der Hostname der FRITZ!Box konnte nicht aufgelöst werden. Prüfe die Adresse in den App-Einstellungen.",
     "ConnectionFailed": "Keine Verbindung zur FRITZ!Box möglich. Prüfe ihre Adresse und die Netzwerkverbindung.",
     "DeviceUnavailable": "Dieses Gerät wird von der FRITZ!Box nicht mehr gemeldet. Prüfe seine Verbindung und Konfiguration.",
-    "WaitingForData": "Aktuelle Daten von der FRITZ!Box werden erwartet. Prüfe die Verbindung in den App-Einstellungen."
+    "WaitingForData": "Warten auf aktuelle Daten von der FRITZ!Box. Prüfe die Verbindung in den App-Einstellungen."
   },
   "Settings": {
     "Title": "Einstellungen",
-    "Status": "Login status",
+    "Status": "Anmeldestatus",
     "Fritzbox": {
-      "Title": "Fritzbox Konfiguration",
-      "Ip": "Fritzbox Adresse",
+      "Title": "FRITZ!Box-Konfiguration",
+      "Ip": "FRITZ!Box-Adresse",
       "Username": "Benutzername",
-      "Password": "Password",
-      "StrictSSL": "SSL Validierung"
+      "Password": "Passwort",
+      "StrictSSL": "SSL-Zertifikat prüfen"
     },
     "Bridge": {
-      "Title": "Bridge Konfiguration",
-      "RequestSmartHome": "Smart Home Datenabgleich",
-      "RequestNetwork": "Netzwerk Geräte Datenabgleich",
-      "PollingInterval": "Datenabfrage Intervall",
-      "ShowUnconnected": "Zeige nicht verbundene Geräte an",
-      "AllowMultiple": "Erlaube das gleiche Gerät mehrfach hinzufügen",
-      "SkipDectCheck": "Ignoriere DECT Überprüfung"
+      "Title": "Bridge-Konfiguration",
+      "RequestSmartHome": "Smart-Home-Daten abfragen",
+      "RequestNetwork": "Daten der Netzwerkgeräte abfragen",
+      "PollingInterval": "Abfrageintervall (Sekunden)",
+      "ShowUnconnected": "Nicht verbundene Geräte anzeigen",
+      "AllowMultiple": "Mehrfaches Hinzufügen desselben Geräts erlauben",
+      "SkipDectCheck": "DECT-Prüfung überspringen"
     },
     "Infos": {
       "Title": "Informationen",
-      "Permission": "Es wird ein separater Benutzer Account benötigt (System->FRITZ!Box-Benutzer). Für die Anmeldung braucht dieser die \"Smart Home\" Berechtigung. Für Datenabfragen ist zusätzlich die \"FRITZ!Box-Einstellungen\" erforderlich"
+      "Permission": "Verwende ein separates Benutzerkonto unter System > FRITZ!Box-Benutzer. Aktiviere „Smart Home“ für Smart-Home-Geräte. Für den Routerstatus und Netzwerkfunktionen ist zusätzlich die Berechtigung „FRITZ!Box-Einstellungen“ erforderlich."
     },
-    "Save": "Änderung Speichern",
-    "Debug": "Debug info"
+    "Save": "Änderungen speichern",
+    "Debug": "Diagnoseinformationen protokollieren"
   }
 }

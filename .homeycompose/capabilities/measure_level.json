@@ -1,6 +1,6 @@
 {
   "type": "number",
-  "title": { "en": "Level", "de": "Level" },
+  "title": { "en": "Level", "de": "Stellwert" },
   "uiComponent": "slider",
   "getable": true,
   "setable": true,

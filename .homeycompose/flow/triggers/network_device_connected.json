@@ -2,7 +2,7 @@
   "id": "network_device_connected",
   "title": {
     "en": "Network device has connected",
-    "de": "Netzwerk Gerät hat sich verbunden"
+    "de": "Netzwerkgerät hat sich verbunden"
   },
   "tokens": [
     {
@@ -10,7 +10,7 @@
       "type": "string",
       "title": {
         "en": "Device name",
-        "de": "Geräte Name"
+        "de": "Gerätename"
       },
 	  "example": {
 		"en": "Max-phone"
@@ -20,8 +20,8 @@
 	  "name": "device_ip",
 	  "type": "string",
 	  "title": {
-		"en": "Device ip",
-		"de": "Geräte Ip"
+		"en": "Device IP address",
+		"de": "IP-Adresse des Geräts"
 	  },
 	  "example": {
 		"en": "192.168.178.25"
@@ -32,7 +32,7 @@
 	  "type": "string",
 	  "title": {
 		"en": "Device MAC address",
-		"de": "Geräte MAC Adresse"
+		"de": "MAC-Adresse des Geräts"
 	  },
 	  "example": {
 		"en": "00:1B:44:11:3A:B7"
@@ -43,7 +43,7 @@
 	  "type": "string",
 	  "title": {
 		"en": "Device connection type",
-		"de": "Geräte Verbindung-Typ"
+		"de": "Verbindungsart des Geräts"
 	  },
 	  "example": {
 		"en": "ethernet or wlan",

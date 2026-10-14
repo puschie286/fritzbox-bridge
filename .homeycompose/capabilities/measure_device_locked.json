@@ -1,8 +1,8 @@
 {
   "type": "boolean",
   "title": {
-    "en": "Device input locked",
-    "de": "Geräte Tastensperre"
+    "en": "Device buttons locked",
+    "de": "Gerätetasten gesperrt"
   },
   "getable": true,
   "setable": false

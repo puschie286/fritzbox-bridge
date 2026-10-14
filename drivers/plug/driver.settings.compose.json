@@ -2,5 +2,5 @@
   "id": "ignore_energy",
   "type": "checkbox",
   "value": false,
-  "label": { "en": "Ignore energy in total", "de": "Ignoriere Leistung in Gesamt" }
+  "label": { "en": "Exclude from total energy use", "de": "Vom gesamten Energieverbrauch ausschließen" }
 }]

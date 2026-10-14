@@ -1,8 +1,8 @@
 {
   "type": "string",
   "title": {
-    "en": "Alarm State Change",
-    "de": "Alarm Zustandsänderung"
+    "en": "Alarm state change",
+    "de": "Änderung des Alarmzustands"
   },
   "getable": true,
   "setable": false

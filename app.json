@@ -47,8 +47,8 @@
     ]
   },
   "description": {
-    "en": "Use your Fritzbox as Bridge and get access to all device sensors",
-    "de": "Nutze deine Fritzbox als Bridge und erhalte Zugriff auf alle Gerätesensoren"
+    "en": "Use your FRITZ!Box as a bridge and access all device sensors",
+    "de": "Nutze deine FRITZ!Box als Bridge und erhalte Zugriff auf alle Gerätesensoren"
   },
   "category": [
     "appliances"
@@ -94,7 +94,7 @@
         "id": "network_device_connected",
         "title": {
           "en": "Network device has connected",
-          "de": "Netzwerk Gerät hat sich verbunden"
+          "de": "Netzwerkgerät hat sich verbunden"
         },
         "tokens": [
           {
@@ -102,7 +102,7 @@
             "type": "string",
             "title": {
               "en": "Device name",
-              "de": "Geräte Name"
+              "de": "Gerätename"
             },
             "example": {
               "en": "Max-phone"
@@ -112,8 +112,8 @@
             "name": "device_ip",
             "type": "string",
             "title": {
-              "en": "Device ip",
-              "de": "Geräte Ip"
+              "en": "Device IP address",
+              "de": "IP-Adresse des Geräts"
             },
             "example": {
               "en": "192.168.178.25"
@@ -124,7 +124,7 @@
             "type": "string",
             "title": {
               "en": "Device MAC address",
-              "de": "Geräte MAC Adresse"
+              "de": "MAC-Adresse des Geräts"
             },
             "example": {
               "en": "00:1B:44:11:3A:B7"
@@ -135,7 +135,7 @@
             "type": "string",
             "title": {
               "en": "Device connection type",
-              "de": "Geräte Verbindung-Typ"
+              "de": "Verbindungsart des Geräts"
             },
             "example": {
               "en": "ethernet or wlan",
@@ -148,7 +148,7 @@
         "id": "network_device_disconnected",
         "title": {
           "en": "Network device has disconnected",
-          "de": "Netzwerk Gerät hat sich getrennt"
+          "de": "Netzwerkgerät hat sich getrennt"
         },
         "tokens": [
           {
@@ -156,7 +156,7 @@
             "type": "string",
             "title": {
               "en": "Device name",
-              "de": "Geräte Name"
+              "de": "Gerätename"
             },
             "example": {
               "en": "Max-phone",
@@ -167,8 +167,8 @@
             "name": "device_ip",
             "type": "string",
             "title": {
-              "en": "Device ip",
-              "de": "Geräte Ip"
+              "en": "Device IP address",
+              "de": "IP-Adresse des Geräts"
             },
             "example": {
               "en": "192.168.178.25",
@@ -180,7 +180,7 @@
             "type": "string",
             "title": {
               "en": "Device MAC address",
-              "de": "Geräte MAC Adresse"
+              "de": "MAC-Adresse des Geräts"
             },
             "example": {
               "en": "00:1B:44:11:3A:B7",
@@ -192,7 +192,7 @@
             "type": "string",
             "title": {
               "en": "Device connection type",
-              "de": "Geräte Verbindung-Typ"
+              "de": "Verbindungsart des Geräts"
             },
             "example": {
               "en": "ethernet or wlan",
@@ -205,15 +205,15 @@
         "id": "wlan_device_connected",
         "title": {
           "en": "WLAN device has connected",
-          "de": "WLAN Gerät hat sich verbunden"
+          "de": "WLAN-Gerät hat sich verbunden"
         },
         "tokens": [
           {
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "device name",
-              "de": "Geräte Name"
+              "en": "Device name",
+              "de": "Gerätename"
             }
           }
         ],
@@ -223,15 +223,15 @@
         "id": "wlan_device_disconnected",
         "title": {
           "en": "WLAN device has disconnected",
-          "de": "WLAN Gerät hat sich getrennt"
+          "de": "WLAN-Gerät hat sich getrennt"
         },
         "tokens": [
           {
             "name": "device_name",
             "type": "string",
             "title": {
-              "en": "device name",
-              "de": "Geräte Name"
+              "en": "Device name",
+              "de": "Gerätename"
             }
           }
         ],
@@ -240,12 +240,12 @@
       {
         "id": "button_triggered",
         "title": {
-          "en": "Button triggered",
-          "de": "Taste ausgelöst"
+          "en": "Button pressed",
+          "de": "Taste gedrückt"
         },
         "titleFormatted": {
-          "en": "Button [[name]] was triggered",
-          "de": "Taste [[name]] wurde ausgelöst"
+          "en": "Button [[name]] was pressed",
+          "de": "Taste [[name]] wurde gedrückt"
         },
         "args": [
           {
@@ -257,8 +257,8 @@
             "type": "autocomplete",
             "name": "name",
             "placeholder": {
-              "en": "Button: up left",
-              "de": "Taste: Oben Links"
+              "en": "Button: top left",
+              "de": "Taste: oben links"
             }
           }
         ]
@@ -266,12 +266,12 @@
       {
         "id": "button_single_triggered",
         "title": {
-          "en": "Button triggered",
-          "de": "Taste ausgelöst"
+          "en": "Button pressed",
+          "de": "Taste gedrückt"
         },
         "titleFormatted": {
-          "en": "Button was triggered",
-          "de": "Taste wurde ausgelöst"
+          "en": "Button was pressed",
+          "de": "Taste wurde gedrückt"
         },
         "args": [
           {
@@ -287,23 +287,23 @@
         "id": "network_device_is_connected_by_ip",
         "title": {
           "en": "Network device is !{{connected|disconnected}}",
-          "de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+          "de": "Netzwerkgerät ist !{{verbunden|nicht verbunden}}"
         },
         "titleFormatted": {
           "en": "[[ip]] is !{{connected|disconnected}}",
           "de": "[[ip]] ist !{{verbunden|nicht verbunden}}"
         },
         "hint": {
-          "en": "Checks if network device is connected",
-          "de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+          "en": "Checks if a network device is connected",
+          "de": "Prüft, ob ein Netzwerkgerät verbunden ist"
         },
         "args": [
           {
             "type": "text",
             "name": "ip",
             "title": {
-              "en": "Device ip",
-              "de": "Geräte Ip"
+              "en": "Device IP address",
+              "de": "IP-Adresse des Geräts"
             },
             "placeholder": {
               "en": "192.168.178.25"
@@ -315,15 +315,15 @@
         "id": "network_device_is_connected_by_mac",
         "title": {
           "en": "Network device is !{{connected|disconnected}}",
-          "de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+          "de": "Netzwerkgerät ist !{{verbunden|nicht verbunden}}"
         },
         "titleFormatted": {
           "en": "[[mac]] is !{{connected|disconnected}}",
           "de": "[[mac]] ist !{{verbunden|nicht verbunden}}"
         },
         "hint": {
-          "en": "Checks if network device is connected",
-          "de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+          "en": "Checks if a network device is connected",
+          "de": "Prüft, ob ein Netzwerkgerät verbunden ist"
         },
         "args": [
           {
@@ -331,7 +331,7 @@
             "name": "mac",
             "title": {
               "en": "Device MAC address",
-              "de": "Geräte MAC Adresse"
+              "de": "MAC-Adresse des Geräts"
             },
             "placeholder": {
               "en": "00:1B:44:11:3A:B7"
@@ -343,15 +343,15 @@
         "id": "network_device_is_connected_by_name",
         "title": {
           "en": "Network device is !{{connected|disconnected}}",
-          "de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+          "de": "Netzwerkgerät ist !{{verbunden|nicht verbunden}}"
         },
         "titleFormatted": {
           "en": "[[name]] is !{{connected|disconnected}}",
           "de": "[[name]] ist !{{verbunden|nicht verbunden}}"
         },
         "hint": {
-          "en": "Checks if network device is connected",
-          "de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+          "en": "Checks if a network device is connected",
+          "de": "Prüft, ob ein Netzwerkgerät verbunden ist"
         },
         "args": [
           {
@@ -359,7 +359,7 @@
             "name": "name",
             "title": {
               "en": "Device name",
-              "de": "Geräte Name"
+              "de": "Gerätename"
             },
             "placeholder": {
               "en": "Max-phone"
@@ -423,7 +423,7 @@
         "id": "blind_open",
         "title": {
           "en": "Open blind",
-          "de": "Rolladen öffnen"
+          "de": "Rollladen öffnen"
         },
         "args": [
           {
@@ -437,7 +437,7 @@
         "id": "blind_close",
         "title": {
           "en": "Close blind",
-          "de": "Rolladen schließen"
+          "de": "Rollladen schließen"
         },
         "args": [
           {
@@ -451,7 +451,7 @@
         "id": "blind_stop",
         "title": {
           "en": "Stop blind",
-          "de": "Rolladen stoppen"
+          "de": "Rollladen stoppen"
         },
         "args": [
           {
@@ -500,7 +500,7 @@
     {
       "name": {
         "en": "Blind",
-        "de": "Rolladen"
+        "de": "Rollladen"
       },
       "class": "blinds",
       "capabilities": [],
@@ -532,7 +532,7 @@
     },
     {
       "name": {
-        "en": "Energymeter",
+        "en": "Energy meter",
         "de": "Energiezähler"
       },
       "class": "sensor",
@@ -565,8 +565,8 @@
     },
     {
       "name": {
-        "en": "Fritzbox router",
-        "de": "Fritzbox Router"
+        "en": "FRITZ!Box router",
+        "de": "FRITZ!Box-Router"
       },
       "class": "other",
       "capabilities": [],
@@ -633,8 +633,8 @@
           "type": "checkbox",
           "value": false,
           "label": {
-            "en": "Ignore energy in total",
-            "de": "Ignoriere Leistung in Gesamt"
+            "en": "Exclude from total energy use",
+            "de": "Vom gesamten Energieverbrauch ausschließen"
           }
         }
       ]
@@ -788,7 +788,7 @@
               "type": "dropdown",
               "label": {
                 "en": "Device class",
-                "de": "Geräte Klasse"
+                "de": "Geräteklasse"
               },
               "values": [
                 {
@@ -812,7 +812,7 @@
                   "label": {
                     "en": "Blinds",
                     "nl": "Jaloezieën & Lamellen",
-                    "de": "Rolladen",
+                    "de": "Rollladen",
                     "fr": "Stores",
                     "it": "Tapparelle",
                     "sv": "Persienner",
@@ -860,7 +860,7 @@
                   "label": {
                     "en": "Coffee machine",
                     "nl": "Koffiemachine",
-                    "de": "Kaffemaschine",
+                    "de": "Kaffeemaschine",
                     "fr": "Machine à café",
                     "it": "Macchina per il caffè",
                     "sv": "Kaffemaskin",
@@ -954,7 +954,7 @@
                 {
                   "id": "homealarm",
                   "label": {
-                    "en": "Home Security",
+                    "en": "Home security",
                     "nl": "Huisbeveiliging",
                     "de": "Heim-Sicherheit",
                     "fr": "Sécurité de la maison",
@@ -1034,7 +1034,7 @@
                 {
                   "id": "remote",
                   "label": {
-                    "en": "Remote",
+                    "en": "Remote control",
                     "nl": "Afstandsbediening",
                     "de": "Fernbedienung",
                     "fr": "Télécommande",
@@ -1066,7 +1066,7 @@
                 {
                   "id": "socket",
                   "label": {
-                    "en": "Wall Plug",
+                    "en": "Wall plug",
                     "nl": "Schakeldoos",
                     "de": "Steckdose",
                     "fr": "Prise murale",
@@ -1098,7 +1098,7 @@
                 {
                   "id": "solarpanel",
                   "label": {
-                    "en": "Solar Panel",
+                    "en": "Solar panel",
                     "nl": "Zonnepaneel",
                     "de": "Solarmodul",
                     "sv": "Solpanel",
@@ -1160,7 +1160,7 @@
                 {
                   "id": "vacuumcleaner",
                   "label": {
-                    "en": "Vacuum Cleaner",
+                    "en": "Vacuum cleaner",
                     "nl": "Stofzuiger",
                     "de": "Staubsauger",
                     "fr": "Aspirateur",
@@ -1176,9 +1176,9 @@
                 {
                   "id": "windowcoverings",
                   "label": {
-                    "en": "Window Coverings",
+                    "en": "Window coverings",
                     "nl": "Raambekleding",
-                    "de": "Fenster-Abdeckungen",
+                    "de": "Fensterabdeckungen",
                     "fr": "Couverture de fenêtre",
                     "it": "Rivestimenti per finestre",
                     "sv": "Fönsterskydd",
@@ -1196,8 +1196,8 @@
         {
           "type": "group",
           "label": {
-            "en": "level control",
-            "de": "Regler"
+            "en": "Level control",
+            "de": "Stellwert"
           },
           "children": [
             {
@@ -1206,7 +1206,7 @@
               "value": false,
               "label": {
                 "en": "Invert level",
-                "de": "Invertiere Regler"
+                "de": "Stellwert umkehren"
               }
             }
           ]
@@ -1218,8 +1218,8 @@
     "alarm_datetime": {
       "type": "string",
       "title": {
-        "en": "Alarm State Change",
-        "de": "Alarm Zustandsänderung"
+        "en": "Alarm state change",
+        "de": "Änderung des Alarmzustands"
       },
       "getable": true,
       "setable": false
@@ -1227,7 +1227,7 @@
     "alert_update_available": {
       "type": "boolean",
       "title": {
-        "en": "update available",
+        "en": "Update available",
         "de": "Update verfügbar"
       },
       "getable": true,
@@ -1254,7 +1254,7 @@
       },
       "insights": true,
       "desc": {
-        "en": "Power in watt (W)",
+        "en": "Power in watts (W)",
         "nl": "Vermogen in watt (W)",
         "de": "Leistung in Watt (W)",
         "fr": "Puissance  en watt (W)",
@@ -1271,7 +1271,8 @@
           "type": "boolean",
           "default": false,
           "desc": {
-            "en": "This flag is used to determine that the device itself has no power measurement functionality, but that the driver calculates the energy use.",
+            "en": "Indicates that the device has no power meter and the driver calculates its energy use.",
+            "de": "Gibt an, dass das Gerät keine Leistungsmessung unterstützt und der Treiber seinen Energieverbrauch berechnet.",
             "ru": "Этот флаг используется для определения того, что само устройство не имеет функции измерения электроэнергии, но драйвер рассчитывает потребление энергии.",
             "pl": "Flaga oznacza, że samo urządzenie nie ma funkcji pomiaru mocy, ale sterownik oblicza zużycie energii."
           }
@@ -1286,8 +1287,8 @@
     "blind_mode": {
       "type": "string",
       "title": {
-        "en": "Rollladen Modus",
-        "de": "Blind Mode"
+        "en": "Blind mode",
+        "de": "Rollladenmodus"
       },
       "getable": true,
       "setable": false
@@ -1313,83 +1314,84 @@
         {
           "id": "red",
           "title": {
-            "en": "red",
+            "en": "Red",
             "de": "Rot"
           }
         },
         {
           "id": "orange",
           "title": {
-            "en": "orange",
+            "en": "Orange",
             "de": "Orange"
           }
         },
         {
           "id": "yellow",
           "title": {
-            "en": "yellow",
+            "en": "Yellow",
             "de": "Gelb"
           }
         },
         {
           "id": "lime",
           "title": {
-            "en": "lime"
+            "en": "Lime",
+            "de": "Limettengrün"
           }
         },
         {
           "id": "green",
           "title": {
-            "en": "green",
+            "en": "Green",
             "de": "Grün"
           }
         },
         {
           "id": "turquoise",
           "title": {
-            "en": "turquoise",
+            "en": "Turquoise",
             "de": "Türkis"
           }
         },
         {
           "id": "cyan",
           "title": {
-            "en": "cyan",
+            "en": "Cyan",
             "de": "Cyan"
           }
         },
         {
           "id": "lightblue",
           "title": {
-            "en": "lightblue",
+            "en": "Light blue",
             "de": "Hellblau"
           }
         },
         {
           "id": "blue",
           "title": {
-            "en": "blue",
+            "en": "Blue",
             "de": "Blau"
           }
         },
         {
           "id": "purple",
           "title": {
-            "en": "purple",
+            "en": "Purple",
             "de": "Lila"
           }
         },
         {
           "id": "magenta",
           "title": {
-            "en": "magenta",
+            "en": "Magenta",
             "de": "Magenta"
           }
         },
         {
           "id": "pink",
           "title": {
-            "en": "pink",
+            "en": "Pink",
             "de": "Pink"
           }
         }
@@ -1416,21 +1418,21 @@
         {
           "id": "high",
           "title": {
-            "en": "high",
+            "en": "High",
             "de": "Hoch"
           }
         },
         {
           "id": "mid",
           "title": {
-            "en": "mid",
+            "en": "Medium",
             "de": "Mittel"
           }
         },
         {
           "id": "low",
           "title": {
-            "en": "low",
+            "en": "Low",
             "de": "Niedrig"
           }
         }
@@ -1516,8 +1518,8 @@
     "measure_api_locked": {
       "type": "boolean",
       "title": {
-        "en": "API input locked",
-        "de": "API Tastensperre"
+        "en": "API control locked",
+        "de": "API-Steuerung gesperrt"
       },
       "getable": true,
       "setable": false
@@ -1525,8 +1527,8 @@
     "measure_battery_low": {
       "type": "boolean",
       "title": {
-        "en": "Battery low warning",
-        "de": "Batterie schwach Warnung"
+        "en": "Low battery warning",
+        "de": "Warnung bei schwacher Batterie"
       },
       "getable": true,
       "setable": false
@@ -1535,7 +1537,7 @@
       "type": "string",
       "title": {
         "en": "Device error",
-        "de": "Geräte Fehler"
+        "de": "Gerätefehler"
       },
       "getable": true,
       "setable": false
@@ -1543,8 +1545,8 @@
     "measure_device_locked": {
       "type": "boolean",
       "title": {
-        "en": "Device input locked",
-        "de": "Geräte Tastensperre"
+        "en": "Device buttons locked",
+        "de": "Gerätetasten gesperrt"
       },
       "getable": true,
       "setable": false
@@ -1553,7 +1555,7 @@
       "type": "number",
       "title": {
         "en": "Level",
-        "de": "Level"
+        "de": "Stellwert"
       },
       "uiComponent": "slider",
       "getable": true,
@@ -1569,7 +1571,7 @@
       "type": "boolean",
       "title": {
         "en": "Open window detected",
-        "de": "Fenster-offen erkennung"
+        "de": "Offenes Fenster erkannt"
       },
       "getable": true,
       "setable": false
@@ -1577,8 +1579,8 @@
     "measure_os_version": {
       "type": "string",
       "title": {
-        "en": "fritzbox os version",
-        "de": "Fritzbox OS Version"
+        "en": "FRITZ!OS version",
+        "de": "FRITZ!OS-Version"
       },
       "getable": true,
       "setable": false
@@ -1586,7 +1588,7 @@
     "measure_switch_mode": {
       "type": "boolean",
       "title": {
-        "en": "automatic timer",
+        "en": "Automatic timer",
         "de": "Automatische Zeitschaltung"
       },
       "getable": true,
@@ -1595,7 +1597,7 @@
     "measure_update_available": {
       "type": "boolean",
       "title": {
-        "en": "update available",
+        "en": "Update available",
         "de": "Update verfügbar"
       },
       "getable": true,
@@ -1604,8 +1606,8 @@
     "os_version": {
       "type": "string",
       "title": {
-        "en": "fritzbox os version",
-        "de": "Fritzbox OS Version"
+        "en": "FRITZ!OS version",
+        "de": "FRITZ!OS-Version"
       },
       "getable": true,
       "setable": false
@@ -1614,8 +1616,8 @@
       "type": "number",
       "units": "%",
       "title": {
-        "en": "power usage",
-        "de": "Energyverbrauch"
+        "en": "Power usage",
+        "de": "Energieverbrauch"
       },
       "getable": true,
       "setable": false

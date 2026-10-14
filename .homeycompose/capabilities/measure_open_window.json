@@ -2,7 +2,7 @@
   "type": "boolean",
   "title": {
     "en": "Open window detected",
-    "de": "Fenster-offen erkennung"
+    "de": "Offenes Fenster erkannt"
   },
   "getable": true,
   "setable": false

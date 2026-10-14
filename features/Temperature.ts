@@ -29,7 +29,7 @@ export class Temperature extends BaseFeature
 			valueFunc: Temperature.ConvertTemperature,
 			options: {
 				'title': {
-					'en': 'Temperature offset', 'de': 'Temperatur Offset'
+					'en': 'Temperature offset', 'de': 'Temperatur-Offset'
 				}
 			}
 		} ];

@@ -46,8 +46,8 @@
     ]
   },
   "description": {
-    "en": "Use your Fritzbox as Bridge and get access to all device sensors",
-    "de": "Nutze deine Fritzbox als Bridge und erhalte Zugriff auf alle Gerätesensoren"
+    "en": "Use your FRITZ!Box as a bridge and access all device sensors",
+    "de": "Nutze deine FRITZ!Box als Bridge und erhalte Zugriff auf alle Gerätesensoren"
   },
   "category": [
     "appliances"

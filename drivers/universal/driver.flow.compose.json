@@ -3,12 +3,12 @@
     {
       "id": "button_triggered",
       "title": {
-        "en": "Button triggered",
-        "de": "Taste ausgelöst"
+        "en": "Button pressed",
+        "de": "Taste gedrückt"
       },
       "titleFormatted": {
-        "en": "Button [[name]] was triggered",
-        "de": "Taste [[name]] wurde ausgelöst"
+        "en": "Button [[name]] was pressed",
+        "de": "Taste [[name]] wurde gedrückt"
       },
       "$filter": "capabilities=button.0",
       "args": [
@@ -16,8 +16,8 @@
           "type": "autocomplete",
           "name": "name",
           "placeholder": {
-            "en": "Button: up left",
-            "de": "Taste: Oben Links"
+            "en": "Button: top left",
+            "de": "Taste: oben links"
           }
         }
       ]
@@ -25,12 +25,12 @@
     {
       "id": "button_single_triggered",
       "title": {
-        "en": "Button triggered",
-        "de": "Taste ausgelöst"
+        "en": "Button pressed",
+        "de": "Taste gedrückt"
       },
       "titleFormatted": {
-        "en": "Button was triggered",
-        "de": "Taste wurde ausgelöst"
+        "en": "Button was pressed",
+        "de": "Taste wurde gedrückt"
       },
       "$filter": "capabilities=button.single"
     }
@@ -67,7 +67,7 @@
       "id": "blind_open",
       "title": {
         "en": "Open blind",
-		"de": "Rolladen öffnen"
+		"de": "Rollladen öffnen"
       },
 	  "$filter": "capabilities=blind_mode"
     },
@@ -75,7 +75,7 @@
 	  "id": "blind_close",
 	  "title": {
 		"en": "Close blind",
-		"de": "Rolladen schließen"
+		"de": "Rollladen schließen"
 	  },
 	  "$filter": "capabilities=blind_mode"
 	},
@@ -83,7 +83,7 @@
 	  "id": "blind_stop",
 	  "title": {
 		"en": "Stop blind",
-		"de": "Rolladen stoppen"
+		"de": "Rollladen stoppen"
 	  },
 	  "$filter": "capabilities=blind_mode"
 	}

@@ -2,22 +2,22 @@
   "id": "network_device_is_connected_by_ip",
   "title": {
 	"en": "Network device is !{{connected|disconnected}}",
-	"de": "Netzwerk-Gerät ist !{{verbunden|nicht verbunden}}"
+	"de": "Netzwerkgerät ist !{{verbunden|nicht verbunden}}"
   },
   "titleFormatted": {
 	"en": "[[ip]] is !{{connected|disconnected}}",
 	"de": "[[ip]] ist !{{verbunden|nicht verbunden}}"
   },
   "hint": {
-	"en": "Checks if network device is connected",
-	"de": "Überprüft ob ein Netzwerk-Gerät verbunden ist"
+	"en": "Checks if a network device is connected",
+	"de": "Prüft, ob ein Netzwerkgerät verbunden ist"
   },
   "args": [ {
 	"type": "text",
 	"name": "ip",
 	"title": {
-	  "en": "Device ip",
-	  "de": "Geräte Ip"
+	  "en": "Device IP address",
+	  "de": "IP-Adresse des Geräts"
 	},
 	"placeholder": {
 	  "en": "192.168.178.25"

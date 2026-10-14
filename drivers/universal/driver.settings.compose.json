@@ -11,7 +11,7 @@
 		"type": "dropdown",
 		"label": {
 		  "en": "Device class",
-		  "de": "Geräte Klasse"
+		  "de": "Geräteklasse"
 		},
 		"values": [
 		  {
@@ -35,7 +35,7 @@
 			"label": {
 			  "en": "Blinds",
 			  "nl": "Jaloezieën & Lamellen",
-			  "de": "Rolladen",
+			  "de": "Rollladen",
 			  "fr": "Stores",
 			  "it": "Tapparelle",
 			  "sv": "Persienner",
@@ -83,7 +83,7 @@
 			"label": {
 			  "en": "Coffee machine",
 			  "nl": "Koffiemachine",
-			  "de": "Kaffemaschine",
+			  "de": "Kaffeemaschine",
 			  "fr": "Machine à café",
 			  "it": "Macchina per il caffè",
 			  "sv": "Kaffemaskin",
@@ -177,7 +177,7 @@
 		  {
 			"id": "homealarm",
 			"label": {
-			  "en": "Home Security",
+			  "en": "Home security",
 			  "nl": "Huisbeveiliging",
 			  "de": "Heim-Sicherheit",
 			  "fr": "Sécurité de la maison",
@@ -257,7 +257,7 @@
 		  {
 			"id": "remote",
 			"label": {
-			  "en": "Remote",
+			  "en": "Remote control",
 			  "nl": "Afstandsbediening",
 			  "de": "Fernbedienung",
 			  "fr": "Télécommande",
@@ -289,7 +289,7 @@
 		  {
 			"id": "socket",
 			"label": {
-			  "en": "Wall Plug",
+			  "en": "Wall plug",
 			  "nl": "Schakeldoos",
 			  "de": "Steckdose",
 			  "fr": "Prise murale",
@@ -321,7 +321,7 @@
 		  {
 			"id": "solarpanel",
 			"label": {
-			  "en": "Solar Panel",
+			  "en": "Solar panel",
 			  "nl": "Zonnepaneel",
 			  "de": "Solarmodul",
 			  "sv": "Solpanel",
@@ -383,7 +383,7 @@
 		  {
 			"id": "vacuumcleaner",
 			"label": {
-			  "en": "Vacuum Cleaner",
+			  "en": "Vacuum cleaner",
 			  "nl": "Stofzuiger",
 			  "de": "Staubsauger",
 			  "fr": "Aspirateur",
@@ -399,9 +399,9 @@
 		  {
 			"id": "windowcoverings",
 			"label": {
-			  "en": "Window Coverings",
+			  "en": "Window coverings",
 			  "nl": "Raambekleding",
-			  "de": "Fenster-Abdeckungen",
+			  "de": "Fensterabdeckungen",
 			  "fr": "Couverture de fenêtre",
 			  "it": "Rivestimenti per finestre",
 			  "sv": "Fönsterskydd",
@@ -419,8 +419,8 @@
   {
 	"type": "group",
 	"label": {
-	  "en": "level control",
-	  "de": "Regler"
+	  "en": "Level control",
+	  "de": "Stellwert"
 	},
 	"children": [
 	  {
@@ -429,7 +429,7 @@
 		"value": false,
 		"label": {
 		  "en": "Invert level",
-		  "de": "Invertiere Regler"
+		  "de": "Stellwert umkehren"
 		}
 	  }
 	]

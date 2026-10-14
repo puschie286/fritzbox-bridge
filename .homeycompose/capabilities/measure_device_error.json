@@ -2,7 +2,7 @@
   "type": "string",
   "title": {
     "en": "Device error",
-    "de": "Geräte Fehler"
+    "de": "Gerätefehler"
   },
   "getable": true,
   "setable": false

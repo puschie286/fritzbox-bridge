@@ -1,7 +1,7 @@
 {
   "type": "boolean",
   "title": {
-    "en": "update available",
+    "en": "Update available",
     "de": "Update verfügbar"
   },
   "getable": true,

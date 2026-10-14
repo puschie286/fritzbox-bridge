@@ -19,7 +19,7 @@
   },
   "insights": true,
   "desc": {
-    "en": "Power in watt (W)",
+    "en": "Power in watts (W)",
     "nl": "Vermogen in watt (W)",
     "de": "Leistung in Watt (W)",
     "fr": "Puissance  en watt (W)",
@@ -36,7 +36,8 @@
       "type": "boolean",
       "default": false,
       "desc": {
-        "en": "This flag is used to determine that the device itself has no power measurement functionality, but that the driver calculates the energy use.",
+        "en": "Indicates that the device has no power meter and the driver calculates its energy use.",
+        "de": "Gibt an, dass das Gerät keine Leistungsmessung unterstützt und der Treiber seinen Energieverbrauch berechnet.",
         "ru": "Этот флаг используется для определения того, что само устройство не имеет функции измерения электроэнергии, но драйвер рассчитывает потребление энергии.",
         "pl": "Flaga oznacza, że samo urządzenie nie ma funkcji pomiaru mocy, ale sterownik oblicza zużycie energii."
       }
@@ -55,7 +56,7 @@
         "title": {
           "en": "The power changed",
           "nl": "Het vermogen is veranderd",
-          "de": "Der Verbrauch hat sich gändert",
+          "de": "Die Leistung hat sich geändert",
           "fr": "L'énergie a changé",
           "it": "L'energia è cambiata",
           "sv": "Strömmen ändrades",

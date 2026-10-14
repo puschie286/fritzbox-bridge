@@ -1,7 +1,7 @@
 {
   "type": "boolean",
   "title": {
-    "en": "automatic timer",
+    "en": "Automatic timer",
     "de": "Automatische Zeitschaltung"
   },
   "getable": true,
