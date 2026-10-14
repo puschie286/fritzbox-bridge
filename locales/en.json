@@ -38,7 +38,9 @@
     "InvalidConfiguration": "Check the connection settings and use a polling interval between 1 and 86400 seconds.",
     "LoadSettingsFailed": "Settings could not be loaded. Reopen this page to try again.",
     "HostNotFound": "FRITZ!Box hostname could not be resolved. Check the address in the app settings.",
-    "ConnectionFailed": "Could not connect to FRITZ!Box. Check its address and network connection."
+    "ConnectionFailed": "Could not connect to FRITZ!Box. Check its address and network connection.",
+    "DeviceUnavailable": "This device is no longer reported by FRITZ!Box. Check its connection and configuration.",
+    "WaitingForData": "Waiting for current data from FRITZ!Box. Check the connection in the app settings."
   },
   "Settings": {
     "Title": "Settings",

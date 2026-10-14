@@ -30,16 +30,19 @@ export abstract class BaseFeature
 
 	}
 
-	public async Update( data: any )
+	public async Update( data: any, isCurrent: () => boolean = () => true )
 	{
 		for( const capability of this.capabilities )
 		{
+			if( !isCurrent() ) return;
 			if( capability.noUpdate === true )
 			{
 				continue;
 			}
 
-			await this.OnCapabilityUpdate( capability, await this.GetValue( capability, data ) );
+			const value = await this.GetValue( capability, data );
+			if( !isCurrent() ) return;
+			await this.OnCapabilityUpdate( capability, value );
 		}
 	}
 

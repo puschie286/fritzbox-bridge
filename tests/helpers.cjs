@@ -69,7 +69,7 @@ function createHomey( initial = {} )
 	homey.log = ( ...args ) => homey.logs.push( args );
 	homey.error = ( ...args ) => homey.errors.push( args );
 	homey.__ = key => key;
-	homey.drivers = { getDriver: () => ( { getDevices: () => [] } ) };
+	homey.drivers = { getDrivers: () => ( {} ), getDriver: () => ( { getDevices: () => [] } ) };
 	let clock = 0;
 	let timerId = 0;
 	const timers = new Map();

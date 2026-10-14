@@ -42,6 +42,7 @@ async function createDevices()
 		getCapabilities() { return this.capabilities; }
 		async addCapability( name ) { this.capabilities.push( name ); }
 		registerCapabilityListener( name, callback ) { this.listeners.set( name, callback ); }
+		async setUnavailable() {}
 		log() {}
 	}
 	const { BaseDevice } = loadTypescript( 'lib/BaseDevice.ts', {

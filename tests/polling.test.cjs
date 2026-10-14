@@ -22,7 +22,8 @@ function polling( settings = {}, router = false )
 	homey.drivers = {
 		getDrivers: () => ( { plug: {
 			GetBaseFunction: () => 512,
-			getDevices: () => [ { getData: () => ( { id: '123' } ), Update: async data => smartUpdates.push( data ) } ]
+			getDevices: () => [ { getData: () => ( { id: '123' } ), Update: async data => smartUpdates.push( data ),
+				setUnavailable: async () => {} } ]
 		} } ),
 		getDriver: () => ( { getDevices: () => router ? [ { Update: async data => routerUpdates.push( data ) } ] : [] } )
 	};

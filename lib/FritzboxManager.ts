@@ -1,5 +1,5 @@
 import { FritzboxClient } from './FritzboxClient';
-import { HandleHttpError, MaskCheck } from './Helper';
+import { HandleHttpError, IsRetryableHttpError, MaskCheck } from './Helper';
 import { Settings, SettingsDefault } from './Settings';
 import { BaseDriver } from './BaseDriver';
 import { BaseDevice } from './BaseDevice';
@@ -12,6 +12,8 @@ export class FritzboxManager
 	private static instance?: FritzboxManager;
 	private apiInstance?: FritzboxClient;
 	private polling?: NodeJS.Timeout;
+	private pollingGeneration = 0;
+	private connectionUpdate: Promise<void> = Promise.resolve();
 	private lastPolling?: number;
 	private lastLongPolling?: number;
 	private readonly homey: Homey;
@@ -92,6 +94,10 @@ export class FritzboxManager
 	{
 		this.StopPolling();
 
+		this.lastDeviceData = undefined;
+		this.lastLongPolling = undefined;
+		this.connectionUpdate = Promise.all( [ this.connectionUpdate,
+			this.SetDevicesUnavailable( 'Message.WaitingForData' ) ] ).then( () => {} );
 		delete this.apiInstance;
 		this.apiInstance = new FritzboxClient( username, password, url, ssl );
 	}
@@ -132,6 +138,8 @@ export class FritzboxManager
 	 */
 	public StopPolling()
 	{
+		this.pollingGeneration++;
+		this.lastPolling = undefined;
 		if( this.polling === undefined )
 		{
 			return;
@@ -140,7 +148,6 @@ export class FritzboxManager
 		this.homey.log( 'stop polling' );
 		this.homey.clearInterval( this.polling );
 		this.polling = undefined;
-		this.lastPolling = undefined;
 	}
 
 	// TODO: specify deviceList type
@@ -231,7 +238,7 @@ export class FritzboxManager
 		return new Date().getTime();
 	}
 
-	private async ProcessPoll( data: any[] )
+	private async ProcessPoll( data: any[], generation: number )
 	{
 		const drivers = Object.entries( this.homey.drivers.getDrivers() );
 
@@ -253,26 +260,29 @@ export class FritzboxManager
 			// update device
 			for( const device of devices )
 			{
+				if( generation !== this.pollingGeneration ) return;
 				// @ts-ignore
 				const baseDevice = device as BaseDevice;
 
-				await baseDevice.Update( this.FilterDevice( DriverDeviceList, device.getData().id ) );
+				await this.UpdateDevice( baseDevice, this.FilterDevice( DriverDeviceList, device.getData().id ), generation );
 			}
 		}
 	}
 
-	private async ExecuteSmartHomePoll()
+	private async ExecuteSmartHomePoll( generation: number )
 	{
 		if( !this.isPollingSmartHomeEnabled() )
 		{
 			return;
 		}
 
-		this.lastDeviceData = await this.GetApi().getDeviceList();
-		await this.ProcessPoll( this.lastDeviceData );
+		const data = await this.GetApi().getDeviceList();
+		if( generation !== this.pollingGeneration ) return;
+		this.lastDeviceData = data;
+		await this.ProcessPoll( data, generation );
 	}
 
-	private async ExecuteNetworkPoll()
+	private async ExecuteNetworkPoll( generation: number )
 	{
 		if( !this.isPollingNetworkEnabled() )
 		{
@@ -280,10 +290,11 @@ export class FritzboxManager
 		}
 
 		const network = await this.GetApi().getFritzboxNetwork();
+		if( generation !== this.pollingGeneration ) return;
 		await this.tracker.UpdateDevices( network );
 	}
 
-	private async ExecuteStatusPoll()
+	private async ExecuteStatusPoll( generation: number )
 	{
 		const fritzbox = this.homey.drivers.getDriver( 'fritzbox' ).getDevices();
 		if( fritzbox.length === 0 )
@@ -291,26 +302,87 @@ export class FritzboxManager
 			return;
 		}
 
-		if( !this.shouldUpdateStatus() )
+		if( !this.shouldUpdateStatus() && fritzbox.every( device => device.getAvailable() ) )
 		{
 			return;
 		}
 
 		// update devices
 		const overview = await this.GetApi().getFritzboxOverview();
+		if( generation !== this.pollingGeneration ) return;
 		await this.updateFritzboxData( overview );
 
 		// mark as done
-		this.markStatusAsUpdated();
+		if( generation === this.pollingGeneration ) this.markStatusAsUpdated();
 	}
 
 	public async updateFritzboxData( overview: object )
 	{
+		const generation = this.pollingGeneration;
+		await this.connectionUpdate;
 		for( const device of this.homey.drivers.getDriver( 'fritzbox' ).getDevices() )
 		{
+			if( generation !== this.pollingGeneration ) return;
 			const fritzboxDevice = device as Device;
 
-			await fritzboxDevice.Update( overview );
+			await this.UpdateDevice( fritzboxDevice, overview, generation );
+		}
+	}
+
+	private async UpdateDevice( device: BaseDevice, data: any, generation: number ): Promise<void>
+	{
+		const isCurrent = () => generation === this.pollingGeneration;
+		if( !isCurrent() ) return;
+		try
+		{
+			await device.Update( data, isCurrent );
+		}
+		catch( error: any )
+		{
+			if( !isCurrent() ) return;
+			const message = HandleHttpError( error ) || 'Message.SendFailed';
+			this.homey.error( 'device update failed', message );
+			await device.setUnavailable( this.homey.__( message ) ).catch( failure => this.homey.error( failure ) );
+		}
+	}
+
+	private async SetDevicesUnavailable( message: string, router?: boolean ): Promise<void>
+	{
+		const updates: Array<Promise<void>> = [];
+		for( const driver of Object.values( this.homey.drivers.getDrivers() ) )
+		{
+			const isRouter = ( driver as BaseDriver ).GetBaseFunction() === -1;
+			if( router !== undefined && router !== isRouter ) continue;
+			for( const device of driver.getDevices() )
+			{
+				updates.push( device.setUnavailable( this.homey.__( message ) ).catch( error => this.homey.error( error ) ) );
+			}
+		}
+		await Promise.all( updates );
+	}
+
+	private async RunPoll( poll: () => Promise<void>, generation: number, router?: boolean ): Promise<void>
+	{
+		if( generation !== this.pollingGeneration ) return;
+		try
+		{
+			await poll();
+		}
+		catch( error: any )
+		{
+			if( generation !== this.pollingGeneration ) return;
+			this.logPolError( error );
+			const message = HandleHttpError( error ) || 'Message.SendFailed';
+			// Confirm router connectivity immediately after transport or authentication failures.
+			if( IsRetryableHttpError( error ) || message === 'Message.InvalidLogin' || message === 'Message.InvalidSSL' )
+			{
+				this.lastLongPolling = undefined;
+			}
+			// Network tracking is optional and does not determine device availability.
+			if( router === undefined ) return;
+			if( router ) this.lastLongPolling = undefined;
+			else this.lastDeviceData = undefined;
+			await this.SetDevicesUnavailable( message, router );
 		}
 	}
 
@@ -325,19 +397,20 @@ export class FritzboxManager
 			return;
 		}
 
+		const generation = this.pollingGeneration;
 		this.markPollAsActive();
 		
 		try
 		{
-			await this.ExecuteSmartHomePoll();
-			await this.ExecuteNetworkPoll();
-			await this.ExecuteStatusPoll();
-		} catch( error: any )
-		{
-			this.logPolError( error );
+			await this.connectionUpdate;
+			await this.RunPoll( () => this.ExecuteSmartHomePoll( generation ), generation, false );
+			await this.RunPoll( () => this.ExecuteNetworkPoll( generation ), generation );
+			await this.RunPoll( () => this.ExecuteStatusPoll( generation ), generation, true );
 		}
-
-		this.markPollAsDone();
+		finally
+		{
+			if( generation === this.pollingGeneration ) this.markPollAsDone();
+		}
 	}
 
 	// helper

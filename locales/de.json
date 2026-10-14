@@ -38,7 +38,9 @@
     "InvalidConfiguration": "Prüfe die Verbindungseinstellungen und verwende ein Abfrageintervall zwischen 1 und 86400 Sekunden.",
     "LoadSettingsFailed": "Die Einstellungen konnten nicht geladen werden. Öffne diese Seite erneut, um es noch einmal zu versuchen.",
     "HostNotFound": "Der Hostname der FRITZ!Box konnte nicht aufgelöst werden. Prüfe die Adresse in den App-Einstellungen.",
-    "ConnectionFailed": "Keine Verbindung zur FRITZ!Box möglich. Prüfe ihre Adresse und die Netzwerkverbindung."
+    "ConnectionFailed": "Keine Verbindung zur FRITZ!Box möglich. Prüfe ihre Adresse und die Netzwerkverbindung.",
+    "DeviceUnavailable": "Dieses Gerät wird von der FRITZ!Box nicht mehr gemeldet. Prüfe seine Verbindung und Konfiguration.",
+    "WaitingForData": "Aktuelle Daten von der FRITZ!Box werden erwartet. Prüfe die Verbindung in den App-Einstellungen."
   },
   "Settings": {
     "Title": "Einstellungen",

@@ -17,6 +17,7 @@ export abstract class BaseDevice extends Device
 
 		try
 		{
+			await this.setUnavailable( this.homey.__( 'Message.WaitingForData' ) );
 			// try to initialize
 			await this.Initialize();
 		} catch( error: any )
@@ -64,20 +65,23 @@ export abstract class BaseDevice extends Device
 		}
 	}
 
-	public async Update( data: any )
+	public async Update( data: any, isCurrent: () => boolean = () => true )
 	{
+		if( !isCurrent() ) return;
 		if( data === null )
 		{
+			await this.setUnavailable( this.homey.__( 'Message.DeviceUnavailable' ) );
 			return;
 		}
 
 		// ensure initialization
 		await this.Initialize( Number( data.functionbitmask ) );
+		if( !isCurrent() ) return;
 
 		// update each capability
 		for( const feature of this.features )
 		{
-			await feature.Update( data );
+			await feature.Update( data, isCurrent );
 		}
 	};
 
@@ -223,6 +227,10 @@ export abstract class BaseDevice extends Device
 	private async InitUpdate()
 	{
 		const fritzbox = FritzboxManager.GetSingleton();
-		await this.Update( fritzbox.FilterDevice( fritzbox.GetLastData(), this.getData().id ) );
+		const data = fritzbox.GetLastData();
+		if( data !== undefined )
+		{
+			await this.Update( fritzbox.FilterDevice( data, this.getData().id ), () => data === fritzbox.GetLastData() );
+		}
 	}
 }
