@@ -6,6 +6,13 @@ import { FritzboxColor, FritzboxTemperature } from '../types/FritzboxTypes';
 import { Closest } from '../lib/Helper';
 import { FRITZBOX_COLORS } from '../lib/FritzboxColors';
 
+interface ColorWrite
+{
+	hue?: number;
+	saturation?: number;
+	task: Promise<void>;
+}
+
 export class ColorControl extends BaseFeature
 {
 	private readonly minTemperature: number = 2700;
@@ -18,9 +25,8 @@ export class ColorControl extends BaseFeature
 	private readonly lowSaturation: number = 0;
 
 	private lastHue: number | null = null;
-
-	private sendHue: number | null = null;
-	private sendSaturation: number | null = null;
+	private pendingColor?: ColorWrite;
+	private colorTask: Promise<void> = Promise.resolve();
 
 	private static ConvertColorMode( value: number | null ): string | null
 	{
@@ -186,37 +192,53 @@ export class ColorControl extends BaseFeature
 		await this.device.GetAPI().setColorTemperature( this.device.getData().id, enumValue, 500 );
 	}
 
-	private async setColor()
+	private async setColor( hue: number, saturation: number )
 	{
 		// ignore when not color mode
 		if( this.device.getCapabilityValue( 'light_mode' ) !== 'color' )
 		{
-			this.sendHue = null;
-			this.sendSaturation = null;
 			return;
 		}
 
-		// skip if not both set
-		if( this.sendHue == null || this.sendSaturation == null )
-		{
-			return;
-		}
-
-		const upScaledHue = this.sendHue * this.maxHue;
+		const upScaledHue = hue * this.maxHue;
 		const validHue = Closest( upScaledHue, this.hueValues );
 
-		const validSaturation = Closest( this.sendSaturation, [ this.lowSaturation, this.midSaturation, this.highSaturation ] );
-
-		// clear
-		this.sendHue = null;
-		this.sendSaturation = null;
+		const validSaturation = Closest( saturation, [ this.lowSaturation, this.midSaturation, this.highSaturation ] );
 
 		const apiHue = ColorControl.ConvertColorHue( validHue );
 		const apiSaturation = this.ConvertSaturationToEnum( apiHue, validSaturation );
 
-		this.lastHue = validHue;
 		this.device.log( 'send setColor: ' + apiSaturation + ', ' + apiHue );
 		await this.device.GetAPI().setColor( this.device.getData().id, apiHue, apiSaturation, 500 );
+		this.lastHue = validHue;
+		await this.device.setCapabilityValue( 'light_hue', validHue / this.maxHue );
+		await this.device.setCapabilityValue( 'light_saturation', validSaturation );
+	}
+
+	private queueColor( hue?: number, saturation?: number ): Promise<void>
+	{
+		if( this.pendingColor !== undefined )
+		{
+			if( hue !== undefined ) this.pendingColor.hue = hue;
+			if( saturation !== undefined ) this.pendingColor.saturation = saturation;
+			return this.pendingColor.task;
+		}
+
+		const pending: ColorWrite = {
+			hue, saturation,
+			task: this.colorTask.catch( () => undefined ).then( async() =>
+			{
+				this.pendingColor = undefined;
+				// Read the unchanged component after any preceding command has completed.
+				await this.setColor(
+					pending.hue ?? this.device.getCapabilityValue( 'light_hue' ) ?? FRITZBOX_COLORS.red.hue / this.maxHue,
+					pending.saturation ?? this.device.getCapabilityValue( 'light_saturation' ) ?? this.highSaturation
+				);
+			} )
+		};
+		this.pendingColor = pending;
+		this.colorTask = pending.task;
+		return pending.task;
 	}
 
 	private async setHue( value: any )
@@ -226,8 +248,7 @@ export class ColorControl extends BaseFeature
 			return;
 		}
 
-		this.sendHue = value;
-		return this.setColor();
+		return this.queueColor( value );
 	}
 
 	private async setSaturation( value: any )
@@ -237,7 +258,6 @@ export class ColorControl extends BaseFeature
 			return;
 		}
 
-		this.sendSaturation = value;
-		return this.setColor();
+		return this.queueColor( undefined, value );
 	}
 }

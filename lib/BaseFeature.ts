@@ -7,12 +7,11 @@ import Homey from 'homey/lib/Homey';
 export abstract class BaseFeature
 {
 	protected readonly device: BaseDevice;
-	private readonly capabilities: Array<Capability> = [];
+	private capabilities?: Array<Capability>;
 
 	public constructor( device: BaseDevice )
 	{
 		this.device = device;
-		this.capabilities = this.Capabilities();
 	}
 
 	public async LateInit()
@@ -32,7 +31,7 @@ export abstract class BaseFeature
 
 	public async Update( data: any, isCurrent: () => boolean = () => true )
 	{
-		for( const capability of this.capabilities )
+		for( const capability of this.GetCapabilities() )
 		{
 			if( !isCurrent() ) return;
 			if( capability.noUpdate === true )
@@ -48,7 +47,8 @@ export abstract class BaseFeature
 
 	public GetCapabilities(): Array<Capability>
 	{
-		return this.capabilities;
+		// Construct after derived fields and constructor options have been initialized.
+		return this.capabilities ??= this.Capabilities();
 	}
 
 	protected abstract Capabilities(): Array<Capability>;

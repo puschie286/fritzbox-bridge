@@ -85,7 +85,7 @@ export class Button extends BaseFeature
 			return [];
 		}
 		
-		const buttonSetup: Array<ButtonInfo>|null = this.device.getStoreValue( 'buttonConfig' );
+		const buttonSetup: Array<ButtonInfo>|null = this.device.getStoreValue( 'buttonConfig' ) ?? null;
 		this.singleMode = buttonSetup === null;
 
 		// single mode
