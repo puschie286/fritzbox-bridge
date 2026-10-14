@@ -17,7 +17,7 @@ class Driver extends BaseDriver
 			await this.fritzbox.GetApi().getFritzboxOverview();
 			return [
 				{
-					name: 'Fritzbox',
+					name: 'FRITZ!Box',
 					data: {
 						id: 'fritzbox',
 						time: undefined
