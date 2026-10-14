@@ -39,12 +39,12 @@
     {
       "id": "temperature_is",
       "title": {
-        "en": "Temperature is equal or !{{above|below}}",
-        "de": "Temperatur ist gleich oder !{{über|unter}}"
+        "en": "Temperature is !{{equal to or above|below}}",
+        "de": "Temperatur ist !{{gleich oder über|unter}}"
       },
       "titleFormatted": {
-        "en": "Temperature is equal or !{{above|below}} [[temperature]] °C",
-        "de": "Temperatur ist gleich oder !{{über|unter}} [[temperature]] °C"
+        "en": "Temperature is !{{equal to or above|below}} [[temperature]] °C",
+        "de": "Temperatur ist !{{gleich oder über|unter}} [[temperature]] °C"
       },
       "$filter": "capabilities=measure_temperature",
       "args": [
